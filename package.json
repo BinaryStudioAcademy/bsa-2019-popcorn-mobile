@@ -1,66 +1,68 @@
 {
-  "name": "popcorn-mobile",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "react-native start",
-    "test": "jest",
-    "pretty": "prettier --write --tab-width 2 \"src/**/*.tsx\"",
-    "prettier-watch": "onchange '**/*.tsx' -- prettier --write {{changed}}",
-    "lint": "tslint -c tslint.json -p tsconfig.json --exclude **/*.d.ts"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "dependencies": {
-    "@react-native-community/async-storage": "^1.6.1",
-    "@types/qs": "^6.5.3",
-    "@types/socket.io-client": "^1.4.32",
-    "qs": "^6.8.0",
-    "react": "16.8.6",
-    "react-native": "0.60.5",
-    "react-native-dotenv": "^0.2.0",
-    "react-native-svg": "^9.6.4",
-    "react-native-svg-uri": "^1.2.3",
-    "redux": "^4.0.4",
-    "redux-saga": "^1.0.5",
-    "redux-saga-routines": "^3.2.0",
-    "socket.io-client": "^2.2.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/runtime": "^7.5.5",
-    "@react-native-community/eslint-config": "^0.0.5",
-    "@types/jest": "^24.0.17",
-    "@types/react": "^16.9.2",
-    "@types/react-native": "^0.60.6",
-    "@types/react-test-renderer": "^16.9.0",
-    "babel-jest": "^24.9.0",
-    "eslint": "^6.1.0",
-    "husky": "^3.0.4",
-    "jest": "^24.9.0",
-    "metro-react-native-babel-preset": "^0.56.0",
-    "prettier": "^1.18.2",
-    "pretty-quick": "^1.11.1",
-    "react-test-renderer": "16.8.6",
-    "redux-devtools-extension": "^2.13.8",
-    "tslint": "^5.18.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^4.0.0",
-    "tslint-react-native": "^0.0.7",
-    "typescript": "^3.5.3"
-  },
-  "jest": {
-    "preset": "react-native"
-  },
-  "rnpm": {
-    "assets": [
-      "./src/assets/fonts/"
-    ]
-  }
+	"name": "popcorn-mobile",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "react-native start",
+		"test": "jest",
+		"pretty": "prettier --write --tab-width 2 \"src/**/*.tsx\"",
+		"prettier-watch": "onchange '**/*.tsx' -- prettier --write {{changed}}",
+		"lint": "tslint -c tslint.json -p tsconfig.json --exclude **/*.d.ts"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "pretty-quick --staged"
+		}
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"dependencies": {
+		"@react-native-community/async-storage": "^1.6.1",
+		"@types/qs": "^6.5.3",
+		"@types/socket.io-client": "^1.4.32",
+		"qs": "^6.8.0",
+		"react": "16.8.6",
+		"react-native": "0.60.5",
+		"react-native-dotenv": "^0.2.0",
+		"react-native-gesture-handler": "^1.3.0",
+		"react-native-svg": "^9.6.4",
+		"react-native-svg-uri": "^1.2.3",
+		"react-navigation": "^3.11.1",
+		"redux": "^4.0.4",
+		"redux-saga": "^1.0.5",
+		"redux-saga-routines": "^3.2.0",
+		"socket.io-client": "^2.2.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.5.5",
+		"@babel/runtime": "^7.5.5",
+		"@react-native-community/eslint-config": "^0.0.5",
+		"@types/jest": "^24.0.17",
+		"@types/react": "^16.9.2",
+		"@types/react-native": "^0.60.6",
+		"@types/react-test-renderer": "^16.9.0",
+		"babel-jest": "^24.9.0",
+		"eslint": "^6.1.0",
+		"husky": "^3.0.4",
+		"jest": "^24.9.0",
+		"metro-react-native-babel-preset": "^0.56.0",
+		"prettier": "^1.18.2",
+		"pretty-quick": "^1.11.1",
+		"react-test-renderer": "16.8.6",
+		"redux-devtools-extension": "^2.13.8",
+		"tslint": "^5.18.0",
+		"tslint-config-prettier": "^1.18.0",
+		"tslint-react": "^4.0.0",
+		"tslint-react-native": "^0.0.7",
+		"typescript": "^3.5.3"
+	},
+	"jest": {
+		"preset": "react-native"
+	},
+	"rnpm": {
+		"assets": [
+			"./src/assets/fonts/"
+		]
+	}
 }
