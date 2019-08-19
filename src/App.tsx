@@ -1,34 +1,21 @@
-import React, { Fragment } from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  StatusBar,
-} from 'react-native';
-import SvgUri from 'react-native-svg-uri';
+import Router from './routes/';
+import React, { Component } from 'react';
+import { createStackNavigator } from 'react-navigation';
+import HomeComponent from './views/HomeView';
+import Page1 from './views/SidebarView';
 
-const App = () => {
-  return (
-    <Fragment>
-      <StatusBar/>
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-        >
-          <View>
-            <SvgUri
-              height={150}
-              source={require('./assets/general/popcorn-logo.svg')}
-            />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </Fragment>
-  );
-};
+export default class CustomDrawer extends Component {
+	render() {
+		return <Router />;
+	}
+}
 
-const styles = StyleSheet.create({
-});
-
-export default App;
+// const App = createStackNavigator({
+// 	Home:{
+// 		screen: HomeComponent
+// 	},
+// 	Page1:{
+// 		screen: Page1
+// 	}
+// })
+// export default App;
