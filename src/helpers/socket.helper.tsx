@@ -10,7 +10,7 @@ class SocketService {
 
 	private _initSocket(userId: string) {
 		if (!SocketService._socket) {
-			SocketService._socket = io(config.API_URL, { withCredentials: false });
+			SocketService._socket = io(config.API_URL);
 			if (SocketService._socket) {
 				SocketService._socket.on('connect', () => {
 					SocketService._socket.emit('joinRoom', userId);
