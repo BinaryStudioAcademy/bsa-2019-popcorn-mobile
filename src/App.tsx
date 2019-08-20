@@ -1,4 +1,9 @@
-import React, { Fragment } from 'react';
+import { HomeNavigator } from './routes/';
+import React, { Component } from 'react';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import HomeComponent from './views/HomeView';
+import Swiper from 'react-native-swiper';
+import SidebarView from './views/SidebarView';
 import {
 	SafeAreaView,
 	StyleSheet,
@@ -6,29 +11,19 @@ import {
 	View,
 	StatusBar
 } from 'react-native';
-import SvgUri from 'react-native-svg-uri';
+import styles from '../assets/style';
 
 import Spinner from './components/Spinner/Spinner';
-
-const App = () => {
-	return (
-		<Fragment>
-			{/* <Spinner /> */}
-			<StatusBar />
-			<SafeAreaView>
-				<ScrollView contentInsetAdjustmentBehavior="automatic">
-					<View>
-						<SvgUri
-							height={150}
-							source={require('./assets/general/popcorn-logo.svg')}
-						/>
-					</View>
-				</ScrollView>
-			</SafeAreaView>
-		</Fragment>
-	);
-};
-
-const styles = StyleSheet.create({});
+export default class App extends Component {
+	render() {
+		return (
+			<Swiper loop={false} showsPagination={false} index={0}>
+				{/* <Spinner /> */}
+				<HomeNavigator />
+				<SidebarView />
+			</Swiper>
+		);
+	}
+}
 
 export default App;
