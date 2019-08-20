@@ -7,37 +7,32 @@ import { Storage } from '../../helpers/storage.helper';
 export function* fetchLogin(action) {
 	try {
 		yield put(login.request());
-		const data = yield call(
-			webApi,
-			{
-                endpoint: config.API_URL + 'api/auth/login',
-                method: 'POST',
-                parse: true,
-                body: {
-                    ...action.payload
-				}
-            }
-        );
-		
+		const data = yield call(webApi, {
+			endpoint: config.API_URL + 'api/auth/login',
+			method: 'POST',
+			parse: true,
+			body: {
+				...action.payload
+			}
+		});
+
 		if (data.token) {
 			Storage.set('token', data.token);
 			yield put(login.success({ user: data.user[0] }));
-		}
-		else yield put(login.failure(data.message));
+		} else yield put(login.failure(data.message));
 	} catch (e) {
 		console.log('user saga login', e);
 	}
 }
 
 export function* fetchUserByToken(action) {
-
 	try {
 		yield put(fetchUser.request());
 		let user = yield call(webApi, {
-            endpoint: config.API_URL + 'api/auth/user',
+			endpoint: config.API_URL + 'api/auth/user',
 			method: 'GET',
 			parse: false
-        });
+		});
 		if (!user) {
 			Storage.set('token', '');
 
@@ -56,10 +51,10 @@ export function* fetchRegistration(action) {
 	try {
 		yield put(register.request());
 		const data = yield call(webApi, {
-            endpoint: config.API_URL + 'api/auth/register',
-            method: 'POST',
-            body: {
-                ...action.payload
+			endpoint: config.API_URL + 'api/auth/register',
+			method: 'POST',
+			body: {
+				...action.payload
 			},
 			parse: true
 		});
@@ -67,8 +62,7 @@ export function* fetchRegistration(action) {
 			Storage.set('token', data.token);
 
 			yield put(login.success({ user: data.user[0] }));
-		}
-		else yield put(register.failure(data.message));
+		} else yield put(register.failure(data.message));
 	} catch (e) {
 		console.log('user saga fetch registration:', e.message);
 	}
@@ -87,9 +81,5 @@ function* watchFetchRegistration() {
 }
 
 export default function* auth() {
-	yield all([
-		watchFetchLogin(),
-		watchFetchUser(),
-		watchFetchRegistration(),
-	]);
+	yield all([watchFetchLogin(), watchFetchUser(), watchFetchRegistration()]);
 }

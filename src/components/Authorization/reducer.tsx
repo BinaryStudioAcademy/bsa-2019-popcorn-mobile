@@ -1,8 +1,4 @@
-import {
-	login,
-	register,
-	fetchUser
-} from '../../redux/routines';
+import { login, register, fetchUser } from '../../redux/routines';
 
 const initialState = {
 	profileInfo: null,
@@ -13,17 +9,17 @@ const initialState = {
 
 export default function(state = initialState, action) {
 	switch (action.type) {
-		case login.TRIGGER: 
+		case login.TRIGGER:
 			return {
 				...state,
 				loading: true
 			};
-		case register.TRIGGER: 
+		case register.TRIGGER:
 			return {
 				...state,
 				loading: true
 			};
-		case fetchUser.TRIGGER: 
+		case fetchUser.TRIGGER:
 			return {
 				...state,
 				loading: true
