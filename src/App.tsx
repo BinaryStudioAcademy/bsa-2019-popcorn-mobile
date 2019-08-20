@@ -9,13 +9,3 @@ export default class CustomDrawer extends Component {
 		return <Router />;
 	}
 }
-
-// const App = createStackNavigator({
-// 	Home:{
-// 		screen: HomeComponent
-// 	},
-// 	Page1:{
-// 		screen: Page1
-// 	}
-// })
-// export default App;
