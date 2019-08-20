@@ -4,17 +4,19 @@ import INewStory from './INewStory';
 
 const initialState: {
 	stories: any;
-	newStory: INewStory;
-	cursorPosition: { start: number; end: number };
+  newStory: INewStory;
+  error: Error | null;
+  loading: boolean;
 } = {
-	stories: null,
+  stories: null,
+  error: null,
+  loading: false,
 	newStory: {
 		image_url: null,
 		caption: '',
 		activity: null,
 		type: ''
 	},
-	cursorPosition: { start: 0, end: 0 }
 };
 
 export default function (state = initialState, action) {
@@ -27,7 +29,7 @@ export default function (state = initialState, action) {
     case fetchStories.SUCCESS:
       return {
         ...state,
-        data: action.payload,
+        stories: action.payload,
       };
     case fetchStories.FAILURE:
       return {
