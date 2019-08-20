@@ -1,61 +1,107 @@
 import React, { Component } from 'react';
 import config from '../../../../config';
-import { Text, View, ImageBackground, Image, StyleSheet, Dimensions } from 'react-native'
-const { width } = Dimensions.get('window');
+import { Text, View, ImageBackground, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import SvgUri from 'react-native-svg-uri';
 
 interface IStoryListItemProps {
     imageUrl: string;
     avatar: string;
+    name: string;
     caption: string;
+    index: number;
+    closeStory: () => void,
 }
 
 class StoryListItem extends Component<IStoryListItemProps> {
-    render() {
-        const { imageUrl, avatar, caption } = this.props;
+    renderControls(closeStory) {
+        return (
+            <TouchableOpacity onPress={closeStory}>
+                <SvgUri
+                    height={30}
+                    source={require('./../../../../assets/general/x.svg')}
+                />
+            </TouchableOpacity>
+        );
+    }
+
+    renderContent(imageUrl, avatar, caption, name, closeStory) {
         return (
             <View style={styles.storyWrapper}>
                 <View style={styles.storyImageWrapper}>
-                    <ImageBackground style={styles.storyImage} source={{ uri: imageUrl }} resizeMode="contain">
+                    <View style={styles.userBlock}>
                         <Image
                             style={styles.roundImage}
                             source={{ uri: avatar || config.DEFAULT_AVATAR }}
                         />
+                        <Text style={styles.userName}>{name}</Text>
+                        <View style={styles.closeWrapper}>
+                            {
+                                this.renderControls(closeStory)
+                            }
+                        </View>
+                    </View>
+                    <Text style={styles.caption}>
+                        {caption}
+                    </Text>
+                    <ImageBackground style={styles.storyImage} source={{ uri: imageUrl }} resizeMode="contain">
                     </ImageBackground>
                 </View>
-                <Text style={styles.caption}>{caption}</Text>
             </View>
+        );
+    }
+    render() {
+        const { imageUrl, avatar, caption, name, closeStory } = this.props;
+        return (
+            this.renderContent(imageUrl, avatar, caption, name, closeStory)
         );
     }
 }
 
 const styles = StyleSheet.create({
     storyWrapper: {
-        height: 250,
-        width: 140,
-        marginHorizontal: 10,
+        flex: 1,
+        paddingTop: 10,
+        paddingBottom: 10,
     },
     roundImage: {
-        width: 20,
-        height: 20,
+        width: 35,
+        height: 35,
         borderRadius: 20,
-        margin: 6,
+        margin: 9,
         backgroundColor: '#adadad'
     },
     storyImageWrapper: {
         flex: 1,
         backgroundColor: 'rgb(239, 239, 239)',
-        marginBottom: 5,
     },
     storyImage: {
+        flex: 1,
         height: '100%',
         width: '100%',
     },
     caption: {
         fontFamily: 'Inter-Regular',
-        fontSize: 12,
-        lineHeight: 15,
+        fontSize: 17,
+        lineHeight: 20,
         letterSpacing: 0.4,
-        color: 'rgb(18, 39, 55)'
+        padding: 5,
+        color: 'rgb(18, 39, 55)',
+    },
+    userBlock: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    userName: {
+        fontFamily: 'Inter-Regular',
+        fontSize: 17,
+        lineHeight: 20,
+        letterSpacing: 0.4,
+        padding: 5,
+        color: 'rgb(18, 39, 55)',
+    },
+    closeWrapper: {
+        marginLeft: 'auto',
+        marginRight: 9,
     }
 })
 export default StoryListItem;

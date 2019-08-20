@@ -4,9 +4,12 @@ import {
 import { fetchStories } from '../../../redux/routines';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Text, View, FlatList, Button } from 'react-native'
+import { View } from 'react-native'
 import React from 'react';
 import Story from './Story/Story';
+import StoryList from './StoryList/StoryList';
+import StoryCarousel from './StoryCarousel/StoryCarousel';
+import SocketService from './../../../helpers/socket.helper';
 
 interface IStoryListItem {
     id: string;
@@ -43,30 +46,56 @@ interface IProps {
     addStory: (story: any) => any;
 }
 
-class StoryComponent extends React.Component<IProps> {
+interface IState {
+    carouselIsShown: boolean;
+    storyIndex: number;
+}
+
+class StoryComponent extends React.Component<IProps, IState> {
+    constructor(props) {
+        super(props);
+        this.addSocketEvents(props.addStory);
+        this.state = {
+            carouselIsShown: false,
+            storyIndex: 0,
+        }
+    }
+
     componentDidMount() {
         this.props.fetchStories();
     }
 
-    renderStory({ item }) {
-        const { image_url, user: { avatar }, caption } = item;
-        return (
-            <Story imageUrl={image_url} caption={caption} avatar={avatar}/>
-        );
+    toggleStoryCarousel(index?) {
+        const { carouselIsShown } = this.state;
+        this.setState({
+            storyIndex: index || 0,
+            carouselIsShown: !carouselIsShown
+        })
     }
+
+    addSocketEvents = addStory => {
+        // SocketService.on('new-story', addStory);
+    };
+
     render() {
         const { stories } = this.props;
+        const { carouselIsShown, storyIndex } = this.state;
         return (
-            <View>
+            <View style={{ flex: 1 }}>
                 {
                     stories && (
-                        <FlatList
-                            refreshing={false}
-                            data={stories}
-                            horizontal={true}
-                            keyExtractor={(item) => item.id}
-                            renderItem={this.renderStory}
-                        />
+                        carouselIsShown ? (
+                            <StoryCarousel
+                                closeStory={() => this.toggleStoryCarousel()}
+                                stories={stories}
+                                index={storyIndex}
+                            />
+                        ) : (
+                                <StoryList
+                                    stories={stories}
+                                    openStory={(index?) => this.toggleStoryCarousel(index)}
+                                />
+                            )
                     )
                 }
             </View>
