@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 
-import Test from './navigation';
 import Header from './components/Header/Header';
 
 const App = () => {
@@ -16,8 +15,8 @@ const App = () => {
 		<Fragment>
 			<StatusBar />
 			<SafeAreaView>
-				<Header />
 				<ScrollView contentInsetAdjustmentBehavior="automatic">
+					<Header />
 					<View>
 						<SvgUri
 							height={150}
