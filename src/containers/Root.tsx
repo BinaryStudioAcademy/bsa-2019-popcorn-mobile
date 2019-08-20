@@ -18,7 +18,6 @@ class Root extends Component<IProps> {
   componentDidMount() {
     Storage.get('token').then(value => {
       if (value && !this.props.isAuthorized) {
-        console.log(value);
         this.props.fetchUser(value);
       }
       else if (value && this.props.isAuthorized)
