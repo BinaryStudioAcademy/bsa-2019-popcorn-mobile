@@ -1,0 +1,1 @@
+export const ADD_STORY = 'STORY_ACTION:ADD_STORY';
