@@ -4,10 +4,10 @@ import {
 	createStackNavigator,
 	createDrawerNavigator
 } from 'react-navigation';
-import Home from '../views/HomeView';
-import Messages from '../views/MessagesView';
-import Events from '../views/EventsView';
-import Collections from '../views/CollectionsView';
+import Home from '../../views/HomeView';
+import Messages from '../../views/MessagesView';
+import Events from '../../views/EventsView';
+import Collections from '../../views/CollectionsView';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
