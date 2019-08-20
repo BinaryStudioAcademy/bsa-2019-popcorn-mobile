@@ -9,7 +9,7 @@ export default StyleSheet.create({
 	sidebar: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'space-between',
+		justifyContent: 'center',
 		backgroundColor: '#ecf0f1'
 	},
 	homeImg: {
@@ -37,15 +37,5 @@ export default StyleSheet.create({
 	sidebar_title: {
 		marginTop: 10,
 		textAlign: 'center'
-	},
-	header: {
-		backgroundColor: 'aliceblue',
-		fontSize: 30,
-		padding: '2% 2%',
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		height: 60,
-		width: '100%'
 	}
 });

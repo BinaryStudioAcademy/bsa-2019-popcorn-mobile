@@ -1,14 +1,42 @@
-import { createAppContainer, createStackNavigator } from 'react-navigation';
-import { RightDrawer } from './RightDrawer';
-import LeftDrawer from './LeftDrawer';
+import {
+	createAppContainer,
+	createStackNavigator,
+	createDrawerNavigator
+} from 'react-navigation';
+import {
+	FirstActivity_StackNavigator,
+	Messages_StackNavigator,
+	Events_StackNavigator,
+	Collections_StackNavigator
+} from './MenuNavigators.tsx';
 
-export const NavStack = createStackNavigator({
-	RightDrawer: {
-		screen: RightDrawer
+const DrawerNavigatorExample = createDrawerNavigator({
+	Home: {
+		screen: FirstActivity_StackNavigator,
+		navigationOptions: {
+			drawerLabel: 'Home'
+		}
 	},
-	LeftDrawer: {
-		screen: LeftDrawer
+
+	Messages: {
+		screen: Messages_StackNavigator,
+		navigationOptions: {
+			drawerLabel: 'Messages'
+		}
+	},
+
+	Events: {
+		screen: Events_StackNavigator,
+		navigationOptions: {
+			drawerLabel: 'Events'
+		}
+	},
+	Collections: {
+		screen: Collections_StackNavigator,
+		navigationOptions: {
+			drawerLabel: 'Collections'
+		}
 	}
 });
 
-export default createAppContainer(NavStack);
+export default createAppContainer(DrawerNavigatorExample);
