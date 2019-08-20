@@ -7,36 +7,36 @@
 	objects = {
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* BSAPopcornMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BSAPopcornMobileTests.m */; };
+		0528C6BF763648A583F18879 /* Inter-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A59631219F0F4ADC833D173E /* Inter-SemiBoldItalic.otf */; };
+		09179B76B3EB45938A3392D2 /* Inter-LightItalic-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7E5EB7BA6274436493982061 /* Inter-LightItalic-BETA.otf */; };
+		0B750963768709948408B991 /* libPods-BSAPopcornMobile-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF076124463F950B6614452 /* libPods-BSAPopcornMobile-tvOS.a */; };
+		0D5737E47BD84DDB8A0FBB24 /* Inter-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49109E9463E84A1BAB538693 /* Inter-Italic.otf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1D2C2DF80852DCA845876133 /* libPods-BSAPopcornMobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E12397EDEAA99346843FA08 /* libPods-BSAPopcornMobileTests.a */; };
+		13C2BECA32254EC8B9C15A98 /* Inter-ExtraLight-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44BB462CDA5A4461828D8053 /* Inter-ExtraLight-BETA.otf */; };
+		18CF98DE9BEA0E01604B11A3 /* libPods-BSAPopcornMobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D2EC0C51FF8FEA4F03BF8C /* libPods-BSAPopcornMobileTests.a */; };
+		265CFB69135C492F8F544096 /* Inter-Thin-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = 131E3B41CD0C46799C6AC288 /* Inter-Thin-BETA.otf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* BSAPopcornMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BSAPopcornMobileTests.m */; };
-		4BC3F4B95A985F691C6C7704 /* libPods-BSAPopcornMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19418F7F197778E59B4894D7 /* libPods-BSAPopcornMobile.a */; };
-		A4D4BC7FF89FEA30132C7903 /* libPods-BSAPopcornMobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6FA99D614876EBCE11D3282 /* libPods-BSAPopcornMobile-tvOSTests.a */; };
-		C7BB4F76246737EAA63E9F8E /* libPods-BSAPopcornMobile-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 074A2E70EF013A462CD15990 /* libPods-BSAPopcornMobile-tvOS.a */; };
-		4E9068BCA9244F3190FE5062 /* Inter-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79AE3A9B656D424A83033456 /* Inter-Black.otf */; };
-		97A49ED9B8344C05A902A747 /* Inter-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C34EF0C570754AE69C3B6293 /* Inter-BlackItalic.otf */; };
+		331FD0FC7F5E45E49742ED2C /* Inter-Light-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37AB6DA5FDAA4EF6BCFCBC4D /* Inter-Light-BETA.otf */; };
+		3CD2E9D5565F413D9B8411D7 /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CB7C6A5634FE4A778A0E38DF /* Inter-SemiBold.otf */; };
 		3F7B18FE559F458BA0A90D7B /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0524AEB45854408DA98AA116 /* Inter-Bold.otf */; };
 		406AB1FFB4F944CC9ED9886C /* Inter-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE00238CD78747E482B2504A /* Inter-BoldItalic.otf */; };
+		4E9068BCA9244F3190FE5062 /* Inter-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79AE3A9B656D424A83033456 /* Inter-Black.otf */; };
 		5D6D312D35F04F48A4DE9E36 /* Inter-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 77C60F43BE824379AE301E26 /* Inter-ExtraBold.otf */; };
-		CB6E5EA2E9624DE1A5A485C4 /* Inter-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = D15EC003D19742D8A65F54FE /* Inter-ExtraBoldItalic.otf */; };
-		13C2BECA32254EC8B9C15A98 /* Inter-ExtraLight-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44BB462CDA5A4461828D8053 /* Inter-ExtraLight-BETA.otf */; };
-		B02EB7D1254040ACA74E8D24 /* Inter-ExtraLightItalic-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = 82761A48E64D41A599662566 /* Inter-ExtraLightItalic-BETA.otf */; };
-		0D5737E47BD84DDB8A0FBB24 /* Inter-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49109E9463E84A1BAB538693 /* Inter-Italic.otf */; };
-		331FD0FC7F5E45E49742ED2C /* Inter-Light-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37AB6DA5FDAA4EF6BCFCBC4D /* Inter-Light-BETA.otf */; };
-		09179B76B3EB45938A3392D2 /* Inter-LightItalic-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7E5EB7BA6274436493982061 /* Inter-LightItalic-BETA.otf */; };
-		CA82C012F6C6440C8FEB3CB1 /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1D585E464D8C46B2A83FAEF3 /* Inter-Medium.otf */; };
+		953FF6D7F6FF465488EFE435 /* Inter-ThinItalic-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0F4EC9D8E3C74ACC9783F00C /* Inter-ThinItalic-BETA.otf */; };
+		97A49ED9B8344C05A902A747 /* Inter-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C34EF0C570754AE69C3B6293 /* Inter-BlackItalic.otf */; };
+		9B79B7609D1649283B57C8C7 /* libPods-BSAPopcornMobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F10DC878C7EF9BBCD76AE63D /* libPods-BSAPopcornMobile-tvOSTests.a */; };
 		A226AF09B7364180BFE1AE20 /* Inter-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = F10823C56CD14C589E39B4A8 /* Inter-MediumItalic.otf */; };
 		ACD4EF610BFE4D0AA6A56B64 /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 55E5F06642C8401FB9A8BA0F /* Inter-Regular.otf */; };
-		3CD2E9D5565F413D9B8411D7 /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CB7C6A5634FE4A778A0E38DF /* Inter-SemiBold.otf */; };
-		0528C6BF763648A583F18879 /* Inter-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A59631219F0F4ADC833D173E /* Inter-SemiBoldItalic.otf */; };
-		265CFB69135C492F8F544096 /* Inter-Thin-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = 131E3B41CD0C46799C6AC288 /* Inter-Thin-BETA.otf */; };
-		953FF6D7F6FF465488EFE435 /* Inter-ThinItalic-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0F4EC9D8E3C74ACC9783F00C /* Inter-ThinItalic-BETA.otf */; };
+		B02EB7D1254040ACA74E8D24 /* Inter-ExtraLightItalic-BETA.otf in Resources */ = {isa = PBXBuildFile; fileRef = 82761A48E64D41A599662566 /* Inter-ExtraLightItalic-BETA.otf */; };
+		CA82C012F6C6440C8FEB3CB1 /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1D585E464D8C46B2A83FAEF3 /* Inter-Medium.otf */; };
+		CB6E5EA2E9624DE1A5A485C4 /* Inter-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = D15EC003D19742D8A65F54FE /* Inter-ExtraBoldItalic.otf */; };
+		E3A83DA4C8FF41F305B46CE6 /* libPods-BSAPopcornMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD404325B748B4DC5ECCC5C /* libPods-BSAPopcornMobile.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,8 +61,10 @@
 		00E356EE1AD99517003FC87E /* BSAPopcornMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BSAPopcornMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* BSAPopcornMobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BSAPopcornMobileTests.m; sourceTree = "<group>"; };
-		074A2E70EF013A462CD15990 /* libPods-BSAPopcornMobile-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BSAPopcornMobile-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E12397EDEAA99346843FA08 /* libPods-BSAPopcornMobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BSAPopcornMobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0400B8B7C78A7E68CB675915 /* Pods-BSAPopcornMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobile.release.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobile/Pods-BSAPopcornMobile.release.xcconfig"; sourceTree = "<group>"; };
+		0524AEB45854408DA98AA116 /* Inter-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Bold.otf"; path = "../src/assets/fonts/Inter-Bold.otf"; sourceTree = "<group>"; };
+		0F4EC9D8E3C74ACC9783F00C /* Inter-ThinItalic-BETA.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ThinItalic-BETA.otf"; path = "../src/assets/fonts/Inter-ThinItalic-BETA.otf"; sourceTree = "<group>"; };
+		131E3B41CD0C46799C6AC288 /* Inter-Thin-BETA.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Thin-BETA.otf"; path = "../src/assets/fonts/Inter-Thin-BETA.otf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* BSAPopcornMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BSAPopcornMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = BSAPopcornMobile/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = BSAPopcornMobile/AppDelegate.m; sourceTree = "<group>"; };
@@ -70,38 +72,36 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BSAPopcornMobile/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BSAPopcornMobile/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BSAPopcornMobile/main.m; sourceTree = "<group>"; };
-		19418F7F197778E59B4894D7 /* libPods-BSAPopcornMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BSAPopcornMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		27A1B740350ECB1775A2CF6A /* Pods-BSAPopcornMobile-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobile-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobile-tvOSTests/Pods-BSAPopcornMobile-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		29A02281BA9A49896060AE48 /* Pods-BSAPopcornMobile-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobile-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobile-tvOSTests/Pods-BSAPopcornMobile-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1B5A107DC5D90CA9C3E00B15 /* Pods-BSAPopcornMobile-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobile-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobile-tvOS/Pods-BSAPopcornMobile-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		1D585E464D8C46B2A83FAEF3 /* Inter-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Medium.otf"; path = "../src/assets/fonts/Inter-Medium.otf"; sourceTree = "<group>"; };
+		2CE23ECB51770A162C4C0B89 /* Pods-BSAPopcornMobile-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobile-tvOS.release.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobile-tvOS/Pods-BSAPopcornMobile-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* BSAPopcornMobile-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BSAPopcornMobile-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* BSAPopcornMobile-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BSAPopcornMobile-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3094A158168B46D5DAD7EF8B /* Pods-BSAPopcornMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobile.release.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobile/Pods-BSAPopcornMobile.release.xcconfig"; sourceTree = "<group>"; };
-		5147CA386ABB5C72703D2654 /* Pods-BSAPopcornMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobile.debug.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobile/Pods-BSAPopcornMobile.debug.xcconfig"; sourceTree = "<group>"; };
-		88E69E5E15BBE86640A406C1 /* Pods-BSAPopcornMobile-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobile-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobile-tvOS/Pods-BSAPopcornMobile-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		B29442B8C70D844E7F88B21B /* Pods-BSAPopcornMobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobileTests.debug.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobileTests/Pods-BSAPopcornMobileTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E6FA99D614876EBCE11D3282 /* libPods-BSAPopcornMobile-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BSAPopcornMobile-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		36B9967DF9C7F98EC77F2FF1 /* Pods-BSAPopcornMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobileTests.release.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobileTests/Pods-BSAPopcornMobileTests.release.xcconfig"; sourceTree = "<group>"; };
+		37AB6DA5FDAA4EF6BCFCBC4D /* Inter-Light-BETA.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Light-BETA.otf"; path = "../src/assets/fonts/Inter-Light-BETA.otf"; sourceTree = "<group>"; };
+		44BB462CDA5A4461828D8053 /* Inter-ExtraLight-BETA.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ExtraLight-BETA.otf"; path = "../src/assets/fonts/Inter-ExtraLight-BETA.otf"; sourceTree = "<group>"; };
+		49109E9463E84A1BAB538693 /* Inter-Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Italic.otf"; path = "../src/assets/fonts/Inter-Italic.otf"; sourceTree = "<group>"; };
+		4BD404325B748B4DC5ECCC5C /* libPods-BSAPopcornMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BSAPopcornMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		55E5F06642C8401FB9A8BA0F /* Inter-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Regular.otf"; path = "../src/assets/fonts/Inter-Regular.otf"; sourceTree = "<group>"; };
+		6EF076124463F950B6614452 /* libPods-BSAPopcornMobile-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BSAPopcornMobile-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		77C60F43BE824379AE301E26 /* Inter-ExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ExtraBold.otf"; path = "../src/assets/fonts/Inter-ExtraBold.otf"; sourceTree = "<group>"; };
+		79AE3A9B656D424A83033456 /* Inter-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Black.otf"; path = "../src/assets/fonts/Inter-Black.otf"; sourceTree = "<group>"; };
+		7E5EB7BA6274436493982061 /* Inter-LightItalic-BETA.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-LightItalic-BETA.otf"; path = "../src/assets/fonts/Inter-LightItalic-BETA.otf"; sourceTree = "<group>"; };
+		82761A48E64D41A599662566 /* Inter-ExtraLightItalic-BETA.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ExtraLightItalic-BETA.otf"; path = "../src/assets/fonts/Inter-ExtraLightItalic-BETA.otf"; sourceTree = "<group>"; };
+		84D2EC0C51FF8FEA4F03BF8C /* libPods-BSAPopcornMobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BSAPopcornMobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C1732C5DE60E8B63A7C3694 /* Pods-BSAPopcornMobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobileTests.debug.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobileTests/Pods-BSAPopcornMobileTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9D485DEA52BD9A235164A1D8 /* Pods-BSAPopcornMobile-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobile-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobile-tvOSTests/Pods-BSAPopcornMobile-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A59631219F0F4ADC833D173E /* Inter-SemiBoldItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-SemiBoldItalic.otf"; path = "../src/assets/fonts/Inter-SemiBoldItalic.otf"; sourceTree = "<group>"; };
+		B7739C3FDEFFD0E69066D336 /* Pods-BSAPopcornMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobile.debug.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobile/Pods-BSAPopcornMobile.debug.xcconfig"; sourceTree = "<group>"; };
+		C34EF0C570754AE69C3B6293 /* Inter-BlackItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-BlackItalic.otf"; path = "../src/assets/fonts/Inter-BlackItalic.otf"; sourceTree = "<group>"; };
+		CB7C6A5634FE4A778A0E38DF /* Inter-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-SemiBold.otf"; path = "../src/assets/fonts/Inter-SemiBold.otf"; sourceTree = "<group>"; };
+		CE00238CD78747E482B2504A /* Inter-BoldItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-BoldItalic.otf"; path = "../src/assets/fonts/Inter-BoldItalic.otf"; sourceTree = "<group>"; };
+		D15EC003D19742D8A65F54FE /* Inter-ExtraBoldItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ExtraBoldItalic.otf"; path = "../src/assets/fonts/Inter-ExtraBoldItalic.otf"; sourceTree = "<group>"; };
+		E30534171E6F6395928F5DCD /* Pods-BSAPopcornMobile-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobile-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobile-tvOSTests/Pods-BSAPopcornMobile-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		F36ACC550207BC13BCB56CB0 /* Pods-BSAPopcornMobile-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobile-tvOS.release.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobile-tvOS/Pods-BSAPopcornMobile-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		FB4E1036F509F2A4D7283806 /* Pods-BSAPopcornMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSAPopcornMobileTests.release.xcconfig"; path = "Target Support Files/Pods-BSAPopcornMobileTests/Pods-BSAPopcornMobileTests.release.xcconfig"; sourceTree = "<group>"; };
-		79AE3A9B656D424A83033456 /* Inter-Black.otf */ = {isa = PBXFileReference; name = "Inter-Black.otf"; path = "../src/assets/fonts/Inter-Black.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C34EF0C570754AE69C3B6293 /* Inter-BlackItalic.otf */ = {isa = PBXFileReference; name = "Inter-BlackItalic.otf"; path = "../src/assets/fonts/Inter-BlackItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0524AEB45854408DA98AA116 /* Inter-Bold.otf */ = {isa = PBXFileReference; name = "Inter-Bold.otf"; path = "../src/assets/fonts/Inter-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CE00238CD78747E482B2504A /* Inter-BoldItalic.otf */ = {isa = PBXFileReference; name = "Inter-BoldItalic.otf"; path = "../src/assets/fonts/Inter-BoldItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		77C60F43BE824379AE301E26 /* Inter-ExtraBold.otf */ = {isa = PBXFileReference; name = "Inter-ExtraBold.otf"; path = "../src/assets/fonts/Inter-ExtraBold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D15EC003D19742D8A65F54FE /* Inter-ExtraBoldItalic.otf */ = {isa = PBXFileReference; name = "Inter-ExtraBoldItalic.otf"; path = "../src/assets/fonts/Inter-ExtraBoldItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		44BB462CDA5A4461828D8053 /* Inter-ExtraLight-BETA.otf */ = {isa = PBXFileReference; name = "Inter-ExtraLight-BETA.otf"; path = "../src/assets/fonts/Inter-ExtraLight-BETA.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		82761A48E64D41A599662566 /* Inter-ExtraLightItalic-BETA.otf */ = {isa = PBXFileReference; name = "Inter-ExtraLightItalic-BETA.otf"; path = "../src/assets/fonts/Inter-ExtraLightItalic-BETA.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		49109E9463E84A1BAB538693 /* Inter-Italic.otf */ = {isa = PBXFileReference; name = "Inter-Italic.otf"; path = "../src/assets/fonts/Inter-Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		37AB6DA5FDAA4EF6BCFCBC4D /* Inter-Light-BETA.otf */ = {isa = PBXFileReference; name = "Inter-Light-BETA.otf"; path = "../src/assets/fonts/Inter-Light-BETA.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		7E5EB7BA6274436493982061 /* Inter-LightItalic-BETA.otf */ = {isa = PBXFileReference; name = "Inter-LightItalic-BETA.otf"; path = "../src/assets/fonts/Inter-LightItalic-BETA.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		1D585E464D8C46B2A83FAEF3 /* Inter-Medium.otf */ = {isa = PBXFileReference; name = "Inter-Medium.otf"; path = "../src/assets/fonts/Inter-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F10823C56CD14C589E39B4A8 /* Inter-MediumItalic.otf */ = {isa = PBXFileReference; name = "Inter-MediumItalic.otf"; path = "../src/assets/fonts/Inter-MediumItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		55E5F06642C8401FB9A8BA0F /* Inter-Regular.otf */ = {isa = PBXFileReference; name = "Inter-Regular.otf"; path = "../src/assets/fonts/Inter-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CB7C6A5634FE4A778A0E38DF /* Inter-SemiBold.otf */ = {isa = PBXFileReference; name = "Inter-SemiBold.otf"; path = "../src/assets/fonts/Inter-SemiBold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A59631219F0F4ADC833D173E /* Inter-SemiBoldItalic.otf */ = {isa = PBXFileReference; name = "Inter-SemiBoldItalic.otf"; path = "../src/assets/fonts/Inter-SemiBoldItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		131E3B41CD0C46799C6AC288 /* Inter-Thin-BETA.otf */ = {isa = PBXFileReference; name = "Inter-Thin-BETA.otf"; path = "../src/assets/fonts/Inter-Thin-BETA.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0F4EC9D8E3C74ACC9783F00C /* Inter-ThinItalic-BETA.otf */ = {isa = PBXFileReference; name = "Inter-ThinItalic-BETA.otf"; path = "../src/assets/fonts/Inter-ThinItalic-BETA.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F10823C56CD14C589E39B4A8 /* Inter-MediumItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-MediumItalic.otf"; path = "../src/assets/fonts/Inter-MediumItalic.otf"; sourceTree = "<group>"; };
+		F10DC878C7EF9BBCD76AE63D /* libPods-BSAPopcornMobile-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BSAPopcornMobile-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D2C2DF80852DCA845876133 /* libPods-BSAPopcornMobileTests.a in Frameworks */,
+				18CF98DE9BEA0E01604B11A3 /* libPods-BSAPopcornMobileTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BC3F4B95A985F691C6C7704 /* libPods-BSAPopcornMobile.a in Frameworks */,
+				E3A83DA4C8FF41F305B46CE6 /* libPods-BSAPopcornMobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,7 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7BB4F76246737EAA63E9F8E /* libPods-BSAPopcornMobile-tvOS.a in Frameworks */,
+				0B750963768709948408B991 /* libPods-BSAPopcornMobile-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,7 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4D4BC7FF89FEA30132C7903 /* libPods-BSAPopcornMobile-tvOSTests.a in Frameworks */,
+				9B79B7609D1649283B57C8C7 /* libPods-BSAPopcornMobile-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,12 +176,27 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				19418F7F197778E59B4894D7 /* libPods-BSAPopcornMobile.a */,
-				074A2E70EF013A462CD15990 /* libPods-BSAPopcornMobile-tvOS.a */,
-				E6FA99D614876EBCE11D3282 /* libPods-BSAPopcornMobile-tvOSTests.a */,
-				0E12397EDEAA99346843FA08 /* libPods-BSAPopcornMobileTests.a */,
+				4BD404325B748B4DC5ECCC5C /* libPods-BSAPopcornMobile.a */,
+				6EF076124463F950B6614452 /* libPods-BSAPopcornMobile-tvOS.a */,
+				F10DC878C7EF9BBCD76AE63D /* libPods-BSAPopcornMobile-tvOSTests.a */,
+				84D2EC0C51FF8FEA4F03BF8C /* libPods-BSAPopcornMobileTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		66ED7F20CEA17B89F682BA4C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B7739C3FDEFFD0E69066D336 /* Pods-BSAPopcornMobile.debug.xcconfig */,
+				0400B8B7C78A7E68CB675915 /* Pods-BSAPopcornMobile.release.xcconfig */,
+				1B5A107DC5D90CA9C3E00B15 /* Pods-BSAPopcornMobile-tvOS.debug.xcconfig */,
+				2CE23ECB51770A162C4C0B89 /* Pods-BSAPopcornMobile-tvOS.release.xcconfig */,
+				9D485DEA52BD9A235164A1D8 /* Pods-BSAPopcornMobile-tvOSTests.debug.xcconfig */,
+				E30534171E6F6395928F5DCD /* Pods-BSAPopcornMobile-tvOSTests.release.xcconfig */,
+				8C1732C5DE60E8B63A7C3694 /* Pods-BSAPopcornMobileTests.debug.xcconfig */,
+				36B9967DF9C7F98EC77F2FF1 /* Pods-BSAPopcornMobileTests.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -199,8 +214,8 @@
 				00E356EF1AD99517003FC87E /* BSAPopcornMobileTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				EE0435C6C8159B671BBFC189 /* Pods */,
 				CC2BCF1E58374DEA95DBEFB8 /* Resources */,
+				66ED7F20CEA17B89F682BA4C /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -218,24 +233,8 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EE0435C6C8159B671BBFC189 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				5147CA386ABB5C72703D2654 /* Pods-BSAPopcornMobile.debug.xcconfig */,
-				3094A158168B46D5DAD7EF8B /* Pods-BSAPopcornMobile.release.xcconfig */,
-				88E69E5E15BBE86640A406C1 /* Pods-BSAPopcornMobile-tvOS.debug.xcconfig */,
-				F36ACC550207BC13BCB56CB0 /* Pods-BSAPopcornMobile-tvOS.release.xcconfig */,
-				29A02281BA9A49896060AE48 /* Pods-BSAPopcornMobile-tvOSTests.debug.xcconfig */,
-				27A1B740350ECB1775A2CF6A /* Pods-BSAPopcornMobile-tvOSTests.release.xcconfig */,
-				B29442B8C70D844E7F88B21B /* Pods-BSAPopcornMobileTests.debug.xcconfig */,
-				FB4E1036F509F2A4D7283806 /* Pods-BSAPopcornMobileTests.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		CC2BCF1E58374DEA95DBEFB8 /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
 				79AE3A9B656D424A83033456 /* Inter-Black.otf */,
 				C34EF0C570754AE69C3B6293 /* Inter-BlackItalic.otf */,
@@ -258,7 +257,6 @@
 			);
 			name = Resources;
 			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -267,7 +265,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BSAPopcornMobileTests" */;
 			buildPhases = (
-				05B46038FEDD086EF1B281E4 /* [CP] Check Pods Manifest.lock */,
+				7347CA0AD8E1D1076FBEB92D /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -286,7 +284,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BSAPopcornMobile" */;
 			buildPhases = (
-				8EA44D8ABCD7DED91CFE4659 /* [CP] Check Pods Manifest.lock */,
+				FA16E2CC55DC21FA50E291E3 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -306,7 +304,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "BSAPopcornMobile-tvOS" */;
 			buildPhases = (
-				CA47B09713471FAFDE5EBB86 /* [CP] Check Pods Manifest.lock */,
+				3E6D07FC741F123563AFFAB1 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -326,7 +324,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "BSAPopcornMobile-tvOSTests" */;
 			buildPhases = (
-				25D7CA57B7712A401C683D58 /* [CP] Check Pods Manifest.lock */,
+				4B38813706ABE3FB395F261C /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -370,12 +368,15 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* BSAPopcornMobile */,
@@ -385,6 +386,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0C2F2A3D230AE0C700189A2D /* libRNGestureHandler-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNGestureHandler-tvOS.a";
+			remoteRef = 0C2F2A3C230AE0C700189A2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
@@ -453,7 +464,21 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		05B46038FEDD086EF1B281E4 /* [CP] Check Pods Manifest.lock */ = {
+		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native Code And Images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		3E6D07FC741F123563AFFAB1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -468,14 +493,14 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BSAPopcornMobileTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BSAPopcornMobile-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		25D7CA57B7712A401C683D58 /* [CP] Check Pods Manifest.lock */ = {
+		4B38813706ABE3FB395F261C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -497,21 +522,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
+		7347CA0AD8E1D1076FBEB92D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
-			name = "Bundle React Native Code And Images";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BSAPopcornMobileTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
-		8EA44D8ABCD7DED91CFE4659 /* [CP] Check Pods Manifest.lock */ = {
+		FA16E2CC55DC21FA50E291E3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -527,28 +560,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-BSAPopcornMobile-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CA47B09713471FAFDE5EBB86 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BSAPopcornMobile-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -660,7 +671,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B29442B8C70D844E7F88B21B /* Pods-BSAPopcornMobileTests.debug.xcconfig */;
+			baseConfigurationReference = 8C1732C5DE60E8B63A7C3694 /* Pods-BSAPopcornMobileTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -678,12 +689,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BSAPopcornMobile.app/BSAPopcornMobile";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB4E1036F509F2A4D7283806 /* Pods-BSAPopcornMobileTests.release.xcconfig */;
+			baseConfigurationReference = 36B9967DF9C7F98EC77F2FF1 /* Pods-BSAPopcornMobileTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -698,12 +712,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BSAPopcornMobile.app/BSAPopcornMobile";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5147CA386ABB5C72703D2654 /* Pods-BSAPopcornMobile.debug.xcconfig */;
+			baseConfigurationReference = B7739C3FDEFFD0E69066D336 /* Pods-BSAPopcornMobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -718,12 +735,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = BSAPopcornMobile;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3094A158168B46D5DAD7EF8B /* Pods-BSAPopcornMobile.release.xcconfig */;
+			baseConfigurationReference = 0400B8B7C78A7E68CB675915 /* Pods-BSAPopcornMobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -737,12 +757,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = BSAPopcornMobile;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 			};
 			name = Release;
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 88E69E5E15BBE86640A406C1 /* Pods-BSAPopcornMobile-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 1B5A107DC5D90CA9C3E00B15 /* Pods-BSAPopcornMobile-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -765,12 +788,15 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 			};
 			name = Debug;
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F36ACC550207BC13BCB56CB0 /* Pods-BSAPopcornMobile-tvOS.release.xcconfig */;
+			baseConfigurationReference = 2CE23ECB51770A162C4C0B89 /* Pods-BSAPopcornMobile-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -793,12 +819,15 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 			};
 			name = Release;
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 29A02281BA9A49896060AE48 /* Pods-BSAPopcornMobile-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 9D485DEA52BD9A235164A1D8 /* Pods-BSAPopcornMobile-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -820,12 +849,15 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BSAPopcornMobile-tvOS.app/BSAPopcornMobile-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27A1B740350ECB1775A2CF6A /* Pods-BSAPopcornMobile-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = E30534171E6F6395928F5DCD /* Pods-BSAPopcornMobile-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -847,6 +879,9 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BSAPopcornMobile-tvOS.app/BSAPopcornMobile-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 			};
 			name = Release;
 		};
