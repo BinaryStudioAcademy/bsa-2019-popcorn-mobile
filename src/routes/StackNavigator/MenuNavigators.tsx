@@ -6,7 +6,7 @@ import {
 } from 'react-navigation';
 import Home from '../../views/HomeView';
 import Messages from '../../views/MessagesView';
-import Events from '../../views/EventsView';
+import ContentPageNavigator from '../TabNavigator/ContentPageNavigator';
 import Collections from '../../views/CollectionsView';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
@@ -35,11 +35,11 @@ export const Messages_StackNavigator = createStackNavigator({
 	}
 });
 
-export const Events_StackNavigator = createStackNavigator({
+export const Content_StackNavigator = createStackNavigator({
 	Third: {
-		screen: Events,
+		screen: ContentPageNavigator,
 		navigationOptions: ({ navigation }) => ({
-			title: 'Events',
+			title: 'Content',
 			headerStyle: {
 				backgroundColor: '#FF9800'
 			},
