@@ -8,7 +8,7 @@ export function* fetchLogin(action) {
 	try {
 		yield put(login.request());
 		const data = yield call(webApi, {
-			endpoint: config.API_URL + 'api/auth/login',
+			endpoint: config.API_URL + '/api/auth/login',
 			method: 'POST',
 			parse: true,
 			body: {
@@ -29,7 +29,7 @@ export function* fetchUserByToken(action) {
 	try {
 		yield put(fetchUser.request());
 		let user = yield call(webApi, {
-			endpoint: config.API_URL + 'api/auth/user',
+			endpoint: config.API_URL + '/api/auth/user',
 			method: 'GET',
 			parse: false
 		});
@@ -51,7 +51,7 @@ export function* fetchRegistration(action) {
 	try {
 		yield put(register.request());
 		const data = yield call(webApi, {
-			endpoint: config.API_URL + 'api/auth/register',
+			endpoint: config.API_URL + '/api/auth/register',
 			method: 'POST',
 			body: {
 				...action.payload
