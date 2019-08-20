@@ -7,9 +7,24 @@ import {
   StyleSheet,
 } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {
+  register
+} from '../../redux/routines';
+
+interface IRegister {
+  email: string,
+  password: string,
+  name: string,
+  location: string,
+  aboutMe: string
+}
 
 interface IProps {
-    navigation: any
+    navigation: any,
+    register: (IRegister) => any,
+    registerError: string
 }
 
 interface IState {
@@ -24,7 +39,7 @@ interface IState {
     nameFocus: boolean
 }
 
-export default class Signup extends Component<IProps, IState> {
+class Signup extends Component<IProps, IState> {
   constructor(props) {
     super(props);
 
@@ -60,27 +75,40 @@ export default class Signup extends Component<IProps, IState> {
   validateEmail = () => {
     const { email } = this.state;
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(String(email).toLowerCase())) 
-    this.setState({ emailError: 'Email is invalid' });
     if (email.trim() === '') 
     this.setState({ emailError: 'Email is required' });
+    else if (!re.test(String(email).toLowerCase())) 
+    this.setState({ emailError: 'Email is invalid' });
+    else return true;
   }
 
   validatePassword = () => {
     const { password } = this.state;
-    if (password.length < 6) 
-    this.setState({ passwordError: 'Password must be at least 6 characters' });
     if (password.trim() === '')
     this.setState({ passwordError: 'Password is required' })
+    else if (password.length < 6) 
+    this.setState({ passwordError: 'Password must be at least 6 characters' });
+    else return true;
   }
 
   validateName = () => {
     const { name } = this.state;
     if (name.trim() === '') 
     this.setState({ nameError: 'Name is required' });
+    else return true;
   }
 
-  onPress = () => {}
+  onPress = () => {
+    const { email, name, password } = this.state;
+    if (this.validateEmail && this.validateName && this.validatePassword) 
+    this.props.register({ 
+      email: email.trim(), 
+      name: name.trim(), 
+      password: password.trim(),
+      location: '',
+      aboutMe: ''
+    });
+  }
 
   render() {
     const {
@@ -168,6 +196,12 @@ export default class Signup extends Component<IProps, IState> {
           !!passwordError && 
           <Text style={[ styles.text, styles.error ]}>{passwordError}</Text>
         }
+        {
+            !!this.props.registerError &&
+            <View>
+              <Text style={[styles.text, styles.error]}>{this.props.registerError}</Text>
+            </View>
+        }
         <TouchableOpacity onPress={this.onPress}>
           <Text style={[ styles.text, styles.button ]}>Sign up</Text>
         </TouchableOpacity>
@@ -182,6 +216,24 @@ export default class Signup extends Component<IProps, IState> {
     );
   }
 }
+
+const mapStateToProps = (rootState, props) => ({
+	...props,
+	isAuthorized: !!rootState.authorization.profileInfo,
+  loginError: rootState.authorization.loginError,
+  registerError: rootState.authorization.registerError
+});
+
+const actions = {
+	register
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Signup);
 
 const styles = StyleSheet.create({
   container: {

@@ -7,9 +7,21 @@ import {
   StyleSheet,
 } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {
+  login
+} from '../../redux/routines';
+
+interface ILogin {
+  email: string,
+  password: string
+}
 
 interface IProps {
-    navigation: any
+    navigation: any;
+	  login: (ILogin) => any;
+	  loginError: string | null;
 }
 
 interface IState {
@@ -21,7 +33,7 @@ interface IState {
     passwordFocus: boolean,
 }
 
-export default class Login extends Component<IProps, IState> {
+class Login extends Component<IProps, IState> {
   constructor(props) {
     super(props);
 
@@ -43,7 +55,14 @@ export default class Login extends Component<IProps, IState> {
     this.setState({password: value});
   };
 
-  onPress = () => {};
+  onPress = () => {
+    const { password, email } = this.state;
+    if (this.validateEmail() && this.validatePassword())
+    this.props.login({ 
+      password: password.trim(),
+      email: email.trim()
+    });
+  };
 
   onSignup = () => {
     this.props.navigation.navigate('Signup');
@@ -60,18 +79,20 @@ export default class Login extends Component<IProps, IState> {
   validateEmail = () => {
     const { email } = this.state;
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(String(email).toLowerCase())) 
-    this.setState({ emailError: 'Email is invalid' });
     if (email.trim() === '') 
     this.setState({ emailError: 'Email is required' });
+    else if (!re.test(String(email).toLowerCase())) 
+    this.setState({ emailError: 'Email is invalid' });
+    else return true;
   }
 
   validatePassword = () => {
     const { password } = this.state;
-    if (password.length < 6) 
-    this.setState({ passwordError: 'Password must be at least 6 characters' });
     if (password.trim() === '')
     this.setState({ passwordError: 'Password is required' })
+    else if (password.length < 6) 
+    this.setState({ passwordError: 'Password must be at least 6 characters' });
+    else return true;
   }
 
   render() {
@@ -83,6 +104,7 @@ export default class Login extends Component<IProps, IState> {
       passwordFocus,
       emailFocus
     } = this.state;
+
     return (
       <View style={styles.container}>
         <Text style={[ styles.text, styles.header ]}>Welcome back!</Text>
@@ -132,6 +154,12 @@ export default class Login extends Component<IProps, IState> {
             !!passwordError &&
             <Text style={[ styles.text, styles.error ]}>{passwordError}</Text>
         }
+        {
+            !!this.props.loginError &&
+            <View>
+              <Text style={[styles.text, styles.error]}>{this.props.loginError}</Text>
+            </View>
+        } 
         <TouchableOpacity onPress={this.onPress}>
           <Text style={[ styles.text, styles.button ]}>Sign in</Text>
         </TouchableOpacity>
@@ -147,6 +175,22 @@ export default class Login extends Component<IProps, IState> {
   }
 }
 
+const mapStateToProps = (rootState, props) => ({
+	...props,
+	loginError: rootState.authorization.loginError
+});
+
+const actions = {
+	login
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Login);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -156,7 +200,6 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 36,
     fontFamily: 'Inter-Black',
-    fontWeight: '600',
     lineHeight: 100,
   },
   input: {

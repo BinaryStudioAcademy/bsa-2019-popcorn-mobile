@@ -1,4 +1,4 @@
-import {createStackNavigator, createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation';
 import Login from '../../components/Authorization/Login';
 import Signup from '../../components/Authorization/Signup';
 
@@ -17,4 +17,4 @@ const AuthNavigation = createStackNavigator({
   },
 });
 
-export default createAppContainer(AuthNavigation);
+export default AuthNavigation;

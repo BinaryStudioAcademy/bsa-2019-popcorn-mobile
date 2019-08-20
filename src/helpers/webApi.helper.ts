@@ -13,7 +13,7 @@ interface IRequestInit {
 
 export default async (args: IRequestInit) => {
 	try {
-		let res: Response = await fetch(getUrl(args), getArgs(args));
+		let res: Response = await fetch(getUrl(args), await getArgs(args));
 
 		if (args.parse === undefined || args.parse) return await res.json();
 
@@ -26,17 +26,18 @@ export default async (args: IRequestInit) => {
 const getUrl = (args: IRequestInit): RequestInfo =>
 	args.endpoint + (args.query ? `?${qs.stringify(args.query)}` : '');
 
-const getArgs = (args: IRequestInit): object => {
+const getArgs = async (args: IRequestInit): Promise<object> => {
 	const headers: {
 		Authorization?: string;
 		'Content-Type'?: string;
 		Accept?: string;
 	} = {};
 
-	const token = Storage.get('token');
-	if (token && !args.skipAuthorization) {
-		headers['Authorization'] = `Bearer ${token}`;
-	}
+	await Storage.get('token').then(value => {
+		if (value && !args.skipAuthorization) {
+			headers['Authorization'] = `Bearer ${value}`;
+		}
+	});
 
 	let body = {};
 
