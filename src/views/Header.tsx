@@ -1,11 +1,28 @@
 import React from 'react';
 import styles from '../assets/style';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, TouchableOpacity } from 'react-native';
+import SvgUri from 'react-native-svg-uri';
 
 export const HeaderView = ({ navigation }) => (
 	<View style={styles.header}>
-		<Button title="&#8904;" onPress={() => navigation.toggleDrawer()} />
+		<TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+			<View>
+				<SvgUri
+					height={30}
+					width={30}
+					source={require('../assets/general/popcorn-logo.svg')}
+				/>
+			</View>
+		</TouchableOpacity>
 		<Text>Header</Text>
-		<Button title="&#8904;" onPress={() => navigation.toggleRightDrawer()} />
+		<TouchableOpacity onPress={() => navigation.toggleRightDrawer()}>
+			<View>
+				<SvgUri
+					height={30}
+					width={30}
+					source={require('../assets/general/popcorn-logo.svg')}
+				/>
+			</View>
+		</TouchableOpacity>
 	</View>
 );

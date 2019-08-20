@@ -19,7 +19,7 @@ const HomeView = ({ navigation }) => (
 	>
 		<HeaderView navigation={navigation} />
 		<ScrollView>
-			<Text style={styles.home_title}>Home</Text>
+			<Text style={styles.home_title}>Post</Text>
 			<Image
 				source={{
 					uri:
