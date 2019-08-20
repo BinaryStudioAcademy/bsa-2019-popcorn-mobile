@@ -38,7 +38,6 @@ export function* fetchUserByToken(action) {
 			method: 'GET',
 			parse: false
         });
-		console.log(user);
 		if (!user) {
 			Storage.set('token', '');
 
