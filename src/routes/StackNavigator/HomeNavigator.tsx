@@ -8,7 +8,7 @@ import {
 	Messages_StackNavigator,
 	Events_StackNavigator,
 	Collections_StackNavigator
-} from './MenuNavigators.tsx';
+} from './MenuNavigators';
 
 const HomeNavigator = createDrawerNavigator({
 	Home: {
