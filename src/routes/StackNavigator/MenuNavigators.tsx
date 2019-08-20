@@ -6,7 +6,7 @@ import {
 } from 'react-navigation';
 import Home from '../../views/HomeView';
 import Messages from '../../views/MessagesView';
-import Events from '../../views/EventsView';
+import ContentPageNavigator from '../TabNavigator/ContentPageNavigator';
 import Collections from '../../views/CollectionsView';
 import Header from '../../components/Header/Header';
 
@@ -28,9 +28,9 @@ export const Messages_StackNavigator = createStackNavigator({
 	}
 });
 
-export const Events_StackNavigator = createStackNavigator({
+export const Content_StackNavigator = createStackNavigator({
 	Third: {
-		screen: Events,
+		screen: ContentPageNavigator,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})
