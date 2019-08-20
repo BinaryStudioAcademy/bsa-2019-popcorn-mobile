@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 
-const Header = () => {
+const Header = props => {
 	return (
 		<View style={styles.header}>
 			<View style={styles.headerLogo}>
@@ -13,24 +13,32 @@ const Header = () => {
 				/>
 			</View>
 			<View style={styles.headerNav}>
-				<SvgUri
-					style={styles.item}
-					height={23}
-					width={20}
-					source={require('../../assets/general/profile.svg')}
-				/>
-				<SvgUri
-					style={styles.item}
-					height={25}
-					width={35}
-					source={require('../../assets/general/message.svg')}
-				/>
-				<SvgUri
-					style={styles.item}
-					height={24}
-					width={24}
-					source={require('../../assets/general/new.svg')}
-				/>
+				<View style={styles.iconContainer}>
+					<SvgUri
+						style={[styles.item, styles.alert]}
+						height={23}
+						width={20}
+						source={require('../../assets/general/profile.svg')}
+					/>
+				</View>
+				<View style={styles.iconContainer}>
+					<SvgUri
+						style={styles.item}
+						height={25}
+						width={35}
+						source={require('../../assets/general/message.svg')}
+					/>
+					<Text style={styles.iconAlert}></Text>
+				</View>
+				<View style={styles.iconContainer}>
+					<SvgUri
+						style={styles.item}
+						height={24}
+						width={24}
+						source={require('../../assets/general/new.svg')}
+					/>
+					<Text style={styles.iconAlert}></Text>
+				</View>
 			</View>
 		</View>
 	);
@@ -62,6 +70,18 @@ const styles = StyleSheet.create({
 	},
 	item: {
 		marginLeft: 11
+	},
+	iconContainer: {
+		position: 'relative'
+	},
+	iconAlert: {
+		width: 10,
+		height: 10,
+		backgroundColor: 'red',
+		position: 'absolute',
+		top: -5,
+		right: -5,
+		borderRadius: 5
 	}
 });
 
