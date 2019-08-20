@@ -5,6 +5,7 @@ export default interface IPost {
         id: string;
         any;
     };
+    id: string;
     created_At?: string;
     image_url: string;
     description?: string;
