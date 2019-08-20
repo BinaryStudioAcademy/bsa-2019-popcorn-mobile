@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import Root from './containers/Root';
-import { Provider } from 'react-redux';
-import store from './redux/store';
+import React from 'react';
+import Root from './containers/Root/root'
+import { store, persistor } from './redux/store'
+import { PersistGate } from 'redux-persist/integration/react'
 
-export default class App extends Component {
-	render() {
-		return (
-      <Provider store={store}>
-			  <Root/>
-      </Provider>
-		);
-	}
+class App extends React.Component {
+  render () {
+    return (
+      <PersistGate loading={null} persistor={persistor}>
+        <Root store={store} />
+      </PersistGate>
+    )
+  }
 }
