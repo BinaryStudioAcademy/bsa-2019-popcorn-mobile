@@ -6,7 +6,7 @@ import {
 import {
 	FirstActivity_StackNavigator,
 	Messages_StackNavigator,
-	Events_StackNavigator,
+	Content_StackNavigator,
 	Collections_StackNavigator
 } from './MenuNavigators';
 
@@ -26,9 +26,9 @@ const HomeNavigator = createDrawerNavigator({
 	},
 
 	Events: {
-		screen: Events_StackNavigator,
+		screen: Content_StackNavigator,
 		navigationOptions: {
-			drawerLabel: 'Events'
+			drawerLabel: 'Content'
 		}
 	},
 	Collections: {
