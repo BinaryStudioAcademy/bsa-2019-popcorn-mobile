@@ -5,8 +5,5 @@ export const register = createRoutine('REGISTER');
 export const fetchUser = createRoutine('FETCH_USER');
 export const fetchStories = createRoutine('FETCH_STORIES');
 export const fetchStory  = createRoutine('FETCH_STORY');
-<<<<<<< HEAD
 export const fetchMovies = createRoutine('FETCH_MOVIE');
-=======
 export const fetchPosts = createRoutine('FETCH_POSTS');
->>>>>>> 10600ad2abcee6de95ded8642cf01a3c89497af9
