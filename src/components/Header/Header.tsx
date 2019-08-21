@@ -15,7 +15,7 @@ const Header = props => {
 			<View style={styles.headerNav}>
 				<View style={styles.iconContainer}>
 					<SvgUri
-						style={[styles.item, styles.alert]}
+						// style={[styles.item, styles.alert]}
 						height={23}
 						width={20}
 						source={require('../../assets/general/profile.svg')}
@@ -23,7 +23,7 @@ const Header = props => {
 				</View>
 				<View style={styles.iconContainer}>
 					<SvgUri
-						style={styles.item}
+						// style={styles.item}
 						height={25}
 						width={35}
 						source={require('../../assets/general/message.svg')}
@@ -32,7 +32,7 @@ const Header = props => {
 				</View>
 				<View style={styles.iconContainer}>
 					<SvgUri
-						style={styles.item}
+						// style={styles.item}
 						height={24}
 						width={24}
 						source={require('../../assets/general/new.svg')}

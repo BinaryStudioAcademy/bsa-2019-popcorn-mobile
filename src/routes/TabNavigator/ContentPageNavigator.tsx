@@ -4,6 +4,7 @@ import { Text } from 'react-native';
 import EventList from '../../components/ContentPage/Events/EventList';
 import TopList from '../../components/ContentPage/Tops/TopList';
 import SurveyList from '../../components/ContentPage/Surveys/SurveyList';
+import SurveyNavigator from '../StackNavigator/SurveyNavigator';
 
 const ContentPageNavigator = createBottomTabNavigator(
 	{
@@ -16,7 +17,7 @@ const ContentPageNavigator = createBottomTabNavigator(
 			tabBarLabel: () => <Text>Tops</Text>
 		},
 		Surveys: {
-			screen: SurveyList,
+			screen: SurveyNavigator,
 			tabBarLabel: () => <Text>Surveys</Text>
 		}
 	},
