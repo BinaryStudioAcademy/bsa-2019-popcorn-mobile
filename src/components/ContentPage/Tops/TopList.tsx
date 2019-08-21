@@ -1,12 +1,26 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import Tabs from '../Tabs';
 
-const TopList: React.FC = () => {
+interface IProps {
+	navigation: any;
+}
+
+const TopList: React.FC<IProps> = props => {
 	return (
-		<View>
-			<Text>Tops</Text>
+		<View style={[styles.container]}>
+			<ScrollView>
+				<Text>Tops</Text>
+			</ScrollView>
+			<Tabs active={'Tops'} navigation={props.navigation} />
 		</View>
 	);
 };
 
 export default TopList;
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1
+	}
+});

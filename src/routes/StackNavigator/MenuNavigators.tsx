@@ -6,9 +6,12 @@ import {
 } from 'react-navigation';
 import Home from '../../views/HomeView';
 import Messages from '../../views/MessagesView';
-import ContentPageNavigator from '../TabNavigator/ContentPageNavigator';
 import Collections from '../../views/CollectionsView';
 import Header from '../../components/Header/Header';
+import EventList from '../../components/ContentPage/Events/EventList';
+import SurveyList from '../../components/ContentPage/Surveys/SurveyList';
+import TopList from '../../components/ContentPage/Tops/TopList';
+import SurveyNavigator from '../StackNavigator/SurveyNavigator';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -28,9 +31,27 @@ export const Messages_StackNavigator = createStackNavigator({
 	}
 });
 
-export const Content_StackNavigator = createStackNavigator({
+export const Event_StackNavigator = createStackNavigator({
 	Third: {
-		screen: ContentPageNavigator,
+		screen: EventList,
+		navigationOptions: ({ navigation }) => ({
+			header: Header
+		})
+	}
+});
+
+export const Top_StackNavigator = createStackNavigator({
+	Fourth: {
+		screen: TopList,
+		navigationOptions: ({ navigation }) => ({
+			header: Header
+		})
+	}
+});
+
+export const Survey_StackNavigator = createStackNavigator({
+	Fifth: {
+		screen: SurveyNavigator,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})
@@ -38,7 +59,7 @@ export const Content_StackNavigator = createStackNavigator({
 });
 
 export const Collections_StackNavigator = createStackNavigator({
-	Fourth: {
+	Sixth: {
 		screen: Collections,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
