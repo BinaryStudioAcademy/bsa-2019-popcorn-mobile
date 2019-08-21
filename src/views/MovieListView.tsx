@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import styles from '../assets/style';
+import MovieComponent from './../components/MainPage/Movie';
 
 const MovieListView = ({ navigation }) => (
 	<View style={styles.container}>
 		<View style={styles.container}>
-			<Text style={{ marginTop: 50 }}>Movie list Screen</Text>
+			<MovieComponent/>
 		</View>
 	</View>
 );
