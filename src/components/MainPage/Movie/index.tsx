@@ -42,9 +42,9 @@ class MovieComponent extends React.Component<IProps> {
 
 const mapStateToProps = (rootState, props) => ({
     ...props,
-    movies: rootState.post.posts,
-    error: rootState.post.error,
-    loading: rootState.post.loading,
+    movies: rootState.movie.movies,
+    error: rootState.movie.error,
+    loading: rootState.movie.loading,
 });
 
 const actions = {
