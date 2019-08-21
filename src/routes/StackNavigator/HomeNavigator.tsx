@@ -6,9 +6,11 @@ import {
 import {
 	FirstActivity_StackNavigator,
 	Messages_StackNavigator,
-	Events_StackNavigator,
+	Event_StackNavigator,
+	Survey_StackNavigator,
+	Top_StackNavigator,
 	Collections_StackNavigator
-} from './MenuNavigators.tsx';
+} from './MenuNavigators';
 
 const HomeNavigator = createDrawerNavigator({
 	Home: {
@@ -26,11 +28,26 @@ const HomeNavigator = createDrawerNavigator({
 	},
 
 	Events: {
-		screen: Events_StackNavigator,
+		screen: Event_StackNavigator,
 		navigationOptions: {
 			drawerLabel: 'Events'
 		}
 	},
+
+	Tops: {
+		screen: Top_StackNavigator,
+		navigationOptions: {
+			drawerLabel: 'Tops'
+		}
+	},
+
+	Surveys: {
+		screen: Survey_StackNavigator,
+		navigationOptions: {
+			drawerLabel: 'Surveys'
+		}
+	},
+
 	Collections: {
 		screen: Collections_StackNavigator,
 		navigationOptions: {
