@@ -1,12 +1,27 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import Tabs from '../Tabs';
 
-const SurveyList: React.FC = () => {
+interface IProps {
+    navigation: any
+}
+
+
+const SurveyList: React.FC<IProps> = (props) => {
     return (
-        <View>
-            <Text>Surveys</Text>
+        <View style={[styles.container]}>
+            <ScrollView>
+                <Text>Surveys</Text>
+            </ScrollView>
+            <Tabs active={"Surveys"} navigation={props.navigation}/>
         </View>
     )
 };
 
 export default SurveyList;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    }
+});
