@@ -9,7 +9,7 @@ import Messages from '../../views/MessagesView';
 import ContentPageNavigator from '../TabNavigator/ContentPageNavigator';
 import Collections from '../../views/CollectionsView';
 import MovieList from '../../views/MovieListView';
-
+import MovieNavigator from './MovieNavigator';
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
 		screen: Home,
@@ -64,7 +64,7 @@ export const Collections_StackNavigator = createStackNavigator({
 
 export const Movies_StackNavigator = createStackNavigator({
 	Fourth: {
-		screen: MovieList,
+		screen: MovieNavigator,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Movies',
 			headerStyle: {
