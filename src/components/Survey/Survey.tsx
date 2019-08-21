@@ -13,6 +13,7 @@ import { bindActionCreators } from 'redux';
 interface IProps {
 	data: any;
 	nav: any;
+	user: boolean;
 }
 interface IState {
 	active: boolean;
@@ -30,7 +31,7 @@ class Survey extends Component<IProps, IState> {
 	}
 
 	render() {
-		const { data } = this.props;
+		const { data, user } = this.props;
 
 		return (
 			<View style={styles.survey}>
@@ -40,33 +41,35 @@ class Survey extends Component<IProps, IState> {
 				>
 					<Text>{data.title}</Text>
 				</TouchableOpacity>
-				<View style={styles.surveyControls}>
-					<TouchableOpacity
-						style={styles.surveyBtn}
-						onPress={() => this.toggleStatus()}
-					>
-						{data.type === 'Open' ? (
+				{user ? (
+					<View style={styles.surveyControls}>
+						<TouchableOpacity
+							style={styles.surveyBtn}
+							onPress={() => this.toggleStatus()}
+						>
+							{data.type === 'Open' ? (
+								<SvgUri
+									height={20}
+									width={20}
+									source={require('../../assets/general/hide.svg')}
+								/>
+							) : (
+								<SvgUri
+									height={20}
+									width={20}
+									source={require('../../assets/general/view.svg')}
+								/>
+							)}
+						</TouchableOpacity>
+						<TouchableOpacity style={[styles.surveyBtn, styles.delete]}>
 							<SvgUri
-								height={20}
-								width={20}
-								source={require('../../assets/general/hide.svg')}
+								height={15}
+								width={15}
+								source={require('../../assets/general/del.svg')}
 							/>
-						) : (
-							<SvgUri
-								height={20}
-								width={20}
-								source={require('../../assets/general/view.svg')}
-							/>
-						)}
-					</TouchableOpacity>
-					<TouchableOpacity style={[styles.surveyBtn, styles.delete]}>
-						<SvgUri
-							height={15}
-							width={15}
-							source={require('../../assets/general/del.svg')}
-						/>
-					</TouchableOpacity>
-				</View>
+						</TouchableOpacity>
+					</View>
+				) : null}
 			</View>
 		);
 	}

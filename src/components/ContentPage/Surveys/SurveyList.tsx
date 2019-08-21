@@ -1,10 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+	View,
+	Text,
+	StyleSheet,
+	TouchableOpacity,
+	ScrollView
+} from 'react-native';
 import Survey from '../../Survey/Survey';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as action from './actions';
 import { fetchSurveys } from './saga';
+import Tabs from '../Tabs';
 
 interface IProps {
 	fetchSurveys: () => any;
@@ -18,20 +25,27 @@ class SurveyList extends React.Component<IProps, IState> {
 		super(props);
 		this.state = {};
 	}
+
 	componentDidMount() {
 		this.props.fetchSurveys();
 	}
+
 	render() {
-		const { surveys = [] } = this.props;
+		const { surveys = [], navigation } = this.props;
 		return (
-			<View style={styles.surveyList}>
-				<Text style={styles.surveyTitle}>Surveys list</Text>
-				<TouchableOpacity style={styles.surveyAdd}>
-					<Text>Add new survey</Text>
-				</TouchableOpacity>
-				{surveys.map((item, i) => (
-					<Survey key={item.id} data={item} nav={this.props.navigation} />
-				))}
+			<View style={[styles.container]}>
+				<ScrollView>
+					<View style={styles.surveyList}>
+						<Text style={styles.surveyTitle}>Surveys list</Text>
+						<TouchableOpacity style={styles.surveyAdd}>
+							<Text>Add new survey</Text>
+						</TouchableOpacity>
+						{surveys.map((item, i) => (
+							<Survey key={item.id} data={item} nav={navigation} user={false} />
+						))}
+					</View>
+				</ScrollView>
+				<Tabs active={'Surveys'} navigation={navigation} />
 			</View>
 		);
 	}
@@ -39,7 +53,6 @@ class SurveyList extends React.Component<IProps, IState> {
 
 const mapStateToProps = (rootState, props) => ({
 	...props,
-	// loginError: rootState.authorization.loginError
 	surveys: rootState.survey.surveys
 });
 
@@ -74,5 +87,8 @@ const styles = StyleSheet.create({
 		padding: 15,
 		display: 'flex',
 		justifyContent: 'center'
+	},
+	container: {
+		flex: 1
 	}
 });

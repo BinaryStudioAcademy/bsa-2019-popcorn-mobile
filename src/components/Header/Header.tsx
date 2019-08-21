@@ -8,7 +8,6 @@ interface IProps {
 }
 
 const Header = props => {
-	console.log(props);
 	return (
 		<View style={styles.header}>
 			<View style={styles.headerLogo}>
