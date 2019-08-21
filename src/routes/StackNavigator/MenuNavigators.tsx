@@ -6,8 +6,10 @@ import {
 } from 'react-navigation';
 import Home from '../../views/HomeView';
 import Messages from '../../views/MessagesView';
-import ContentPageNavigator from '../TabNavigator/ContentPageNavigator';
 import Collections from '../../views/CollectionsView';
+import EventList from '../../components/ContentPage/Events/EventList';
+import SurveyList from '../../components/ContentPage/Surveys/SurveyList';
+import TopList from '../../components/ContentPage/Tops/TopList';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -35,11 +37,37 @@ export const Messages_StackNavigator = createStackNavigator({
 	}
 });
 
-export const Content_StackNavigator = createStackNavigator({
+export const Event_StackNavigator = createStackNavigator({
 	Third: {
-		screen: ContentPageNavigator,
+		screen: EventList,
 		navigationOptions: ({ navigation }) => ({
-			title: 'Content',
+			title: 'Events',
+			headerStyle: {
+				backgroundColor: '#FF9800'
+			},
+			headerTintColor: '#fff'
+		})
+	}
+});
+
+export const Top_StackNavigator = createStackNavigator({
+	Fourth: {
+		screen: TopList,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Tops',
+			headerStyle: {
+				backgroundColor: '#FF9800'
+			},
+			headerTintColor: '#fff'
+		})
+	}
+});
+
+export const Survey_StackNavigator = createStackNavigator({
+	Fifth: {
+		screen: SurveyList,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Surveys',
 			headerStyle: {
 				backgroundColor: '#FF9800'
 			},
@@ -49,7 +77,7 @@ export const Content_StackNavigator = createStackNavigator({
 });
 
 export const Collections_StackNavigator = createStackNavigator({
-	Fourth: {
+	Sixth: {
 		screen: Collections,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Collections',
