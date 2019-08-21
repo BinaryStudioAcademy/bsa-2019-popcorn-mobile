@@ -37,6 +37,7 @@ interface ISurvey {
 }
 
 export const transformDataToProps = (data): Array<ISurvey> => {
+	console.log(data);
 	const transformData = data.map(survey => ({
 		id: survey.id,
 		created_at: survey.created_at,
