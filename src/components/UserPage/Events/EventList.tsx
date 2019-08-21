@@ -19,8 +19,6 @@ interface IProps {
 
 class EventList extends Component<IProps> {
     componentDidMount() {
-        console.log(this.props.currentUser);
-
         this.props.fetchUserEvents(this.props.currentUser);
     }
 
