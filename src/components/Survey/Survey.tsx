@@ -35,7 +35,7 @@ class Survey extends Component<IProps, IState> {
 		return (
 			<View style={styles.survey}>
 				<TouchableOpacity
-					onPress={() => this.props.nav.navigate('SurveyPage')}
+					onPress={() => this.props.nav.navigate('SurveyPage', { id: data.id })}
 					style={styles.surveyTitle}
 				>
 					<Text>{data.title}</Text>

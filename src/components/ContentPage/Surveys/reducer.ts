@@ -1,7 +1,8 @@
-import { SET_SURVEYS } from './actionTypes';
+import { SET_SURVEYS, SET_SURVEY_BYID } from './actionTypes';
 
 const initialState = {
-	surveys: undefined
+	surveys: undefined,
+	survey: {}
 };
 
 export default function(state = initialState, action) {
@@ -10,6 +11,11 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				surveys: action.payload.surveys
+			};
+		case SET_SURVEY_BYID:
+			return {
+				...state,
+				survey: action.payload.survey
 			};
 		default:
 			return state;

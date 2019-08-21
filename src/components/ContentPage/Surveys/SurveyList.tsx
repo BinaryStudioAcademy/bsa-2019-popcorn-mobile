@@ -6,22 +6,6 @@ import { bindActionCreators } from 'redux';
 import * as action from './actions';
 import { fetchSurveys } from './saga';
 
-const data = [
-	{
-		status: true,
-		title: 'First survey'
-	},
-	{
-		status: false,
-		title:
-			'Second survey Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel esse atque eos repellat mollitia explicabo quia odio doloremque dicta. Non aut voluptas pariatur deleniti nam consectetur rem explicabo laudantium vitae!'
-	},
-	{
-		status: true,
-		title: 'Third survey'
-	}
-];
-
 interface IProps {
 	fetchSurveys: () => any;
 	surveys: any;

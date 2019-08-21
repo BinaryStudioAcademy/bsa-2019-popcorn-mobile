@@ -6,12 +6,17 @@ import {
 	ADD_SURVEY,
 	UPDATE_SURVEY,
 	DELETE_SURVEY,
-	RECREATE_SURVEY
+	RECREATE_SURVEY,
+	GET_SURVEY_BYID
 } from './actionTypes';
 import webApi from '../../../helpers/webApi.helper';
 
 import config from '../../../config';
-import { setArrangementInSurveys } from '../../../services/userSurveys.service';
+import {
+	setArrangementInSurveys,
+	transformDataToProps
+} from '../../../services/userSurveys.service';
+// import console = require('console');
 
 // export function* fetchUserSurveys(action) {
 // 	try {
@@ -59,6 +64,30 @@ export function* fetchSurveys() {
 
 function* watchFetch() {
 	yield takeEvery(FETCH_SURVEYS, fetchSurveys);
+}
+
+function* getSurveyById(action) {
+	try {
+		const data = yield call(webApi, {
+			method: 'GET',
+			endpoint: config.API_URL + '/api/surveys/' + action.payload.id
+		});
+
+		console.log(data);
+		const formattedData = transformDataToProps([data])[0];
+		console.log(formattedData);
+		if (data)
+			yield put({
+				type: SET_SURVEY_BYID,
+				payload: { survey: formattedData, loading: false }
+			});
+	} catch (e) {
+		console.log('survey saga get by id: ', e);
+	}
+}
+
+function* watchgetSurveyById() {
+	yield takeEvery(GET_SURVEY_BYID, getSurveyById);
 }
 
 // export function* addSurvey(action) {
@@ -143,7 +172,8 @@ function* watchFetch() {
 export default function* survey() {
 	yield all([
 		// watchFetchUser(),
-		watchFetch()
+		watchFetch(),
+		watchgetSurveyById()
 		// watchAdd(),
 		// watchUpdate(),
 		// watchDelete(),
