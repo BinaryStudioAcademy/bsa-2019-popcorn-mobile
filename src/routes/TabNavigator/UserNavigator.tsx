@@ -3,11 +3,8 @@ import React, { Component } from 'react';
 
 import MessagesView from '../../views/MessagesView';
 import HomeView from '../../views/HomeView';
+import UserProfileView from '../../views/UserPageView/UserProfileVIew.tsx';
 
-import PopcornIcon from '../../assets/general/User.png';
-
-Navigation.registerComponent('MessagesView', () => MessagesView);
-Navigation.registerComponent('HomeView', () => HomeView);
 import {
 	createBottomTabNavigator,
 	BottomTabBar,
@@ -16,71 +13,79 @@ import {
 
 import { View, Text } from 'react-native';
 
-class Page1 extends Component {
+class Posts extends Component {
 	render() {
 		return (
 			<View>
-				<Text>Page 1</Text>
-				<Text>Page 1</Text>
-				<Text>Page 1</Text>
-				<Text>Page 1</Text>
-				<Text>Page 1</Text>
+				<Text>Posts</Text>
 			</View>
 		);
 	}
 }
 
-class Page2 extends Component {
+class Content extends Component {
 	render() {
 		return (
 			<View>
-				<Text>Page 2</Text>
-				<Text>Page 2</Text>
-				<Text>Page 2</Text>
-				<Text>Page 2</Text>
-				<Text>Page 2</Text>
-				<Text>Page 2</Text>
+				<Text>Content</Text>
 			</View>
 		);
 	}
 }
-class Page3 extends Component {
+
+class Lists extends Component {
 	render() {
 		return (
 			<View>
-				<Text>Page 3</Text>
-				<Text>Page 3</Text>
-				<Text>Page 3</Text>
-				<Text>Page 3</Text>
-				<Text>Page 3</Text>
+				<Text>Lists</Text>
 			</View>
 		);
 	}
 }
-const TabApp = createBottomTabNavigator(
+class Watched extends Component {
+	render() {
+		return (
+			<View>
+				<Text>Watched</Text>
+			</View>
+		);
+	}
+}
+
+const UserNavigator = createBottomTabNavigator(
 	{
-		Page1: {
-			screen: Page1
+		Profile: {
+			screen: UserProfileView
 		},
-		Page2: {
-			screen: Page2
+		Content: {
+			screen: Content
 		},
-		Page3: {
-			screen: Page3
+		Posts: {
+			screen: Posts
+		},
+		Lists: {
+			screen: Lists
+		},
+		Watched: {
+			screen: Watched
 		}
 	},
 	{
 		tabBarPosition: 'bottom',
 		swipeEnabled: true,
 		tabBarOptions: {
-			activeTintColor: '#f2f2f2',
-			activeBackgroundColor: '#2EC4B6',
+			activeTintColor: '#fff',
+			activeBackgroundColor: '#FF9800',
 			inactiveTintColor: '#666',
+			style: {
+				alignItems: 'center',
+				borderTopColor: '#fff'
+			},
 			labelStyle: {
-				fontSize: 22,
+				fontSize: 14,
 				padding: 12
 			}
 		}
 	}
 );
-export default createAppContainer(TabApp);
+export default createAppContainer(UserNavigator);
