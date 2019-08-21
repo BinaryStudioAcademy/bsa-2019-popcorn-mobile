@@ -8,6 +8,7 @@ import Home from '../../views/HomeView';
 import Messages from '../../views/MessagesView';
 import ContentPageNavigator from '../TabNavigator/ContentPageNavigator';
 import Collections from '../../views/CollectionsView';
+import MovieList from '../../views/MovieListView';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -53,6 +54,19 @@ export const Collections_StackNavigator = createStackNavigator({
 		screen: Collections,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Collections',
+			headerStyle: {
+				backgroundColor: '#FF9800'
+			},
+			headerTintColor: '#fff'
+		})
+	}
+});
+
+export const Movies_StackNavigator = createStackNavigator({
+	Fourth: {
+		screen: MovieList,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Movies',
 			headerStyle: {
 				backgroundColor: '#FF9800'
 			},
