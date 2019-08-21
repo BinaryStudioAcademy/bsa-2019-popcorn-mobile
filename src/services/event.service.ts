@@ -25,7 +25,7 @@ export interface IEventFormatClient extends IEventFormatFromEditor {
 	};
 }
 
-export interface IventFormatToSave {
+export interface IEventFormatToSave {
 	id?: string;
 	title: string;
 	description: string;
