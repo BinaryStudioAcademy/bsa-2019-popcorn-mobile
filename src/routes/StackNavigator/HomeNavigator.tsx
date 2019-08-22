@@ -9,7 +9,8 @@ import {
 	Event_StackNavigator,
 	Survey_StackNavigator,
 	Top_StackNavigator,
-	Collections_StackNavigator
+	Collections_StackNavigator,
+	Movies_StackNavigator
 } from './MenuNavigators';
 
 const HomeNavigator = createDrawerNavigator({
@@ -52,6 +53,12 @@ const HomeNavigator = createDrawerNavigator({
 		screen: Collections_StackNavigator,
 		navigationOptions: {
 			drawerLabel: 'Collections'
+		}
+	},
+	Movies: {
+		screen: Movies_StackNavigator,
+		navigationOptions: {
+			drawerLabel: 'Movies'
 		}
 	}
 });
