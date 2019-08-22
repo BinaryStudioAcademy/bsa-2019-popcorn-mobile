@@ -7,7 +7,7 @@ function* getTops() {
     try {
         yield put(fetchTops.request());
         const data = yield call(webApi, {
-			endpoint: config.API_URL + '/api/top',
+			endpoint: config.API_URL + '/api/top/extended',
 			method: 'GET'
         });
         yield put(fetchTops.success(data));
