@@ -25,7 +25,7 @@ export interface IEventFormatClient extends IEventFormatFromEditor {
 	};
 }
 
-export interface IventFormatToSave {
+export interface IEventFormatToSave {
 	id?: string;
 	title: string;
 	description: string;
@@ -38,7 +38,7 @@ export interface IventFormatToSave {
 	userId: string;
 	movieId: null | string;
 }
-export interface IEventFormatDataBase extends IventFormatToSave {
+export interface IEventFormatDataBase extends IEventFormatToSave {
 	id: string;
 	eventVisitors: IVisitor[];
 }
@@ -90,7 +90,7 @@ export const formatToClient = (
 
 export const formatToDataBase = (
 	event: IEventFormatFromEditor
-): IventFormatToSave => {
+): IEventFormatToSave => {
 	const {
 		title,
 		description,
