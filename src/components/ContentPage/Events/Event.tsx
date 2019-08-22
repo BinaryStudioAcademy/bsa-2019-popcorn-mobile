@@ -49,7 +49,7 @@ const Event: React.FC<IProps> = ({ event, navigation, setVisitor, currentUser })
                 </View>
                 <View style={styles.column}>
                     <View style={styles.horizontalContainer}>
-                        <Text style={[styles.text, styles.title]}>{data.title}</Text>
+                        <Text numberOfLines={2} style={[styles.text, styles.title]}>{data.title}</Text>
                          <View style={[styles.visitors]}>
                             <FontAwesomeIcon style={{...styles.icon, color: '#122737' }} icon={faUsers} />
                             <Text>{data.eventVisitors.length}</Text>
@@ -111,7 +111,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '100%'
+        width: '100%',
+        alignItems: 'center'
     },
     horizontalContainer: {
         flexDirection: 'row',
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
 		marginTop: 5,
 		borderRadius: 55,
         padding: 2,
-        alignSelf: 'flex-end'
+        alignSelf: 'flex-end',
     },
     text: {
         fontFamily: 'Inter-Regular',
@@ -143,8 +144,9 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'Inter-SemiBold',
-        fontSize: 18,
-        marginBottom: 3
+        fontSize: 16,
+        marginBottom: 3, 
+        width: '75%'
     },
     buttonText: {
         fontFamily: 'Inter-Medium',
@@ -152,7 +154,6 @@ const styles = StyleSheet.create({
     }, 
     icon: {
         color: 'white',
-        marginLeft: 4,
         marginRight: 4
     },
     column: {
@@ -161,7 +162,9 @@ const styles = StyleSheet.create({
     visitors: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        width: '20%',
+        alignSelf: 'flex-start'
     },
     description: {
         marginTop: 5,
