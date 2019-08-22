@@ -10,7 +10,6 @@ import Collections from '../../views/CollectionsView';
 import EventList from '../../components/ContentPage/Events/EventList';
 import SurveyList from '../../components/ContentPage/Surveys/SurveyList';
 import TopList from '../../components/ContentPage/Tops/TopList';
-import MovieList from '../../views/MovieListView';
 import MovieNavigator from './MovieNavigator';
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
