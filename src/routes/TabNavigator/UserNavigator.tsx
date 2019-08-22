@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import MessagesView from '../../views/MessagesView';
 import HomeView from '../../views/HomeView';
-import UserProfileView from '../../views/UserPageView/UserProfileVIew.tsx';
+import UserProfileView from '../../views/UserPageView/UserProfileView.tsx';
 
 import {
 	createBottomTabNavigator,
@@ -12,16 +12,7 @@ import {
 } from 'react-navigation';
 
 import { View, Text } from 'react-native';
-
-class Posts extends Component {
-	render() {
-		return (
-			<View>
-				<Text>Posts</Text>
-			</View>
-		);
-	}
-}
+import UserPosts from '../../views/UserPageView/UserPostsView.tsx';
 
 class Content extends Component {
 	render() {
@@ -61,7 +52,7 @@ const UserNavigator = createBottomTabNavigator(
 			screen: Content
 		},
 		Posts: {
-			screen: Posts
+			screen: UserPosts
 		},
 		Lists: {
 			screen: Lists
