@@ -11,7 +11,7 @@ const Header = props => {
 	return (
 		<View style={styles.header}>
 			<View style={styles.headerMenu}>
-				<TouchableOpacity onPress={() => props.navigation.navigate('First')}>
+				<TouchableOpacity onPress={() => props.navigation.toggleDrawer()}>
 					<SvgUri
 						height={30}
 						width={30}
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 		flexWrap: 'nowrap',
 		width: '100%',
 		flexDirection: 'row',
-		paddingTop: 48,
+		paddingTop: 30,
 		paddingBottom: 8,
 		borderBottomColor: 'rgba(0, 0, 0, 0.1)',
 		borderBottomWidth: 1

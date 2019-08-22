@@ -1,6 +1,5 @@
 import { FlatList } from 'react-native';
 import React from 'react';
-import Story from './../Story/Story';
 import StoryPreview from './../StoryPreview/StoryPreview';
 interface IStoryListItem {
 	id: string;
@@ -31,12 +30,11 @@ interface IStoryListItem {
 
 interface IProps {
 	stories: Array<IStoryListItem>;
-	openStory: () => void;
+	navigation: any;
 }
 
 class StoryList extends React.Component<IProps> {
-	renderStory({ item, index }) {
-		const openCurrStory = this.props.openStory.bind(index);
+	renderStory({ item, index }, navigation) {
 		const {
 			image_url,
 			user: { avatar },
@@ -48,13 +46,13 @@ class StoryList extends React.Component<IProps> {
 				caption={caption}
 				avatar={avatar}
 				index={index}
-				openStory={openCurrStory}
+				navigation={navigation}
 			/>
 		);
 	}
 
 	render() {
-		const { stories } = this.props;
+		const { stories, navigation } = this.props;
 		return (
 			<FlatList
 				refreshing={false}
@@ -62,7 +60,9 @@ class StoryList extends React.Component<IProps> {
 				horizontal={true}
 				showsHorizontalScrollIndicator={false}
 				keyExtractor={item => item.id}
-				renderItem={({ item, index }) => this.renderStory({ item, index })}
+				renderItem={({ item, index }) =>
+					this.renderStory({ item, index }, navigation)
+				}
 			/>
 		);
 	}

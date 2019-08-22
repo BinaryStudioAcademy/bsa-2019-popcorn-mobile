@@ -18,10 +18,14 @@
 		"extends": "react-app"
 	},
 	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "^1.2.21",
+		"@fortawesome/free-solid-svg-icons": "^5.10.1",
+		"@fortawesome/react-native-fontawesome": "^0.1.0",
 		"@react-native-community/async-storage": "^1.6.1",
 		"@types/qs": "^6.5.3",
 		"@types/socket.io-client": "^1.4.32",
-		"console": "^0.7.2",
+		"lodash": "^4.17.15",
+		"moment": "^2.24.0",
 		"qs": "^6.8.0",
 		"react": "16.8.6",
 		"react-native": "0.60.5",
@@ -32,6 +36,7 @@
 		"react-native-svg-uri": "^1.2.3",
 		"react-native-swipe-gestures": "^1.0.3",
 		"react-native-swiper": "^1.5.14",
+		"react-native-vector-icons": "^6.6.0",
 		"react-navigation": "^3.11.1",
 		"react-redux": "^7.1.0",
 		"redux": "^4.0.4",

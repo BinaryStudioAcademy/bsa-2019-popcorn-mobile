@@ -4,9 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import React from 'react';
-import Story from './Story/Story';
 import StoryList from './StoryList/StoryList';
-import StoryCarousel from './StoryCarousel/StoryCarousel';
 import SocketService from './../../../helpers/socket.helper';
 
 interface IStoryListItem {
@@ -42,33 +40,17 @@ interface IProps {
 	loading: boolean;
 	fetchStories: () => any;
 	addStory: (story: any) => any;
+	navigation: any;
 }
 
-interface IState {
-	carouselIsShown: boolean;
-	storyIndex: number;
-}
-
-class StoryComponent extends React.Component<IProps, IState> {
+class StoryComponent extends React.Component<IProps> {
 	constructor(props) {
 		super(props);
 		this.addSocketEvents(props.addStory);
-		this.state = {
-			carouselIsShown: false,
-			storyIndex: 0
-		};
 	}
 
 	componentDidMount() {
 		this.props.fetchStories();
-	}
-
-	toggleStoryCarousel(index?) {
-		const { carouselIsShown } = this.state;
-		this.setState({
-			storyIndex: index || 0,
-			carouselIsShown: !carouselIsShown
-		});
 	}
 
 	addSocketEvents = addStory => {
@@ -76,23 +58,10 @@ class StoryComponent extends React.Component<IProps, IState> {
 	};
 
 	render() {
-		const { stories } = this.props;
-		const { carouselIsShown, storyIndex } = this.state;
+		const { stories, navigation } = this.props;
 		return (
-			<View style={{ flex: 1 }}>
-				{stories &&
-					(carouselIsShown ? (
-						<StoryCarousel
-							closeStory={() => this.toggleStoryCarousel()}
-							stories={stories}
-							index={storyIndex}
-						/>
-					) : (
-						<StoryList
-							stories={stories}
-							openStory={(index?) => this.toggleStoryCarousel(index)}
-						/>
-					))}
+			<View style={{ height: 240 }}>
+				{stories && <StoryList navigation={navigation} stories={stories} />}
 			</View>
 		);
 	}

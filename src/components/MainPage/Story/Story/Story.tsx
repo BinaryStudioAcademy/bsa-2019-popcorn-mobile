@@ -15,14 +15,13 @@ interface IStoryListItemProps {
 	avatar: string;
 	name: string;
 	caption: string;
-	index: number;
-	closeStory: () => void;
+	navigation: any;
 }
 
 class StoryListItem extends Component<IStoryListItemProps> {
-	renderControls(closeStory) {
+	renderControls(navigation) {
 		return (
-			<TouchableOpacity onPress={closeStory}>
+			<TouchableOpacity onPress={() => navigation.goBack()}>
 				<SvgUri
 					height={30}
 					source={require('./../../../../assets/general/x.svg')}
@@ -31,7 +30,7 @@ class StoryListItem extends Component<IStoryListItemProps> {
 		);
 	}
 
-	renderContent(imageUrl, avatar, caption, name, closeStory) {
+	renderContent(imageUrl, avatar, caption, name, navigation) {
 		return (
 			<View style={styles.storyWrapper}>
 				<View style={styles.storyImageWrapper}>
@@ -42,7 +41,7 @@ class StoryListItem extends Component<IStoryListItemProps> {
 						/>
 						<Text style={styles.userName}>{name}</Text>
 						<View style={styles.closeWrapper}>
-							{this.renderControls(closeStory)}
+							{this.renderControls(navigation)}
 						</View>
 					</View>
 					<Text style={styles.caption}>{caption}</Text>
@@ -56,8 +55,8 @@ class StoryListItem extends Component<IStoryListItemProps> {
 		);
 	}
 	render() {
-		const { imageUrl, avatar, caption, name, closeStory } = this.props;
-		return this.renderContent(imageUrl, avatar, caption, name, closeStory);
+		const { imageUrl, avatar, caption, name, navigation } = this.props;
+		return this.renderContent(imageUrl, avatar, caption, name, navigation);
 	}
 }
 
@@ -108,4 +107,5 @@ const styles = StyleSheet.create({
 		marginRight: 9
 	}
 });
+
 export default StoryListItem;
