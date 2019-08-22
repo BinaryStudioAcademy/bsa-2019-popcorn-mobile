@@ -2,8 +2,8 @@ import { Dimensions, StyleSheet, Text } from 'react-native';
 import React from 'react';
 import Story from './../Story/Story';
 import Swiper from 'react-native-swiper';
+import { connect } from 'react-redux';
 
-const { width } = Dimensions.get('window');
 interface IStoryListItem {
 	id: string;
 	caption: string;
@@ -33,13 +33,12 @@ interface IStoryListItem {
 
 interface IProps {
 	stories: Array<IStoryListItem>;
-	index: number;
-	closeStory: () => void;
+	navigation: any;
 }
 
 class StoryCarousel extends React.Component<IProps> {
-	renderStory(item, index) {
-		const { closeStory } = this.props;
+	renderStory(item) {
+		const { navigation } = this.props;
 		const {
 			image_url,
 			user: { name, avatar },
@@ -52,13 +51,13 @@ class StoryCarousel extends React.Component<IProps> {
 				caption={caption}
 				avatar={avatar}
 				name={name}
-				index={index}
-				closeStory={closeStory}
+				navigation={navigation}
 			/>
 		);
 	}
 	render() {
-		const { stories, index } = this.props;
+		const { stories, navigation } = this.props;
+		const index = navigation.getParam('index');
 		return (
 			<Swiper
 				loop={false}
@@ -67,7 +66,7 @@ class StoryCarousel extends React.Component<IProps> {
 				showsPagination={false}
 				autoplayTimeout={4}
 			>
-				{stories.map((story, index) => this.renderStory(story, index))}
+				{stories.map((story, index) => this.renderStory(story))}
 			</Swiper>
 		);
 	}
@@ -75,4 +74,9 @@ class StoryCarousel extends React.Component<IProps> {
 
 const styles = StyleSheet.create({});
 
-export default StoryCarousel;
+const mapStateToProps = (rootState, props) => ({
+	...props,
+	stories: rootState.story.stories
+});
+
+export default connect(mapStateToProps)(StoryCarousel);

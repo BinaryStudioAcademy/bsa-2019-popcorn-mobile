@@ -1,9 +1,4 @@
-import React, { Component } from 'react';
-import {
-	createAppContainer,
-	createStackNavigator,
-	createDrawerNavigator
-} from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import Home from '../../views/HomeView';
 import Messages from '../../views/MessagesView';
 import Collections from '../../views/CollectionsView';
@@ -12,6 +7,8 @@ import EventList from '../../components/ContentPage/Events/EventList';
 import SurveyList from '../../components/ContentPage/Surveys/SurveyList';
 import TopList from '../../components/ContentPage/Tops/TopList';
 import SurveyNavigator from '../StackNavigator/SurveyNavigator';
+import EventsTab from '../../components/ContentPage/Events/EventTab';
+import MovieNavigator from './MovieNavigator';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -33,7 +30,7 @@ export const Messages_StackNavigator = createStackNavigator({
 
 export const Event_StackNavigator = createStackNavigator({
 	Third: {
-		screen: EventList,
+		screen: EventsTab,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})
@@ -61,6 +58,15 @@ export const Survey_StackNavigator = createStackNavigator({
 export const Collections_StackNavigator = createStackNavigator({
 	Sixth: {
 		screen: Collections,
+		navigationOptions: ({ navigation }) => ({
+			header: Header
+		})
+	}
+});
+
+export const Movies_StackNavigator = createStackNavigator({
+	Fourth: {
+		screen: MovieNavigator,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})
