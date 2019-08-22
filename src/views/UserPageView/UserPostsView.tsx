@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
 import { Alert } from 'react-native';
+import { connect } from 'react-redux';
 
 import PostComponent from '../../components/MainPage/Post';
 interface IProps {
 	posts?: any;
 	getUsersPosts: () => any;
-	userId: string;
+	selectedProfileInfo: any;
 }
 const postsUser = {
 	user: {
@@ -23,16 +24,16 @@ class UserPosts extends Component<IProps> {
 		super(props);
 	}
 	render() {
-		// if (!posts) {
-		//     // getUsersPosts();
-		//     this.props.getUsersPosts();
-		//     return <Spinner />;
-		// }
-
+		const { selectedProfileInfo } = this.props;
+		// Alert.alert('selectedProfileInfo = ', selectedProfileInfo);
+		// Alert.alert('this.props', this.props);
 		const { posts, getUsersPosts } = this.props;
-
-		return <PostComponent posts={postsUser} />;
+		return <PostComponent userId={selectedProfileInfo.id} />;
 	}
 }
 
-export default UserPosts;
+const mapStateToProps = (rootState, props) => ({
+	selectedProfileInfo: rootState.authorization.profileInfo
+});
+
+export default connect(mapStateToProps)(UserPosts);
