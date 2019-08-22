@@ -12,6 +12,7 @@ interface IProps {
     error: null | Error;
     loading: boolean;
     fetchMovies: () => any;
+    navigation: any;
 }
 
 class MovieComponent extends React.Component<IProps> {
@@ -19,21 +20,21 @@ class MovieComponent extends React.Component<IProps> {
         this.props.fetchMovies();
     }
 
-    renderMovie({ item }){
+    renderMovie({ item }, navigation){
         return (
-            <MoviePreview movie={item}/>
+            <MoviePreview movie={item} navigation={navigation}/>
         );
     }
 
     render() {
-        const { movies } = this.props;
+        const { movies, navigation } = this.props;
         return (
             movies && (
                 <FlatList
                     refreshing={false}
                     data={movies}
                     keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => this.renderMovie({ item })}
+                    renderItem={({ item }) => this.renderMovie({ item }, navigation)}
                 />
             )
         );
@@ -42,9 +43,9 @@ class MovieComponent extends React.Component<IProps> {
 
 const mapStateToProps = (rootState, props) => ({
     ...props,
-    movies: rootState.movie.movies,
-    error: rootState.movie.error,
-    loading: rootState.movie.loading,
+    movies: rootState.movies.movies,
+    error: rootState.movies.error,
+    loading: rootState.movies.loading,
 });
 
 const actions = {
