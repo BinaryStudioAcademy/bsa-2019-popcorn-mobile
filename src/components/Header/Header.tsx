@@ -10,6 +10,15 @@ interface IProps {
 const Header = props => {
 	return (
 		<View style={styles.header}>
+			<View style={styles.headerMenu}>
+				<TouchableOpacity onPress={() => props.navigation.navigate('First')}>
+					<SvgUri
+						height={30}
+						width={30}
+						source={require('../../assets/general/menu.svg')}
+					/>
+				</TouchableOpacity>
+			</View>
 			<View style={styles.headerLogo}>
 				<TouchableOpacity onPress={() => props.navigation.navigate('First')}>
 					<SvgUri
@@ -66,16 +75,25 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1
 	},
 	headerLogo: {
-		width: '50%',
-		paddingLeft: 11
+		width: '35%',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	headerMenu: {
+		width: '30%',
+		display: 'flex',
+		alignItems: 'center',
+		flexDirection: 'row',
+		paddingLeft: 15
 	},
 	headerNav: {
 		display: 'flex',
 		justifyContent: 'flex-end',
 		flexDirection: 'row',
 		alignItems: 'center',
-		width: '50%',
-		paddingRight: 23
+		width: '35%',
+		paddingRight: 15
 	},
 	item: {
 		marginLeft: 11
