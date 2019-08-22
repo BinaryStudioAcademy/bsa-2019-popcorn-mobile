@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
 import {
-	createAppContainer,
-	createStackNavigator,
-	createDrawerNavigator
+	createStackNavigator
 } from 'react-navigation';
 import Home from '../../views/HomeView';
 import Messages from '../../views/MessagesView';
 import Collections from '../../views/CollectionsView';
-import EventList from '../../components/ContentPage/Events/EventList';
 import SurveyList from '../../components/ContentPage/Surveys/SurveyList';
 import TopList from '../../components/ContentPage/Tops/TopList';
+
+import EventsTab from '../../components/ContentPage/Events/EventTab';
+
 import MovieNavigator from './MovieNavigator';
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -39,7 +38,7 @@ export const Messages_StackNavigator = createStackNavigator({
 
 export const Event_StackNavigator = createStackNavigator({
 	Third: {
-		screen: EventList,
+		screen: EventsTab,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Events',
 			headerStyle: {
