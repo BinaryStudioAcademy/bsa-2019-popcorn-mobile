@@ -14,7 +14,7 @@ interface IStoryListItemProps {
 class StoryListItem extends Component<IStoryListItemProps> {
     renderControls(navigation) {
         return (
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
                 <SvgUri
                     height={30}
                     source={require('./../../../../assets/general/x.svg')}
