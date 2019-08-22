@@ -1,18 +1,8 @@
-import { Navigation } from 'react-native-navigation';
 import React, { Component } from 'react';
-
-import MessagesView from '../../views/MessagesView';
-import HomeView from '../../views/HomeView';
-import UserProfileView from '../../views/UserPageView/UserProfileView.tsx';
-
-import {
-	createBottomTabNavigator,
-	BottomTabBar,
-	createAppContainer
-} from 'react-navigation';
-
+import UserProfileView from '../../views/UserPageView/UserProfileView';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import { View, Text } from 'react-native';
-import UserPosts from '../../views/UserPageView/UserPostsView.tsx';
+import UserPosts from '../../views/UserPageView/UserPostsView';
 
 class Content extends Component {
 	render() {
@@ -79,4 +69,5 @@ const UserNavigator = createBottomTabNavigator(
 		}
 	}
 );
+
 export default createAppContainer(UserNavigator);

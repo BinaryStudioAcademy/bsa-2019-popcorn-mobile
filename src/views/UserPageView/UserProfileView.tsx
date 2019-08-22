@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import { Fragment, View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-interface ISelectedProfileInfo {
-	id: string;
-	name: string;
-	male: boolean;
-	female: boolean;
-	location: string;
-	aboutMe: string;
-	avatar: string;
-}
+import { connect } from 'react-redux';
+import config from '../../config';
+import ISelectedProfileInfo from './SelectedProfileInterfase';
 
 type ProfileProps = {
 	profileInfo: ISelectedProfileInfo;
@@ -18,6 +11,7 @@ type ProfileProps = {
 	uploadUrl?: string;
 	cancelAvatar?: () => any;
 	setAvatar?: (url: string, id: string) => any;
+	selectedProfileInfo: any;
 };
 
 interface IProfileComponentState {
@@ -69,16 +63,14 @@ const mockProfileInfo = {
 	id: 1
 };
 
-class UserProfileView extends Component<
-	TextrofileProps,
-	IProfileComponentState
-> {
+class UserProfileView extends Component<IProps> {
 	constructor(props: ProfileProps) {
 		super(props);
 	}
 
 	render() {
-		let { name, location, aboutMe, male, female, avatar, id } = mockProfileInfo;
+		let { location, aboutMe, avatar } = mockProfileInfo;
+		let { male, female, name } = this.props.selectedProfileInfo;
 		if (!male && !female) {
 			female = true;
 		}
@@ -92,11 +84,9 @@ class UserProfileView extends Component<
 				<View style={{ flex: 1 }}>
 					<Image
 						source={{
-							uri:
-								'https://cdn1.iconfinder.com/data/icons/user-pictures/100/unknown-512.png'
+							uri: avatar
 						}}
 						style={styles.profileImg}
-						alt=""
 					/>
 				</View>
 
@@ -172,6 +162,13 @@ class UserProfileView extends Component<
 		);
 	}
 }
+
+const mapStateToProps = (rootState, props) => ({
+	selectedProfileInfo: rootState.authorization.profileInfo
+});
+
+export default connect(mapStateToProps)(UserProfileView);
+
 const styles = StyleSheet.create({
 	profileWrap: {
 		flex: 1,
@@ -235,8 +232,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		width: 70,
-		justifyContent: 'flex-end',
-		alignItems: 'center'
+		justifyContent: 'flex-end'
 	},
 	userIcon: {
 		marginRight: 5,
@@ -244,5 +240,3 @@ const styles = StyleSheet.create({
 		width: 15
 	}
 });
-
-export default UserProfileView;
