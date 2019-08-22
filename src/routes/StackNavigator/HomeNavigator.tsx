@@ -12,6 +12,7 @@ import {
 	Collections_StackNavigator,
 	Movies_StackNavigator
 } from './MenuNavigators';
+import StoryComponent from './../../components/MainPage/Story/StoryCarousel/StoryCarousel'
 
 const HomeNavigator = createDrawerNavigator({
 	Home: {
@@ -59,6 +60,12 @@ const HomeNavigator = createDrawerNavigator({
 		screen: Movies_StackNavigator,
 		navigationOptions: {
 			drawerLabel: 'Movies'
+		}
+	},
+	Story: {
+		screen: StoryComponent,
+		navigationOptions: {
+			header: null
 		}
 	}
 });
