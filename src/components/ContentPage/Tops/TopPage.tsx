@@ -8,7 +8,7 @@ interface IProps {
 const TopPage: React.FC<IProps> = (props) => {
     return (
         <View>
-            <Text>Top page</Text>
+            <Text>{props.navigation.state.params.top.title}</Text>
             <Button title="go back" onPress={() => { props.navigation.goBack() }} />
         </View>
     )
