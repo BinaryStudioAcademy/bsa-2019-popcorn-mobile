@@ -7,7 +7,8 @@ import getFilmDuration from './../../../../helpers/movie.helper';
 const { width } = Dimensions.get('window');
 
 interface IMovieProps {
-    movie: IMovie
+    movie: IMovie;
+    navigation: any;
 }
 
 class MoviePreview extends Component<IMovieProps> {
@@ -15,7 +16,7 @@ class MoviePreview extends Component<IMovieProps> {
         const { poster_path, title, genres, runtime, cast, release_date } = this.props.movie;
         const duration = getFilmDuration(runtime);
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> this.props.navigation.navigate('Movie', { id: this.props.movie.id })}>
                 <View style={styles.movieWrapper}>
                     <Image
                         source={{ uri: config.POSTER_PATH + poster_path || config.DEFAULT_MOVIE_IMAGE }}
@@ -47,9 +48,9 @@ class MoviePreview extends Component<IMovieProps> {
                                 </View>
                             )
                         }
-                        <Text style={[styles.movieInfo, styles.movieInfoBlock]} numberOfLines = { 1 } ellipsizeMode = 'head'>
+                        <Text style={[styles.movieInfo, styles.movieInfoBlock]} numberOfLines = { 1 } >
                             <Text style={styles.bold}>Movie cast: </Text>
-                            {cast || 'Matt Damon, Jessic...'}
+                            {cast || 'Matt Damon, Jessica Chastain, Kristen Wiig'}
                         </Text>
                     </View>
                 </View>
@@ -72,6 +73,7 @@ const styles = StyleSheet.create({
     header: {
         marginVertical: 10,
         flexDirection: 'row',
+        flexWrap: 'wrap',
     },
     durationIcon: {
         height: 20,
@@ -79,7 +81,8 @@ const styles = StyleSheet.create({
         marginRight: 9,
     },
     movieInfoBlock: {
-        marginVertical: 5
+        marginVertical: 5,
+        width: '70%'
     },
     movieTitle: {
         fontFamily: 'Inter-Bold',
