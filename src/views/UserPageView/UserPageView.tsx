@@ -1,9 +1,6 @@
 import UserNavigator from '../../routes/TabNavigator/UserNavigator';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import Spinner from '../../components/Spinner/Spinner';
-import { Alert } from 'react-native';
 
 interface IProps {
 	match: {

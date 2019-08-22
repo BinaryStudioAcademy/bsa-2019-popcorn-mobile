@@ -5,9 +5,7 @@ import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
 import React from 'react';
 import Post from './Post/Post';
-import SocketService from '../../../helpers/socket.helper';
 import IPost from './IPost';
-import { Alert } from 'react-native';
 import Spinner from '../../Spinner/Spinner';
 
 interface IProps {
@@ -21,7 +19,6 @@ interface IProps {
 
 class PostComponent extends React.Component<IProps> {
 	constructor(props) {
-		// Alert.alert('props = ', props.posts[0].user.id);
 		super(props);
 		this.addSocketEvents(props.addPost);
 	}
@@ -47,7 +44,6 @@ class PostComponent extends React.Component<IProps> {
 						return post.user.id == userId;
 				  })
 				: posts;
-			// Alert.alert('userId = ', userId);
 			return (
 				showPosts && (
 					<FlatList
