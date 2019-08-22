@@ -6,6 +6,7 @@ import Messages from '../../views/MessagesView';
 import Collections from '../../views/CollectionsView';
 import SurveyList from '../../components/ContentPage/Surveys/SurveyList';
 import TopList from '../../components/ContentPage/Tops/TopList';
+
 import EventsTab from '../../components/ContentPage/Events/EventTab';
 
 import MovieNavigator from './MovieNavigator';
