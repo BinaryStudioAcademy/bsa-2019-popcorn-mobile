@@ -7,7 +7,7 @@ interface IStoryListItemProps {
     avatar: string;
     caption: string;
     index: number;
-    openStory: (index: number) => void
+    navigation: any;
 }
 
 class StoryPreview extends Component<IStoryListItemProps> {
@@ -30,9 +30,9 @@ class StoryPreview extends Component<IStoryListItemProps> {
     }
 
     render() {
-        const { imageUrl, avatar, caption, index, openStory } = this.props;
+        const { imageUrl, avatar, caption, index, navigation } = this.props;
         return (
-            <TouchableOpacity onPress={() => openStory(index)} style={{ height: 240 }}>
+            <TouchableOpacity onPress={() => navigation.navigate('Story', { index })} style={{ height: 240 }}>
                 {
                     this.renderContent(imageUrl, avatar, caption)
                 }
