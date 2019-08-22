@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
-import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 
 import PostComponent from '../../components/MainPage/Post';
@@ -25,8 +24,6 @@ class UserPosts extends Component<IProps> {
 	}
 	render() {
 		const { selectedProfileInfo } = this.props;
-		// Alert.alert('selectedProfileInfo = ', selectedProfileInfo);
-		// Alert.alert('this.props', this.props);
 		const { posts, getUsersPosts } = this.props;
 		return <PostComponent userId={selectedProfileInfo.id} />;
 	}
