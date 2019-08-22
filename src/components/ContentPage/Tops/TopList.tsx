@@ -1,26 +1,49 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import Tabs from '../Tabs';
+import React, { Component } from 'react';
+import { Text, ScrollView, Button, View } from 'react-native';
+import { fetchTops } from '../../../redux/routines';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Spinner from '../../Spinner/Spinner';
 
 interface IProps {
-    navigation: any
+    navigation: any;
+    fetchTops: () => any;
+    tops: Array<any>;
+    loading: boolean;
 }
 
-const TopList: React.FC<IProps> = (props) => {
-    return (
-        <View style={[styles.container]}>
-            <ScrollView>
-                <Text>Tops</Text>
-            </ScrollView>
-            <Tabs active={"Tops"} navigation={props.navigation}/>
-        </View>
-    )
+class TopList extends Component<IProps> {
+    componentDidMount() {
+        this.props.fetchTops();
+    }
+
+    render() {
+        if (this.props.loading) return <Spinner />
+        console.log(this.props.tops);
+        return (
+            <View>
+               <Text>
+                    lalala
+                </Text>
+            </View>
+        );
+    }
+}
+
+const mapStateToProps = (rootState, props) => ({
+    ...props,
+    tops: rootState.tops.tops,
+    currentUser: rootState.authorization.profileInfo.id,
+    loading: rootState.tops.loading
+});
+
+const actions = {
+    fetchTops
 };
 
-export default TopList;
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
-});
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TopList);

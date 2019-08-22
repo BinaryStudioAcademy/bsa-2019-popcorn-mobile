@@ -71,6 +71,7 @@ class EventList extends Component<IProps, IState> {
     render() {
         const { events } = this.state;
         const { navigation, currentUser, loading } = this.props;
+        if (!events.length && loading) return <Spinner />
         return (
             <ScrollView style={[styles.container]}>
                 {
