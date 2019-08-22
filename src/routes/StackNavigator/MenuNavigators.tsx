@@ -1,18 +1,14 @@
-import React, { Component } from 'react';
 import {
-	createAppContainer,
-	createStackNavigator,
-	createDrawerNavigator
+	createStackNavigator
 } from 'react-navigation';
 import Home from '../../views/HomeView';
 import Messages from '../../views/MessagesView';
 import Collections from '../../views/CollectionsView';
-import EventList from '../../components/ContentPage/Events/EventTab';
 import SurveyList from '../../components/ContentPage/Surveys/SurveyList';
 import TopList from '../../components/ContentPage/Tops/TopList';
-import EventNavigator from '../StackNavigator/EventsNavigator';
 import EventsTab from '../../components/ContentPage/Events/EventTab';
 
+import MovieNavigator from './MovieNavigator';
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
 		screen: Home,
@@ -83,6 +79,19 @@ export const Collections_StackNavigator = createStackNavigator({
 		screen: Collections,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Collections',
+			headerStyle: {
+				backgroundColor: '#FF9800'
+			},
+			headerTintColor: '#fff'
+		})
+	}
+});
+
+export const Movies_StackNavigator = createStackNavigator({
+	Fourth: {
+		screen: MovieNavigator,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Movies',
 			headerStyle: {
 				backgroundColor: '#FF9800'
 			},
