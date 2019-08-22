@@ -14,7 +14,6 @@ interface IProps {
     loading: boolean;
     fetchPosts: () => any;
     addPost: (post: any) => any;
-    onEnableScroll: (value: boolean) => void;
     userId?: string;
 }
 
@@ -39,7 +38,7 @@ class PostComponent extends React.Component<IProps> {
     }
 
     render() {
-        const { posts, onEnableScroll, userId } = this.props;
+        const { posts, userId } = this.props;
 		    if (posts) {
           const showPosts = userId ? 
                 posts.filter(post => post.user.id == userId)
@@ -47,12 +46,6 @@ class PostComponent extends React.Component<IProps> {
           return (
               showPosts && (
                   <FlatList
-                      onTouchStart={() => {
-                          onEnableScroll(false);
-                      }}
-                      onMomentumScrollEnd={() => {
-                          onEnableScroll(true);
-                      }}
                       refreshing={false}
                       data={showPosts}
                       keyExtractor={(item) => item.id}
