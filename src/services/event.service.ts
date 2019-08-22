@@ -43,8 +43,8 @@ export interface IEventFormatDataBase extends IventFormatToSave {
 	eventVisitors: IVisitor[];
 }
 
-interface IVisitor {
-	id: string;
+export interface IVisitor {
+	id?: string;
 	status: string;
 	userId: string;
 	eventId: string;

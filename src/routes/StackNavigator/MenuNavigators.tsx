@@ -7,9 +7,11 @@ import {
 import Home from '../../views/HomeView';
 import Messages from '../../views/MessagesView';
 import Collections from '../../views/CollectionsView';
-import EventList from '../../components/ContentPage/Events/EventList';
+import EventList from '../../components/ContentPage/Events/EventTab';
 import SurveyList from '../../components/ContentPage/Surveys/SurveyList';
 import TopList from '../../components/ContentPage/Tops/TopList';
+import EventNavigator from '../StackNavigator/EventsNavigator';
+import EventsTab from '../../components/ContentPage/Events/EventTab';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -39,7 +41,7 @@ export const Messages_StackNavigator = createStackNavigator({
 
 export const Event_StackNavigator = createStackNavigator({
 	Third: {
-		screen: EventList,
+		screen: EventsTab,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Events',
 			headerStyle: {
