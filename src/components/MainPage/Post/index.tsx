@@ -17,6 +17,7 @@ interface IProps {
     loading: boolean;
     fetchPosts: () => any;
     addPost: (post: any) => any;
+    onEnableScroll: (value: boolean) => void;
 }
 
 class PostComponent extends React.Component<IProps> {
@@ -34,17 +35,23 @@ class PostComponent extends React.Component<IProps> {
         // SocketService.on('new-post', addPost);
     };
 
-    renderPost({ item }){
+    renderPost({ item }) {
         return (
-            <Post post={item}/>
+            <Post post={item} />
         );
     }
 
     render() {
-        const { posts } = this.props;
+        const { posts, onEnableScroll } = this.props;
         return (
             posts && (
                 <FlatList
+                    onTouchStart={() => {
+                        onEnableScroll(false);
+                    }}
+                    onMomentumScrollEnd={() => {
+                        onEnableScroll(true);
+                    }}
                     refreshing={false}
                     data={posts}
                     keyExtractor={(item) => item.id}
