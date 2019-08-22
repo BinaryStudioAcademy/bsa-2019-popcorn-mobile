@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, Button, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { fetchTops } from '../../../redux/routines';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Spinner from '../../Spinner/Spinner';
+import Top from './Top';
 
 interface IProps {
     navigation: any;
@@ -18,14 +19,19 @@ class TopList extends Component<IProps> {
     }
 
     render() {
-        if (this.props.loading) return <Spinner />
+        const { loading, tops, navigation } = this.props;
+        if (loading && !tops.length) return <Spinner />
         console.log(this.props.tops);
         return (
-            <View>
-               <Text>
-                    lalala
-                </Text>
-            </View>
+            <ScrollView style={styles.container}>
+                {
+                    tops.map((top, id) => <Top 
+                        navigation={navigation}
+                        top={top}
+                        key={id}
+                    />)
+                }
+            </ScrollView>
         );
     }
 }
@@ -47,3 +53,9 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(TopList);
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    }
+});
