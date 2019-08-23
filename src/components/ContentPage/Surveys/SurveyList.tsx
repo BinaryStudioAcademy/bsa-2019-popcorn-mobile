@@ -37,9 +37,6 @@ class SurveyList extends React.Component<IProps, IState> {
 				<ScrollView>
 					<View style={styles.surveyList}>
 						<Text style={styles.surveyTitle}>Surveys list</Text>
-						<TouchableOpacity style={styles.surveyAdd}>
-							<Text>Add new survey</Text>
-						</TouchableOpacity>
 						{surveys.map((item, i) => (
 							<Survey key={item.id} data={item} nav={navigation} user={false} />
 						))}

@@ -77,12 +77,9 @@ class Survey extends Component<IProps, IState> {
 
 const mapStateToProps = (rootState, props) => ({
 	...props
-	// loginError: rootState.authorization.loginError
 });
 
-const actions = {
-	// login
-};
+const actions = {};
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
