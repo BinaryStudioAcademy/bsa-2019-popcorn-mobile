@@ -7,7 +7,8 @@ import {
 
 const initialState = {
 	events: [],
-	error: ''
+	error: '',
+	loading: false
 };
 
 export default function(state = initialState, action) {
@@ -20,14 +21,12 @@ export default function(state = initialState, action) {
 		case fetchEvents.SUCCESS:
 			return {
 				...state,
-				events: action.payload,
-				loading: false
+				events: action.payload
 			};
 		case fetchEvents.FAILURE:
 			return {
 				...state,
-				error: action.payload,
-				loading: false
+				error: action.payload
 			};
 		case fetchEvents.FULFILL:
 			return {

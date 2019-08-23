@@ -9,6 +9,7 @@ import TopList from '../../components/ContentPage/Tops/TopList';
 import SurveyNavigator from '../StackNavigator/SurveyNavigator';
 import EventsTab from '../../components/ContentPage/Events/EventTab';
 import MovieNavigator from './MovieNavigator';
+import TopsTab from '../../components/ContentPage/Tops/TopTab';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -39,7 +40,7 @@ export const Event_StackNavigator = createStackNavigator({
 
 export const Top_StackNavigator = createStackNavigator({
 	Fourth: {
-		screen: TopList,
+		screen: TopsTab,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})
