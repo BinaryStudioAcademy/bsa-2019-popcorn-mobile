@@ -15,17 +15,17 @@ const Top: React.FC<IProps> = ({ top, navigation }) => {
                 <View style={styles.firstColumn}>
                     <Image 
                         source={{ uri: topImageUrl || 'https://www.goldderby.com/wp-content/uploads/2017/12/Oscar-statuette-trophy-atmo.png' }} 
-                        style={{ width: 120, height: 80 }}
+                        style={{ width: 110, height: 80 }}
                     />
                 </View>
-                <View>
+                <View style={styles.secondColumn}>
                     <Text style={styles.title}>{title}</Text>
                     {   
                         movieInTop.map((movie, id) => {
                             if (id > 2) return null;
                             return (
-                                <Text style={styles.text} key={id}>
-                                    {id + 1}. {movie.movie.title} {id === 2 && '...'}
+                                <Text numberOfLines={1} style={[styles.text]} key={id}>
+                                    {id + 1}. {movie.movie.title} 
                                 </Text>
                             );
                         })
@@ -38,6 +38,9 @@ const Top: React.FC<IProps> = ({ top, navigation }) => {
                             style={styles.roundImage}
                         />
                     </View>
+                    <Text style={[styles.text, styles.movieAmount]}>
+                        {movieInTop.length} movies
+                    </Text>
                     <Text style={[styles.text, styles.date]}>
                         {Moment(created_at).format('ll')}
                     </Text>
@@ -67,12 +70,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#adadad'
     },
     firstColumn: {
-        marginRight: 7,
+        marginRight: 10,
         justifyContent: 'center'
     },
     thirdColumn: {
         marginLeft: 'auto',
         justifyContent: 'space-between'
+    },
+    secondColumn: {
+        width: '45%'
     },
     userInfo: {
         flexDirection: 'row',
@@ -88,10 +94,19 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 14,
         fontFamily: 'Inter-Regular',
-        color: '#122737'
+        color: '#122737',
+        letterSpacing: 0.4
     },
     date: {
         fontSize: 10,
         color: 'rgba(0, 0, 0, 0.5)'
+    },
+    movieAmount: {
+        fontSize: 10, 
+        textTransform: 'uppercase',
+        fontFamily: 'Inter-Medium',
+        textAlign: 'right',
+        marginTop: 'auto',
+        textDecorationLine: 'underline'
     }
 })
