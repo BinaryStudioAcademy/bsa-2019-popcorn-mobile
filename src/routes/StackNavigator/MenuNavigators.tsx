@@ -5,11 +5,9 @@ import Home from '../../views/HomeView';
 import Messages from '../../views/MessagesView';
 import Collections from '../../views/CollectionsView';
 import SurveyList from '../../components/ContentPage/Surveys/SurveyList';
-import TopList from '../../components/ContentPage/Tops/TopList';
-
 import EventsTab from '../../components/ContentPage/Events/EventTab';
-
 import MovieNavigator from './MovieNavigator';
+import TopsTab from '../../components/ContentPage/Tops/TopTab';
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
 		screen: Home,
@@ -51,7 +49,7 @@ export const Event_StackNavigator = createStackNavigator({
 
 export const Top_StackNavigator = createStackNavigator({
 	Fourth: {
-		screen: TopList,
+		screen: TopsTab,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Tops',
 			headerStyle: {
