@@ -17,7 +17,7 @@ class Root extends Component<IProps> {
 	render() {
 		return (
 			<Provider store={this.props.store}>
-				<HomeNavigator />
+				<App />
 			</Provider>
 		);
 	}
