@@ -7,6 +7,7 @@ import postReducer from '../components/MainPage/Post/reducer';
 import userEventsReducer from '../components/UserPage/Events/reducer';
 import eventsReducer from '../components/ContentPage/Events/reducer';
 import movieReducer from '../components/MainPage/Movie/Movie/reducer';
+import topsReducer from '../components/ContentPage/Tops/reducer';
 
 const reducers = {
 	story: storyReducer,
@@ -16,7 +17,8 @@ const reducers = {
 	post: postReducer,
 	authorization: authReducer,
 	userEvents: userEventsReducer,
-	events: eventsReducer
+	events: eventsReducer,
+	tops: topsReducer
 };
 
 export default combineReducers({

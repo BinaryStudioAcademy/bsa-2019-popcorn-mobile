@@ -7,6 +7,7 @@ import EventSaga from '../components/UserPage/Events/sagas';
 import survey from '../components/ContentPage/Surveys/saga';
 import UserEventsSaga from '../components/UserPage/Events/sagas';
 import MovieSaga from './../components/MainPage/Movie/Movie/saga';
+import TopSaga from '../components/ContentPage/Tops/sagas';
 
 export default function* rootSaga() {
 	yield all([
@@ -17,6 +18,7 @@ export default function* rootSaga() {
 		EventSaga(),
 		survey(),
 		UserEventsSaga(),
-		MovieSaga()
+		MovieSaga(),
+		TopSaga()
 	]);
 }

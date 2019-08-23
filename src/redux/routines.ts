@@ -13,3 +13,4 @@ export const createEventVisitor = createRoutine('CREATE_EVENT_VISITOR');
 export const updateEventVisitor = createRoutine('UPDATE_EVENT_VISITOR');
 export const deleteEventVisitor = createRoutine('DELETE_EVENT_VISITOR');
 export const fetchMovie = createRoutine('FETCH_MOVIE');
+export const fetchTops = createRoutine('FETCH_TOPS');
