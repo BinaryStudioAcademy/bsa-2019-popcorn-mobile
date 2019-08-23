@@ -6,7 +6,7 @@ import MovieComponent from './../components/MainPage/Movie';
 const MovieListView = ({ navigation }) => (
 	<View style={styles.container}>
 		<View style={styles.container}>
-			<MovieComponent/>
+			<MovieComponent />
 		</View>
 	</View>
 );

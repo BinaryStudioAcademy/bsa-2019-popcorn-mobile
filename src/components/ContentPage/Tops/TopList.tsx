@@ -7,54 +7,50 @@ import Spinner from '../../Spinner/Spinner';
 import Top from './Top';
 
 interface IProps {
-    navigation: any;
-    fetchTops: () => any;
-    tops: Array<any>;
-    loading: boolean;
+	navigation: any;
+	fetchTops: () => any;
+	tops: Array<any>;
+	loading: boolean;
 }
 
 class TopList extends Component<IProps> {
-    componentDidMount() {
-        this.props.fetchTops();
-    }
+	componentDidMount() {
+		this.props.fetchTops();
+	}
 
-    render() {
-        const { loading, tops, navigation } = this.props;
-        if (loading && !tops.length) return <Spinner />
-        return (
-            <ScrollView style={styles.container}>
-                {
-                    tops.map((top, id) => <Top 
-                        navigation={navigation}
-                        top={top}
-                        key={id}
-                    />)
-                }
-            </ScrollView>
-        );
-    }
+	render() {
+		const { loading, tops, navigation } = this.props;
+		if (loading && !tops.length) return <Spinner />;
+		return (
+			<ScrollView style={styles.container}>
+				{tops.map((top, id) => (
+					<Top navigation={navigation} top={top} key={id} />
+				))}
+			</ScrollView>
+		);
+	}
 }
 
 const mapStateToProps = (rootState, props) => ({
-    ...props,
-    tops: rootState.tops.tops,
-    currentUser: rootState.authorization.profileInfo.id,
-    loading: rootState.tops.loading
+	...props,
+	tops: rootState.tops.tops,
+	currentUser: rootState.authorization.profileInfo.id,
+	loading: rootState.tops.loading
 });
 
 const actions = {
-    fetchTops
+	fetchTops
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+	mapStateToProps,
+	mapDispatchToProps
 )(TopList);
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
+	container: {
+		flex: 1
+	}
 });
