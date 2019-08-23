@@ -1,4 +1,4 @@
-import { APP_API_URL } from 'react-native-dotenv'
+import { APP_API_URL } from 'react-native-dotenv';
 const config = {
 	API_URL: APP_API_URL || 'http://192.168.0.105:5000',
 	DEFAULT_AVATAR: '/images/default/avatar-default.png',

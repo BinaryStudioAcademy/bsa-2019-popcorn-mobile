@@ -4,26 +4,24 @@ import config from '../../../config';
 import webApi from '../../../helpers/webApi.helper';
 
 function* getTops() {
-    try {
-        yield put(fetchTops.request());
-        const data = yield call(webApi, {
+	try {
+		yield put(fetchTops.request());
+		const data = yield call(webApi, {
 			endpoint: config.API_URL + '/api/top/extended',
 			method: 'GET'
-        });
-        yield put(fetchTops.success(data));
-    } catch(e) {
-        yield put(fetchTops.failure(e.message));
-    } finally {
-        yield put(fetchTops.fulfill());
-    }
+		});
+		yield put(fetchTops.success(data));
+	} catch (e) {
+		yield put(fetchTops.failure(e.message));
+	} finally {
+		yield put(fetchTops.fulfill());
+	}
 }
 
 function* watchFetchTops() {
-    yield takeEvery(fetchTops.trigger, getTops);
+	yield takeEvery(fetchTops.trigger, getTops);
 }
 
 export default function* topsSaga() {
-    yield all([
-        watchFetchTops()
-    ]);
+	yield all([watchFetchTops()]);
 }

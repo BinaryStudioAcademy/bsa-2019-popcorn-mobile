@@ -1,22 +1,21 @@
-import {
-	createStackNavigator
-} from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import Home from '../../views/HomeView';
 import Messages from '../../views/MessagesView';
 import Collections from '../../views/CollectionsView';
+import Header from '../../components/Header/Header';
+import EventList from '../../components/ContentPage/Events/EventList';
 import SurveyList from '../../components/ContentPage/Surveys/SurveyList';
+import TopList from '../../components/ContentPage/Tops/TopList';
+import SurveyNavigator from '../StackNavigator/SurveyNavigator';
 import EventsTab from '../../components/ContentPage/Events/EventTab';
 import MovieNavigator from './MovieNavigator';
 import TopsTab from '../../components/ContentPage/Tops/TopTab';
+
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
 		screen: Home,
 		navigationOptions: ({ navigation }) => ({
-			title: 'Home',
-			headerStyle: {
-				backgroundColor: '#FF9800'
-			},
-			headerTintColor: '#fff'
+			header: Header
 		})
 	}
 });
@@ -25,11 +24,7 @@ export const Messages_StackNavigator = createStackNavigator({
 	Second: {
 		screen: Messages,
 		navigationOptions: ({ navigation }) => ({
-			title: 'Messages',
-			headerStyle: {
-				backgroundColor: '#FF9800'
-			},
-			headerTintColor: '#fff'
+			header: Header
 		})
 	}
 });
@@ -38,11 +33,7 @@ export const Event_StackNavigator = createStackNavigator({
 	Third: {
 		screen: EventsTab,
 		navigationOptions: ({ navigation }) => ({
-			title: 'Events',
-			headerStyle: {
-				backgroundColor: '#FF9800'
-			},
-			headerTintColor: '#fff'
+			header: Header
 		})
 	}
 });
@@ -51,24 +42,16 @@ export const Top_StackNavigator = createStackNavigator({
 	Fourth: {
 		screen: TopsTab,
 		navigationOptions: ({ navigation }) => ({
-			title: 'Tops',
-			headerStyle: {
-				backgroundColor: '#FF9800'
-			},
-			headerTintColor: '#fff'
+			header: Header
 		})
 	}
 });
 
 export const Survey_StackNavigator = createStackNavigator({
 	Fifth: {
-		screen: SurveyList,
+		screen: SurveyNavigator,
 		navigationOptions: ({ navigation }) => ({
-			title: 'Surveys',
-			headerStyle: {
-				backgroundColor: '#FF9800'
-			},
-			headerTintColor: '#fff'
+			header: Header
 		})
 	}
 });
@@ -77,11 +60,7 @@ export const Collections_StackNavigator = createStackNavigator({
 	Sixth: {
 		screen: Collections,
 		navigationOptions: ({ navigation }) => ({
-			title: 'Collections',
-			headerStyle: {
-				backgroundColor: '#FF9800'
-			},
-			headerTintColor: '#fff'
+			header: Header
 		})
 	}
 });
@@ -90,11 +69,7 @@ export const Movies_StackNavigator = createStackNavigator({
 	Fourth: {
 		screen: MovieNavigator,
 		navigationOptions: ({ navigation }) => ({
-			title: 'Movies',
-			headerStyle: {
-				backgroundColor: '#FF9800'
-			},
-			headerTintColor: '#fff'
+			header: Header
 		})
 	}
 });

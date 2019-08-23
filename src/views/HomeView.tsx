@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { ScrollView, View } from 'react-native';
+import styles from '../assets/style';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import { View } from 'react-native';
+
 import PostCompomonent from './../components/MainPage/Post/';
 import StoryComponent from './../components/MainPage/Story/';
 const HomeView = ({ navigation }) => (

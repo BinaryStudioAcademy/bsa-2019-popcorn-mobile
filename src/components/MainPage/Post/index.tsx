@@ -6,15 +6,16 @@ import { FlatList } from 'react-native';
 import React from 'react';
 import Post from './Post/Post';
 import IPost from './IPost';
+
 import Spinner from '../../Spinner/Spinner';
 
 interface IProps {
-    posts?: null | Array<IPost>;
-    error: null | Error;
-    loading: boolean;
-    fetchPosts: () => any;
-    addPost: (post: any) => any;
-    userId?: string;
+	posts?: null | Array<IPost>;
+	error: null | Error;
+	loading: boolean;
+	fetchPosts: () => any;
+	addPost: (post: any) => any;
+	userId?: string;
 }
 
 class PostComponent extends React.Component<IProps> {
@@ -30,34 +31,32 @@ class PostComponent extends React.Component<IProps> {
 	addSocketEvents = addPost => {
 		// SocketService.on('new-post', addPost);
 	};
-    
-    renderPost({ item }) {
-        return (
-            <Post post={item} />
-        );
-    }
 
-    render() {
-        const { posts, userId } = this.props;
-		    if (posts) {
-          const showPosts = userId ? 
-                posts.filter(post => post.user.id == userId)
-                : posts;
-          return (
-              showPosts && (
-                  <FlatList
-                      refreshing={false}
-                      data={showPosts}
-                      keyExtractor={(item) => item.id}
-                      renderItem={({ item }) => this.renderPost({ item })}
-                  />
-              )
-          );
-        } else {
-          return <Spinner />;
-        }
-    }
-};
+	renderPost({ item }) {
+		return <Post post={item} />;
+	}
+
+	render() {
+		const { posts, userId } = this.props;
+		if (posts) {
+			const showPosts = userId
+				? posts.filter(post => post.user.id == userId)
+				: posts;
+			return (
+				showPosts && (
+					<FlatList
+						refreshing={false}
+						data={showPosts}
+						keyExtractor={item => item.id}
+						renderItem={({ item }) => this.renderPost({ item })}
+					/>
+				)
+			);
+		} else {
+			return <Spinner />;
+		}
+	}
+}
 
 const mapStateToProps = (rootState, props) => ({
 	...props,

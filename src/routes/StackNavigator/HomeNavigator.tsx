@@ -12,7 +12,7 @@ import {
 	Collections_StackNavigator,
 	Movies_StackNavigator
 } from './MenuNavigators';
-import StoryComponent from './../../components/MainPage/Story/StoryCarousel/StoryCarousel'
+import StoryComponent from './../../components/MainPage/Story/StoryCarousel/StoryCarousel';
 
 const HomeNavigator = createDrawerNavigator({
 	Home: {
