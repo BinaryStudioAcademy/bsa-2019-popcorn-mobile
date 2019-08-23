@@ -8,7 +8,7 @@ import {
 import config from '../../../config';
 import webApi from '../../../helpers/webApi.helper';
 
-function* getEvents(action) {
+function* getEvents() {
     try {
         yield put(fetchEvents.request());
         const data = yield call(webApi, {
