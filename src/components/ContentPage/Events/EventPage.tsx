@@ -56,7 +56,7 @@ const EventPage: React.FC<IProps> = props => {
 		<ScrollView>
 			<Image
 				source={{
-					uri: { image }
+					uri: image
 				}}
 				style={styles.eventImage}
 			/>
@@ -69,7 +69,6 @@ const EventPage: React.FC<IProps> = props => {
 					</View>
 					<View style={styles.eventTitleWrap}>
 						<Text style={styles.eventTitle}>{title}</Text>
-						// TODO: fetch creator by userId
 						<View style={styles.eventCreatorWrap}>
 							<Text style={styles.eventCreatorLabel}>Creator</Text>
 							<Text style={styles.eventCreator}>Millie Bobbie Brown</Text>
@@ -194,14 +193,14 @@ const EventPage: React.FC<IProps> = props => {
 
 const styles = StyleSheet.create({
 	container: {
-		padding: '3% 10%'
+		padding: '3%'
 	},
 	eventImage: {
 		width: '100%',
 		height: 200
 	},
 	eventMainInfo: {
-		padding: '3% 3%',
+		padding: '3%',
 		flexDirection: 'row',
 		justifyContent: 'flex-start'
 	},
@@ -271,7 +270,7 @@ const styles = StyleSheet.create({
 	eventInfoWrap: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		padding: '2% 3%',
+		padding: '3%',
 		fontFamily: 'Inter-Regular'
 	},
 	eventDate: {},
@@ -280,7 +279,7 @@ const styles = StyleSheet.create({
 	},
 	eventDetails: {
 		flex: 1,
-		padding: '3% 3%'
+		padding: '3%'
 	},
 	eventDetailsTitle: {
 		fontWeight: '600',
@@ -293,7 +292,7 @@ const styles = StyleSheet.create({
 		fontSize: 13
 	},
 	eventVisitorsWrap: {
-		padding: '3% 3%'
+		padding: '3%'
 	},
 	eventVisitorImg: {
 		width: 30,
