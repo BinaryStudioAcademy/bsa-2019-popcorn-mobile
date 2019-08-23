@@ -21,7 +21,6 @@ class TopList extends Component<IProps> {
     render() {
         const { loading, tops, navigation } = this.props;
         if (loading && !tops.length) return <Spinner />
-        console.log(this.props.tops);
         return (
             <ScrollView style={styles.container}>
                 {
