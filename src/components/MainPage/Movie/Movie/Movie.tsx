@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
 		textTransform: 'uppercase'
 	},
 	basicInfoSubTitle: {
-		fontFamily: 'Inter-Refular',
+		fontFamily: 'Inter-Regular',
 		fontSize: 14,
 		lineHeight: 17,
 		letterSpacing: 0.4,
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	moreTitle: {
-		fontFamily: 'Inter-Refular',
+		fontFamily: 'Inter-Regular',
 		fontSize: 10,
 		lineHeight: 12,
 		letterSpacing: 0.4,
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
 		marginBottom: 5
 	},
 	secondSectionSubTitle: {
-		fontFamily: 'Inter-Refular',
+		fontFamily: 'Inter-Regular',
 		fontSize: 10,
 		lineHeight: 11,
 		letterSpacing: 0.4,
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
 		marginBottom: 5
 	},
 	secondSectionInfo: {
-		fontFamily: 'Inter-Refular',
+		fontFamily: 'Inter-Regular',
 		fontSize: 12,
 		lineHeight: 15,
 		letterSpacing: 0.4,
