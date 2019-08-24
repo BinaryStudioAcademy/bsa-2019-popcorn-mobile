@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
 		marginVertical: 5
 	},
 	movieInfo: {
-		fontFamily: 'Inter-Refular',
+		fontFamily: 'Inter-Regular',
 		fontSize: 12,
 		lineHeight: 14,
 		letterSpacing: 0.4,

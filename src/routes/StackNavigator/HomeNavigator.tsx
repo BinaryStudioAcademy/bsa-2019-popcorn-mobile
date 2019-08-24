@@ -10,7 +10,8 @@ import {
 	Survey_StackNavigator,
 	Top_StackNavigator,
 	Collections_StackNavigator,
-	Movies_StackNavigator
+	Movies_StackNavigator,
+	UserPage_StackNavigator
 } from './MenuNavigators';
 import StoryComponent from './../../components/MainPage/Story/StoryCarousel/StoryCarousel';
 
@@ -19,6 +20,12 @@ const HomeNavigator = createDrawerNavigator({
 		screen: FirstActivity_StackNavigator,
 		navigationOptions: {
 			drawerLabel: 'Home'
+		}
+	},
+	Profile: {
+		screen: UserPage_StackNavigator,
+		navigationOptions: {
+			drawerLabel: 'My profile'
 		}
 	},
 
