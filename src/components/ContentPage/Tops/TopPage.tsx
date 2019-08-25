@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ImageBackground, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
 import Moment from 'moment';
 import config from '../../../config';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface IProps {
 	navigation: any;
@@ -67,6 +68,11 @@ const TopPage: React.FC<IProps> = ({ navigation }) => {
 					</View>
 				</View>)
 			}
+			<TouchableOpacity onPress={() => { navigation.goBack() }}>
+				<Text style={styles.button}>
+					Go back
+				</Text>
+			</TouchableOpacity>
 		</ParallaxScrollView>
 	);
 };
@@ -152,5 +158,19 @@ const styles = StyleSheet.create({
 	comment: {
 		fontSize: 16, 
 		flex: 5
+	},
+	button: {
+		width: 175,
+		height: 37,
+		backgroundColor: '#FF6501',
+		marginTop: 22,
+		borderRadius: 55,
+		textAlign: 'center',
+		lineHeight: 36,
+		fontSize: 18,
+		color: 'white',
+		fontFamily: 'Inter-SemiBold',
+		margin: 20,
+		alignSelf: 'center'
 	}
 })
