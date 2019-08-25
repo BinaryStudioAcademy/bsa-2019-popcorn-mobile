@@ -171,6 +171,7 @@ export default connect(mapStateToProps)(UserProfileView);
 
 const styles = StyleSheet.create({
 	profileWrap: {
+		height: 300,
 		flex: 1,
 		paddingTop: 10,
 		paddingLeft: 10,
