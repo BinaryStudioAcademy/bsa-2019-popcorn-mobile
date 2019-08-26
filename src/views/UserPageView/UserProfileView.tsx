@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import config from '../../config';
 import ISelectedProfileInfo from './SelectedProfileInterfase';
 
-type ProfileProps = {
+type IProfileProps = {
 	profileInfo: ISelectedProfileInfo;
 	uploadAvatar?: (FormData, string) => any;
 	uploadUrl?: string;
@@ -63,8 +63,8 @@ const mockProfileInfo = {
 	id: 1
 };
 
-class UserProfileView extends Component<IProps> {
-	constructor(props: ProfileProps) {
+class UserProfileView extends Component<IProfileProps> {
+	constructor(props: IProfileProps) {
 		super(props);
 	}
 
