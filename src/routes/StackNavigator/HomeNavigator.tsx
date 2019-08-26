@@ -10,7 +10,8 @@ import {
 	Survey_StackNavigator,
 	Top_StackNavigator,
 	Collections_StackNavigator,
-	Movies_StackNavigator
+	Movies_StackNavigator,
+	Notifications_Navigator
 } from './MenuNavigators';
 import StoryComponent from './../../components/MainPage/Story/StoryCarousel/StoryCarousel';
 
@@ -66,6 +67,12 @@ const HomeNavigator = createDrawerNavigator({
 		screen: StoryComponent,
 		navigationOptions: {
 			header: null
+		}
+	},
+	Notifications: {
+		screen: Notifications_Navigator,
+		navigationOptions: {
+			drawerLabel: () => null
 		}
 	}
 });
