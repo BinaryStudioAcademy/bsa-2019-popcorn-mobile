@@ -4,7 +4,10 @@ import { Text, View } from 'react-native';
 export class Tops extends Component {
 	render() {
 		return (
-			<View style={{ backgroundColor: 'pink' }}>
+			<View>
+				<Text>Tops</Text>
+				<Text>Tops</Text>
+				<Text>Tops</Text>
 				<Text>Tops</Text>
 			</View>
 		);
@@ -13,9 +16,7 @@ export class Tops extends Component {
 export class UserPosts extends Component {
 	render() {
 		return (
-			<View style={{ backgroundColor: 'pink' }}>
-				<Text>Posts</Text>
-				<Text>Posts</Text>
+			<View>
 				<Text>Posts</Text>
 				<Text>Posts</Text>
 				<Text>Posts</Text>
@@ -27,7 +28,10 @@ export class UserPosts extends Component {
 export class Surveys extends Component {
 	render() {
 		return (
-			<View style={{ backgroundColor: 'pink' }}>
+			<View>
+				<Text>Surveys</Text>
+				<Text>Surveys</Text>
+				<Text>Surveys</Text>
 				<Text>Surveys</Text>
 			</View>
 		);
@@ -36,7 +40,10 @@ export class Surveys extends Component {
 export class Lists extends Component {
 	render() {
 		return (
-			<View style={{ backgroundColor: 'pink' }}>
+			<View>
+				<Text>Lists</Text>
+				<Text>Lists</Text>
+				<Text>Lists</Text>
 				<Text>Lists</Text>
 			</View>
 		);
@@ -45,7 +52,10 @@ export class Lists extends Component {
 export class Watched extends Component {
 	render() {
 		return (
-			<View style={{ backgroundColor: 'pink' }}>
+			<View>
+				<Text>Watched</Text>
+				<Text>Watched</Text>
+				<Text>Watched</Text>
 				<Text>Watched</Text>
 			</View>
 		);
@@ -54,7 +64,10 @@ export class Watched extends Component {
 export class Reviews extends Component {
 	render() {
 		return (
-			<View style={{ backgroundColor: 'pink' }}>
+			<View>
+				<Text>Reviews</Text>
+				<Text>Reviews</Text>
+				<Text>Reviews</Text>
 				<Text>Reviews</Text>
 			</View>
 		);
@@ -63,7 +76,7 @@ export class Reviews extends Component {
 export class Events extends Component {
 	render() {
 		return (
-			<View style={{ backgroundColor: 'pink' }}>
+			<View>
 				<Text>Events</Text>
 				<Text>Events</Text>
 				<Text>Events</Text>
