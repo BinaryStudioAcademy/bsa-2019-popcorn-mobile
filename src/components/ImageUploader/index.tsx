@@ -3,8 +3,6 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 
-const camera = require('../../assets/general/camera.svg');
-
 interface IProps {
 	saveUrl: (url: string) => void;
 	src: any;
@@ -13,14 +11,18 @@ interface IProps {
 class ImageUploader extends React.Component<IProps> {
 	showPicker() {
 		ImagePicker.showImagePicker({}, response => {
-			alert(JSON.stringify(response));
+			if (response.didCancel || !response.data) return;
+			const file = response.data;
+
+			const data = new FormData();
+			data.append('file', file);
 		});
 	}
 
 	render() {
 		return (
 			<TouchableOpacity onPress={this.showPicker}>
-				<SvgUri height={30} width={30} source={this.props.src} />
+				<SvgUri height={48} width={48} source={this.props.src} />
 			</TouchableOpacity>
 		);
 	}
