@@ -10,7 +10,6 @@ interface IProps {
 }
 
 const TopPage: React.FC<IProps> = ({ navigation }) => {
-	console.log(navigation.state.params.top);
 	const { 
 		title, 
 		description, 
