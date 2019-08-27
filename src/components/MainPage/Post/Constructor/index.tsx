@@ -25,6 +25,7 @@ const uuid = require('uuid/v4');
 interface IProps {
 	sendPost: (post: IPost) => any;
 	profileInfo: IUser;
+	navigation: any;
 }
 
 interface IState {
@@ -43,6 +44,7 @@ class PostConstructor extends Component<IProps, IState> {
 	render() {
 		const { image_url } = this.state;
 
+		console.warn(this.props);
 		return (
 			<View style={{ flex: 1 }}>
 				<Header />
@@ -67,7 +69,9 @@ class PostConstructor extends Component<IProps, IState> {
 						src={camera}
 					/>
 					<TouchableOpacity
-						onPress={() => this.setState({ modalVisible: true })}
+						onPress={() =>
+							this.props.navigation.navigate('ChooseExtra', { param: 'Hy' })
+						}
 					>
 						<SvgUri height={48} width={48} source={paperclip} />
 					</TouchableOpacity>
@@ -85,15 +89,6 @@ class PostConstructor extends Component<IProps, IState> {
 				>
 					<Text style={styles.button}>Save</Text>
 				</TouchableOpacity>
-				<Modal
-					animationType="slide"
-					transparent={false}
-					visible={this.state.modalVisible}
-				>
-					<View>
-						<ChooseExtra />
-					</View>
-				</Modal>
 			</View>
 		);
 	}
