@@ -92,6 +92,13 @@ class Movie extends Component<IMovieProps, IState> {
 
 	render() {
 		const { movie } = this.props;
+		let parsedGenres;
+		let parsedCast;
+		if (movie) {
+			parsedGenres = JSON.parse(movie.genres).map(genre => genre.name);
+			parsedCast = JSON.parse(movie.cast).map(actor => actor.name);
+		}
+		console.log(movie);
 		const { firstSection, secondSection, thirdSection } = this.state;
 		return movie ? (
 			<View style={styles.movieWrapper}>
@@ -154,8 +161,8 @@ class Movie extends Component<IMovieProps, IState> {
 						<View>
 							<View style={styles.secondSectionInfowWrapperHeader}>
 								<Text style={styles.secondSectionSubTitle}>
-									{movie.release_date ? movie.release_date.slice(0, 4) : null},
-									Drama
+									{movie.release_date ? movie.release_date.slice(0, 4) : null}, 
+									{parsedGenres.join(', ')}
 								</Text>
 								<View style={styles.rateBlock}>
 									{this.rateBlock(
@@ -188,7 +195,7 @@ class Movie extends Component<IMovieProps, IState> {
 									</Text>
 									<Text style={styles.secondSectionInfo} numberOfLines={1}>
 										<Text style={styles.bold}>Stars: </Text>
-										{'Samuel L. Jackson, Kurt Russell, Jennifer Aniston'}
+										{parsedCast.join(', ')}
 									</Text>
 									<TouchableOpacity>
 										<Text style={[styles.text, styles.button]}>
