@@ -50,7 +50,10 @@ class PostConstructor extends Component<IProps, IState> {
 				</View>
 				<View style={styles.iconsWrp}>
 					<ImageUploader
-						saveUrl={(image_url: string) => this.setState({ image_url })}
+						saveUrl={(image_url: string) => {
+							alert(image_url);
+							this.setState({ image_url });
+						}}
 						src={camera}
 					/>
 					<SvgUri height={48} width={48} source={paperclip} />
