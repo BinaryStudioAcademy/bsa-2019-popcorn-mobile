@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
 import Moment from 'moment';
 import config from '../../../config';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 interface IProps {
 	navigation: any;
@@ -50,23 +50,34 @@ const TopPage: React.FC<IProps> = ({ navigation }) => {
 		>	
 			<Text style={[styles.text, styles.description]}>{description}</Text>
 			{
-				movieInTop.map((movie, i) => <View style={styles.topItem} key={i}>
-					<Image
-						source={{
-							uri:
-								config.POSTER_PATH + movie.movie.poster_path || config.DEFAULT_MOVIE_IMAGE
-						}}
-						style={styles.poster}
-						resizeMode="contain"
-					/>
-					<View style={{ marginLeft: 15, flex: 1 }}>
-						<View style={styles.titleContainer}>
-							<Text style={[styles.text, styles.number]}>{i + 1}</Text> 
-							<Text style={[styles.text, styles.movieTitle]}>{movie.movie.title}</Text>
+				movieInTop.map((movie, i) => <TouchableWithoutFeedback>
+					<TouchableOpacity 
+						style={styles.topItem} 
+						key={i}
+						onPress={() => { navigation.navigate('Movie', { id:  movie.movieId})  }}
+					>
+						<Image
+							source={{
+								uri:
+									config.POSTER_PATH + movie.movie.poster_path || config.DEFAULT_MOVIE_IMAGE
+							}}
+							style={styles.poster}
+							resizeMode="contain"
+						/>
+						<View style={{ marginLeft: 15, flex: 1 }}>
+							<View style={styles.titleContainer}>
+								<Text style={[styles.text, styles.number]}>{i + 1}</Text> 
+								<Text style={[styles.text, styles.movieTitle]}>{movie.movie.title}</Text>
+							</View>
+							<Text style={[styles.text, styles.comment]}>{movie.comment}</Text>
+							<TouchableWithoutFeedback>
+								<TouchableOpacity style={[styles.watchListBttn]}>
+									<Text style={styles.bttnText}>Add to Watchlist</Text>
+								</TouchableOpacity>
+							</TouchableWithoutFeedback>
 						</View>
-						<Text style={[styles.text, styles.comment]}>{movie.comment}</Text>
-					</View>
-				</View>)
+					</TouchableOpacity>
+				</TouchableWithoutFeedback>)
 			}
 			<TouchableOpacity onPress={() => { navigation.goBack() }}>
 				<Text style={styles.button}>
@@ -149,15 +160,13 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	titleContainer: {
-		flex: 1,
-		marginBottom: 15,
+		marginBottom: 20,
 		flexDirection: 'row',
 		alignItems: 'flex-start',
 		width: '100%'
 	},
 	comment: {
-		fontSize: 16, 
-		flex: 5
+		fontSize: 16
 	},
 	button: {
 		width: 175,
@@ -172,5 +181,22 @@ const styles = StyleSheet.create({
 		fontFamily: 'Inter-SemiBold',
 		margin: 20,
 		alignSelf: 'center'
+	},
+	watchListBttn: {	
+		width: 130,
+		flexDirection: 'row',
+		flexWrap: 'nowrap',
+		height: 25,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: '#FF6501',
+		marginTop: 20,
+		borderRadius: 55,
+		padding: 2,
+		marginBottom: 10
+	},
+	bttnText: {
+		fontFamily: 'Inter-Medium',
+		color: 'white'
 	}
 })
