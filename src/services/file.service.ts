@@ -4,7 +4,6 @@ import RNFetchBlob from 'react-native-fetch-blob';
 
 export const uploadFile = async (base64ImageData: string, format: string) => {
 	const token = await Storage.get('token');
-	let imgSrc = 'data:image/png;base64,' + base64ImageData;
 	const response = await RNFetchBlob.fetch(
 		'POST',
 		`${config.API_URL}/api/image/upload`,
@@ -12,8 +11,36 @@ export const uploadFile = async (base64ImageData: string, format: string) => {
 			Authorization: `Bearer ${token}`,
 			'Content-Type': 'multipart/form-data'
 		},
-		[{ name: 'image', filename: 'img' + format, data: imgSrc }]
+		[{ name: 'image', filename: format, type: format, data: base64ImageData }]
 	);
+	const { imageUrl } = await response.json();
+
+	let url;
+	url =
+		imageUrl.indexOf('\\') !== -1 ? imageUrl.split(`\\`) : imageUrl.split(`/`);
+	url.shift();
+	url = url.join('/');
+
+	return config.API_URL + '/' + url;
+};
+
+export const uploadBase64 = async (
+	base64DataString: string,
+	format: string
+) => {
+	const token = await Storage.get('token');
+	const response = await fetch(`${config.API_URL}/api/image/upload`, {
+		body: JSON.stringify({
+			base: base64DataString,
+			format
+		}),
+		headers: {
+			Authorization: `Bearer ${token}`,
+			'Content-Type': 'octet-stream'
+		},
+		method: 'POST'
+	});
+
 	const { imageUrl } = await response.json();
 
 	let url;
