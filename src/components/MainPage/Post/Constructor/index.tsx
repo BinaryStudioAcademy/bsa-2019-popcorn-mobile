@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Button, Image, TextInput, View } from 'react-native';
+import {
+	Image,
+	Modal,
+	Text,
+	TextInput,
+	TouchableOpacity,
+	View
+} from 'react-native';
 import Header from '../../../Header/Header';
 import styles from './styles';
 import SvgUri from 'react-native-svg-uri';
@@ -9,6 +16,7 @@ import { sendPost } from '../actions';
 import IPost from '../IPost';
 import IUser from '../../../UserPage/IUser';
 import ImageUploader from '../../../ImageUploader';
+import ChooseExtra from './ChooseExtra';
 
 const camera = require('../../../../assets/general/camera.svg');
 const paperclip = require('../../../../assets/general/paperclip.svg');
@@ -22,31 +30,33 @@ interface IProps {
 interface IState {
 	description: string;
 	image_url: string;
+	modalVisible: boolean;
 }
 
 class PostConstructor extends Component<IProps, IState> {
 	state = {
 		description: '',
-		image_url: ''
+		image_url: '',
+		modalVisible: false
 	};
 
 	render() {
 		const { image_url } = this.state;
 
 		return (
-			<View>
+			<View style={{ flex: 1 }}>
 				<Header />
-				{image_url ? (
+				<View style={styles.mainView}>
 					<View style={styles.iconsWrp}>
 						<Image style={styles.roundImage} source={{ uri: image_url }} />
 					</View>
-				) : null}
-				<View style={styles.iconsWrp}>
-					<TextInput
-						style={styles.input}
-						value={this.state.description}
-						onChangeText={description => this.setState({ description })}
-					/>
+					<View style={styles.iconsWrp}>
+						<TextInput
+							style={styles.input}
+							value={this.state.description}
+							onChangeText={description => this.setState({ description })}
+						/>
+					</View>
 				</View>
 				<View style={styles.iconsWrp}>
 					<ImageUploader
@@ -56,19 +66,34 @@ class PostConstructor extends Component<IProps, IState> {
 						}}
 						src={camera}
 					/>
-					<SvgUri height={48} width={48} source={paperclip} />
+					<TouchableOpacity
+						onPress={() => this.setState({ modalVisible: true })}
+					>
+						<SvgUri height={48} width={48} source={paperclip} />
+					</TouchableOpacity>
 				</View>
-				<Button
-					title={'Save'}
-					disabled={false}
-					onPress={() =>
-						this.props.sendPost({
-							id: uuid(),
-							...this.state,
-							user: { ...this.props.profileInfo }
-						})
+				<TouchableOpacity
+					style={styles.buttonWrp}
+					onPress={
+						() => null
+						// this.props.sendPost({
+						//     id: uuid(),
+						//     ...this.state,
+						//     user: {...this.props.profileInfo}
+						// })
 					}
-				/>
+				>
+					<Text style={styles.button}>Save</Text>
+				</TouchableOpacity>
+				<Modal
+					animationType="slide"
+					transparent={false}
+					visible={this.state.modalVisible}
+				>
+					<View>
+						<ChooseExtra />
+					</View>
+				</Modal>
 			</View>
 		);
 	}

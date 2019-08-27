@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 
+const orange = '#ffab07';
 export default StyleSheet.create({
 	input: {
 		width: '80%',
@@ -9,7 +10,8 @@ export default StyleSheet.create({
 		padding: 12,
 		paddingLeft: 15,
 		fontSize: 16,
-		borderRadius: 3
+		borderRadius: 3,
+		height: 80
 	},
 	iconsWrp: {
 		display: 'flex',
@@ -23,5 +25,46 @@ export default StyleSheet.create({
 		borderRadius: 20,
 		margin: 9,
 		backgroundColor: '#adadad'
+	},
+	extraItemWrp: {
+		width: '100%',
+		alignItems: 'center',
+		backgroundColor: '#f2f2f2',
+		flex: 1
+	},
+	extraItem: {
+		width: 200,
+		borderColor: orange,
+		borderWidth: 1,
+		borderRadius: 5,
+		padding: 5,
+		fontSize: 18,
+		marginBottom: 10,
+		justifyContent: 'center',
+		flexDirection: 'row',
+		display: 'flex'
+	},
+	buttonWrp: {
+		flex: 1,
+		display: 'flex',
+		justifyContent: 'flex-end',
+		width: '100%',
+		height: '100%'
+	},
+	button: {
+		width: '100%',
+		height: 37,
+		backgroundColor: '#FF6501',
+		marginTop: 22,
+		borderRadius: 55,
+		textAlign: 'center',
+		lineHeight: 36,
+		fontSize: 18,
+		color: 'white',
+		fontFamily: 'Inter-SemiBold'
+	},
+	mainView: {
+		display: 'flex',
+		justifyContent: 'space-between'
 	}
 });
