@@ -11,7 +11,7 @@ export default StyleSheet.create({
 		paddingLeft: 15,
 		fontSize: 16,
 		borderRadius: 3,
-		height: 100
+		height: 150
 	},
 	iconsWrp: {
 		display: 'flex',
@@ -130,5 +130,13 @@ export default StyleSheet.create({
 		justifyContent: 'space-between',
 		width: '100%',
 		alignItems: 'center'
+	},
+	center: {
+		display: 'flex',
+		justifyContent: 'center',
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginTop: 'auto',
+		marginBottom: 'auto'
 	}
 });
