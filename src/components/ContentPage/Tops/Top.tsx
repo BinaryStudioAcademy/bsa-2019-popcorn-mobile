@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Moment from 'moment';
+import ITop from './ITop';
 
 interface IProps {
 	navigation: any;
-	top: any;
+	top: ITop;
 }
 
 const Top: React.FC<IProps> = ({ top, navigation }) => {
