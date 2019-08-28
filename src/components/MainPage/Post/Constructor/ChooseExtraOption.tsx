@@ -6,6 +6,7 @@ import styles from './styles';
 import { fetchUserEvents } from '../../../../redux/routines';
 import SvgUri from 'react-native-svg-uri';
 import IUser from '../../../UserPage/IUser';
+
 const arrow = require('../../../../assets/general/arrow-circle-o-left.svg');
 
 interface IProps {
@@ -17,11 +18,11 @@ interface IProps {
 
 class ChooseExtraOption extends React.Component<IProps> {
 	render() {
-		const { option } = this.props.navigation.state.params;
+		const { option: type } = this.props.navigation.state.params;
 
 		let options: any = [];
 
-		switch (option) {
+		switch (type) {
 			case 'event':
 				const { events, profileInfo, fetchUserEvents } = this.props;
 				if (!events || events.length === 0) fetchUserEvents(profileInfo.id);
@@ -35,7 +36,13 @@ class ChooseExtraOption extends React.Component<IProps> {
 		return (
 			<View style={styles.extraItemWrp}>
 				{options.map(option => (
-					<Text style={styles.extraItem}>{option.title}</Text>
+					<TouchableOpacity
+						onPress={() =>
+							this.props.navigation.navigate('Basic', { option, type })
+						}
+					>
+						<Text style={styles.extraItem}>{option.title}</Text>
+					</TouchableOpacity>
 				))}
 				<View style={styles.iconsWrp}>
 					<TouchableOpacity onPress={() => this.props.navigation.pop()}>
