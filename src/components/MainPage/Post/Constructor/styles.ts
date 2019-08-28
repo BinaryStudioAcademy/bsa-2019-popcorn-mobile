@@ -87,5 +87,8 @@ export default StyleSheet.create({
 		position: 'absolute',
 		right: 0,
 		top: 0
+	},
+	disabledBtn: {
+		backgroundColor: '#efd69a'
 	}
 });
