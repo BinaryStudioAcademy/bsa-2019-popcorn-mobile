@@ -8,11 +8,12 @@ import Moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 interface IProps {
-	clearExtra: () => any;
+	clearExtra?: () => any;
 	navigation: any;
 	data: any;
 	type: string;
 	user: IUser;
+	onSave?: () => any;
 }
 
 const renderTopView = data => {
@@ -69,7 +70,7 @@ const renderSurveyView = data => {
 };
 
 const Extra = (props: IProps) => {
-	const { type, data, user } = props;
+	const { type, data, user, onSave } = props;
 
 	const viewActivity = () => {
 		switch (type) {
@@ -99,7 +100,7 @@ const Extra = (props: IProps) => {
 	}
 	return (
 		<View style={styles.extra}>
-			<TouchableOpacity onPress={viewActivity}>
+			<TouchableOpacity onPress={() => (onSave ? onSave() : viewActivity())}>
 				{renderView(data)}
 			</TouchableOpacity>
 			{props.clearExtra && (

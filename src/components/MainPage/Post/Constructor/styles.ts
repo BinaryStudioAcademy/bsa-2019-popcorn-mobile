@@ -15,6 +15,7 @@ export default StyleSheet.create({
 		height: 150
 	},
 	iconsWrp: {
+		width: '100%',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'center',
@@ -27,7 +28,7 @@ export default StyleSheet.create({
 	},
 	extraItemWrp: {
 		width: '100%',
-		alignItems: 'center',
+		alignItems: 'flex-start',
 		backgroundColor: '#f2f2f2',
 		flex: 1
 	},
@@ -66,7 +67,7 @@ export default StyleSheet.create({
 		flex: 1
 	},
 	extra: {
-		marginTop: 10,
+		marginTop: 5,
 		marginRight: 25,
 		marginBottom: 15,
 		marginLeft: 25,
@@ -139,5 +140,10 @@ export default StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		height: imageHeight
+	},
+	grid: {
+		paddingTop: 15,
+		width: '100%',
+		flex: 1
 	}
 });
