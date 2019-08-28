@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Spinner from '../../Spinner/Spinner';
 import Top from './Top';
+import ITop from './ITop';
 
 interface IProps {
 	navigation: any;
 	fetchTops: () => any;
-	tops: Array<any>;
+	tops: Array<ITop>;
 	loading: boolean;
 }
 
