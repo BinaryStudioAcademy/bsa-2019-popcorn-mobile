@@ -28,6 +28,7 @@ interface IState {
 	modalVisible: boolean;
 	title: string | null;
 	link: string | null;
+	disabled: boolean;
 }
 
 class PostConstructor extends Component<IProps, IState> {
@@ -36,9 +37,15 @@ class PostConstructor extends Component<IProps, IState> {
 		image_url: '',
 		modalVisible: false,
 		title: null,
-		link: null
+		link: null,
+		disabled: true
 	};
 
+	validate() {
+		const { description, image_url } = this.state;
+		if (description && image_url) this.setState({ disabled: false });
+		else this.setState({ disabled: true });
+	}
 	addExtra(item, option = '') {
 		this.setState({
 			title: item.title,
@@ -65,7 +72,10 @@ class PostConstructor extends Component<IProps, IState> {
 						<TextInput
 							style={styles.input}
 							value={description}
-							onChangeText={description => this.setState({ description })}
+							onChangeText={description => {
+								this.setState({ description });
+								this.validate();
+							}}
 						/>
 					</View>
 				</View>
@@ -73,8 +83,8 @@ class PostConstructor extends Component<IProps, IState> {
 					<View style={styles.iconsWrp}>
 						<ImageUploader
 							saveUrl={(image_url: string) => {
-								alert(image_url);
 								this.setState({ image_url });
+								this.validate();
 							}}
 							src={camera}
 						/>
@@ -107,8 +117,16 @@ class PostConstructor extends Component<IProps, IState> {
 							user: { ...this.props.profileInfo }
 						})
 					}
+					disabled={this.state.disabled}
 				>
-					<Text style={styles.button}>Save</Text>
+					<Text
+						style={[
+							styles.button,
+							this.state.disabled ? styles.disabledBtn : {}
+						]}
+					>
+						Save
+					</Text>
 				</TouchableOpacity>
 			</View>
 		);
