@@ -5,7 +5,7 @@ import MoviesSaga from './../components/MainPage/Movie/sagas';
 import PostSaga from './../components/MainPage/Post/sagas';
 import EventSaga from '../components/ContentPage/Events/sagas';
 import survey from '../components/ContentPage/Surveys/saga';
-import UserEventsSaga from '../components/UserPage/Events/sagas';
+import UserEventsSaga from '../components/UserPage/redux/sagas';
 import MovieSaga from './../components/MainPage/Movie/Movie/saga';
 import TopSaga from '../components/ContentPage/Tops/sagas';
 

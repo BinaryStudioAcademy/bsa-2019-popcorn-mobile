@@ -156,7 +156,7 @@ const EventPage: React.FC<IProps> = props => {
 								interestedUsers.map(user => (
 									<Image
 										source={{
-											uri: user.user.avatar
+											uri: user.avatar
 										}}
 										style={styles.eventVisitorImg}
 									/>
@@ -170,7 +170,7 @@ const EventPage: React.FC<IProps> = props => {
 								goingUsers.map(user => (
 									<Image
 										source={{
-											uri: user.user.avatar
+											uri: user.avatar
 										}}
 										style={styles.eventVisitorImg}
 									/>
@@ -179,14 +179,18 @@ const EventPage: React.FC<IProps> = props => {
 					</View>
 				</View>
 			</View>
-			<TouchableOpacity
-				style={styles.buttonWrap}
-				onPress={() => {
-					props.navigation.navigate('EventList');
-				}}
-			>
-				<Text style={[styles.text, styles.button]}>Go back</Text>
-			</TouchableOpacity>
+			{/*<TouchableOpacity*/}
+			{/*	style={styles.buttonWrap}*/}
+			{/*	onPress={() => {*/}
+			{/*		// const { navigation } = props;*/}
+			{/*		*/}
+			{/*		// const { routeName, key } = navigation.getParam('prevState');*/}
+
+			{/*		// navigation.navigate({ routeName, key, params: {} });*/}
+			{/*	}}*/}
+			{/*>*/}
+			{/*	<Text style={[styles.text, styles.button]}>Go back</Text>*/}
+			{/*</TouchableOpacity>*/}
 		</ScrollView>
 	);
 };
