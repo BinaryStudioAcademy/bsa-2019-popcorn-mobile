@@ -11,7 +11,7 @@ export default StyleSheet.create({
 		paddingLeft: 15,
 		fontSize: 16,
 		borderRadius: 3,
-		height: 80
+		height: 100
 	},
 	iconsWrp: {
 		display: 'flex',
@@ -20,10 +20,8 @@ export default StyleSheet.create({
 		margin: 5
 	},
 	roundImage: {
-		width: '80%',
 		height: 200,
 		borderRadius: 20,
-		margin: 9,
 		backgroundColor: '#adadad'
 	},
 	extraItemWrp: {
@@ -45,11 +43,7 @@ export default StyleSheet.create({
 		display: 'flex'
 	},
 	buttonWrp: {
-		flex: 1,
-		display: 'flex',
-		justifyContent: 'flex-end',
-		width: '100%',
-		height: '100%'
+		width: '100%'
 	},
 	button: {
 		width: '100%',
@@ -64,8 +58,11 @@ export default StyleSheet.create({
 		fontFamily: 'Inter-SemiBold'
 	},
 	mainView: {
+		marginTop: 10,
+		width: '100%',
 		display: 'flex',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
+		flex: 1
 	},
 	extra: {
 		marginTop: 10,
@@ -79,8 +76,11 @@ export default StyleSheet.create({
 		justifyContent: 'flex-start'
 	},
 	IconExtraWrp: {
+		width: '100%',
 		display: 'flex',
-		justifyContent: 'space-between'
+		flexDirection: 'row',
+		justifyContent: 'center',
+		height: 42
 	},
 	timesCircle: {
 		position: 'absolute',
@@ -89,5 +89,10 @@ export default StyleSheet.create({
 	},
 	disabledBtn: {
 		backgroundColor: '#efd69a'
+	},
+	UploadWrp: {
+		width: '85%',
+		marginLeft: 'auto',
+		marginRight: 'auto'
 	}
 });

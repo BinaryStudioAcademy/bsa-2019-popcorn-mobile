@@ -12,6 +12,24 @@ interface IProps {
 	user: IUser;
 }
 
+const renderTopView = data => {
+	const movie = data.movieInTop
+		.filter((movie, index) => index < 3)
+		.map((movie, index) => (
+			<Text>{`${index + 1}. ${movie.movie.original_title}`}</Text>
+		));
+	console.warn(
+		'movie',
+		JSON.stringify(data.movieInTop[0].movie.original_title)
+	);
+	return (
+		<View>
+			<Text>{data.title}</Text>
+			{movie}
+		</View>
+	);
+};
+
 const Extra = (props: IProps) => {
 	const { type, data, user } = props;
 
@@ -20,13 +38,25 @@ const Extra = (props: IProps) => {
 			case 'event':
 				props.navigation.navigate('EventPage', { event: { ...data, ...user } });
 				break;
+			case 'top':
+				props.navigation.navigate('TopPage', {
+					top: { ...data, user: { ...user } }
+				});
+				break;
 		}
 	};
 
+	let renderView = (data: any) => <Text>{data.title}</Text>;
+
+	switch (type) {
+		case 'top':
+			renderView = renderTopView;
+	}
+	console.warn(data);
 	return (
 		<View style={styles.extra}>
 			<TouchableOpacity onPress={viewActivity}>
-				<Text>{data.title}</Text>
+				{renderView(data)}
 			</TouchableOpacity>
 			<TouchableOpacity
 				onPress={() => props.clearExtra()}

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import Header from '../../../Header/Header';
 import styles from './styles';
 import SvgUri from 'react-native-svg-uri';
 import { bindActionCreators } from 'redux';
@@ -8,13 +7,13 @@ import { connect } from 'react-redux';
 import { sendPost } from '../actions';
 import IPost from '../IPost';
 import IUser from '../../../UserPage/IUser';
-import ImageUploader from '../../../ImageUploader';
-import ChooseExtra from './ChooseExtra';
-import Extra from './Extra';
 import Spinner from '../../../Spinner/Spinner';
+import ImageUploader from '../../../ImageUploader';
+import Extra from './Extra';
 
-const camera = require('../../../../assets/general/camera.svg');
-const paperclip = require('../../../../assets/general/paperclip.svg');
+const poll = require('../../../../assets/general/Poll-01.svg');
+const cup = require('../../../../assets/general/trophy.svg');
+const calendar = require('../../../../assets/general/calendar.svg');
 const uuid = require('uuid/v4');
 
 interface IProps {
@@ -49,6 +48,7 @@ class PostConstructor extends Component<IProps, IState> {
 		if (description && image_url) this.setState({ disabled: false });
 		else this.setState({ disabled: true });
 	}
+
 	addExtra(item, option) {
 		this.setState({
 			type: option,
@@ -69,42 +69,18 @@ class PostConstructor extends Component<IProps, IState> {
 			if (data.id !== option.id) this.addExtra(option, type);
 		}
 		return (
-			<View style={{ flex: 1 }}>
-				<Header navigation={navigation} />
-				<View style={styles.mainView}>
-					<View style={styles.iconsWrp}>
-						<Image style={styles.roundImage} source={{ uri: image_url }} />
-					</View>
-					<View style={styles.iconsWrp}>
-						<TextInput
-							style={styles.input}
-							value={description}
-							onChangeText={description => {
-								this.setState({ description });
-								this.validate();
-							}}
-						/>
-					</View>
-				</View>
-				<View style={styles.IconExtraWrp}>
-					<View style={styles.iconsWrp}>
+			<View style={styles.mainView}>
+				<View>
+					<View style={styles.UploadWrp}>
 						<ImageUploader
 							startUpload={() => this.setState({ loading: true })}
 							saveUrl={(image_url: string) => {
 								this.setState({ image_url, loading: false });
 								this.validate();
 							}}
-							src={camera}
-						/>
-						<TouchableOpacity
-							onPress={() =>
-								this.props.navigation.navigate('ChooseExtra', {
-									addExtra: this.addExtra
-								})
-							}
 						>
-							<SvgUri height={48} width={48} source={paperclip} />
-						</TouchableOpacity>
+							<Image style={styles.roundImage} source={{ uri: image_url }} />
+						</ImageUploader>
 					</View>
 					{type && data.id ? (
 						<Extra
@@ -118,27 +94,74 @@ class PostConstructor extends Component<IProps, IState> {
 						/>
 					) : null}
 				</View>
-				<TouchableOpacity
-					style={styles.buttonWrp}
-					onPress={() => {
-						this.props.sendPost({
-							id: uuid(),
-							...this.state,
-							user: { ...this.props.profileInfo }
-						});
-						navigation.navigate('Home');
-					}}
-					disabled={this.state.disabled}
-				>
-					<Text
-						style={[
-							styles.button,
-							this.state.disabled ? styles.disabledBtn : {}
-						]}
+
+				<View>
+					<View style={styles.iconsWrp}>
+						<TextInput
+							multiline={true}
+							numberOfLines={4}
+							style={styles.input}
+							value={description}
+							onChangeText={description => {
+								this.setState({ description });
+								this.validate();
+							}}
+						/>
+					</View>
+					<View style={styles.iconsWrp}>
+						<TouchableOpacity
+							onPress={() =>
+								this.props.navigation.navigate('ChooseExtraOption', {
+									addExtra: this.addExtra,
+									option: 'survey'
+								})
+							}
+						>
+							<SvgUri width={32} height={32} source={poll} />
+						</TouchableOpacity>
+						<TouchableOpacity
+							onPress={() =>
+								this.props.navigation.navigate('ChooseExtraOption', {
+									addExtra: this.addExtra,
+									option: 'top'
+								})
+							}
+						>
+							<SvgUri width={32} height={32} source={cup} />
+						</TouchableOpacity>
+						<TouchableOpacity
+							onPress={() =>
+								this.props.navigation.navigate('ChooseExtraOption', {
+									addExtra: this.addExtra,
+									option: 'event'
+								})
+							}
+						>
+							<SvgUri width={32} height={32} source={calendar} />
+						</TouchableOpacity>
+					</View>
+					<TouchableOpacity
+						style={styles.buttonWrp}
+						onPress={() => {
+							this.props.sendPost({
+								id: uuid(),
+								...this.state,
+								user: { ...this.props.profileInfo }
+							});
+							navigation.navigate('Home');
+						}}
+						disabled={this.state.disabled}
 					>
-						Save
-					</Text>
-				</TouchableOpacity>
+						<Text
+							style={[
+								styles.button,
+								this.state.disabled ? styles.disabledBtn : {}
+							]}
+						>
+							Save
+						</Text>
+					</TouchableOpacity>
+				</View>
 			</View>
 		);
 	}
