@@ -76,8 +76,7 @@ export default StyleSheet.create({
 		borderColor: 'rgba(0, 0, 0, 0.11)',
 		padding: 15,
 		display: 'flex',
-		justifyContent: 'flex-start',
-		alignItems: 'flex-end'
+		justifyContent: 'flex-start'
 	},
 	IconExtraWrp: {
 		display: 'flex',

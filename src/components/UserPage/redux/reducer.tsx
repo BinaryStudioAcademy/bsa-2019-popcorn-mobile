@@ -5,9 +5,10 @@ import {
 } from '../../../redux/routines';
 
 const initialState = {
-	events: [],
+	events: null,
 	surveys: null,
-	tops: null
+	tops: null,
+	loading: false
 };
 
 export default function(state = initialState, action) {
@@ -20,27 +21,41 @@ export default function(state = initialState, action) {
 		case fetchEvents.SUCCESS:
 			return {
 				...state,
-				events: action.payload
+				events: action.payload.events,
+				loading: false
 			};
 		case fetchEvents.FAILURE:
 			return {
 				...state,
-				error: action.payload
+				error: action.payload,
+				loading: false
 			};
 		case fetchEvents.FULFILL:
 			return {
 				...state,
 				loading: false
 			};
-		case fetchUserSurveys.success:
+		case fetchUserSurveys.SUCCESS:
 			return {
 				...state,
-				surveys: action.payload.surveys
+				surveys: action.payload.surveys,
+				loading: false
 			};
-		case fetchUserTops.success:
+		case fetchUserTops.SUCCESS:
 			return {
 				...state,
-				surveys: action.payload.tops
+				tops: action.payload.tops,
+				loading: false
+			};
+		case fetchUserTops.TRIGGER:
+			return {
+				...state,
+				loading: true
+			};
+		case fetchUserSurveys.TRIGGER:
+			return {
+				...state,
+				loading: true
 			};
 		default:
 			return state;

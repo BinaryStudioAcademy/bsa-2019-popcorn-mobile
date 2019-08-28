@@ -5,6 +5,7 @@ import SvgUri from 'react-native-svg-uri';
 import { uploadBase64, uploadFile } from '../../services/file.service';
 
 interface IProps {
+	startUpload?: () => any;
 	saveUrl: (url: string) => any;
 	src: any;
 }
@@ -22,9 +23,14 @@ class ImageUploader extends React.Component<IProps> {
 	}
 
 	render() {
-		const { saveUrl } = this.props;
+		const { saveUrl, startUpload } = this.props;
 		return (
-			<TouchableOpacity onPress={() => this.showPicker(saveUrl)}>
+			<TouchableOpacity
+				onPress={() => {
+					startUpload && startUpload();
+					this.showPicker(saveUrl);
+				}}
+			>
 				<SvgUri height={48} width={48} source={this.props.src} />
 			</TouchableOpacity>
 		);
