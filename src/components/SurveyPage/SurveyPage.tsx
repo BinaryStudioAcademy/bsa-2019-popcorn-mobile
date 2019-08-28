@@ -81,18 +81,18 @@ class SurveyPage extends React.Component<IProps, IState> {
 		};
 	}
 
-	static getDerivedStateFromProps(props, state) {
-		if (props.surveyInfo.questions) {
-			return {
-				answers: props.surveyInfo.questions.map(question => ({
-					questionId: question.id,
-					options: [],
-					value: ''
-				}))
-			};
-		}
-		return null;
-	}
+	// static getDerivedStateFromProps(props, state) {
+	// 	if (props.surveyInfo.questions) {
+	// 		return {
+	// 			answers: props.surveyInfo.questions.map(question => ({
+	// 				questionId: question.id,
+	// 				options: [],
+	// 				value: ''
+	// 			}))
+	// 		};
+	// 	}
+	// 	return null;
+	// }
 
 	validate = () => {
 		const { questions } = this.props.surveyInfo;
