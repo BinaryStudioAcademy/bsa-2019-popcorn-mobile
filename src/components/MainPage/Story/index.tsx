@@ -2,10 +2,14 @@ import { addStory } from './actions';
 import { fetchStories } from '../../../redux/routines';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet, Alert } from 'react-native';
+import React, { Fragment } from 'react';
 import StoryList from './StoryList/StoryList';
 import SocketService from './../../../helpers/socket.helper';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import StoryModal from './StoryModal';
+import INewStory from './INewStory';
+import Spinner from '../../Spinner/Spinner';
 
 interface IStoryListItem {
 	id: string;
@@ -41,12 +45,18 @@ interface IProps {
 	fetchStories: () => any;
 	addStory: (story: any) => any;
 	navigation: any;
+	selectedProfileInfo: any;
 }
 
-class StoryComponent extends React.Component<IProps> {
+interface IState {
+	showModal: boolean;
+}
+
+class StoryComponent extends React.Component<IProps, IState> {
 	constructor(props) {
 		super(props);
 		this.addSocketEvents(props.addStory);
+		this.state = { showModal: false };
 	}
 
 	componentDidMount() {
@@ -56,22 +66,71 @@ class StoryComponent extends React.Component<IProps> {
 	addSocketEvents = addStory => {
 		// SocketService.on('new-story', addStory);
 	};
+	onPress = () => {
+		// let newStory = {
+		// 	image_url:
+		// 		'https://i.kym-cdn.com/photos/images/newsfeed/001/394/314/c62.jpg',
+		// 	caption: 'My New Test Story',
+		// 	activity: null,
+		// 	type: ''
+		// };
 
+		this.setState({ showModal: !this.state.showModal });
+		// this.setState({showModal: true})
+	};
 	render() {
+		console.log('render this.state = ', this.props);
 		const { stories, navigation } = this.props;
 		return (
-			<View style={{ height: 240 }}>
-				{stories && <StoryList navigation={navigation} stories={stories} />}
+			<View style={styles.container}>
+				<TouchableOpacity style={styles.modalAnchor} onPress={this.onPress}>
+					<Text style={styles.addStoryView}>Add story</Text>
+				</TouchableOpacity>
+				<View style={styles.modal}>
+					{this.state.showModal && <StoryModal />}
+				</View>
+				<View style={{ height: 240 }}>
+					{stories && <StoryList navigation={navigation} stories={stories} />}
+				</View>
 			</View>
 		);
 	}
 }
+const styles = StyleSheet.create({
+	container: {
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	addStoryView: {
+		padding: '2%',
+		backgroundColor: '#FF6501',
+		borderRadius: 5,
+		textAlign: 'center',
+		fontSize: 15,
+		color: 'white',
+		fontFamily: 'Inter-SemiBold',
+		marginBottom: 20,
+		marginTop: 20
+	},
+	modalAnchor: {
+		position: 'relative'
+	},
+	modal: {
+		position: 'absolute',
+		top: 60,
+		backgroundColor: '#e4e4e4',
+		zIndex: 2
+	}
+});
 
 const mapStateToProps = (rootState, props) => ({
 	...props,
 	stories: rootState.story.stories,
 	error: rootState.story.error,
-	loading: rootState.story.loading
+	loading: rootState.story.loading,
+	newStory: rootState.story.newStory,
+	selectedProfileInfo: rootState.authorization.profileInfo
 });
 
 const actions = {
