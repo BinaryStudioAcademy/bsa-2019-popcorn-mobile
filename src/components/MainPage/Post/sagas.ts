@@ -18,18 +18,19 @@ export function* getPosts() {
 }
 
 export function* sendPost(action) {
-	try {
-		const data = yield call(webApi, {
-			method: 'POST',
-			endpoint: config.API_URL + '/api/post/',
-			body: { ...action.payload.post },
-			parse: false
-		});
-		alert(JSON.stringify(data));
-	} catch (e) {
-		console.log('profile saga fetch posts:', e.message);
-		alert(JSON.stringify(e.message));
-	}
+	console.warn(action.payload);
+	// try {
+	// 	const data = yield call(webApi, {
+	// 		method: 'POST',
+	// 		endpoint: config.API_URL + '/api/post/',
+	// 		body: { ...action.payload.post },
+	// 		parse: false
+	// 	});
+	// 	alert(JSON.stringify(data));
+	// } catch (e) {
+	// 	console.log('profile saga fetch posts:', e.message);
+	// 	alert(JSON.stringify(e.message));
+	// }
 }
 
 function* watchGetPosts() {
