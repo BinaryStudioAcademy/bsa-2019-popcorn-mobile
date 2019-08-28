@@ -12,6 +12,7 @@ import ImageUploader from '../../../ImageUploader';
 import Extra from './Extra';
 
 const poll = require('../../../../assets/general/Poll-01.svg');
+const camera = require('../../../../assets/general/camera.svg');
 const cup = require('../../../../assets/general/trophy.svg');
 const calendar = require('../../../../assets/general/calendar.svg');
 const uuid = require('uuid/v4');
@@ -79,7 +80,16 @@ class PostConstructor extends Component<IProps, IState> {
 								this.validate();
 							}}
 						>
-							<Image style={styles.roundImage} source={{ uri: image_url }} />
+							{image_url ? (
+								<Image style={styles.roundImage} source={{ uri: image_url }} />
+							) : (
+								<SvgUri
+									style={styles.center}
+									width={50}
+									height={50}
+									source={camera}
+								/>
+							)}
 						</ImageUploader>
 					</View>
 					{type && data.id ? (
@@ -98,6 +108,7 @@ class PostConstructor extends Component<IProps, IState> {
 				<View>
 					<View style={styles.iconsWrp}>
 						<TextInput
+							textAlignVertical={'top'}
 							multiline={true}
 							numberOfLines={4}
 							style={styles.input}
@@ -110,6 +121,7 @@ class PostConstructor extends Component<IProps, IState> {
 					</View>
 					<View style={styles.iconsWrp}>
 						<TouchableOpacity
+							style={{ marginRight: 15 }}
 							onPress={() =>
 								this.props.navigation.navigate('ChooseExtraOption', {
 									addExtra: this.addExtra,
@@ -117,9 +129,10 @@ class PostConstructor extends Component<IProps, IState> {
 								})
 							}
 						>
-							<SvgUri width={32} height={32} source={poll} />
+							<SvgUri width={50} height={50} source={poll} />
 						</TouchableOpacity>
 						<TouchableOpacity
+							style={{ marginRight: 15 }}
 							onPress={() =>
 								this.props.navigation.navigate('ChooseExtraOption', {
 									addExtra: this.addExtra,
@@ -127,7 +140,7 @@ class PostConstructor extends Component<IProps, IState> {
 								})
 							}
 						>
-							<SvgUri width={32} height={32} source={cup} />
+							<SvgUri width={50} height={50} source={cup} />
 						</TouchableOpacity>
 						<TouchableOpacity
 							onPress={() =>
@@ -137,7 +150,7 @@ class PostConstructor extends Component<IProps, IState> {
 								})
 							}
 						>
-							<SvgUri width={32} height={32} source={calendar} />
+							<SvgUri width={50} height={50} source={calendar} />
 						</TouchableOpacity>
 					</View>
 					<TouchableOpacity
