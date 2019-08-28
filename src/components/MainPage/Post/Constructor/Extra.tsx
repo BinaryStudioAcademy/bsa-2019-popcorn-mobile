@@ -81,6 +81,9 @@ const Extra = (props: IProps) => {
 				props.navigation.navigate('TopPage', {
 					top: { ...data, user: { ...user } }
 				});
+				break;
+			case 'survey':
+				props.navigation.navigate('SurveyPage', { id: data.id });
 		}
 	};
 

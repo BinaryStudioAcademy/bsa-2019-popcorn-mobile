@@ -4,6 +4,7 @@ import ChooseExtra from '../../components/MainPage/Post/Constructor/ChooseExtra'
 import ChooseExtraOption from '../../components/MainPage/Post/Constructor/ChooseExtraOption';
 import EventPage from '../../components/ContentPage/Events/EventPage';
 import TopPage from '../../components/ContentPage/Tops/TopPage';
+import SurveyPage from '../../components/SurveyPage/SurveyPage';
 
 const PostConstructorNavigator = createStackNavigator({
 	Basic: {
@@ -26,6 +27,12 @@ const PostConstructorNavigator = createStackNavigator({
 	},
 	TopPage: {
 		screen: TopPage,
+		navigationOptions: {
+			header: null
+		}
+	},
+	SurveyPage: {
+		screen: SurveyPage,
 		navigationOptions: {
 			header: null
 		}
