@@ -8,3 +8,11 @@ export const addStory = story => {
 		}
 	};
 };
+export const sendStory = (post: IPost) => {
+	return {
+		type: SEND_STORY,
+		payload: {
+			post
+		}
+	};
+};
