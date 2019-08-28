@@ -40,7 +40,6 @@ export const uploadBase64 = async (
 		},
 		method: 'POST'
 	});
-	console.warn(response);
 	const { imageUrl } = await response.json();
 
 	let url;
