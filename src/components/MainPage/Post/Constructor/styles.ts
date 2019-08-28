@@ -94,5 +94,41 @@ export default StyleSheet.create({
 		width: '85%',
 		marginLeft: 'auto',
 		marginRight: 'auto'
+	},
+	bigFont: {
+		fontSize: 16.5
+	},
+	visitors: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '20%',
+		alignSelf: 'flex-start'
+	},
+	text: {
+		fontFamily: 'Inter-Regular',
+		fontSize: 14,
+		color: '#122737'
+	},
+	title: {
+		fontFamily: 'Inter-SemiBold',
+		fontSize: 16,
+		marginBottom: 3,
+		width: '75%'
+	},
+	horizontalContainer: {
+		width: '100%',
+		display: 'flex',
+		flexDirection: 'row',
+		paddingRight: 10
+	},
+	container: {
+		padding: 10,
+		borderColor: 'rgba(0, 0, 0, .1)',
+		borderWidth: 1,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		width: '100%',
+		alignItems: 'center'
 	}
 });

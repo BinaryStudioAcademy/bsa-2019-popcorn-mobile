@@ -3,6 +3,9 @@ import SvgUri from 'react-native-svg-uri';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import IUser from '../../../UserPage/IUser';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import Moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 interface IProps {
 	clearExtra: () => any;
@@ -18,14 +21,40 @@ const renderTopView = data => {
 		.map((movie, index) => (
 			<Text>{`${index + 1}. ${movie.movie.original_title}`}</Text>
 		));
-	console.warn(
-		'movie',
-		JSON.stringify(data.movieInTop[0].movie.original_title)
-	);
 	return (
 		<View>
-			<Text>{data.title}</Text>
+			<Text style={styles.bigFont}>{data.title}</Text>
 			{movie}
+		</View>
+	);
+};
+
+const renderEventView = data => {
+	return (
+		<View style={styles.column}>
+			<View style={styles.horizontalContainer}>
+				<Text numberOfLines={2} style={[styles.text, styles.title]}>
+					{data.title}
+				</Text>
+				<View style={[styles.visitors]}>
+					<FontAwesomeIcon
+						style={{ ...styles.icon, color: '#122737' }}
+						icon={faUsers}
+					/>
+					<Text>{data.eventVisitors.length}</Text>
+				</View>
+			</View>
+			<View>
+				<Text>
+					{Moment(data.startDate).format('D MMM HH:mm')} -
+					{Moment(data.endDate).format(' D MMM HH:mm')}
+				</Text>
+			</View>
+			{!!data.description && (
+				<Text numberOfLines={1} style={[styles.text, styles.description]}>
+					{data.description}
+				</Text>
+			)}
 		</View>
 	);
 };
@@ -46,13 +75,17 @@ const Extra = (props: IProps) => {
 		}
 	};
 
-	let renderView = (data: any) => <Text>{data.title}</Text>;
+	let renderView = (data: any) => (
+		<Text style={styles.bigFont}>{data.title}</Text>
+	);
 
 	switch (type) {
 		case 'top':
 			renderView = renderTopView;
+			break;
+		case 'event':
+			renderView = renderEventView;
 	}
-	console.warn(data);
 	return (
 		<View style={styles.extra}>
 			<TouchableOpacity onPress={viewActivity}>
