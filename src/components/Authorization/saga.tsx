@@ -1,10 +1,10 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { login, register, fetchUser } from '../../redux/routines';
+import { login, register, fetchUser, sendDeviceToken } from '../../redux/routines';
 import config from '../../config';
 import webApi from '../../helpers/webApi.helper';
 import { Storage } from '../../helpers/storage.helper';
 
-export function* fetchLogin(action) {
+function* fetchLogin(action) {
 	try {
 		yield put(login.request());
 		const data = yield call(webApi, {
@@ -21,11 +21,11 @@ export function* fetchLogin(action) {
 			yield put(login.success({ user: data.user[0] }));
 		} else yield put(login.failure(data.message));
 	} catch (e) {
-		console.log('user saga login', e);
+		console.log('auth saga login', e);
 	}
 }
 
-export function* fetchUserByToken(action) {
+function* fetchUserByToken(action) {
 	try {
 		yield put(fetchUser.request());
 		let user = yield call(webApi, {
@@ -43,11 +43,11 @@ export function* fetchUserByToken(action) {
 			yield put(login.success({ user: user.data.user }));
 		}
 	} catch (e) {
-		console.log('user saga fetchUser:', e.message);
+		console.log('auth saga fetchUser:', e.message);
 	}
 }
 
-export function* fetchRegistration(action) {
+function* fetchRegistration(action) {
 	try {
 		yield put(register.request());
 		const data = yield call(webApi, {
@@ -64,7 +64,28 @@ export function* fetchRegistration(action) {
 			yield put(login.success({ user: data.user[0] }));
 		} else yield put(register.failure(data.message));
 	} catch (e) {
-		console.log('user saga fetch registration:', e.message);
+		console.log('auth saga fetch registration:', e.message);
+	}
+}
+
+function* sendToken(action) {
+	try {
+		console.log('token is sending');
+		yield put(sendDeviceToken.request());
+		const data = yield call(webApi, {
+			endpoint: config.API_URL + '/api/auth/notification',
+			method: 'PUT',
+			body: {
+				token: action.payload,
+				type: 'mobile'
+			}
+		});
+		if (data) {
+			yield put(sendDeviceToken.success());
+		}
+	} catch (e) {
+		console.log('auth saga send device token:', e.message);
+		yield put(sendDeviceToken.failure(e.message));
 	}
 }
 
@@ -80,6 +101,10 @@ function* watchFetchRegistration() {
 	yield takeEvery(register.trigger, fetchRegistration);
 }
 
+function* watchSendToken() {
+	yield takeEvery(sendDeviceToken.trigger, sendToken);
+}
+
 export default function* auth() {
-	yield all([watchFetchLogin(), watchFetchUser(), watchFetchRegistration()]);
+	yield all([watchFetchLogin(), watchFetchUser(), watchFetchRegistration(), watchSendToken()]);
 }
