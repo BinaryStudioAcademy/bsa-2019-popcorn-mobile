@@ -26,9 +26,9 @@ interface IState {
 	description: string;
 	image_url: string;
 	modalVisible: boolean;
-	title: string | null;
-	link: string | null;
 	disabled: boolean;
+	data: any;
+	type: string;
 }
 
 class PostConstructor extends Component<IProps, IState> {
@@ -36,9 +36,9 @@ class PostConstructor extends Component<IProps, IState> {
 		description: '',
 		image_url: '',
 		modalVisible: false,
-		title: null,
-		link: null,
-		disabled: true
+		disabled: true,
+		data: { id: null, title: null },
+		type: ''
 	};
 
 	validate() {
@@ -46,24 +46,26 @@ class PostConstructor extends Component<IProps, IState> {
 		if (description && image_url) this.setState({ disabled: false });
 		else this.setState({ disabled: true });
 	}
-	addExtra(item, option = '') {
+	addExtra(item, option) {
 		this.setState({
-			title: item.title,
-			link: option ? `/${option}-page/${item.id}` : null
+			type: option,
+			data: item
 		});
 	}
 
 	render() {
-		const { image_url, description, title, link } = this.state;
+		const { image_url, description, data, type } = this.state;
 
-		if (this.props.navigation.state.params) {
-			const { option, type } = this.props.navigation.state.params;
-			this.props.navigation.state.params = null;
-			if (title !== option.title) this.addExtra(option, type);
+		const { navigation, profileInfo } = this.props;
+
+		if (navigation.state.params) {
+			const { option, type } = navigation.state.params;
+			navigation.state.params = null;
+			if (data.id !== option.id) this.addExtra(option, type);
 		}
 		return (
 			<View style={{ flex: 1 }}>
-				<Header />
+				<Header navigation={navigation} />
 				<View style={styles.mainView}>
 					<View style={styles.iconsWrp}>
 						<Image style={styles.roundImage} source={{ uri: image_url }} />
@@ -98,15 +100,17 @@ class PostConstructor extends Component<IProps, IState> {
 							<SvgUri height={48} width={48} source={paperclip} />
 						</TouchableOpacity>
 					</View>
-					{title && link && (
+					{type && data.id ? (
 						<Extra
-							title={title || ''}
-							link={link || ''}
+							user={profileInfo}
+							type={type}
+							data={data}
+							navigation={navigation}
 							clearExtra={() => {
 								this.addExtra({ id: null, title: null }, '');
 							}}
 						/>
-					)}
+					) : null}
 				</View>
 				<TouchableOpacity
 					style={styles.buttonWrp}
