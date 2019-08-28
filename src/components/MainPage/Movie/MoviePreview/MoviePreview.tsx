@@ -29,6 +29,8 @@ class MoviePreview extends Component<IMovieProps> {
 			release_date
 		} = this.props.movie;
 		const duration = getFilmDuration(runtime);
+		const parsedGenres = JSON.parse(genres).map(genre => genre.name);
+		const parsedCast = JSON.parse(cast).map(actor => actor.name);
 		return (
 			<TouchableOpacity
 				onPress={() =>
@@ -52,7 +54,9 @@ class MoviePreview extends Component<IMovieProps> {
 							</Text>
 						</View>
 						<Text style={[styles.movieInfo, styles.movieInfoBlock]}>
-							{'Action, Drama, Horror'}
+							{
+								parsedGenres.join(', ')
+							}
 						</Text>
 						{duration && (
 							<View style={styles.duration}>
@@ -70,7 +74,9 @@ class MoviePreview extends Component<IMovieProps> {
 							numberOfLines={1}
 						>
 							<Text style={styles.bold}>Movie cast: </Text>
-							{cast || 'Matt Damon, Jessica Chastain, Kristen Wiig'}
+							{
+								parsedCast.join(', ')
+							}
 						</Text>
 					</View>
 				</View>
