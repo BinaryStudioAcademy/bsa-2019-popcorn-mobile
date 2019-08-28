@@ -28,6 +28,8 @@ interface IProps {
 
 class ChooseExtraOption extends React.Component<IProps> {
 	render() {
+		console.warn(this.props.surveys);
+
 		const { profileInfo } = this.props;
 		const { option: type } = this.props.navigation.state.params;
 		let message = '';
@@ -36,6 +38,7 @@ class ChooseExtraOption extends React.Component<IProps> {
 
 		let options: any = [];
 
+		console.warn(type);
 		switch (type) {
 			case 'event':
 				const { events, fetchUserEvents } = this.props;
@@ -44,13 +47,15 @@ class ChooseExtraOption extends React.Component<IProps> {
 				break;
 			case 'survey':
 				const { surveys, fetchUserSurveys } = this.props;
-				if (!surveys) fetchUserSurveys(profileInfo.id);
-				else options = surveys;
+				console.warn(surveys);
+				if (!surveys) {
+					fetchUserSurveys(profileInfo.id);
+				} else options = surveys;
 				break;
 			case 'top':
 				const { tops, fetchUserTops } = this.props;
 				if (!tops) fetchUserTops(profileInfo.id);
-				else options = tops;
+				options = tops;
 				break;
 		}
 
@@ -58,7 +63,7 @@ class ChooseExtraOption extends React.Component<IProps> {
 			message = "You don't have any " + type;
 		return (
 			<View style={styles.extraItemWrp}>
-				{options.length > 0 ? (
+				{options && options.length > 0 ? (
 					options.map(option => (
 						<TouchableOpacity
 							onPress={() =>
