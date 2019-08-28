@@ -9,12 +9,17 @@ import webApi from '../../../helpers/webApi.helper';
 
 function* getEvents(action) {
 	try {
-		yield put(fetchEvents.request());
 		const data = yield call(webApi, {
 			endpoint: config.API_URL + '/api/event/visitor/' + action.payload,
 			method: 'GET'
 		});
-		yield put(fetchEvents.success(data));
+
+		yield put({
+			type: fetchEvents.SUCCESS,
+			payload: {
+				events: data
+			}
+		});
 	} catch (e) {
 		yield put(fetchEvents.failure(e.message));
 	} finally {
@@ -29,7 +34,7 @@ function* getUserSurveys(action) {
 			endpoint: config.API_URL + '/api/surveys/user/' + action.payload
 		});
 		yield put({
-			type: fetchUserSurveys.success,
+			type: fetchUserSurveys.SUCCESS,
 			payload: {
 				surveys: data,
 				loading: false
@@ -46,9 +51,8 @@ function* getUserTops(action) {
 			method: 'GET',
 			endpoint: config.API_URL + `/api/top/user/${action.payload}`
 		});
-
 		yield put({
-			type: fetchUserTops.success,
+			type: fetchUserTops.SUCCESS,
 			payload: {
 				tops: data
 			}
@@ -61,9 +65,11 @@ function* getUserTops(action) {
 function* watchFetchEvents() {
 	yield takeEvery(fetchEvents.trigger, getEvents);
 }
+
 function* watchFetchUserSurveys() {
 	yield takeEvery(fetchUserSurveys.trigger, getUserSurveys);
 }
+
 function* watchFetchUserTops() {
 	yield takeEvery(fetchUserTops.trigger, getUserTops);
 }

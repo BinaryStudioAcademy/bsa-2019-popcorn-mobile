@@ -11,6 +11,7 @@ import IUser from '../../../UserPage/IUser';
 import ImageUploader from '../../../ImageUploader';
 import ChooseExtra from './ChooseExtra';
 import Extra from './Extra';
+import Spinner from '../../../Spinner/Spinner';
 
 const camera = require('../../../../assets/general/camera.svg');
 const paperclip = require('../../../../assets/general/paperclip.svg');
@@ -29,6 +30,7 @@ interface IState {
 	disabled: boolean;
 	data: any;
 	type: string;
+	loading: boolean;
 }
 
 class PostConstructor extends Component<IProps, IState> {
@@ -38,7 +40,8 @@ class PostConstructor extends Component<IProps, IState> {
 		modalVisible: false,
 		disabled: true,
 		data: { id: null, title: null },
-		type: ''
+		type: '',
+		loading: false
 	};
 
 	validate() {
@@ -54,6 +57,8 @@ class PostConstructor extends Component<IProps, IState> {
 	}
 
 	render() {
+		if (this.state.loading) return <Spinner />;
+
 		const { image_url, description, data, type } = this.state;
 
 		const { navigation, profileInfo } = this.props;
@@ -84,8 +89,9 @@ class PostConstructor extends Component<IProps, IState> {
 				<View style={styles.IconExtraWrp}>
 					<View style={styles.iconsWrp}>
 						<ImageUploader
+							startUpload={() => this.setState({ loading: true })}
 							saveUrl={(image_url: string) => {
-								this.setState({ image_url });
+								this.setState({ image_url, loading: false });
 								this.validate();
 							}}
 							src={camera}
@@ -114,13 +120,14 @@ class PostConstructor extends Component<IProps, IState> {
 				</View>
 				<TouchableOpacity
 					style={styles.buttonWrp}
-					onPress={() =>
+					onPress={() => {
 						this.props.sendPost({
 							id: uuid(),
 							...this.state,
 							user: { ...this.props.profileInfo }
-						})
-					}
+						});
+						navigation.navigate('Home');
+					}}
 					disabled={this.state.disabled}
 				>
 					<Text
