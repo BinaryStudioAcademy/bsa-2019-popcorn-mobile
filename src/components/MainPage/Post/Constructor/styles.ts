@@ -17,7 +17,7 @@ export default StyleSheet.create({
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'center',
-		margin: 20
+		margin: 5
 	},
 	roundImage: {
 		width: '80%',
@@ -66,5 +66,26 @@ export default StyleSheet.create({
 	mainView: {
 		display: 'flex',
 		justifyContent: 'space-between'
+	},
+	extra: {
+		marginTop: 10,
+		marginRight: 25,
+		marginBottom: 15,
+		marginLeft: 25,
+		borderLeftWidth: 5,
+		borderColor: 'rgba(0, 0, 0, 0.11)',
+		padding: 15,
+		display: 'flex',
+		justifyContent: 'flex-start',
+		alignItems: 'flex-end'
+	},
+	IconExtraWrp: {
+		display: 'flex',
+		justifyContent: 'space-between'
+	},
+	timesCircle: {
+		position: 'absolute',
+		right: 0,
+		top: 0
 	}
 });

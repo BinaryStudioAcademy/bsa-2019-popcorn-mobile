@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-	Image,
-	Modal,
-	Text,
-	TextInput,
-	TouchableOpacity,
-	View
-} from 'react-native';
+import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Header from '../../../Header/Header';
 import styles from './styles';
 import SvgUri from 'react-native-svg-uri';
@@ -17,6 +10,7 @@ import IPost from '../IPost';
 import IUser from '../../../UserPage/IUser';
 import ImageUploader from '../../../ImageUploader';
 import ChooseExtra from './ChooseExtra';
+import Extra from './Extra';
 
 const camera = require('../../../../assets/general/camera.svg');
 const paperclip = require('../../../../assets/general/paperclip.svg');
@@ -45,18 +39,19 @@ class PostConstructor extends Component<IProps, IState> {
 		link: null
 	};
 
-	addExtra(item, option) {
+	addExtra(item, option = '') {
 		this.setState({
 			title: item.title,
-			link: `/${option}-page/${item.id}`
+			link: option ? `/${option}-page/${item.id}` : null
 		});
 	}
 
 	render() {
-		const { image_url, description, title } = this.state;
+		const { image_url, description, title, link } = this.state;
 
 		if (this.props.navigation.state.params) {
 			const { option, type } = this.props.navigation.state.params;
+			this.props.navigation.state.params = null;
 			if (title !== option.title) this.addExtra(option, type);
 		}
 		return (
@@ -74,33 +69,43 @@ class PostConstructor extends Component<IProps, IState> {
 						/>
 					</View>
 				</View>
-				<View style={styles.iconsWrp}>
-					<ImageUploader
-						saveUrl={(image_url: string) => {
-							alert(image_url);
-							this.setState({ image_url });
-						}}
-						src={camera}
-					/>
-					<TouchableOpacity
-						onPress={() =>
-							this.props.navigation.navigate('ChooseExtra', {
-								addExtra: this.addExtra
-							})
-						}
-					>
-						<SvgUri height={48} width={48} source={paperclip} />
-					</TouchableOpacity>
+				<View style={styles.IconExtraWrp}>
+					<View style={styles.iconsWrp}>
+						<ImageUploader
+							saveUrl={(image_url: string) => {
+								alert(image_url);
+								this.setState({ image_url });
+							}}
+							src={camera}
+						/>
+						<TouchableOpacity
+							onPress={() =>
+								this.props.navigation.navigate('ChooseExtra', {
+									addExtra: this.addExtra
+								})
+							}
+						>
+							<SvgUri height={48} width={48} source={paperclip} />
+						</TouchableOpacity>
+					</View>
+					{title && link && (
+						<Extra
+							title={title || ''}
+							link={link || ''}
+							clearExtra={() => {
+								this.addExtra({ id: null, title: null }, '');
+							}}
+						/>
+					)}
 				</View>
 				<TouchableOpacity
 					style={styles.buttonWrp}
-					onPress={
-						() => null
-						// this.props.sendPost({
-						//     id: uuid(),
-						//     ...this.state,
-						//     user: {...this.props.profileInfo}
-						// })
+					onPress={() =>
+						this.props.sendPost({
+							id: uuid(),
+							...this.state,
+							user: { ...this.props.profileInfo }
+						})
 					}
 				>
 					<Text style={styles.button}>Save</Text>
