@@ -32,19 +32,33 @@ interface IState {
 	description: string;
 	image_url: string;
 	modalVisible: boolean;
+	title: string | null;
+	link: string | null;
 }
 
 class PostConstructor extends Component<IProps, IState> {
 	state = {
 		description: '',
 		image_url: '',
-		modalVisible: false
+		modalVisible: false,
+		title: null,
+		link: null
 	};
 
-	render() {
-		const { image_url } = this.state;
+	addExtra(item, option) {
+		this.setState({
+			title: item.title,
+			link: `/${option}-page/${item.id}`
+		});
+	}
 
-		console.warn(this.props);
+	render() {
+		const { image_url, description, title } = this.state;
+
+		if (this.props.navigation.state.params) {
+			const { option, type } = this.props.navigation.state.params;
+			if (title !== option.title) this.addExtra(option, type);
+		}
 		return (
 			<View style={{ flex: 1 }}>
 				<Header />
@@ -55,7 +69,7 @@ class PostConstructor extends Component<IProps, IState> {
 					<View style={styles.iconsWrp}>
 						<TextInput
 							style={styles.input}
-							value={this.state.description}
+							value={description}
 							onChangeText={description => this.setState({ description })}
 						/>
 					</View>
@@ -70,7 +84,9 @@ class PostConstructor extends Component<IProps, IState> {
 					/>
 					<TouchableOpacity
 						onPress={() =>
-							this.props.navigation.navigate('ChooseExtra', { param: 'Hy' })
+							this.props.navigation.navigate('ChooseExtra', {
+								addExtra: this.addExtra
+							})
 						}
 					>
 						<SvgUri height={48} width={48} source={paperclip} />

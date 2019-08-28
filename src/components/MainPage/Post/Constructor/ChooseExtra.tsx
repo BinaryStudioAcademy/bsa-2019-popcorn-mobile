@@ -13,13 +13,10 @@ interface IProps {
 
 class ChooseExtra extends React.Component<IProps> {
 	chooseExtraOption(option: string) {
-		console.warn(option);
 		this.props.navigation.navigate('ChooseExtraOption', { option });
 	}
 
 	render() {
-		// const { param } = this.props.navigation.state.params;
-
 		return (
 			<View style={[styles.extraItemWrp, { paddingTop: 50 }]}>
 				{options.map(option => (
@@ -28,7 +25,9 @@ class ChooseExtra extends React.Component<IProps> {
 					</TouchableOpacity>
 				))}
 				<View style={styles.iconsWrp}>
-					<TouchableOpacity onPress={() => this.props.navigation.pop()}>
+					<TouchableOpacity
+						onPress={() => this.props.navigation.navigate('Basic')}
+					>
 						<SvgUri height={48} width={48} source={arrow} />
 					</TouchableOpacity>
 				</View>
