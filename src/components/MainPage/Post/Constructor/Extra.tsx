@@ -59,6 +59,15 @@ const renderEventView = data => {
 	);
 };
 
+const renderSurveyView = data => {
+	return (
+		<View>
+			<Text style={styles.bigFont}>{data.title}</Text>
+			<Text>{data.description}</Text>
+		</View>
+	);
+};
+
 const Extra = (props: IProps) => {
 	const { type, data, user } = props;
 
@@ -71,7 +80,6 @@ const Extra = (props: IProps) => {
 				props.navigation.navigate('TopPage', {
 					top: { ...data, user: { ...user } }
 				});
-				break;
 		}
 	};
 
@@ -85,22 +93,27 @@ const Extra = (props: IProps) => {
 			break;
 		case 'event':
 			renderView = renderEventView;
+			break;
+		case 'survey':
+			renderView = renderSurveyView;
 	}
 	return (
 		<View style={styles.extra}>
 			<TouchableOpacity onPress={viewActivity}>
 				{renderView(data)}
 			</TouchableOpacity>
-			<TouchableOpacity
-				onPress={() => props.clearExtra()}
-				style={styles.timesCircle}
-			>
-				<SvgUri
-					width={16}
-					height={16}
-					source={require('../../../../assets/general/times-circle-o.svg')}
-				/>
-			</TouchableOpacity>
+			{props.clearExtra && (
+				<TouchableOpacity
+					onPress={() => props.clearExtra()}
+					style={styles.timesCircle}
+				>
+					<SvgUri
+						width={16}
+						height={16}
+						source={require('../../../../assets/general/times-circle-o.svg')}
+					/>
+				</TouchableOpacity>
+			)}
 		</View>
 	);
 };
