@@ -62,7 +62,7 @@ class ChooseExtraOption extends React.Component<IProps> {
 			<View style={[styles.extraItemWrp, styles.grid]}>
 				<ScrollView>
 					{options && options.length > 0 ? (
-						[...options, ...options].map(option => (
+						options.map(option => (
 							<Extra
 								navigation={this.props.navigation}
 								data={option}
