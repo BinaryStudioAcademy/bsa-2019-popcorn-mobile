@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const orange = '#ffab07';
+const imageHeight = 200;
 export default StyleSheet.create({
 	input: {
 		width: '80%',
@@ -20,7 +21,7 @@ export default StyleSheet.create({
 		margin: 5
 	},
 	roundImage: {
-		height: 200,
+		height: imageHeight,
 		borderRadius: 20,
 		backgroundColor: '#adadad'
 	},
@@ -93,7 +94,8 @@ export default StyleSheet.create({
 	UploadWrp: {
 		width: '85%',
 		marginLeft: 'auto',
-		marginRight: 'auto'
+		marginRight: 'auto',
+		height: imageHeight
 	},
 	bigFont: {
 		fontSize: 16.5
@@ -136,7 +138,6 @@ export default StyleSheet.create({
 		justifyContent: 'center',
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginTop: 'auto',
-		marginBottom: 'auto'
+		height: imageHeight
 	}
 });
