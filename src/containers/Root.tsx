@@ -13,6 +13,7 @@ interface IProps {
 }
 
 class Root extends Component<IProps> {
+
 	componentDidMount() {
 		Storage.get('token').then(value => {
 			if (value && !this.props.isAuthorized) {
