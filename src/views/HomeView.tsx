@@ -8,9 +8,18 @@ import StoryComponent from './../components/MainPage/Story/';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import StoryModal from '../components/MainPage/Story/StoryModal';
 
+const newStoryDefault = {
+	image_url: null,
+	caption: null,
+	activity: null,
+	type: ''
+};
+
 const HomeView = ({ navigation }) => {
 	const [showModal, onPress] = useState(false);
+	const [newStory, setNewStory] = useState(newStoryDefault);
 
+	console.warn(newStory);
 	return (
 		<View style={{ flex: 1 }}>
 			<TouchableOpacity
@@ -20,7 +29,13 @@ const HomeView = ({ navigation }) => {
 				<Text style={styles.addStoryView}>Add story</Text>
 			</TouchableOpacity>
 			<View style={styles.modal}>
-				{showModal && <StoryModal navigation={navigation} />}
+				{showModal && (
+					<StoryModal
+						navigation={navigation}
+						newStory={newStory}
+						setNewStory={setNewStory}
+					/>
+				)}
 			</View>
 			<ParallaxScrollView
 				parallaxHeaderHeight={280}

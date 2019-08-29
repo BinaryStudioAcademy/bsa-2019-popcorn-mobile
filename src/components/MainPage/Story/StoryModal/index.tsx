@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import Header from '../../../Header/Header';
 import styles from './styles';
 import SvgUri from 'react-native-svg-uri';
 import { bindActionCreators } from 'redux';
@@ -8,9 +7,9 @@ import { connect } from 'react-redux';
 import { sendStory } from '../actions';
 import INewStory from '../INewStory';
 import Spinner from '../../../Spinner/Spinner';
-import ImageUploader from '../../../ImageUploader';
 import Extra from './Extra';
 import IUser from '../../../UserPage/IUser';
+
 const poll = require('../../../../assets/general/Poll-01.svg');
 const camera = require('../../../../assets/general/camera.svg');
 const cup = require('../../../../assets/general/trophy.svg');
@@ -21,53 +20,62 @@ interface IProps {
 	sendStory: ({ newStory: INewStory, userId: string }) => any;
 	profileInfo: IUser;
 	navigation: any;
+	newStory: INewStory;
+	setNewStory: (story: INewStory) => void;
 }
 
 interface IState {
-	caption: string;
-	image_url: string;
+	newStory: INewStory;
 	modalVisible: boolean;
 	disabled: boolean;
-	data: any;
-	type: string;
 	loading: boolean;
 }
 
+const mock_url =
+	'https://i.pinimg.com/736x/2c/f1/93/2cf193ee4bef23eb1a2a9b07faadd951.jpg';
+
 class StoryModal extends Component<IProps, IState> {
-	state = {
-		image_url:
-			'https://i.pinimg.com/736x/2c/f1/93/2cf193ee4bef23eb1a2a9b07faadd951.jpg',
-		activity: null,
-		caption: '',
-		modalVisible: false,
-		disabled: true,
-		data: { id: null, title: null },
-		type: '',
-		loading: false
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			newStory: props.newStory,
+			modalVisible: false,
+			disabled: true,
+			loading: false
+		};
+	}
 
 	validate() {
-		const { caption, image_url } = this.state;
+		const { caption, image_url } = this.state.newStory;
 		if (caption && image_url) this.setState({ disabled: false });
 		else this.setState({ disabled: true });
 	}
+
 	addExtra(item, option) {
-		this.setState({
-			type: option,
-			data: item
-		});
+		this.setState(state => ({
+			newStory: {
+				...state.newStory,
+				type: option,
+				data: item
+			}
+		}));
+	}
+
+	componentWillUnmount(): void {
+		console.warn(this.props.setNewStory);
+		this.props.setNewStory(this.state.newStory);
 	}
 
 	render() {
 		if (this.state.loading) return <Spinner />;
 
-		const { image_url, caption, data, type } = this.state;
+		const { image_url, caption, activity, type } = this.state.newStory;
 		const { navigation, profileInfo } = this.props;
 
 		if (navigation.state.params) {
 			const { option, type } = navigation.state.params;
 			navigation.state.params = null;
-			if (data.id !== option.id) this.addExtra(option, type);
+			if (!activity || activity.id !== option.id) this.addExtra(option, type);
 		}
 		return (
 			<View style={styles.mainView}>
@@ -84,7 +92,7 @@ class StoryModal extends Component<IProps, IState> {
 							<Image style={styles.roundImage} source={{ uri: image_url }} />
 						) : (
 							<SvgUri
-								style={styles.center}
+								// style={styles.center}
 								width={50}
 								height={50}
 								source={camera}
@@ -92,11 +100,11 @@ class StoryModal extends Component<IProps, IState> {
 						)}
 						{/* </ImageUploader> */}
 					</View>
-					{type && data.id ? (
+					{type ? (
 						<Extra
 							user={profileInfo}
 							type={type}
-							data={data}
+							data={activity}
 							navigation={navigation}
 							clearExtra={() => {
 								this.addExtra({ id: null, title: null }, '');
@@ -112,9 +120,14 @@ class StoryModal extends Component<IProps, IState> {
 							multiline={true}
 							numberOfLines={4}
 							style={styles.input}
-							value={caption}
+							value={caption || ''}
 							onChangeText={caption => {
-								this.setState({ caption });
+								this.setState(state => ({
+									newStory: {
+										...state.newStory,
+										caption
+									}
+								}));
 								this.validate();
 							}}
 						/>
