@@ -45,18 +45,21 @@ export default StyleSheet.create({
 		display: 'flex'
 	},
 	buttonWrp: {
-		width: '100%'
+		width: '85%',
+		justifyContent: 'space-between',
+		flexDirection: 'row',
+		display: 'flex',
+		marginLeft: 'auto',
+		marginRight: 'auto'
 	},
 	button: {
-		width: '100%',
+		width: '80%',
 		height: 37,
-		backgroundColor: '#FF6501',
-		marginTop: 22,
+		color: '#FF6501',
 		borderRadius: 55,
 		textAlign: 'center',
 		lineHeight: 36,
 		fontSize: 18,
-		color: 'white',
 		fontFamily: 'Inter-SemiBold'
 	},
 	mainView: {
@@ -70,7 +73,7 @@ export default StyleSheet.create({
 		marginTop: 5,
 		marginRight: 25,
 		marginBottom: 15,
-		marginLeft: 25,
+		marginLeft: 15,
 		borderLeftWidth: 5,
 		borderColor: 'rgba(0, 0, 0, 0.11)',
 		padding: 15,
@@ -90,7 +93,7 @@ export default StyleSheet.create({
 		top: 0
 	},
 	disabledBtn: {
-		backgroundColor: '#efd69a'
+		color: '#efd69a'
 	},
 	UploadWrp: {
 		width: '85%',
@@ -145,5 +148,36 @@ export default StyleSheet.create({
 		paddingTop: 15,
 		width: '100%',
 		flex: 1
+	},
+	activity: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		borderRadius: 55,
+		lineHeight: 36,
+		fontSize: 18,
+		color: 'white',
+		fontFamily: 'Inter-SemiBold',
+		paddingTop: 5,
+		paddingBottom: 5,
+		paddingLeft: 10,
+		paddingRight: 10
+	},
+	colorTextActivity: {
+		color: 'black'
+	},
+	contentImg: {
+		marginRight: 2,
+		width: 65,
+		height: 65,
+		alignItems: 'center'
+	},
+	contentWrp: {
+		flex: 1,
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		width: '100%'
 	}
 });
