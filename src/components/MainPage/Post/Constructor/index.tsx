@@ -15,6 +15,7 @@ const poll = require('../../../../assets/general/Poll-01.svg');
 const camera = require('../../../../assets/general/camera.svg');
 const cup = require('../../../../assets/general/trophy.svg');
 const calendar = require('../../../../assets/general/calendar.svg');
+const arrow = require('../../../../assets/general/arrow-circle-o-left.svg');
 const uuid = require('uuid/v4');
 
 interface IProps {
@@ -49,6 +50,9 @@ class PostConstructor extends Component<IProps, IState> {
 		if (description && image_url) this.setState({ disabled: false });
 		else this.setState({ disabled: true });
 	}
+	hasActivity() {
+		return !!this.state.type;
+	}
 
 	addExtra(item, option) {
 		this.setState({
@@ -71,6 +75,41 @@ class PostConstructor extends Component<IProps, IState> {
 		}
 		return (
 			<View style={styles.mainView}>
+				<View style={styles.buttonWrp}>
+					<TouchableOpacity
+						style={{ width: '50%', alignItems: 'flex-start' }}
+						onPress={() => null}
+					>
+						<SvgUri height={48} width={48} source={arrow} />
+						{/*<Text*/}
+						{/*    style={[styles.button]}*/}
+						{/*>*/}
+						{/*    Cancel*/}
+						{/*</Text>*/}
+					</TouchableOpacity>
+					<TouchableOpacity
+						style={{ width: '50%', alignItems: 'flex-end' }}
+						onPress={() => {
+							this.props.sendPost({
+								id: uuid(),
+								...this.state,
+								extraTitle: data.title,
+								user: { ...this.props.profileInfo }
+							});
+							navigation.navigate('Home');
+						}}
+						disabled={this.state.disabled}
+					>
+						<Text
+							style={[
+								styles.button,
+								this.state.disabled ? styles.disabledBtn : {}
+							]}
+						>
+							Post
+						</Text>
+					</TouchableOpacity>
+				</View>
 				<View>
 					<View style={styles.UploadWrp}>
 						<ImageUploader
@@ -121,7 +160,7 @@ class PostConstructor extends Component<IProps, IState> {
 					</View>
 					<View style={styles.iconsWrp}>
 						<TouchableOpacity
-							style={{ marginRight: 15 }}
+							style={[{ marginRight: 15 }, styles.activity]}
 							onPress={() =>
 								this.props.navigation.navigate('ChooseExtraOption', {
 									addExtra: this.addExtra,
@@ -130,9 +169,10 @@ class PostConstructor extends Component<IProps, IState> {
 							}
 						>
 							<SvgUri width={50} height={50} source={poll} />
+							<Text style={styles.colorTextActivity}>Survey</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
-							style={{ marginRight: 15 }}
+							style={[{ marginRight: 15 }, styles.activity]}
 							onPress={() =>
 								this.props.navigation.navigate('ChooseExtraOption', {
 									addExtra: this.addExtra,
@@ -141,8 +181,10 @@ class PostConstructor extends Component<IProps, IState> {
 							}
 						>
 							<SvgUri width={50} height={50} source={cup} />
+							<Text style={styles.colorTextActivity}>Top</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
+							style={[{ marginRight: 15 }, styles.activity]}
 							onPress={() =>
 								this.props.navigation.navigate('ChooseExtraOption', {
 									addExtra: this.addExtra,
@@ -150,30 +192,10 @@ class PostConstructor extends Component<IProps, IState> {
 								})
 							}
 						>
-							<SvgUri width={50} height={50} source={calendar} />
+							<SvgUri width={40} height={40} source={calendar} />
+							<Text style={styles.colorTextActivity}>Event</Text>
 						</TouchableOpacity>
 					</View>
-					<TouchableOpacity
-						style={styles.buttonWrp}
-						onPress={() => {
-							this.props.sendPost({
-								id: uuid(),
-								...this.state,
-								user: { ...this.props.profileInfo }
-							});
-							navigation.navigate('Home');
-						}}
-						disabled={this.state.disabled}
-					>
-						<Text
-							style={[
-								styles.button,
-								this.state.disabled ? styles.disabledBtn : {}
-							]}
-						>
-							Save
-						</Text>
-					</TouchableOpacity>
 				</View>
 			</View>
 		);
