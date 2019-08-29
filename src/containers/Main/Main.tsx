@@ -61,6 +61,18 @@ class Main extends Component {
 			notification.android.setChannelId('insider').setSound('default')
 			firebase.notifications().displayNotification(notification)
 		});
+
+		this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
+			const { data } = notificationOpen;
+			
+		});
+		
+
+		const notificationOpen = await firebase.notifications().getInitialNotification();
+  		if (notificationOpen) {
+  		    const { data } = notificationOpen;
+  		    
+  		}
 	}
 
 	render () {
