@@ -8,8 +8,8 @@ import { sendPost } from '../actions';
 import IPost from '../IPost';
 import IUser from '../../../UserPage/IUser';
 import Spinner from '../../../Spinner/Spinner';
-import ImageUploader from '../../../ImageUploader';
 import Extra from './Extra';
+import ImageUploader from '../../../ImageUploader';
 
 const poll = require('../../../../assets/general/Poll-01.svg');
 const camera = require('../../../../assets/general/camera.svg');
@@ -50,8 +50,9 @@ class PostConstructor extends Component<IProps, IState> {
 		if (description && image_url) this.setState({ disabled: false });
 		else this.setState({ disabled: true });
 	}
-	hasActivity() {
-		return !!this.state.type;
+
+	hasActivityOrPhoto(number: number) {
+		return this.state.type || this.state.image_url ? {} : { flex: number };
 	}
 
 	addExtra(item, option) {
@@ -74,18 +75,13 @@ class PostConstructor extends Component<IProps, IState> {
 			if (data.id !== option.id) this.addExtra(option, type);
 		}
 		return (
-			<View style={styles.mainView}>
+			<View style={[styles.mainView, this.hasActivityOrPhoto(1)]}>
 				<View style={styles.buttonWrp}>
 					<TouchableOpacity
 						style={{ width: '50%', alignItems: 'flex-start' }}
 						onPress={() => null}
 					>
-						<SvgUri height={48} width={48} source={arrow} />
-						{/*<Text*/}
-						{/*    style={[styles.button]}*/}
-						{/*>*/}
-						{/*    Cancel*/}
-						{/*</Text>*/}
+						<SvgUri height={40} width={40} source={arrow} />
 					</TouchableOpacity>
 					<TouchableOpacity
 						style={{ width: '50%', alignItems: 'flex-end' }}
@@ -110,54 +106,45 @@ class PostConstructor extends Component<IProps, IState> {
 						</Text>
 					</TouchableOpacity>
 				</View>
-				<View>
-					<View style={styles.UploadWrp}>
-						<ImageUploader
-							startUpload={() => this.setState({ loading: true })}
-							saveUrl={(image_url: string) => {
-								this.setState({ image_url, loading: false });
-								this.validate();
-							}}
-						>
-							{image_url ? (
+				{image_url || type ? (
+					<View>
+						{image_url ? (
+							<View style={styles.UploadWrp}>
 								<Image style={styles.roundImage} source={{ uri: image_url }} />
-							) : (
-								<SvgUri
-									style={styles.center}
-									width={50}
-									height={50}
-									source={camera}
+							</View>
+						) : null}
+						<View>
+							{type ? (
+								<Extra
+									user={profileInfo}
+									type={type}
+									data={data}
+									navigation={navigation}
+									clearExtra={() => {
+										this.addExtra({ id: null, title: null }, '');
+									}}
 								/>
-							)}
-						</ImageUploader>
+							) : null}
+						</View>
 					</View>
-					{type && data.id ? (
-						<Extra
-							user={profileInfo}
-							type={type}
-							data={data}
-							navigation={navigation}
-							clearExtra={() => {
-								this.addExtra({ id: null, title: null }, '');
-							}}
-						/>
-					) : null}
-				</View>
+				) : null}
 
-				<View>
-					<View style={styles.iconsWrp}>
-						<TextInput
-							textAlignVertical={'top'}
-							multiline={true}
-							numberOfLines={4}
-							style={styles.input}
-							value={description}
-							onChangeText={description => {
-								this.setState({ description });
-								this.validate();
-							}}
-						/>
-					</View>
+				<View
+					style={[styles.iconsWrp, { flex: 2 }, this.hasActivityOrPhoto(5)]}
+				>
+					<TextInput
+						textAlignVertical={'top'}
+						multiline={true}
+						numberOfLines={4}
+						style={styles.input}
+						value={description}
+						onChangeText={description => {
+							this.setState({ description });
+							this.validate();
+						}}
+					/>
+				</View>
+				<View style={this.hasActivityOrPhoto(1)}>
 					<View style={styles.iconsWrp}>
 						<TouchableOpacity
 							style={[{ marginRight: 15 }, styles.activity]}
@@ -195,6 +182,18 @@ class PostConstructor extends Component<IProps, IState> {
 							<SvgUri width={40} height={40} source={calendar} />
 							<Text style={styles.colorTextActivity}>Event</Text>
 						</TouchableOpacity>
+						<View style={[{ marginRight: 15 }, styles.activity]}>
+							<ImageUploader
+								startUpload={() => this.setState({ loading: true })}
+								saveUrl={(image_url: string) => {
+									this.setState({ image_url, loading: false });
+									this.validate();
+								}}
+							>
+								<SvgUri width={50} height={50} source={camera} />
+							</ImageUploader>
+							<Text style={styles.colorTextActivity}>Image</Text>
+						</View>
 					</View>
 				</View>
 			</View>
