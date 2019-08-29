@@ -4,7 +4,8 @@ const config = {
 	DEFAULT_AVATAR: '/images/default/avatar-default.png',
 	DEFAULT_EVENT_IMAGE: '/src/assets/general/event.jpg',
 	DEFAULT_MOVIE_IMAGE: '/images/default/movie-default.png',
-	POSTER_PATH: 'https://image.tmdb.org/t/p/w500'
+	POSTER_PATH: 'https://image.tmdb.org/t/p/w500',
+	DEFAULT_POST: require('./assets/general/default-post.jpg')
 };
 
 export default config;

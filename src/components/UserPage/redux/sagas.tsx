@@ -28,11 +28,13 @@ function* getEvents(action) {
 }
 
 function* getUserSurveys(action) {
+	console.warn(action.payload);
 	try {
 		const data = yield call(webApi, {
 			method: 'GET',
 			endpoint: config.API_URL + '/api/surveys/user/' + action.payload
 		});
+		console.warn(data);
 		yield put({
 			type: fetchUserSurveys.SUCCESS,
 			payload: {
