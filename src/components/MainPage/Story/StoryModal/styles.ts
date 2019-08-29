@@ -6,7 +6,8 @@ export default StyleSheet.create({
 		width: 300,
 		justifyContent: 'center',
 		alignItems: 'center',
-		padding: '3%'
+		padding: '3%',
+		flex: 1
 	},
 	input: {
 		width: '80%',

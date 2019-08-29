@@ -37,5 +37,26 @@ export default StyleSheet.create({
 	sidebar_title: {
 		marginTop: 10,
 		textAlign: 'center'
+	},
+	addStoryView: {
+		padding: '2%',
+		backgroundColor: '#FF6501',
+		borderRadius: 5,
+		textAlign: 'center',
+		fontSize: 15,
+		color: 'white',
+		fontFamily: 'Inter-SemiBold',
+		marginBottom: 20,
+		marginTop: 20
+	},
+	modalAnchor: {
+		position: 'relative'
+	},
+	modal: {
+		position: 'absolute',
+		top: 60,
+		backgroundColor: '#e4e4e4',
+		zIndex: 5,
+		height: 500
 	}
 });

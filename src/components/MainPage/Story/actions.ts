@@ -1,4 +1,5 @@
-import { ADD_STORY } from './actionTypes';
+import { ADD_STORY, SEND_STORY } from './actionTypes';
+import INewStory from './INewStory';
 
 export const addStory = story => {
 	return {
@@ -8,11 +9,11 @@ export const addStory = story => {
 		}
 	};
 };
-export const sendStory = (post: IPost) => {
+export const sendStory = (story: INewStory) => {
 	return {
 		type: SEND_STORY,
 		payload: {
-			post
+			story
 		}
 	};
 };
