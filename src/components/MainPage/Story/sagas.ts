@@ -18,20 +18,14 @@ export function* getStories() {
 }
 
 export function* sendStory(action) {
-	const { newStory, userId } = action.payload.story;
+	const { story } = action.payload;
 	try {
-		const data = yield call(webApi, {
-			method: 'POST',
-			endpoint: config.API_URL + '/api/story/',
-			// body: { ...action.payload.post },
-			body: {
-				userId,
-				...newStory,
-				activityId: newStory.activity && newStory.activity.id
-				// parse: false
-			}
-		});
-		alert(JSON.stringify(data));
+		// const data = yield call(webApi, {
+		// 	method: 'POST',
+		// 	endpoint: config.API_URL + '/api/story/',
+		// 	body: {...story}
+		// });
+		// alert(JSON.stringify(data));
 	} catch (e) {
 		console.warn('profile saga fetch stories:', e.message);
 		alert(JSON.stringify(e.message));

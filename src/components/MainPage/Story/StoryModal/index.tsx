@@ -18,7 +18,7 @@ const paint = require('../../../../assets/general/paint.svg');
 const uuid = require('uuid/v4');
 
 interface IProps {
-	sendStory: ({ newStory: INewStory, userId: string }) => any;
+	sendStory: (newStory: INewStory) => any;
 	profileInfo: IUser;
 	navigation: any;
 	newStory: INewStory;
@@ -33,9 +33,6 @@ interface IState {
 	loading: boolean;
 	data: any;
 }
-
-const mock_url =
-	'https://i.pinimg.com/736x/2c/f1/93/2cf193ee4bef23eb1a2a9b07faadd951.jpg';
 
 class StoryModal extends Component<IProps, IState> {
 	constructor(props) {
@@ -65,8 +62,18 @@ class StoryModal extends Component<IProps, IState> {
 		}));
 	}
 
+	onSave() {
+		const { data } = this.state;
+		this.props.sendStory({
+			...this.state.newStory,
+			activity: data ? { id: data.option.id, name: data.option.title } : null,
+			activityId: data ? data.option.id : '',
+			type: data ? data.type : '',
+			userId: this.props.profileInfo.id
+		});
+	}
+
 	componentWillUnmount(): void {
-		console.warn(this.props.setNewStory);
 		this.props.setNewStory({
 			newStory: this.state.newStory,
 			data: this.props.data
@@ -80,6 +87,7 @@ class StoryModal extends Component<IProps, IState> {
 		const { option, type } = this.props.data || { option: null, type: null };
 		const { navigation, profileInfo } = this.props;
 
+		console.warn(this.state.disabled);
 		return (
 			<View style={styles.mainView}>
 				<View>
@@ -205,11 +213,8 @@ class StoryModal extends Component<IProps, IState> {
 					<TouchableOpacity
 						style={styles.buttonWrp}
 						onPress={() => {
-							this.props.sendStory({
-								newStory: { ...this.state },
-								userId: this.props.profileInfo.id
-							});
-							navigation.navigate('Home');
+							console.warn('on save');
+							// this.onSave()
 						}}
 						disabled={this.state.disabled}
 					>

@@ -9,12 +9,16 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import StoryModal from '../components/MainPage/Story/StoryModal';
 import INewStory from '../components/MainPage/Story/INewStory';
 
+const mock_url =
+	'https://i.pinimg.com/736x/2c/f1/93/2cf193ee4bef23eb1a2a9b07faadd951.jpg';
+
 const newStoryDefault: INewStory = {
+	activityId: '',
 	backgroundColor: 'rgba(255,255,255, 0)', // white
 	fontColor: 'rgba(0,0,0,0)', // black
 	movieId: null,
 	movieOption: '',
-	image_url: null,
+	image_url: mock_url,
 	caption: null,
 	activity: null,
 	type: ''
