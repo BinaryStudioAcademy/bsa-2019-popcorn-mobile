@@ -10,6 +10,10 @@ import StoryModal from '../components/MainPage/Story/StoryModal';
 import INewStory from '../components/MainPage/Story/INewStory';
 
 const newStoryDefault: INewStory = {
+	backgroundColor: 'rgba(255,255,255, 0)', // white
+	fontColor: 'rgba(0,0,0,0)', // black
+	movieId: null,
+	movieOption: '',
 	image_url: null,
 	caption: null,
 	activity: null,

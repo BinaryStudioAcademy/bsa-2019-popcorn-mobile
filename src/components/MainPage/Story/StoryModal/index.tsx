@@ -14,6 +14,7 @@ const poll = require('../../../../assets/general/Poll-01.svg');
 const camera = require('../../../../assets/general/camera.svg');
 const cup = require('../../../../assets/general/trophy.svg');
 const calendar = require('../../../../assets/general/calendar.svg');
+const paint = require('../../../../assets/general/paint.svg');
 const uuid = require('uuid/v4');
 
 interface IProps {
@@ -77,7 +78,6 @@ class StoryModal extends Component<IProps, IState> {
 
 		const { image_url, caption } = this.state.newStory;
 		const { option, type } = this.props.data || { option: null, type: null };
-		console.warn(option, type);
 		const { navigation, profileInfo } = this.props;
 
 		return (
@@ -170,6 +170,36 @@ class StoryModal extends Component<IProps, IState> {
 							}
 						>
 							<SvgUri width={50} height={50} source={calendar} />
+						</TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => {
+								this.props.navigation.navigate('ColorPicker', {
+									setColor: color =>
+										this.setState(state => ({
+											newStory: {
+												...state.newStory,
+												backgroundColor: color
+											}
+										}))
+								});
+							}}
+						>
+							<SvgUri width={50} height={50} source={paint} />
+						</TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => {
+								this.props.navigation.navigate('ColorPicker', {
+									setColor: color =>
+										this.setState(state => ({
+											newStory: {
+												...state.newStory,
+												fontColor: color
+											}
+										}))
+								});
+							}}
+						>
+							<SvgUri width={50} height={50} source={paint} />
 						</TouchableOpacity>
 					</View>
 					<TouchableOpacity
