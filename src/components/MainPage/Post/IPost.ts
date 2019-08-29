@@ -6,6 +6,8 @@ export default interface IPost {
 	created_At?: string;
 	image_url: string;
 	description?: string;
+	extraTitle?: string | null;
+	extraLink?: string | null;
 	content?: {
 		image: string;
 		link: string;
