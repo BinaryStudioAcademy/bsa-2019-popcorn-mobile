@@ -18,7 +18,7 @@ export function* getStories() {
 }
 
 export function* sendStory(action) {
-	const { newStory, userId } = action.payload;
+	const { newStory, userId } = action.payload.story;
 	try {
 		const data = yield call(webApi, {
 			method: 'POST',
@@ -33,7 +33,7 @@ export function* sendStory(action) {
 		});
 		alert(JSON.stringify(data));
 	} catch (e) {
-		console.log('profile saga fetch stories:', e.message);
+		console.warn('profile saga fetch stories:', e.message);
 		alert(JSON.stringify(e.message));
 	}
 }

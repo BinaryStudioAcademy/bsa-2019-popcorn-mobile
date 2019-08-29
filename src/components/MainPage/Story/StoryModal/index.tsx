@@ -179,7 +179,6 @@ class StoryModal extends Component<IProps, IState> {
 		}
 		return (
 			<View style={styles.container}>
-				<Header navigation={navigation} />
 				<View style={styles.mainView}>
 					<View style={styles.iconsWrp}>
 						<Image style={styles.roundImage} source={{ uri: image_url }} />

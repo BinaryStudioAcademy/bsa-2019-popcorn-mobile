@@ -7,7 +7,7 @@ import React, { Fragment } from 'react';
 import StoryList from './StoryList/StoryList';
 import SocketService from './../../../helpers/socket.helper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import StoryModal from './StoryModal';
+import StoryModal from './StoryModal/index';
 import INewStory from './INewStory';
 import Spinner from '../../Spinner/Spinner';
 
@@ -83,13 +83,7 @@ class StoryComponent extends React.Component<IProps, IState> {
 		const { stories, navigation } = this.props;
 		return (
 			<View style={styles.container}>
-				<TouchableOpacity style={styles.modalAnchor} onPress={this.onPress}>
-					<Text style={styles.addStoryView}>Add story</Text>
-				</TouchableOpacity>
-				<View style={styles.modal}>
-					{this.state.showModal && <StoryModal />}
-				</View>
-				<View style={{ height: 240 }}>
+				<View style={{ height: 1000 }}>
 					{stories && <StoryList navigation={navigation} stories={stories} />}
 				</View>
 			</View>
@@ -100,7 +94,8 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'column',
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		height: 1000
 	},
 	addStoryView: {
 		padding: '2%',
@@ -120,7 +115,8 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		top: 60,
 		backgroundColor: '#e4e4e4',
-		zIndex: 2
+		zIndex: 5,
+		height: 500
 	}
 });
 
