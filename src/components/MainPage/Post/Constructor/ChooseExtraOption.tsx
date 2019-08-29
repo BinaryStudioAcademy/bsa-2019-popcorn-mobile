@@ -13,8 +13,6 @@ import IUser from '../../../UserPage/IUser';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
 
-const arrow = require('../../../../assets/general/arrow-circle-o-left.svg');
-
 interface IProps {
 	events: any;
 	surveys: any;
@@ -59,8 +57,8 @@ class ChooseExtraOption extends React.Component<IProps> {
 		if (!options || options.length === 0)
 			message = "You don't have any " + type;
 		return (
-			<View style={[styles.extraItemWrp, styles.grid]}>
-				<ScrollView>
+			<View style={[styles.extraItemWrp, styles.grid, { flex: 1 }]}>
+				<ScrollView style={{ flex: 1 }}>
 					{options && options.length > 0 ? (
 						options.map(option => (
 							<Extra
@@ -77,11 +75,6 @@ class ChooseExtraOption extends React.Component<IProps> {
 						<Text>{message}</Text>
 					)}
 				</ScrollView>
-				{/*<View style={[styles.iconsWrp]}>*/}
-				{/*    <TouchableOpacity onPress={() => this.props.navigation.pop()}>*/}
-				{/*        <SvgUri height={48} width={48} source={arrow}/>*/}
-				{/*    </TouchableOpacity>*/}
-				{/*</View>*/}
 			</View>
 		);
 	}

@@ -1,6 +1,6 @@
 import React from 'react';
 import SvgUri from 'react-native-svg-uri';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import IUser from '../../../UserPage/IUser';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -24,38 +24,41 @@ const renderTopView = data => {
 		));
 	return (
 		<View>
-			<Text style={styles.bigFont}>{data.title}</Text>
-			{movie}
+			<View style={{ maxHeight: 200 }}>
+				<Text numberOfLines={1} style={styles.bigFont}>
+					{data.title}
+				</Text>
+				{movie}
+			</View>
 		</View>
 	);
 };
 
 const renderEventView = data => {
 	return (
-		<View style={styles.column}>
-			<View style={styles.horizontalContainer}>
-				<Text numberOfLines={2} style={[styles.text, styles.title]}>
-					{data.title}
-				</Text>
-				<View style={[styles.visitors]}>
-					<FontAwesomeIcon
-						style={{ ...styles.icon, color: '#122737' }}
-						icon={faUsers}
-					/>
-					<Text>{data.eventVisitors.length}</Text>
-				</View>
-			</View>
+		<View>
 			<View>
-				<Text>
-					{Moment(data.startDate).format('D MMM HH:mm')} -
-					{Moment(data.endDate).format(' D MMM HH:mm')}
-				</Text>
+				<View style={styles.horizontalContainer}>
+					<Text numberOfLines={2} style={[styles.text, styles.title]}>
+						{data.title}
+					</Text>
+					<View style={[styles.visitors]}>
+						<FontAwesomeIcon style={{ color: '#122737' }} icon={faUsers} />
+						<Text>{data.eventVisitors.length}</Text>
+					</View>
+				</View>
+				<View>
+					<Text>
+						{Moment(data.startDate).format('D MMM HH:mm')} -
+						{Moment(data.endDate).format(' D MMM HH:mm')}
+					</Text>
+				</View>
+				{!!data.description && (
+					<Text numberOfLines={1} style={[styles.text]}>
+						{data.description}
+					</Text>
+				)}
 			</View>
-			{!!data.description && (
-				<Text numberOfLines={1} style={[styles.text, styles.description]}>
-					{data.description}
-				</Text>
-			)}
 		</View>
 	);
 };
