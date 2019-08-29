@@ -18,7 +18,9 @@ const Extra = (props: IProps) => {
 	const viewActivity = () => {
 		switch (type) {
 			case 'event':
-				props.navigation.navigate('EventPage', { event: { ...data, ...user } });
+				props.navigation.navigate('StoryEventPage', {
+					event: { ...data, ...user }
+				});
 				break;
 		}
 	};

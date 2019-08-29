@@ -62,7 +62,7 @@ class ChooseExtraOption extends React.Component<IProps> {
 					options.map(option => (
 						<TouchableOpacity
 							onPress={() =>
-								this.props.navigation.navigate('Basic', { option, type })
+								this.props.navigation.navigate('StoryBasic', { option, type })
 							}
 						>
 							<Text style={styles.extraItem}>{option.title}</Text>
