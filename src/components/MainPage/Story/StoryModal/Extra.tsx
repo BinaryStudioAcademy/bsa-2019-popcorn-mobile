@@ -88,7 +88,7 @@ const Extra = (props: IProps) => {
 	};
 
 	let renderView = (data: any) => (
-		<Text style={styles.bigFont}>{data.title}</Text>
+		<Text style={styles.bigFont}>{data.name | data.title}</Text>
 	);
 
 	switch (type) {
