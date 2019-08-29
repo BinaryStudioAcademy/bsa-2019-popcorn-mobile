@@ -4,7 +4,7 @@ const orange = '#ffab07';
 const imageHeight = 200;
 export default StyleSheet.create({
 	input: {
-		width: '80%',
+		width: '90%',
 		margin: 20,
 		borderColor: 'rgba(0, 0, 0, 0.11)',
 		borderWidth: 1,
@@ -12,7 +12,7 @@ export default StyleSheet.create({
 		paddingLeft: 15,
 		fontSize: 16,
 		borderRadius: 3,
-		height: 150
+		flex: 1
 	},
 	iconsWrp: {
 		width: '100%',
@@ -141,8 +141,7 @@ export default StyleSheet.create({
 		display: 'flex',
 		justifyContent: 'center',
 		flexDirection: 'row',
-		alignItems: 'center',
-		height: imageHeight
+		alignItems: 'center'
 	},
 	grid: {
 		paddingTop: 15,
@@ -165,7 +164,7 @@ export default StyleSheet.create({
 		paddingRight: 10
 	},
 	colorTextActivity: {
-		color: 'black'
+		color: '#bccad6'
 	},
 	contentImg: {
 		marginRight: 2,
