@@ -206,7 +206,7 @@ class StoryModal extends Component<IProps, IState> {
 						/>
 						<TouchableOpacity
 							onPress={() =>
-								this.props.navigation.navigate('ChooseExtra', {
+								this.props.navigation.navigate('StoryChooseExtra', {
 									addExtra: this.addExtra
 								})
 							}
