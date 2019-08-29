@@ -1,1 +1,2 @@
 export const ADD_POST = 'POST_ACTION:ADD_POST';
+export const SEND_POST = 'POST_ACTION:SEND_POST';

@@ -4,7 +4,7 @@ import authReducer from '../components/Authorization/reducer';
 import surveyReducer from '../components/ContentPage/Surveys/reducer';
 import moviesReducer from '../components/MainPage/Movie/reducer';
 import postReducer from '../components/MainPage/Post/reducer';
-import userEventsReducer from '../components/UserPage/Events/reducer';
+import userEventsReducer from '../components/UserPage/redux/reducer';
 import eventsReducer from '../components/ContentPage/Events/reducer';
 import movieReducer from '../components/MainPage/Movie/Movie/reducer';
 import topsReducer from '../components/ContentPage/Tops/reducer';

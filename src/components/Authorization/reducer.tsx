@@ -1,6 +1,12 @@
 import { login, register, fetchUser } from '../../redux/routines';
+import IUser from '../UserPage/IUser';
 
-const initialState = {
+const initialState: {
+	profileInfo: null | IUser;
+	loginError: null | string;
+	registerError: null | string;
+	loading: boolean;
+} = {
 	profileInfo: null,
 	loginError: null,
 	registerError: null,

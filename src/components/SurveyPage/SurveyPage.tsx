@@ -1,304 +1,56 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import {
+	StyleSheet,
+	View,
+	TouchableOpacity,
+	Text,
+	ScrollView
+} from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../ContentPage/Surveys/actions';
 import Spinner from '../Spinner/Spinner';
 import SvgUri from 'react-native-svg-uri';
 import { postAnswers } from '../ContentPage/Surveys/actions';
-// import SurveyMultipleAnswers from './SurveyTypes/SurveySingleAnswer';
 import Checkboxes from './SurveyTypes/Checkboxes';
-// import console = require('console');
-// import SurveyShortAnswer from './SurveyTypes/SurveyShortAnswer';
-// import SurveyLinearScale from './SurveyTypes/SurveyLinearScale';
-// import Survey from '../UserPage/Survey/Survey';
+import SingleAnswers from './SurveyTypes/SingleAnswers';
+import { transformAnswers } from './SurveyService';
 
-const survey = {
-	id: 'a850c5d7-5db3-48ed-bde5-03d784ba43bb',
-	title: 'Batman Actors',
-	description: 'Choose best batman actor',
-	type: 'Open',
-	created_at: '2019-08-20T13:45:59.287Z',
-	updated_at: '2019-08-20T13:45:59.287Z',
-	surveysQuestion: [
-		{
-			id: '00b03774-9246-4b12-8629-4b4ccd986685',
-			index: 0,
-			title: '1. Which batman do you like more',
-			firstLabel: '',
-			lastLabel: '',
-			type: 'Checkboxes',
-			image: '',
-			required: true,
-			surveysQuestionOption: [
-				{
-					id: '260b6207-318b-46a5-b355-aa4014d02d71',
-					index: 0,
-					title: '1) George Clooney'
-				},
-				{
-					id: '8ebbfb07-14d7-4309-ae12-35049bfce397',
-					index: 4,
-					title: '5) Christian Bale'
-				},
-				{
-					id: 'd69a4c30-154e-451a-ad99-1faedfe3ceb6',
-					index: 3,
-					title: '4) Adam West'
-				},
-				{
-					id: 'd354af23-4768-425a-a150-13e81f0c203c',
-					index: 2,
-					title: '3) Michael Keaton'
-				},
-				{
-					id: '9378c424-8bd2-4613-ba38-de841c7ab928',
-					index: 1,
-					title: '2) Ben Affleck'
-				}
-			],
-			surveysQuestionAnswer: [
-				{
-					id: 'a9b6b62c-ca0d-4f4b-8c5e-f88e6f4285e4',
-					value: '',
-					user: {
-						id: '88e7c14a-bd0f-492e-b9d1-b0fc0ef356a6',
-						name: 'Admin',
-						email: 'admin@gmail.com',
-						role: 'admin',
-						password: 'admin1',
-						location: 'Lviv',
-						aboutMe: 'Study in Binary Studio Academy',
-						male: true,
-						female: null,
-						avatar: 'https://imgur.com/1NYENtx.jpg',
-						reset_token: ''
-					},
-					surveysQuestionOption: {
-						id: '9378c424-8bd2-4613-ba38-de841c7ab928',
-						index: 1,
-						title: '2) Ben Affleck'
-					}
-				},
-				{
-					id: 'fd2b5b09-9972-4d70-87b8-08312205df60',
-					value: '',
-					user: {
-						id: '40c0098a-5268-4c31-86be-e1cdcdd56a4d',
-						name: 'Hubbard Sykes',
-						email: 'hubbardsykes@rodeology.com',
-						role: 'user',
-						password: '5d5440e1e48fee3713eb74ea',
-						location: 'Western Sahara',
-						aboutMe: 'Work in Acrodance',
-						male: true,
-						female: null,
-						avatar: 'https://imgur.com/vuUqpeH.png',
-						reset_token: ''
-					},
-					surveysQuestionOption: {
-						id: '8ebbfb07-14d7-4309-ae12-35049bfce397',
-						index: 4,
-						title: '5) Christian Bale'
-					}
-				},
-				{
-					id: '80de7e95-d07f-47a8-b264-8d355f110e89',
-					value: '',
-					user: {
-						id: '425b6ec6-a664-44ff-b821-5398af190b46',
-						name: 'Ola Hogan',
-						email: 'olahogan@acrodance.com',
-						role: 'user',
-						password: '5d5440e1e5e832aa4ec157d1',
-						location: 'Oman',
-						aboutMe: 'Work in Filodyne',
-						male: null,
-						female: true,
-						avatar: 'https://imgur.com/DrU0qgd.png',
-						reset_token: ''
-					},
-					surveysQuestionOption: {
-						id: 'd354af23-4768-425a-a150-13e81f0c203c',
-						index: 2,
-						title: '3) Michael Keaton'
-					}
-				},
-				{
-					id: 'f4ad2bd0-b36f-4dc5-a733-deec176fac98',
-					value: '',
-					user: {
-						id: '6ec93685-1a5a-48ff-af91-9eab8aaf35dc',
-						name: 'Shawn Leonard',
-						email: 'shawnleonard@comstar.com',
-						role: 'user',
-						password: '5d5440e1271362283b0bae72',
-						location: 'Spain',
-						aboutMe: 'Work in Phormula',
-						male: true,
-						female: null,
-						avatar: 'https://imgur.com/G1km9tV.png',
-						reset_token: ''
-					},
-					surveysQuestionOption: {
-						id: '260b6207-318b-46a5-b355-aa4014d02d71',
-						index: 0,
-						title: '1) George Clooney'
-					}
-				},
-				{
-					id: 'ea54b0f0-390e-4905-b42c-4b86cb3085d5',
-					value: '',
-					user: {
-						id: '2a3feb1a-cd6f-4ffa-a827-a18a3144a58c',
-						name: 'admin',
-						email: 'test@gmail.com',
-						role: 'user',
-						password: 'admin1',
-						location: 'Lebanon',
-						aboutMe: 'Work in Canopoly',
-						male: true,
-						female: null,
-						avatar: 'https://imgur.com/fvLQf0V.png',
-						reset_token: ''
-					},
-					surveysQuestionOption: {
-						id: '9378c424-8bd2-4613-ba38-de841c7ab928',
-						index: 1,
-						title: '2) Ben Affleck'
-					}
-				},
-				{
-					id: '3f20e198-1d72-4b89-abaf-d143ab1c725f',
-					value: '',
-					user: {
-						id: 'cfb94da7-c469-4d41-b6cb-caccfaa81acd',
-						name: 'Ramos Fernandez',
-						email: 'ramosfernandez@comtract.com',
-						role: 'user',
-						password: '5d5440e13d63211446c43b29',
-						location: 'Israel',
-						aboutMe: 'Work in Remotion',
-						male: true,
-						female: null,
-						avatar: 'https://imgur.com/un80lX2.png',
-						reset_token: ''
-					},
-					surveysQuestionOption: {
-						id: '260b6207-318b-46a5-b355-aa4014d02d71',
-						index: 0,
-						title: '1) George Clooney'
-					}
-				},
-				{
-					id: 'b29e5eb7-c5a3-4b1a-a03a-b50095f2368c',
-					value: '',
-					user: {
-						id: 'ebc36828-8697-469d-a578-18d96d983b21',
-						name: 'Marshall Solis',
-						email: 'marshallsolis@remotion.com',
-						role: 'user',
-						password: '5d5440e181a79e6ca28ca608',
-						location: 'Solomon Islands',
-						aboutMe: 'Work in Ecratic',
-						male: true,
-						female: null,
-						avatar: 'https://imgur.com/eTPLhuF.png',
-						reset_token: ''
-					},
-					surveysQuestionOption: {
-						id: '260b6207-318b-46a5-b355-aa4014d02d71',
-						index: 0,
-						title: '1) George Clooney'
-					}
-				},
-				{
-					id: '484fd9f3-3d25-450f-b246-c5650eb2d34d',
-					value: '',
-					user: {
-						id: '877ef25d-ec98-4825-b060-dcdd42d1d717',
-						name: 'Christi Scott',
-						email: 'christiscott@ecratic.com',
-						role: 'user',
-						password: '5d5440e1fed85750693e7404',
-						location: 'Jordan',
-						aboutMe: 'Work in Rodeology',
-						male: null,
-						female: true,
-						avatar: 'https://imgur.com/FzZAFGj.png',
-						reset_token: ''
-					},
-					surveysQuestionOption: {
-						id: '8ebbfb07-14d7-4309-ae12-35049bfce397',
-						index: 4,
-						title: '5) Christian Bale'
-					}
-				},
-				{
-					id: 'b6f7cdd3-0b0f-4156-a145-f743070679fd',
-					value: '',
-					user: {
-						id: '0ac0456f-66c4-4bb1-b981-0202a77074db',
-						name: 'Brittany Herring',
-						email: 'brittanyherring@zosis.com',
-						role: 'user',
-						password: '5d5440e1f5a75940f1a4a804',
-						location: 'Qatar',
-						aboutMe: 'Work in Comtract',
-						male: null,
-						female: true,
-						avatar: 'https://imgur.com/JfqF1lO.png',
-						reset_token: ''
-					},
-					surveysQuestionOption: {
-						id: 'd354af23-4768-425a-a150-13e81f0c203c',
-						index: 2,
-						title: '3) Michael Keaton'
-					}
-				},
-				{
-					id: '33de291c-62eb-48f3-aa4e-abb6bda04779',
-					value: '',
-					user: {
-						id: 'cd92e68f-7d2f-4c97-b944-ae1920672bd9',
-						name: 'Peterson Hull',
-						email: 'petersonhull@phormula.com',
-						role: 'user',
-						password: '5d5440e187d0336c0de0c33b',
-						location: 'Guyana',
-						aboutMe: 'Work in Zosis',
-						male: true,
-						female: null,
-						avatar: 'https://imgur.com/MViYeqK.png',
-						reset_token: ''
-					},
-					surveysQuestionOption: {
-						id: '9378c424-8bd2-4613-ba38-de841c7ab928',
-						index: 1,
-						title: '2) Ben Affleck'
-					}
-				}
-			]
-		}
-	],
-	user: {
-		id: '6ec93685-1a5a-48ff-af91-9eab8aaf35dc',
-		name: 'Shawn Leonard',
-		email: 'shawnleonard@comstar.com',
-		role: 'user',
-		password: '5d5440e1271362283b0bae72',
-		location: 'Spain',
-		aboutMe: 'Work in Phormula',
-		male: true,
-		female: null,
-		avatar: 'https://imgur.com/G1km9tV.png',
-		reset_token: ''
-	}
-};
+import ShortAnswer from './SurveyTypes/ShortAnswer';
+import SurveyLinearScale from './SurveyTypes/SurveyLinearScale';
+
 interface IProps {
-	survey: any;
-	navigation: any;
-	loading: boolean;
-	getSurveyById: (data?: any) => any;
+	surveyInfo: {
+		id: string;
+		created_at: Date;
+		title: string;
+		type: string;
+		description: string;
+		user_id: string;
+		user: {
+			name: string;
+			image_link: string;
+		};
+		participants: number;
+		questions: Array<{
+			id: string;
+			survey_id: string;
+			title: string;
+			firstLabel?: string;
+			lastLabel?: string;
+			type: string;
+			image_link?: string;
+			required: boolean;
+			options?: Array<{
+				index: number;
+				id: string;
+				question_id: string;
+				value: string;
+			}>;
+		}>;
+	};
+	isPreview?: boolean;
+	currentUserId: string;
+	postAnswers: (any) => any;
 }
 
 interface IState {
@@ -316,6 +68,11 @@ interface IState {
 }
 
 class SurveyPage extends React.Component<IProps, IState> {
+	componentDidMount() {
+		const surveyId = this.props.navigation.state.params.id;
+		this.props.getSurveyById(surveyId);
+	}
+
 	constructor(props: IProps) {
 		super(props);
 		this.state = {
@@ -324,49 +81,30 @@ class SurveyPage extends React.Component<IProps, IState> {
 		};
 	}
 
-	// static getDerivedStateFromProps(props, state) {
-	// 	if (survey.surveysQuestion) {
-	// 		return {
-	// 			answers: survey.surveysQuestion.surveysQuestionAnswer.map(question => ({
-	// 				questionId: question.id,
-	// 				options: [],
-	// 				value: ''
-	// 			}))
-	// 		};
-	// 	}
-	// 	return null;
-	// }
-	componentDidMount() {
-		const surveyId = this.props.navigation.state.params.id;
-		this.props.getSurveyById(surveyId);
+	static getDerivedStateFromProps(props, state) {
+		if (props.surveyInfo.questions) {
+			return {
+				answers: props.surveyInfo.questions.map(question => ({
+					questionId: question.id,
+					options: [],
+					value: ''
+				}))
+			};
+		}
+		return null;
 	}
 
-	setMultipleAnswer = answerInfo => {
-		const { questionId, optionId, value } = answerInfo;
-		console.log(answerInfo);
-		const index = this.state.answers.findIndex(
-			answer => answer.questionId === questionId
-		);
-		console.log(index);
-		if (value === true) {
-			this.state.answers[index].options.push({ id: optionId });
-		} else {
-			this.state.answers[index].options.splice(index, 1);
-		}
-	};
-
 	validate = () => {
-		const { surveysQuestion } = survey;
+		const { questions } = this.props.surveyInfo;
 		const { answers } = this.state;
-		console.log(this.state.answers);
-		const requiredQuestions = surveysQuestion.filter(
+		const requiredQuestions = questions.filter(
 			question => question.required === true
 		);
 		const validate = !requiredQuestions.some(question => {
 			const answer: any = answers.find(
 				answer => answer.questionId === question.id
 			);
-			if (surveysQuestion.type !== 'Short Answer') {
+			if (question.type !== 'Short Answer') {
 				if (answer.options.length === 0) return true;
 			} else {
 				if (answer.value.trim() === '') return true;
@@ -374,6 +112,40 @@ class SurveyPage extends React.Component<IProps, IState> {
 			return false;
 		});
 		return validate;
+	};
+
+	setSingleAnswer = answerInfo => {
+		const { questionId, optionId } = answerInfo;
+		const index = this.state.answers.findIndex(
+			answer => answer.questionId === questionId
+		);
+		this.state.answers.splice(index, 1);
+		this.state.answers.push({
+			questionId,
+			value: '',
+			options: [{ id: optionId }]
+		});
+	};
+
+	setShortAnswer = answerInfo => {
+		const { questionId, value } = answerInfo;
+		const index = this.state.answers.findIndex(
+			answer => answer.questionId === questionId
+		);
+		this.state.answers.splice(index, 1);
+		this.state.answers.push({ questionId, value, options: [] });
+	};
+
+	setMultipleAnswer = answerInfo => {
+		const { questionId, optionId, value } = answerInfo;
+		const index = this.state.answers.findIndex(
+			answer => answer.questionId === questionId
+		);
+		if (value === true) {
+			this.state.answers[index].options.push({ id: optionId });
+		} else {
+			this.state.answers[index].options.splice(index, 1);
+		}
 	};
 
 	sendAnswer = () => {
@@ -386,78 +158,114 @@ class SurveyPage extends React.Component<IProps, IState> {
 		}
 		const formattedAnswers = transformAnswers(
 			this.state.answers,
-			this.props.currentUserId
+			this.props.profileInfo.id
 		);
 		this.props.postAnswers(formattedAnswers);
+		this.props.navigation.goBack();
 	};
 
 	render() {
-		const { navigation, loading = true } = this.props;
+		if (
+			!this.state.answers ||
+			!this.props.surveyInfo ||
+			!this.props.surveyInfo.questions
+		)
+			return <Spinner />;
+
+		const { surveyInfo, navigation } = this.props;
+		const {
+			user,
+			created_at,
+			participants,
+			title,
+			description,
+			questions = []
+		} = surveyInfo;
 
 		return (
-			<View>
-				{loading ? (
-					<Spinner />
-				) : (
-					<>
+			<ScrollView>
+				<>
+					<View style={styles.surveyHeader}></View>
+					<TouchableOpacity
+						style={styles.surveyBack}
+						onPress={() => {
+							navigation.goBack();
+						}}
+					>
+						<SvgUri
+							height={20}
+							width={20}
+							source={require('../../assets/general/back.svg')}
+						/>
+					</TouchableOpacity>
+					<View style={styles.container}>
 						<View style={styles.surveyHeader}></View>
-						<TouchableOpacity
-							style={styles.surveyBack}
-							onPress={() => {
-								navigation.goBack();
-							}}
-						>
-							<SvgUri
-								height={20}
-								width={20}
-								source={require('../../assets/general/back.svg')}
-							/>
-						</TouchableOpacity>
-						<View style={styles.container}>
-							<View style={styles.surveyHeader}></View>
-							<View style={styles.surveyBody}>
-								<Text style={styles.surveyTitle}>{survey.title}</Text>
-								<Text style={styles.surveyDesc}>{survey.description}</Text>
-								<View style={styles.questionBlock}>
-									<Text style={styles.questionTitle}>{survey.title}</Text>
-									{survey.surveysQuestion.map((question, i) => {
-										if (question.type === 'Multiple choice') {
-											return <Text style={styles.surveyTitle}>Multiple</Text>;
-										} else if (question.type === 'Checkboxes') {
-											return (
-												<Checkboxes
-													key={i}
-													questionInfo={question}
-													setAnswer={this.setMultipleAnswer}
-												/>
-											);
-										} else if (question.type === 'Short Answer') {
-											return <Text style={styles.surveyTitle}>Short</Text>;
-										} else return <Text style={styles.surveyTitle}>else</Text>;
-									})}
-								</View>
-							</View>
-							<View style={styles.surveyFooter}>
-								{this.state.isDisabled && (
-									<Text>Please, answer all required questions.</Text>
-								)}
-								{!this.props.isPreview && (
-									<TouchableOpacity onPress={this.sendAnswer}>
-										<Text>Send</Text>
-									</TouchableOpacity>
-								)}
+						<View style={styles.surveyBody}>
+							<Text style={styles.surveyTitle}>{title}</Text>
+							<Text style={styles.surveyDesc}>{description}</Text>
+							<View style={styles.questionBlock}>
+								{questions.map((question, i) => {
+									if (question.type === 'Multiple choice') {
+										return (
+											<SingleAnswers
+												key={i}
+												questionInfo={question}
+												setAnswer={this.setSingleAnswer}
+											/>
+										);
+									} else if (question.type === 'Checkboxes') {
+										return (
+											<Checkboxes
+												key={i}
+												questionInfo={question}
+												setAnswer={this.setMultipleAnswer}
+											/>
+										);
+									} else if (question.type === 'Short Answer') {
+										return (
+											<ShortAnswer
+												key={i}
+												questionInfo={question}
+												setAnswer={this.setShortAnswer}
+											/>
+										);
+									} else
+										return (
+											<SurveyLinearScale
+												key={i}
+												questionInfo={question}
+												setAnswer={this.setSingleAnswer}
+											/>
+										);
+								})}
 							</View>
 						</View>
-					</>
-				)}
-			</View>
+						<View>
+							{this.state.isDisabled && (
+								<Text style={styles.surveyFooter}>
+									Please, answer all required questions.
+								</Text>
+							)}
+							{!this.props.isPreview && (
+								<TouchableOpacity
+									onPress={this.sendAnswer}
+									style={styles.surveyBtn}
+								>
+									<Text style={styles.surveyBtnText}>Send</Text>
+								</TouchableOpacity>
+							)}
+						</View>
+					</View>
+				</>
+			</ScrollView>
 		);
 	}
 }
 
 const mapStateToProps = rootState => ({
-	survey: rootState.survey.survey,
-	loading: rootState.survey.loading
+	surveyInfo: rootState.survey.survey,
+	loading: rootState.survey.loading,
+	profileInfo: rootState.authorization.profileInfo
 });
 
 const mapDispatchToProps = {
@@ -474,7 +282,29 @@ const styles = StyleSheet.create({
 		paddingLeft: 15,
 		paddingRight: 15
 	},
-	surveyFooter: {},
+	surveyBtn: {
+		backgroundColor: '#ff6501',
+		height: 43,
+		borderRadius: 55,
+		width: 100,
+		marginBottom: 45,
+		display: 'flex',
+		alignItems: 'center',
+		flexDirection: 'row',
+		justifyContent: 'center'
+	},
+	surveyBtnText: {
+		color: '#fff',
+		textTransform: 'uppercase',
+		textAlign: 'center',
+		fontSize: 18,
+		fontWeight: 'bold'
+	},
+	surveyFooter: {
+		color: 'red',
+		textAlign: 'center',
+		marginBottom: 15
+	},
 	surveyBack: {
 		position: 'absolute',
 		top: 15,
@@ -500,13 +330,6 @@ const styles = StyleSheet.create({
 		fontSize: 36,
 		marginBottom: 20,
 		fontWeight: '500'
-		// 	font-size: 36px;
-		// font-weight: 500;
-		// letter-spacing: .2px;
-		// margin-bottom: 20px;
-		// padding-bottom: 10px;
-		// font-family: Inter,sans-serif;
-		// word-break: break-word;
 	},
 	surveyDesc: {
 		fontSize: 14,
