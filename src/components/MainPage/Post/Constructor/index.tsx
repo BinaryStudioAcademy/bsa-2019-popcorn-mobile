@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+	Image,
+	Keyboard,
+	Text,
+	TextInput,
+	TouchableOpacity,
+	View
+} from 'react-native';
 import styles from './styles';
 import SvgUri from 'react-native-svg-uri';
 import { bindActionCreators } from 'redux';
@@ -32,6 +39,7 @@ interface IState {
 	data: any;
 	type: string;
 	loading: boolean;
+	hide: boolean;
 }
 
 class PostConstructor extends Component<IProps, IState> {
@@ -42,7 +50,35 @@ class PostConstructor extends Component<IProps, IState> {
 		disabled: true,
 		data: { id: null, title: null },
 		type: '',
-		loading: false
+		loading: false,
+		hide: true
+	};
+
+	keyboardDidShowListener;
+	keyboardDidHideListener;
+
+	componentDidMount() {
+		this.keyboardDidShowListener = Keyboard.addListener(
+			'keyboardDidShow',
+			this.keyboardDidShow.bind(this)
+		);
+		this.keyboardDidHideListener = Keyboard.addListener(
+			'keyboardDidHide',
+			this.keyboardDidHide.bind(this)
+		);
+	}
+
+	componentWillUnmount() {
+		this.keyboardDidShowListener.remove();
+		this.keyboardDidHideListener.remove();
+	}
+
+	keyboardDidShow = () => {
+		this.setState({ hide: false });
+	};
+
+	keyboardDidHide = () => {
+		this.setState({ hide: true });
 	};
 
 	validate() {
@@ -114,7 +150,7 @@ class PostConstructor extends Component<IProps, IState> {
 							</View>
 						) : null}
 						<View>
-							{type ? (
+							{type && this.state.hide ? (
 								<Extra
 									user={profileInfo}
 									type={type}
@@ -144,58 +180,60 @@ class PostConstructor extends Component<IProps, IState> {
 						}}
 					/>
 				</View>
-				<View style={this.hasActivityOrPhoto(1)}>
-					<View style={styles.iconsWrp}>
-						<TouchableOpacity
-							style={[{ marginRight: 15 }, styles.activity]}
-							onPress={() =>
-								this.props.navigation.navigate('ChooseExtraOption', {
-									addExtra: this.addExtra,
-									option: 'survey'
-								})
-							}
-						>
-							<SvgUri width={50} height={50} source={poll} />
-							<Text style={styles.colorTextActivity}>Survey</Text>
-						</TouchableOpacity>
-						<TouchableOpacity
-							style={[{ marginRight: 15 }, styles.activity]}
-							onPress={() =>
-								this.props.navigation.navigate('ChooseExtraOption', {
-									addExtra: this.addExtra,
-									option: 'top'
-								})
-							}
-						>
-							<SvgUri width={50} height={50} source={cup} />
-							<Text style={styles.colorTextActivity}>Top</Text>
-						</TouchableOpacity>
-						<TouchableOpacity
-							style={[{ marginRight: 15 }, styles.activity]}
-							onPress={() =>
-								this.props.navigation.navigate('ChooseExtraOption', {
-									addExtra: this.addExtra,
-									option: 'event'
-								})
-							}
-						>
-							<SvgUri width={40} height={40} source={calendar} />
-							<Text style={styles.colorTextActivity}>Event</Text>
-						</TouchableOpacity>
-						<View style={[{ marginRight: 15 }, styles.activity]}>
-							<ImageUploader
-								startUpload={() => this.setState({ loading: true })}
-								saveUrl={(image_url: string) => {
-									this.setState({ image_url, loading: false });
-									this.validate();
-								}}
+				{this.state.hide && (
+					<View style={this.hasActivityOrPhoto(1)}>
+						<View style={styles.iconsWrp}>
+							<TouchableOpacity
+								style={[{ marginRight: 15 }, styles.activity]}
+								onPress={() =>
+									this.props.navigation.navigate('ChooseExtraOption', {
+										addExtra: this.addExtra,
+										option: 'survey'
+									})
+								}
 							>
-								<SvgUri width={50} height={50} source={camera} />
-							</ImageUploader>
-							<Text style={styles.colorTextActivity}>Image</Text>
+								<SvgUri width={50} height={50} source={poll} />
+								<Text style={styles.colorTextActivity}>Survey</Text>
+							</TouchableOpacity>
+							<TouchableOpacity
+								style={[{ marginRight: 15 }, styles.activity]}
+								onPress={() =>
+									this.props.navigation.navigate('ChooseExtraOption', {
+										addExtra: this.addExtra,
+										option: 'top'
+									})
+								}
+							>
+								<SvgUri width={50} height={50} source={cup} />
+								<Text style={styles.colorTextActivity}>Top</Text>
+							</TouchableOpacity>
+							<TouchableOpacity
+								style={[{ marginRight: 15 }, styles.activity]}
+								onPress={() =>
+									this.props.navigation.navigate('ChooseExtraOption', {
+										addExtra: this.addExtra,
+										option: 'event'
+									})
+								}
+							>
+								<SvgUri width={40} height={40} source={calendar} />
+								<Text style={styles.colorTextActivity}>Event</Text>
+							</TouchableOpacity>
+							<View style={[{ marginRight: 15 }, styles.activity]}>
+								<ImageUploader
+									startUpload={() => this.setState({ loading: true })}
+									saveUrl={(image_url: string) => {
+										this.setState({ image_url, loading: false });
+										this.validate();
+									}}
+								>
+									<SvgUri width={50} height={50} source={camera} />
+								</ImageUploader>
+								<Text style={styles.colorTextActivity}>Image</Text>
+							</View>
 						</View>
 					</View>
-				</View>
+				)}
 			</View>
 		);
 	}
