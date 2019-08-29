@@ -1,14 +1,13 @@
+import IUser from '../../UserPage/IUser';
+
 export default interface IPost {
-	user: {
-		name: string;
-		avatar: string;
-		id: string;
-		any;
-	};
+	user: IUser;
 	id: string;
 	created_At?: string;
 	image_url: string;
 	description?: string;
+	extraTitle?: string | null;
+	extraLink?: string | null;
 	content?: {
 		image: string;
 		link: string;

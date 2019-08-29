@@ -191,6 +191,7 @@ dependencies {
     compile(project(':react-native-firebase')) {   
        transitive = false
     }
+    implementation project(':react-native-image-picker')
     implementation project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
