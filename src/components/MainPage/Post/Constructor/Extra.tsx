@@ -111,7 +111,7 @@ const Extra = (props: IProps) => {
 			</TouchableOpacity>
 			{props.clearExtra && (
 				<TouchableOpacity
-					onPress={() => props.clearExtra()}
+					onPress={() => props.clearExtra && props.clearExtra()}
 					style={styles.timesCircle}
 				>
 					<SvgUri

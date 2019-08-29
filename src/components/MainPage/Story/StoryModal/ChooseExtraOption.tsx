@@ -1,4 +1,4 @@
-import * as React from 'react';
+// import * as React from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -12,6 +12,7 @@ import SvgUri from 'react-native-svg-uri';
 import IUser from '../../../UserPage/IUser';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
+import React from 'react';
 
 const arrow = require('../../../../assets/general/arrow-circle-o-left.svg');
 
@@ -69,7 +70,7 @@ class ChooseExtraOption extends React.Component<IProps> {
 								type={type}
 								user={profileInfo}
 								onSave={() => {
-									this.props.navigation.navigate('Basic', { option, type });
+									this.props.navigation.navigate('First', { option, type });
 								}}
 							/>
 						))
@@ -77,11 +78,6 @@ class ChooseExtraOption extends React.Component<IProps> {
 						<Text>{message}</Text>
 					)}
 				</ScrollView>
-				{/*<View style={[styles.iconsWrp]}>*/}
-				{/*    <TouchableOpacity onPress={() => this.props.navigation.pop()}>*/}
-				{/*        <SvgUri height={48} width={48} source={arrow}/>*/}
-				{/*    </TouchableOpacity>*/}
-				{/*</View>*/}
 			</View>
 		);
 	}

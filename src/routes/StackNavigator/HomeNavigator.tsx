@@ -13,9 +13,7 @@ import {
 	Movies_StackNavigator
 } from './MenuNavigators';
 import StoryComponent from './../../components/MainPage/Story/StoryCarousel/StoryCarousel';
-import PostConstructor from '../../components/MainPage/Post/Constructor';
 import PostConstructorNavigator from './PostConstructorNavigator';
-import StoryConstructorNavigator from './StoryConstructorNavigator';
 
 const HomeNavigator = createDrawerNavigator({
 	Home: {
@@ -75,12 +73,6 @@ const HomeNavigator = createDrawerNavigator({
 		screen: PostConstructorNavigator,
 		navigationOptions: {
 			drawerLabel: 'Create post'
-		}
-	},
-	StoryConstructor: {
-		screen: StoryConstructorNavigator,
-		navigationOptions: {
-			drawerLabel: 'Create story'
 		}
 	}
 });
