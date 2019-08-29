@@ -55,7 +55,7 @@ export const generateIcon = (type: string): ReactElement => {
 
 export const sendDeviceToken = async (token) => {
     await webApi({
-        endpoint: config.API_URL + '/api/auth/notification',
+        endpoint: config.API_URL + '/api/notification',
         method: 'PUT',
         body: {
             token,
