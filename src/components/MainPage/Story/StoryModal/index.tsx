@@ -21,7 +21,8 @@ interface IProps {
 	profileInfo: IUser;
 	navigation: any;
 	newStory: INewStory;
-	setNewStory: (story: INewStory) => void;
+	setNewStory: ({ newStory, data }: { newStory: INewStory; data: any }) => void;
+	data: any;
 }
 
 interface IState {
@@ -29,6 +30,7 @@ interface IState {
 	modalVisible: boolean;
 	disabled: boolean;
 	loading: boolean;
+	data: any;
 }
 
 const mock_url =
@@ -41,7 +43,8 @@ class StoryModal extends Component<IProps, IState> {
 			newStory: props.newStory,
 			modalVisible: false,
 			disabled: true,
-			loading: false
+			loading: false,
+			data: props.data
 		};
 	}
 
@@ -63,20 +66,20 @@ class StoryModal extends Component<IProps, IState> {
 
 	componentWillUnmount(): void {
 		console.warn(this.props.setNewStory);
-		this.props.setNewStory(this.state.newStory);
+		this.props.setNewStory({
+			newStory: this.state.newStory,
+			data: this.props.data
+		});
 	}
 
 	render() {
 		if (this.state.loading) return <Spinner />;
 
-		const { image_url, caption, activity, type } = this.state.newStory;
+		const { image_url, caption } = this.state.newStory;
+		const { option, type } = this.props.data || { option: null, type: null };
+		console.warn(option, type);
 		const { navigation, profileInfo } = this.props;
 
-		if (navigation.state.params) {
-			const { option, type } = navigation.state.params;
-			navigation.state.params = null;
-			if (!activity || activity.id !== option.id) this.addExtra(option, type);
-		}
 		return (
 			<View style={styles.mainView}>
 				<View>
@@ -104,10 +107,13 @@ class StoryModal extends Component<IProps, IState> {
 						<Extra
 							user={profileInfo}
 							type={type}
-							data={activity}
+							data={option}
 							navigation={navigation}
 							clearExtra={() => {
-								this.addExtra({ id: null, title: null }, '');
+								this.props.setNewStory({
+									newStory: this.state.newStory,
+									data: null
+								});
 							}}
 						/>
 					) : null}

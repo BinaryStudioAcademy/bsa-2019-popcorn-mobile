@@ -7,19 +7,33 @@ import PostCompomonent from './../components/MainPage/Post/';
 import StoryComponent from './../components/MainPage/Story/';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import StoryModal from '../components/MainPage/Story/StoryModal';
+import INewStory from '../components/MainPage/Story/INewStory';
 
-const newStoryDefault = {
+const newStoryDefault: INewStory = {
 	image_url: null,
 	caption: null,
 	activity: null,
 	type: ''
 };
+type NewStory = {
+	newStory: INewStory;
+	data: any;
+};
 
 const HomeView = ({ navigation }) => {
 	const [showModal, onPress] = useState(false);
-	const [newStory, setNewStory] = useState(newStoryDefault);
+	const [newStory, setNewStory] = useState<NewStory>({
+		newStory: newStoryDefault,
+		data: null
+	});
 
-	console.warn(newStory);
+	if (navigation.state.params) {
+		const { option, type } = navigation.state.params;
+		navigation.state.params = null;
+		if (!newStory.data || newStory.data.id !== option.id)
+			setNewStory({ newStory: newStory.newStory, data: { option, type } });
+	}
+
 	return (
 		<View style={{ flex: 1 }}>
 			<TouchableOpacity
@@ -32,8 +46,9 @@ const HomeView = ({ navigation }) => {
 				{showModal && (
 					<StoryModal
 						navigation={navigation}
-						newStory={newStory}
+						newStory={newStory.newStory}
 						setNewStory={setNewStory}
+						data={newStory.data}
 					/>
 				)}
 			</View>
