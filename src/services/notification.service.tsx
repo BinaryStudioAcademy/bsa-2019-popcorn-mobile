@@ -8,6 +8,8 @@ import {
     faUsers,
     faEnvelope
 } from '@fortawesome/free-solid-svg-icons';
+import webApi from '../helpers/webApi.helper';
+import config from '../config';
 
 export const generateMessage = (type: string): string => {
     switch(type) {
@@ -49,4 +51,15 @@ export const generateIcon = (type: string): ReactElement => {
     if (type.includes('comment')) return <FontAwesomeIcon icon={faComment} style={style}/>
     if (type.includes('event')) return <FontAwesomeIcon icon={faUsers} style={style} />
     return <FontAwesomeIcon icon={faEnvelope} style={style} />
+}
+
+export const sendDeviceToken = async (token) => {
+    await webApi({
+        endpoint: config.API_URL + '/api/auth/notification',
+        method: 'PUT',
+        body: {
+            token,
+            type: 'mobile'
+        }
+    })
 }

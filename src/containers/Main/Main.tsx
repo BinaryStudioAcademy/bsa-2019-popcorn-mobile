@@ -4,24 +4,18 @@ import SidebarView from '../../views/SidebarView';
 import { HomeNavigator } from '../../routes/';
 import firebase from 'react-native-firebase';
 import { Storage } from '../../helpers/storage.helper';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { sendDeviceToken } from '../../redux/routines';
+import { sendDeviceToken } from '../../services/notification.service';
 
-interface IProps {
-	sendDeviceToken: (token: string) => any
-}
-
-class Main extends Component<IProps> {
+class Main extends Component {
 
 	notificationListener: any;
 	notificationOpenedListener: any;
 	messageListener: any;
 	onTokenRefreshListener: any;
 
-	componentDidMount() {
+	async componentDidMount() {
 		this.onTokenRefreshListener = firebase.messaging().onTokenRefresh(fcmToken => {
-			this.props.sendDeviceToken(fcmToken);
+			sendDeviceToken(fcmToken);
 		});
 		const channel = new firebase.notifications.Android.Channel('insider', 'insider channel', firebase.notifications.Android.Importance.Max)
 		firebase.notifications().android.createChannel(channel);
@@ -38,7 +32,7 @@ class Main extends Component<IProps> {
 		if (!fcmToken) {
 			fcmToken = await firebase.messaging().getToken();
 			if (fcmToken) {
-				this.props.sendDeviceToken(fcmToken);
+				await sendDeviceToken(fcmToken);
 				await Storage.set('fcmToken', fcmToken);
 			}
 		}
@@ -83,8 +77,5 @@ const actions = {
 	sendDeviceToken
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
-export default connect(
-	mapDispatchToProps
-)(Main);
+export default Main;
