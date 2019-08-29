@@ -32,7 +32,7 @@ const renderTopView = data => {
 
 const renderEventView = data => {
 	return (
-		<View style={styles.column}>
+		<View>
 			<View style={styles.horizontalContainer}>
 				<Text numberOfLines={2} style={[styles.text, styles.title]}>
 					{data.title}

@@ -14,6 +14,7 @@ import ChooseExtraOption from '../../components/MainPage/Story/StoryModal/Choose
 import EventPage from '../../components/ContentPage/Events/EventPage';
 import TopPage from '../../components/ContentPage/Tops/TopPage';
 import SurveyPage from '../../components/SurveyPage/SurveyPage';
+import ControlledVertical from '../../components/MainPage/Story/StoryModal/ColorPicker';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -42,6 +43,12 @@ export const FirstActivity_StackNavigator = createStackNavigator({
 	},
 	SurveyPage: {
 		screen: SurveyPage,
+		navigationOptions: {
+			header: null
+		}
+	},
+	ColorPicker: {
+		screen: ControlledVertical,
 		navigationOptions: {
 			header: null
 		}
