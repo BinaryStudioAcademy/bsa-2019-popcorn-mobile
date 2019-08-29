@@ -115,7 +115,7 @@ class PostConstructor extends Component<IProps, IState> {
 				<View style={styles.buttonWrp}>
 					<TouchableOpacity
 						style={{ width: '50%', alignItems: 'flex-start' }}
-						onPress={() => null}
+						onPress={() => navigation.navigate('Home')}
 					>
 						<SvgUri height={40} width={40} source={arrow} />
 					</TouchableOpacity>
