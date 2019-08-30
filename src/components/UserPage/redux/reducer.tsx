@@ -6,7 +6,6 @@ import {
 
 const initialState = {
 	events: null,
-	surveys: null,
 	tops: null,
 	loading: false
 };
