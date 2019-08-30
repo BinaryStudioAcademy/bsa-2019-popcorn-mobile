@@ -32,7 +32,6 @@ class SurveyList extends React.Component<IProps, IState> {
 
 	render() {
 		const { surveys = [], navigation } = this.props;
-		console.log(surveys);
 		return (
 			<View style={[styles.container]}>
 				<ScrollView>
