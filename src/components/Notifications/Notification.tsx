@@ -4,26 +4,36 @@ import INotification from './INotification';
 import { generateMessage, generateIcon } from '../../services/notification.service';
 import Moment from 'moment';
 
+
 interface IProps {
-    notification: INotification
+    notification: any;
+    readNotification: (any: any) => any
+    userId: string
+    navigation: any
 }
 
-const Notification: React.FC<IProps> = ({ notification }) => {
+const Notification: React.FC<IProps> = ({ notification, readNotification, userId, navigation }) => {
+    console.log(notification);
     return (
-        <TouchableOpacity style={[styles.main, !notification.isRead && styles.unread ]}>
+        <TouchableOpacity 
+            style={[styles.main, !notification.isRead && styles.unread ]} 
+            onPress={() => { 
+                console.log(notification.url.split ('/')[2]);
+                readNotification({ id: notification.id, userId });
+                if (notification.url === '/')
+                navigation.navigate('Home');
+                else navigation.navigate('Event', { eventId: notification.url.split ('/')[2] })
+            }}
+        >
             <View style={styles.imageContainer}>
-                <Image source={{ uri: notification.userInfo.avatar }} style={styles.avatar} />
-                <View style={styles.icon}>
-                    { generateIcon(notification.type) }
-                </View>
+                <Image source={{ uri: notification.img }} style={styles.avatar} />
             </View>
             <View>
                 <View style={styles.textContainer}>
-                    <Text style={[styles.text, styles.userName]}>{notification.userInfo.name} </Text>
-                    <Text style={styles.text}>{generateMessage(notification.type)}</Text>
+                    <Text style={styles.text}>{notification.title}</Text>
                 </View>
                 <Text style={[styles.text, styles.date]}>
-                    {Moment(notification.date).format('MMM D [at] hh:mm a')}
+                    {Moment(notification.date).format(' D MMM HH:mm ')}
                 </Text>
             </View>
         </TouchableOpacity>

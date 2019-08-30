@@ -54,7 +54,7 @@ class StoryComponent extends React.Component<IProps> {
 	}
 
 	addSocketEvents = addStory => {
-		// SocketService.on('new-story', addStory);
+		SocketService.on('new-story', addStory);
 	};
 
 	render() {

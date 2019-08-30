@@ -16,3 +16,6 @@ export const deleteEventVisitor = createRoutine('DELETE_EVENT_VISITOR');
 export const fetchMovie = createRoutine('FETCH_MOVIE');
 export const fetchUserTops = createRoutine('FETCH_USER_TOPS');
 export const fetchTops = createRoutine('FETCH_TOPS');
+export const fetchEventById = createRoutine('FETCH_EVENT_BY_ID');
+export const fetchNotifications = createRoutine('FETCH_NOTIFICATIONS');
+export const readNotification = createRoutine('READ_NOTIFICATION');
