@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { sendPost } from '../actions';
 import IPost from '../IPost';
 import IUser from '../../../UserPage/IUser';
-import ImageUploader from '../../../ImageUploader';
 import ChooseExtra from './ChooseExtra';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
