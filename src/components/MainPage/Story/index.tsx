@@ -45,7 +45,6 @@ interface IProps {
 	fetchStories: () => any;
 	addStory: (story: any) => any;
 	navigation: any;
-	selectedProfileInfo: any;
 }
 
 interface IState {
@@ -66,24 +65,12 @@ class StoryComponent extends React.Component<IProps, IState> {
 	addSocketEvents = addStory => {
 		// SocketService.on('new-story', addStory);
 	};
-	onPress = () => {
-		// let newStory = {
-		// 	image_url:
-		// 		'https://i.kym-cdn.com/photos/images/newsfeed/001/394/314/c62.jpg',
-		// 	caption: 'My New Test Story',
-		// 	activity: null,
-		// 	type: ''
-		// };
-
-		this.setState({ showModal: !this.state.showModal });
-		// this.setState({showModal: true})
-	};
 	render() {
 		console.log('render this.state = ', this.props);
 		const { stories, navigation } = this.props;
 		return (
 			<View style={styles.container}>
-				<View style={{ height: 1000 }}>
+				<View style={{ height: 280 }}>
 					{stories && <StoryList navigation={navigation} stories={stories} />}
 				</View>
 			</View>
@@ -95,28 +82,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'center',
 		alignItems: 'center',
-		height: 1000
-	},
-	addStoryView: {
-		padding: '2%',
-		backgroundColor: '#FF6501',
-		borderRadius: 5,
-		textAlign: 'center',
-		fontSize: 15,
-		color: 'white',
-		fontFamily: 'Inter-SemiBold',
-		marginBottom: 20,
-		marginTop: 20
-	},
-	modalAnchor: {
-		position: 'relative'
-	},
-	modal: {
-		position: 'absolute',
-		top: 60,
-		backgroundColor: '#e4e4e4',
-		zIndex: 5,
-		height: 500
+		height: 280
 	}
 });
 
@@ -125,8 +91,7 @@ const mapStateToProps = (rootState, props) => ({
 	stories: rootState.story.stories,
 	error: rootState.story.error,
 	loading: rootState.story.loading,
-	newStory: rootState.story.newStory,
-	selectedProfileInfo: rootState.authorization.profileInfo
+	newStory: rootState.story.newStory
 });
 
 const actions = {

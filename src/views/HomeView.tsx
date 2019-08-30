@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
-import styles from '../assets/style';
+import { Text, View, StyleSheet } from 'react-native';
+// import styles from '../assets/style';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
 import PostCompomonent from './../components/MainPage/Post/';
@@ -14,11 +14,12 @@ const mock_url =
 
 const newStoryDefault: INewStory = {
 	activityId: '',
-	backgroundColor: 'rgba(255,255,255, 0)', // white
-	fontColor: 'rgba(0,0,0,0)', // black
+	backgroundColor: '#adadad', // grey
+	fontColor: '#000', // black
 	movieId: null,
 	movieOption: '',
 	image_url: mock_url,
+	// image_url: '',
 	caption: null,
 	activity: null,
 	type: ''
@@ -43,23 +44,23 @@ const HomeView = ({ navigation }) => {
 	}
 
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={styles.container}>
 			<TouchableOpacity
 				style={styles.modalAnchor}
 				onPress={() => onPress(!showModal)}
 			>
 				<Text style={styles.addStoryView}>Add story</Text>
 			</TouchableOpacity>
-			<View style={styles.modal}>
-				{showModal && (
+			{showModal && (
+				<View style={styles.modal}>
 					<StoryModal
 						navigation={navigation}
 						newStory={newStory.newStory}
 						setNewStory={setNewStory}
 						data={newStory.data}
 					/>
-				)}
-			</View>
+				</View>
+			)}
 			<ParallaxScrollView
 				parallaxHeaderHeight={280}
 				backgroundColor="#FFFFFF"
@@ -77,5 +78,32 @@ const HomeView = ({ navigation }) => {
 		</View>
 	);
 };
-
+const styles = StyleSheet.create({
+	container: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		flex: 1
+	},
+	addStoryView: {
+		padding: '2%',
+		backgroundColor: '#FF6501',
+		borderRadius: 5,
+		textAlign: 'center',
+		fontSize: 15,
+		color: 'white',
+		fontFamily: 'Inter-SemiBold',
+		marginBottom: 20,
+		marginTop: 20
+	},
+	modalAnchor: {
+		position: 'relative',
+		width: 130
+	},
+	modal: {
+		position: 'absolute',
+		top: 60,
+		backgroundColor: '#e4e4e4',
+		zIndex: 5
+	}
+});
 export default HomeView;
