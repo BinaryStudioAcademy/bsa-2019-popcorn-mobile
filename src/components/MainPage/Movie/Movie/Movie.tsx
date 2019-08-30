@@ -98,7 +98,6 @@ class Movie extends Component<IMovieProps, IState> {
 			parsedGenres = JSON.parse(movie.genres).map(genre => genre.name);
 			parsedCast = JSON.parse(movie.cast).map(actor => actor.name);
 		}
-		console.log(movie);
 		const { firstSection, secondSection, thirdSection } = this.state;
 		return movie ? (
 			<View style={styles.movieWrapper}>

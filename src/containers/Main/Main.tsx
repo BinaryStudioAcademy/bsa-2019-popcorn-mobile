@@ -59,7 +59,6 @@ class Main extends Component<IProps> {
 	
 	async createNotificationListeners() {
 		firebase.notifications().onNotification(notification => {
-			console.log(notification);
 			notification.android.setChannelId('insider').setSound('default')
 			firebase.notifications().displayNotification(notification)
 		});

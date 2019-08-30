@@ -20,7 +20,6 @@ export default (state = initialState, action) => {
 				unreadNotifications: action.payload
 			};
 		case ADD_NOTIFICATION:
-			console.log('notification', action.payload.notification);
 			const unreadNotifications = state.unreadNotifications
 				? [action.payload.notification, ...state.unreadNotifications]
 				: [action.payload.notification];

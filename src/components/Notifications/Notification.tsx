@@ -13,12 +13,10 @@ interface IProps {
 }
 
 const Notification: React.FC<IProps> = ({ notification, readNotification, userId, navigation }) => {
-    console.log(notification);
     return (
         <TouchableOpacity 
             style={[styles.main, !notification.isRead && styles.unread ]} 
             onPress={() => { 
-                console.log(notification.url.split ('/')[2]);
                 readNotification({ id: notification.id, userId });
                 if (notification.url === '/')
                 navigation.navigate('Home');
