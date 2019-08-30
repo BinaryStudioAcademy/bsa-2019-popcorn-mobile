@@ -6,7 +6,11 @@ import firebase from 'react-native-firebase';
 import { Storage } from '../../helpers/storage.helper';
 import { sendDeviceToken } from '../../services/notification.service';
 
-class Main extends Component {
+interface IProps {
+	navigation: any
+}
+
+class Main extends Component<IProps> {
 
 	notificationListener: any;
 	notificationOpenedListener: any;
@@ -14,9 +18,6 @@ class Main extends Component {
 	onTokenRefreshListener: any;
 
 	async componentDidMount() {
-		this.onTokenRefreshListener = firebase.messaging().onTokenRefresh(fcmToken => {
-			sendDeviceToken(fcmToken);
-		});
 		const channel = new firebase.notifications.Android.Channel('insider', 'insider channel', firebase.notifications.Android.Importance.Max)
 		firebase.notifications().android.createChannel(channel);
 		this.checkPermission();
@@ -58,20 +59,23 @@ class Main extends Component {
 	
 	async createNotificationListeners() {
 		firebase.notifications().onNotification(notification => {
+			console.log(notification);
 			notification.android.setChannelId('insider').setSound('default')
 			firebase.notifications().displayNotification(notification)
 		});
 
 		this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
-			const { data } = notificationOpen;
-			
+			const { data } = notificationOpen.notification;
+			if (data.type === 'post') this.props.navigation.navigate('Main');
+			else this.props.navigation.navigate('Event', { eventId: data.id });
 		});
 		
 
 		const notificationOpen = await firebase.notifications().getInitialNotification();
   		if (notificationOpen) {
-  		    const { data } = notificationOpen;
-  		    
+  		    const { data } = notificationOpen.notification;
+			if (data.type === 'post') this.props.navigation.navigate('Main');
+			else this.props.navigation.navigate('Event', { eventId: data.id });
   		}
 	}
 
@@ -84,10 +88,5 @@ class Main extends Component {
 		);
 	}
 };
-
-const actions = {
-	sendDeviceToken
-};
-
 
 export default Main;

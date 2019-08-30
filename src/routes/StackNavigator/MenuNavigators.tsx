@@ -7,7 +7,7 @@ import SurveyNavigator from '../StackNavigator/SurveyNavigator';
 import EventsTab from '../../components/ContentPage/Events/EventTab';
 import MovieNavigator from './MovieNavigator';
 import TopsTab from '../../components/ContentPage/Tops/TopTab';
-import Notifications from '../../components/Notifications/NotificationList';
+import ActivityNavigator from '../StackNavigator/ActivityNavigator';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -74,7 +74,7 @@ export const Movies_StackNavigator = createStackNavigator({
 
 export const Notifications_Navigator = createStackNavigator({
 	Seventh: {
-		screen: Notifications,
+		screen: ActivityNavigator,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})

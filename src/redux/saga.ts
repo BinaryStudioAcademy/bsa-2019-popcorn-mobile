@@ -8,6 +8,7 @@ import survey from '../components/ContentPage/Surveys/saga';
 import UserEventsSaga from '../components/UserPage/redux/sagas';
 import MovieSaga from './../components/MainPage/Movie/Movie/saga';
 import TopSaga from '../components/ContentPage/Tops/sagas';
+import NotificationSaga from '../components/Notifications/sagas';
 
 export default function* rootSaga() {
 	yield all([
@@ -19,6 +20,7 @@ export default function* rootSaga() {
 		survey(),
 		UserEventsSaga(),
 		MovieSaga(),
-		TopSaga()
+		TopSaga(),
+		NotificationSaga()
 	]);
 }
