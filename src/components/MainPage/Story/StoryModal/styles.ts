@@ -4,27 +4,44 @@ const orange = '#ffab07';
 const imageHeight = 200;
 export default StyleSheet.create({
 	input: {
-		width: '80%',
-		margin: 20,
+		width: 200,
 		borderColor: 'rgba(0, 0, 0, 0.11)',
 		borderWidth: 1,
-		padding: 12,
-		paddingLeft: 15,
 		fontSize: 16,
 		borderRadius: 3,
-		height: 150
+		height: 50
+	},
+	colorIcon: {
+		width: 35,
+		height: 35,
+		overflow: 'hidden'
 	},
 	iconsWrp: {
-		width: '100%',
+		width: 250,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		margin: 5
+	},
+	sendInputWrp: {
+		width: 250,
 		display: 'flex',
 		flexDirection: 'row',
-		justifyContent: 'center',
+		justifyContent: 'space-between',
+		alignItems: 'center',
 		margin: 5
 	},
 	roundImage: {
-		height: imageHeight,
-		borderRadius: 20,
-		backgroundColor: '#adadad'
+		// height: imageHeight,
+		// borderRadius: 20,
+		marginTop: 0,
+		marginBottom: 0,
+		position: 'relative'
+	},
+	deleteImageIcon: {
+		position: 'absolute',
+		top: 10,
+		left: 10
 	},
 	extraItemWrp: {
 		width: '100%',
@@ -44,15 +61,22 @@ export default StyleSheet.create({
 		flexDirection: 'row',
 		display: 'flex'
 	},
+	sendWrap: {
+		padding: 10,
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginBottom: 20
+	},
 	buttonWrp: {
-		width: '100%'
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	button: {
-		width: '100%',
+		width: 160,
 		height: 37,
 		backgroundColor: '#FF6501',
 		marginTop: 22,
-		borderRadius: 55,
+		borderRadius: 20,
 		textAlign: 'center',
 		lineHeight: 36,
 		fontSize: 18,
@@ -61,9 +85,10 @@ export default StyleSheet.create({
 	},
 	mainView: {
 		marginTop: 10,
-		width: '100%',
+		width: 300,
 		display: 'flex',
 		justifyContent: 'space-between',
+		alignItems: 'center',
 		flex: 1
 	},
 	extra: {
@@ -93,10 +118,14 @@ export default StyleSheet.create({
 		backgroundColor: '#efd69a'
 	},
 	UploadWrp: {
-		width: '85%',
-		marginLeft: 'auto',
-		marginRight: 'auto',
-		height: imageHeight
+		width: 200,
+		height: 300,
+		marginTop: 20,
+		// flex: 1,
+		// alignItems: 'center',
+		justifyContent: 'center'
+		// marginLeft: 'auto',
+		// marginRight: 'auto',
 	},
 	bigFont: {
 		fontSize: 16.5
