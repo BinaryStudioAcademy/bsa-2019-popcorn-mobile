@@ -1,4 +1,4 @@
-import * as React from 'react';
+// import * as React from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -13,13 +13,16 @@ import SvgUri from 'react-native-svg-uri';
 import IUser from '../../../UserPage/IUser';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
+import React from 'react';
+
+const arrow = require('../../../../assets/general/arrow-circle-o-left.svg');
 
 interface IProps {
 	events: any;
 	surveys: any;
 	tops: any;
 	profileInfo: IUser;
-	fetchUserEvents: () => any;
+	fetchUserEvents: (id: string) => any;
 	fetchUserSurveys: (id: string) => any;
 	fetchUserTops: (id: string) => any;
 	navigation: any;
@@ -40,9 +43,8 @@ class ChooseExtraOption extends React.Component<IProps> {
 		switch (type) {
 			case 'event':
 				const { events, fetchUserEvents } = this.props;
-				if (!events || events.length === 0) {
-					fetchUserEvents();
-				} else options = events;
+				if (!events) fetchUserEvents(profileInfo.id);
+				else options = events;
 				break;
 			case 'survey':
 				const { surveys, fetchUserSurveys } = this.props;
@@ -60,8 +62,8 @@ class ChooseExtraOption extends React.Component<IProps> {
 		if (!options || options.length === 0)
 			message = "You don't have any " + type;
 		return (
-			<View style={[styles.extraItemWrp, styles.grid, { flex: 1 }]}>
-				<ScrollView style={{ flex: 1 }}>
+			<View style={[styles.extraItemWrp, styles.grid]}>
+				<ScrollView>
 					{options && options.length > 0 ? (
 						options.map(option => (
 							<Extra
@@ -70,7 +72,7 @@ class ChooseExtraOption extends React.Component<IProps> {
 								type={type}
 								user={profileInfo}
 								onSave={() => {
-									this.props.navigation.navigate('Basic', { option, type });
+									this.props.navigation.navigate('First', { option, type });
 								}}
 							/>
 						))

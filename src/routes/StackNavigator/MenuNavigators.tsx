@@ -8,6 +8,12 @@ import EventsTab from '../../components/ContentPage/Events/EventTab';
 import MovieNavigator from './MovieNavigator';
 import TopsTab from '../../components/ContentPage/Tops/TopTab';
 import ActivityNavigator from '../StackNavigator/ActivityNavigator';
+import ChooseExtraOption from '../../components/MainPage/Story/StoryModal/ChooseExtraOption';
+import EventPage from '../../components/ContentPage/Events/EventPage';
+import TopPage from '../../components/ContentPage/Tops/TopPage';
+import SurveyPage from '../../components/SurveyPage/SurveyPage';
+import ControlledVertical from '../../components/MainPage/Story/StoryModal/ColorPicker';
+
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -15,6 +21,36 @@ export const FirstActivity_StackNavigator = createStackNavigator({
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})
+	},
+	ChooseExtraOption: {
+		screen: ChooseExtraOption,
+		navigationOptions: {
+			header: null
+		}
+	},
+	EventPage: {
+		screen: EventPage,
+		navigationOptions: {
+			header: null
+		}
+	},
+	TopPage: {
+		screen: TopPage,
+		navigationOptions: {
+			header: null
+		}
+	},
+	SurveyPage: {
+		screen: SurveyPage,
+		navigationOptions: {
+			header: null
+		}
+	},
+	ColorPicker: {
+		screen: ControlledVertical,
+		navigationOptions: {
+			header: null
+		}
 	}
 });
 
@@ -75,6 +111,13 @@ export const Movies_StackNavigator = createStackNavigator({
 export const Notifications_Navigator = createStackNavigator({
 	Seventh: {
 		screen: ActivityNavigator,
+		navigationOptions: ({ navigation }) => ({
+			header: Header
+		})
+	}});
+export const UserPage_StackNavigator = createStackNavigator({
+	Fourth: {
+		screen: UserPageView,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})

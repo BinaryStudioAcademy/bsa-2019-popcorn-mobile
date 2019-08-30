@@ -4,7 +4,7 @@ import INewStory from './INewStory';
 
 const initialState: {
 	stories: any;
-	newStory: INewStory;
+	newStory?: INewStory;
 	error: Error | null;
 	loading: boolean;
 } = {
