@@ -20,12 +20,12 @@ export function* getStories() {
 export function* sendStory(action) {
 	const { story } = action.payload;
 	try {
-		// const data = yield call(webApi, {
-		// 	method: 'POST',
-		// 	endpoint: config.API_URL + '/api/story/',
-		// 	body: {...story}
-		// });
-		// alert(JSON.stringify(data));
+		const data = yield call(webApi, {
+			method: 'POST',
+			endpoint: config.API_URL + '/api/story/',
+			body: { ...story }
+		});
+		alert(JSON.stringify(data));
 	} catch (e) {
 		console.warn('profile saga fetch stories:', e.message);
 		alert(JSON.stringify(e.message));

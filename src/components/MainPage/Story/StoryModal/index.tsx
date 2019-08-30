@@ -181,7 +181,6 @@ class StoryModal extends Component<IProps, IState> {
 			? this.state.newStory.backgroundColor
 			: 'purple';
 		const bckgData = Array.from({ length: gradientHeight });
-		console.warn(this.state.disabled);
 		return (
 			<View style={styles.mainView}>
 				<View style={styles.iconsWrp}>
@@ -257,16 +256,18 @@ class StoryModal extends Component<IProps, IState> {
 						style={[styles.roundImage, { height: image_url ? 200 : 300 }]}
 						source={{ uri: image_url ? image_url : config.DEFAULT_IMAGE }}
 					/>
-					{image_url && (
+					{image_url ? (
 						<TouchableOpacity
 							onPress={() => {
-								// this.setState({newStory: {...this.state.newStory, image_url: ''}})
+								this.setState(state => ({
+									newStory: { ...state.newStory, image_url: '' }
+								}));
 							}}
 							style={styles.deleteImageIcon}
 						>
 							<Icon name="trash" color={'#000'} size={35} />
 						</TouchableOpacity>
-					)}
+					) : null}
 				</View>
 				{type ? (
 					<Extra
@@ -289,7 +290,6 @@ class StoryModal extends Component<IProps, IState> {
 					<TouchableOpacity
 						style={styles.buttonWrp}
 						onPress={() => {
-							console.warn('on save');
 							this.onSave();
 						}}
 						disabled={this.state.disabled}

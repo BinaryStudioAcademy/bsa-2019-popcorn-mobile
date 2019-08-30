@@ -46,6 +46,7 @@ class ChooseExtraOption extends React.Component<IProps> {
 				break;
 			case 'survey':
 				const { surveys, fetchUserSurveys } = this.props;
+				console.warn('fetch', surveys);
 				if (!surveys) {
 					fetchUserSurveys(profileInfo.id);
 				} else options = surveys;
