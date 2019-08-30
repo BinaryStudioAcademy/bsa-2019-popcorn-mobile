@@ -27,6 +27,7 @@ interface IProps {
 	fetchUserTops: (id: string) => any;
 	navigation: any;
 	loading: boolean;
+	loadingEvent: boolean;
 }
 
 class ChooseExtraOption extends React.Component<IProps> {

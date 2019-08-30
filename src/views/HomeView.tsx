@@ -58,6 +58,7 @@ const HomeView = ({ navigation }) => {
 						newStory={newStory.newStory}
 						setNewStory={setNewStory}
 						data={newStory.data}
+						showModal={onPress}
 					/>
 				</View>
 			)}

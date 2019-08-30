@@ -34,6 +34,7 @@ interface IProps {
 	newStory: INewStory;
 	setNewStory: ({ newStory, data }: { newStory: INewStory; data: any }) => void;
 	data: any;
+	showModal: (open: boolean) => any;
 }
 
 interface IState {
@@ -85,6 +86,7 @@ class StoryModal extends Component<IProps, IState> {
 			type: data ? data.type : '',
 			userId: this.props.profileInfo.id
 		});
+		this.props.showModal(false);
 	}
 
 	componentWillUnmount(): void {
