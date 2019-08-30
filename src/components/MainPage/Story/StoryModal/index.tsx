@@ -220,7 +220,10 @@ class StoryModal extends Component<IProps, IState> {
 					<ImageUploader
 						startUpload={() => this.setState({ loading: true })}
 						saveUrl={(image_url: string) => {
-							// this.setState({ image_url, loading: false });
+							this.setState(state => ({
+								newStory: { ...state.newStory, image_url },
+								loading: false
+							}));
 							this.validate();
 						}}
 					>
