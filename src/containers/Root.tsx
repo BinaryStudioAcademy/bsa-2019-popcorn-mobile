@@ -6,13 +6,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchUser } from '../redux/routines';
 import navigationService from '../services/navigation.service';
+import SocketHelper from '../helpers/socket.helper';
 
+
+type userInfo = {
+    id: string;
+    name: string;
+    image: string;
+    any;
+};
 interface IProps {
-	isAuthorized: boolean;
-	fetchUser: (string) => void;
+    isAuthorized: boolean;
+    fetchUser: (string) => void;
+    userInfo: userInfo | null;
 }
 
 class Root extends Component<IProps> {
+
 	componentDidMount() {
 		Storage.get('token').then(value => {
 			if (value && !this.props.isAuthorized) {
@@ -32,6 +42,8 @@ class Root extends Component<IProps> {
 	}
 
 	render() {
+		const { userInfo } = this.props;
+        if(userInfo) new SocketHelper(userInfo.id)
 		return (
 			<AppNavigator
 				ref={navigatorRef => {
@@ -44,7 +56,8 @@ class Root extends Component<IProps> {
 
 const mapStateToProps = (rootState, props) => ({
 	...props,
-	isAuthorized: !!rootState.authorization.profileInfo
+	isAuthorized: !!rootState.authorization.profileInfo,
+	userInfo: rootState.authorization.profileInfo
 });
 
 const actions = {

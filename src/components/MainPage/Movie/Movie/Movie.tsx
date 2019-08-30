@@ -98,7 +98,6 @@ class Movie extends Component<IMovieProps, IState> {
 			parsedGenres = JSON.parse(movie.genres).map(genre => genre.name);
 			parsedCast = JSON.parse(movie.cast).map(actor => actor.name);
 		}
-		console.log(movie);
 		const { firstSection, secondSection, thirdSection } = this.state;
 		return movie ? (
 			<View style={styles.movieWrapper}>
@@ -248,7 +247,7 @@ const styles = StyleSheet.create({
 		textTransform: 'uppercase'
 	},
 	basicInfoSubTitle: {
-		fontFamily: 'Inter-Refular',
+		fontFamily: 'Inter-Regular',
 		fontSize: 14,
 		lineHeight: 17,
 		letterSpacing: 0.4,
@@ -278,7 +277,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	moreTitle: {
-		fontFamily: 'Inter-Refular',
+		fontFamily: 'Inter-Regular',
 		fontSize: 10,
 		lineHeight: 12,
 		letterSpacing: 0.4,
@@ -314,7 +313,7 @@ const styles = StyleSheet.create({
 		marginBottom: 5
 	},
 	secondSectionSubTitle: {
-		fontFamily: 'Inter-Refular',
+		fontFamily: 'Inter-Regular',
 		fontSize: 10,
 		lineHeight: 11,
 		letterSpacing: 0.4,
@@ -338,7 +337,7 @@ const styles = StyleSheet.create({
 		marginBottom: 5
 	},
 	secondSectionInfo: {
-		fontFamily: 'Inter-Refular',
+		fontFamily: 'Inter-Regular',
 		fontSize: 12,
 		lineHeight: 15,
 		letterSpacing: 0.4,

@@ -22,7 +22,6 @@ class ReviewPage extends Component<IProps, IState> {
 
 	render() {
 		const { reviews } = this.props;
-		console.log(reviews);
 
 		return (
 			<ScrollView style={styles.container}>
