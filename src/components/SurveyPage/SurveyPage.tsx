@@ -14,7 +14,6 @@ import { postAnswers } from '../ContentPage/Surveys/actions';
 import Checkboxes from './SurveyTypes/Checkboxes';
 import SingleAnswers from './SurveyTypes/SingleAnswers';
 import { transformAnswers } from './SurveyService';
-
 import ShortAnswer from './SurveyTypes/ShortAnswer';
 import SurveyLinearScale from './SurveyTypes/SurveyLinearScale';
 
