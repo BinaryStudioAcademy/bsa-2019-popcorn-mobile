@@ -10,6 +10,7 @@ import SurveyNavigator from '../StackNavigator/SurveyNavigator';
 import EventsTab from '../../components/ContentPage/Events/EventTab';
 import MovieNavigator from './MovieNavigator';
 import TopsTab from '../../components/ContentPage/Tops/TopTab';
+import ReviewPage from '../../components/ReviewPage/ReviewPage';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -68,6 +69,15 @@ export const Collections_StackNavigator = createStackNavigator({
 export const Movies_StackNavigator = createStackNavigator({
 	Fourth: {
 		screen: MovieNavigator,
+		navigationOptions: ({ navigation }) => ({
+			header: Header
+		})
+	}
+});
+
+export const Review_StackNavigator = createStackNavigator({
+	ReviewPage: {
+		screen: ReviewPage,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})
