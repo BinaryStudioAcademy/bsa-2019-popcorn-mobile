@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import config from '../../config';
+import Spinner from '../Spinner/Spinner';
 
 interface IProps {}
 
@@ -21,8 +22,8 @@ class ReviewPage extends Component<IProps, IState> {
 	}
 
 	render() {
-		const { reviews } = this.props;
-		console.log(reviews);
+		if (!this.props.reviews || !this.props.reviews.movie) return <Spinner />;
+		const { reviews, loading = true } = this.props;
 
 		return (
 			<ScrollView style={styles.container}>
@@ -62,6 +63,7 @@ export default ReviewPage;
 const mapStateToProps = (rootState, props) => ({
 	...props,
 	reviews: rootState.reviews.reviews,
+	loading: rootState.reviews.loading,
 	authorization: rootState.authorization.profileInfo
 });
 
