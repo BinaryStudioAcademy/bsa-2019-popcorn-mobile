@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import config from '../../config';
 import ISelectedProfileInfo from './SelectedProfileInterfase';
 
-type ProfileProps = {
+type IProfileProps = {
 	profileInfo: ISelectedProfileInfo;
 	uploadAvatar?: (FormData, string) => any;
 	uploadUrl?: string;
@@ -63,8 +63,8 @@ const mockProfileInfo = {
 	id: 1
 };
 
-class UserProfileView extends Component<IProps> {
-	constructor(props: ProfileProps) {
+class UserProfileView extends Component<IProfileProps> {
+	constructor(props: IProfileProps) {
 		super(props);
 	}
 
@@ -81,7 +81,7 @@ class UserProfileView extends Component<IProps> {
 
 		return (
 			<View style={styles.profileWrap}>
-				<View style={{ flex: 1 }}>
+				<View>
 					<Image
 						source={{
 							uri: avatar
@@ -171,10 +171,11 @@ export default connect(mapStateToProps)(UserProfileView);
 
 const styles = StyleSheet.create({
 	profileWrap: {
+		height: 300,
 		flex: 1,
-		paddingTop: 20,
-		paddingLeft: 20,
-		paddingRight: 20,
+		paddingTop: 10,
+		paddingLeft: 10,
+		paddingRight: 10,
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
@@ -186,25 +187,25 @@ const styles = StyleSheet.create({
 	},
 
 	profileImg: {
-		width: 150,
-		height: 150
+		width: 50,
+		height: 50
 	},
 	userPersonal: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		marginBottom: 20,
+		marginBottom: 10,
 		width: '100%'
 	},
 	userFavorites: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'flex-start',
-		marginBottom: 20
+		marginBottom: 10
 	},
 	userName: {
-		fontSize: 30,
-		marginTop: 20,
+		fontSize: 20,
+		marginTop: 10,
 		textAlign: 'center'
 	},
 
@@ -218,9 +219,9 @@ const styles = StyleSheet.create({
 		padding: 3,
 		borderRadius: 10,
 		color: '#fff',
-		lineHeight: 20,
+		lineHeight: 15,
 		marginBottom: 5,
-		marginRight: 5
+		marginLeft: 5
 	},
 	userMoviesWrap: {
 		flex: 1,

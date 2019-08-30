@@ -3,7 +3,7 @@ import { ScrollView, View } from 'react-native';
 import styles from '../assets/style';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
-import PostCompomonent from './../components/MainPage/Post/';
+import PostComponent from './../components/MainPage/Post/';
 import StoryComponent from './../components/MainPage/Story/';
 const HomeView = ({ navigation }) => (
 	<ParallaxScrollView
@@ -17,7 +17,7 @@ const HomeView = ({ navigation }) => (
 		)}
 	>
 		<View style={{ flex: 1 }}>
-			<PostCompomonent />
+			<PostComponent />
 		</View>
 	</ParallaxScrollView>
 );
