@@ -18,7 +18,7 @@ const newStoryDefault: INewStory = {
 	fontColor: '#000', // black
 	movieId: null,
 	movieOption: '',
-	image_url: mock_url,
+	image_url: '',
 	// image_url: '',
 	caption: null,
 	activity: null,
