@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Test3 from './Test3'; //Tried Pure Parallax Scroll View
 import Test4 from './Test4/Test4'; //Tried Animated React Native
 import Test1 from './Test1'; //Tried Animated React Native
+import { View } from 'react-native';
 interface IProps {
 	navigation: any;
 }
