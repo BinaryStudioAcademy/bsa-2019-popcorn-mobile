@@ -30,7 +30,6 @@ target 'BSAPopcornMobile' do
 
 
 
-  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
   target 'BSAPopcornMobileTests' do
     inherit! :search_paths
