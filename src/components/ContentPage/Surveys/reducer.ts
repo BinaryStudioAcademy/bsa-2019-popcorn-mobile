@@ -3,7 +3,7 @@ import { SET_SURVEYS, SET_SURVEY_BYID } from './actionTypes';
 const initialState = {
 	surveys: undefined,
 	survey: undefined,
-	loading: true
+	loading: false
 };
 
 export default function(state = initialState, action) {
