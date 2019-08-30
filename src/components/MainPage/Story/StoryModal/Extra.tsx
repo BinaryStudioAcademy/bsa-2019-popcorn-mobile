@@ -1,6 +1,6 @@
 import React from 'react';
 import SvgUri from 'react-native-svg-uri';
-import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import IUser from '../../../UserPage/IUser';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -24,12 +24,8 @@ const renderTopView = data => {
 		));
 	return (
 		<View>
-			<View style={{ maxHeight: 200 }}>
-				<Text numberOfLines={1} style={styles.bigFont}>
-					{data.title}
-				</Text>
-				{movie}
-			</View>
+			<Text style={styles.bigFont}>{data.title}</Text>
+			{movie}
 		</View>
 	);
 };
@@ -37,28 +33,29 @@ const renderTopView = data => {
 const renderEventView = data => {
 	return (
 		<View>
-			<View>
-				<View style={styles.horizontalContainer}>
-					<Text numberOfLines={2} style={[styles.text, styles.title]}>
-						{data.title}
-					</Text>
-					<View style={[styles.visitors]}>
-						<FontAwesomeIcon style={{ color: '#122737' }} icon={faUsers} />
-						<Text>{data.eventVisitors.length}</Text>
-					</View>
+			<View style={styles.horizontalContainer}>
+				<Text numberOfLines={2} style={[styles.text, styles.title]}>
+					{data.title}
+				</Text>
+				<View style={[styles.visitors]}>
+					<FontAwesomeIcon
+						style={{ ...styles.icon, color: '#122737' }}
+						icon={faUsers}
+					/>
+					<Text>{data.eventVisitors.length}</Text>
 				</View>
-				<View>
-					<Text>
-						{Moment(data.startDate).format('D MMM HH:mm')} -
-						{Moment(data.endDate).format(' D MMM HH:mm')}
-					</Text>
-				</View>
-				{!!data.description && (
-					<Text numberOfLines={1} style={[styles.text]}>
-						{data.description}
-					</Text>
-				)}
 			</View>
+			<View>
+				<Text>
+					{Moment(data.startDate).format('D MMM HH:mm')} -
+					{Moment(data.endDate).format(' D MMM HH:mm')}
+				</Text>
+			</View>
+			{!!data.description && (
+				<Text numberOfLines={1} style={[styles.text, styles.description]}>
+					{data.description}
+				</Text>
+			)}
 		</View>
 	);
 };
@@ -91,7 +88,7 @@ const Extra = (props: IProps) => {
 	};
 
 	let renderView = (data: any) => (
-		<Text style={styles.bigFont}>{data.title}</Text>
+		<Text style={styles.bigFont}>{data.name | data.title}</Text>
 	);
 
 	switch (type) {
@@ -111,7 +108,7 @@ const Extra = (props: IProps) => {
 			</TouchableOpacity>
 			{props.clearExtra && (
 				<TouchableOpacity
-					onPress={() => props.clearExtra && props.clearExtra()}
+					onPress={() => props.clearExtra()}
 					style={styles.timesCircle}
 				>
 					<SvgUri

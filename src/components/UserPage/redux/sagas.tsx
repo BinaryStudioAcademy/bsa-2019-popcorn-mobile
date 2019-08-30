@@ -13,7 +13,7 @@ function* getEvents(action) {
 			endpoint: config.API_URL + '/api/event/visitor/' + action.payload,
 			method: 'GET'
 		});
-
+		console.warn(data);
 		yield put({
 			type: fetchEvents.SUCCESS,
 			payload: {
