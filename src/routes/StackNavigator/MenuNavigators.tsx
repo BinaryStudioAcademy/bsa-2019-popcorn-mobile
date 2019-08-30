@@ -16,6 +16,7 @@ import TopPage from '../../components/ContentPage/Tops/TopPage';
 import SurveyPage from '../../components/SurveyPage/SurveyPage';
 import ControlledVertical from '../../components/MainPage/Story/StoryModal/ColorPicker';
 
+
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
 		screen: Home,
@@ -103,6 +104,15 @@ export const Collections_StackNavigator = createStackNavigator({
 export const Movies_StackNavigator = createStackNavigator({
 	Fourth: {
 		screen: MovieNavigator,
+		navigationOptions: ({ navigation }) => ({
+			header: Header
+		})
+	}
+});
+
+export const UserPage_StackNavigator = createStackNavigator({
+	Fourth: {
+		screen: UserPageView,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})

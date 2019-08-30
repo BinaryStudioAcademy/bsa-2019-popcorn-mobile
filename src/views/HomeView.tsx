@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from 'react-native';
 // import styles from '../assets/style';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
-import PostCompomonent from './../components/MainPage/Post/';
+import PostComponent from './../components/MainPage/Post/';
 import StoryComponent from './../components/MainPage/Story/';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import StoryModal from '../components/MainPage/Story/StoryModal';
