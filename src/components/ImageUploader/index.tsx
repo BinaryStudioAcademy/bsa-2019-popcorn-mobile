@@ -7,13 +7,15 @@ import { uploadBase64, uploadFile } from '../../services/file.service';
 interface IProps {
 	startUpload?: () => any;
 	saveUrl: (url: string) => any;
-	src: any;
+	src?: any;
 }
 
 class ImageUploader extends React.Component<IProps> {
 	showPicker(saveUrl: (url: string) => any) {
 		ImagePicker.showImagePicker({}, response => {
 			if (response.didCancel || !response.data) return;
+
+			this.props.startUpload && this.props.startUpload();
 
 			uploadBase64(response.data, response.type || '')
 				// uploadFile(response.data, response.type || '')
@@ -23,15 +25,19 @@ class ImageUploader extends React.Component<IProps> {
 	}
 
 	render() {
-		const { saveUrl, startUpload } = this.props;
+		const { saveUrl, src, children } = this.props;
 		return (
 			<TouchableOpacity
+				style={{ height: 'auto' }}
 				onPress={() => {
-					startUpload && startUpload();
 					this.showPicker(saveUrl);
 				}}
 			>
-				<SvgUri height={48} width={48} source={this.props.src} />
+				{src ? (
+					<SvgUri height={48} width={48} source={this.props.src} />
+				) : (
+					children
+				)}
 			</TouchableOpacity>
 		);
 	}
