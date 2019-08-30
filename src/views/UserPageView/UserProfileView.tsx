@@ -58,7 +58,7 @@ const mockProfileInfo = {
 	aboutMe: 'About me',
 	male: false,
 	female: true,
-	avatar:
+	mockAvatar:
 		'https://cdn1.iconfinder.com/data/icons/user-pictures/100/unknown-512.png',
 	id: 1
 };
@@ -69,8 +69,8 @@ class UserProfileView extends Component<IProfileProps> {
 	}
 
 	render() {
-		let { location, aboutMe, avatar } = mockProfileInfo;
-		let { male, female, name } = this.props.selectedProfileInfo;
+		let { location, aboutMe, mockAvatar } = mockProfileInfo;
+		let { male, female, name, avatar } = this.props.selectedProfileInfo;
 		if (!male && !female) {
 			female = true;
 		}
@@ -84,7 +84,7 @@ class UserProfileView extends Component<IProfileProps> {
 				<View>
 					<Image
 						source={{
-							uri: avatar
+							uri: avatar || mockAvatar
 						}}
 						style={styles.profileImg}
 					/>

@@ -70,6 +70,7 @@ class NotificationList extends Component<IProps, IState> {
     };
     
     addNotification = (data: IActivity) => {
+        this.props.fetchNotifications(this.props.userInfo.id);
 		const notifications = this.state.notifications;
 		this.setState({
 			notifications: [...notifications, { ...data, isRead: false }]
@@ -77,12 +78,12 @@ class NotificationList extends Component<IProps, IState> {
 	};
     
     render() {
-        console.log(this.state.notifications);
+        const orderedNotifications = this.state.notifications.reverse();
         if (this.props.loading) return <Spinner />
         return (
             <FlatList 
                 refreshing={false}
-                data={this.state.notifications}
+                data={orderedNotifications}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => <Notification 
                     navigation={this.props.navigation}

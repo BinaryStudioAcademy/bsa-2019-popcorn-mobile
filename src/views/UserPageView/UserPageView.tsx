@@ -14,8 +14,8 @@ class UserPageView extends Component<IProps> {
 	}
 	render() {
 		return (
-			<Test4 />
-			// <Test1/>
+/* 			<Test4 />
+ */			<Test1/>
 			// <Test3/>
 		);
 	}

@@ -13,6 +13,7 @@ import EventPage from '../../components/ContentPage/Events/EventPage';
 import TopPage from '../../components/ContentPage/Tops/TopPage';
 import SurveyPage from '../../components/SurveyPage/SurveyPage';
 import ControlledVertical from '../../components/MainPage/Story/StoryModal/ColorPicker';
+ 
 import UserPageView from '../../views/UserPageView/UserPageView';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
@@ -121,5 +122,6 @@ export const UserPage_StackNavigator = createStackNavigator({
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})
+
 	}
 });
