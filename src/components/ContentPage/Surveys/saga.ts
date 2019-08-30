@@ -45,7 +45,6 @@ function* watchFetch() {
 }
 
 function* getSurveyById(action) {
-	console.log(config.API_URL + '/api/surveys/' + action.payload.id);
 	try {
 		const data = yield call(webApi, {
 			method: 'GET',
@@ -75,7 +74,6 @@ function* watchgetSurveyById() {
 }
 
 function* postAnswers(action) {
-	console.log(action);
 	try {
 		yield all(
 			action.payload.data.map(answer =>
