@@ -1,1 +1,2 @@
 export const ADD_STORY = 'STORY_ACTION:ADD_STORY';
+export const SEND_STORY = 'STORY_ACTION:SEND_STORY';

@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
 	},
 	postBody: {
 		padding: 5,
-		fontFamily: 'Inter-Refular',
+		fontFamily: 'Inter-Regular',
 		fontSize: 14,
 		lineHeight: 14,
 		letterSpacing: 0.4,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
 	},
 	infoBlock: {},
 	info: {
-		fontFamily: 'Inter-Refular',
+		fontFamily: 'Inter-Regular',
 		fontSize: 10,
 		lineHeight: 12,
 		letterSpacing: 0.4,
