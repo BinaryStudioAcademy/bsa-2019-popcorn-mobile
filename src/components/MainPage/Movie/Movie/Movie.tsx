@@ -98,7 +98,6 @@ class Movie extends Component<IMovieProps, IState> {
 			parsedGenres = JSON.parse(movie.genres).map(genre => genre.name);
 			parsedCast = JSON.parse(movie.cast).map(actor => actor.name);
 		}
-		console.log(movie);
 		const { firstSection, secondSection, thirdSection } = this.state;
 		return movie ? (
 			<View style={styles.movieWrapper}>
@@ -161,7 +160,7 @@ class Movie extends Component<IMovieProps, IState> {
 						<View>
 							<View style={styles.secondSectionInfowWrapperHeader}>
 								<Text style={styles.secondSectionSubTitle}>
-									{movie.release_date ? movie.release_date.slice(0, 4) : null}, 
+									{movie.release_date ? movie.release_date.slice(0, 4) : null},
 									{parsedGenres.join(', ')}
 								</Text>
 								<View style={styles.rateBlock}>

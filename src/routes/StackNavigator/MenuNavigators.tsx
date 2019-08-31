@@ -3,18 +3,17 @@ import Home from '../../views/HomeView';
 import Messages from '../../views/MessagesView';
 import Collections from '../../views/CollectionsView';
 import Header from '../../components/Header/Header';
-import EventList from '../../components/ContentPage/Events/EventList';
-import SurveyList from '../../components/ContentPage/Surveys/SurveyList';
-import TopList from '../../components/ContentPage/Tops/TopList';
 import SurveyNavigator from '../StackNavigator/SurveyNavigator';
 import EventsTab from '../../components/ContentPage/Events/EventTab';
 import MovieNavigator from './MovieNavigator';
 import TopsTab from '../../components/ContentPage/Tops/TopTab';
+import ActivityNavigator from '../StackNavigator/ActivityNavigator';
 import ChooseExtraOption from '../../components/MainPage/Story/StoryModal/ChooseExtraOption';
 import EventPage from '../../components/ContentPage/Events/EventPage';
 import TopPage from '../../components/ContentPage/Tops/TopPage';
 import SurveyPage from '../../components/SurveyPage/SurveyPage';
 import ControlledVertical from '../../components/MainPage/Story/StoryModal/ColorPicker';
+
 import UserPageView from '../../views/UserPageView/UserPageView';
 import ReviewPage from '../../components/ReviewPage/ReviewPage';
 
@@ -111,6 +110,14 @@ export const Movies_StackNavigator = createStackNavigator({
 	}
 });
 
+export const Notifications_Navigator = createStackNavigator({
+	Seventh: {
+		screen: ActivityNavigator,
+		navigationOptions: ({ navigation }) => ({
+			header: Header
+		})
+	}
+});
 export const UserPage_StackNavigator = createStackNavigator({
 	Fourth: {
 		screen: UserPageView,

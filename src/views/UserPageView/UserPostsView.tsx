@@ -19,11 +19,7 @@ class UserPosts extends Component<IProps> {
 		const { posts, getUsersPosts } = this.props;
 		return (
 			<Fragment>
-				<View>
-					<Text style={{ marginTop: 20, textAlign: 'center' }}>
-						{selectedProfileInfo.name}'s posts
-					</Text>
-				</View>
+				<View></View>
 				<PostComponent userId={selectedProfileInfo.id} />
 			</Fragment>
 		);
