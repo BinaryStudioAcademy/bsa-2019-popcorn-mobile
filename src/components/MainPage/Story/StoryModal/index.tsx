@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
 	Image,
 	Text,
@@ -19,13 +19,6 @@ import IUser from '../../../UserPage/IUser';
 import config from '../../../../config';
 import ImageUploader from '../../../ImageUploader';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-const poll = require('../../../../assets/general/Poll-01.svg');
-const camera = require('../../../../assets/general/camera.svg');
-const cup = require('../../../../assets/general/trophy.svg');
-const calendar = require('../../../../assets/general/calendar.svg');
-const paint = require('../../../../assets/general/paint.svg');
-const uuid = require('uuid/v4');
 
 interface IProps {
 	sendStory: (newStory: INewStory) => any;
@@ -61,10 +54,13 @@ class StoryModal extends Component<IProps, IState> {
 		};
 	}
 
-	validate() {
-		const { caption, image_url } = this.state.newStory;
-		if (caption && image_url) this.setState({ disabled: false });
-		else this.setState({ disabled: true });
+	validate(caption = this.state.newStory.caption) {
+		const { image_url } = this.state.newStory;
+		if (caption && caption.match(/^(?!\s*$).*/) && image_url) {
+			this.setState({ disabled: false });
+		} else {
+			this.setState({ disabled: true });
+		}
 	}
 
 	addExtra(item, option) {
@@ -95,81 +91,135 @@ class StoryModal extends Component<IProps, IState> {
 			data: this.props.data
 		});
 	}
-	renderExtraOptions = () => {
+	renderBasicOptions = () => {
+		let gradientHeight = 28;
+		let gradientBackground = this.state.newStory.backgroundColor
+			? this.state.newStory.backgroundColor
+			: 'purple';
+		let bckgData = Array.from({ length: gradientHeight });
 		return (
-			<View style={styles.iconsWrp}>
+			<Fragment>
 				<TouchableOpacity
-					onPress={() =>
-						this.props.navigation.navigate('ChooseExtraOption', {
-							addExtra: this.addExtra,
-							option: 'survey'
-						})
-					}
-				>
-					<SvgUri width={35} height={35} source={poll} fill={'black'} />
-				</TouchableOpacity>
-				<TouchableOpacity
-					onPress={() =>
-						this.props.navigation.navigate('ChooseExtraOption', {
-							addExtra: this.addExtra,
-							option: 'top'
-						})
-					}
-				>
-					<SvgUri width={35} height={35} source={cup} fill={'black'} />
-				</TouchableOpacity>
-				<TouchableOpacity
-					onPress={() =>
-						this.props.navigation.navigate('ChooseExtraOption', {
-							addExtra: this.addExtra,
-							option: 'event'
-						})
-					}
-				>
-					<SvgUri width={35} height={35} source={calendar} fill={'black'} />
-				</TouchableOpacity>
-			</View>
-		);
-	};
-	renderTextInput = caption => {
-		return (
-			<View style={styles.sendInputWrp}>
-				<TextInput
-					textAlignVertical={'top'}
-					multiline={true}
-					numberOfLines={4}
-					style={styles.input}
-					value={caption || ''}
-					onChangeText={caption => {
-						this.setState(state => ({
-							newStory: {
-								...state.newStory,
-								caption
-							}
-						}));
-						this.validate();
-					}}
-				/>
-				<TouchableOpacity
+					style={styles.colorIcon}
 					onPress={() => {
 						this.props.navigation.navigate('ColorPicker', {
 							setColor: color =>
 								this.setState(state => ({
 									newStory: {
 										...state.newStory,
-										fontColor: color
+										backgroundColor: color
 									}
 								}))
 						});
 					}}
 				>
-					<Icon
-						name="paint-brush"
-						color={this.state.newStory.fontColor}
-						size={35}
-					/>
+					<View style={styles.colorIcon}>
+						{bckgData.map((_, i) => (
+							<View
+								key={i}
+								style={{
+									position: 'absolute',
+									backgroundColor: gradientBackground,
+									height: 1,
+									bottom: gradientHeight - i,
+									right: 0,
+									left: 0,
+									zIndex: 2,
+									opacity: (1 / gradientHeight) * (i + 1)
+								}}
+							/>
+						))}
+					</View>
 				</TouchableOpacity>
-			</View>
+				<ImageUploader
+					startUpload={() => this.setState({ loading: true })}
+					saveUrl={(image_url: string) => {
+						this.setState(state => ({
+							newStory: { ...state.newStory, image_url },
+							loading: false
+						}));
+						this.validate();
+					}}
+				>
+					<Icon name="camera" color={'#555'} size={30} />
+				</ImageUploader>
+				<TouchableOpacity
+					onPress={() => {
+						this.setState({ showInput: !this.state.showInput });
+					}}
+				>
+					<Icon name="font" color={'#555'} size={30} />
+				</TouchableOpacity>
+			</Fragment>
+		);
+	};
+	renderExtraOptions = () => {
+		return (
+			<Fragment>
+				<TouchableOpacity
+					onPress={() => {
+						this.setState({ showExtraOptions: !this.state.showExtraOptions });
+						this.props.navigation.navigate('ChooseExtraOption', {
+							addExtra: this.addExtra,
+							option: 'survey'
+						});
+					}}
+				>
+					<Icon name="clipboard" color={'#555'} size={30} />
+				</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => {
+						this.setState({ showExtraOptions: !this.state.showExtraOptions });
+						this.props.navigation.navigate('ChooseExtraOption', {
+							addExtra: this.addExtra,
+							option: 'top'
+						});
+					}}
+				>
+					<Icon name="trophy" color={'#555'} size={30} />
+				</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => {
+						this.setState({ showExtraOptions: !this.state.showExtraOptions });
+						this.props.navigation.navigate('ChooseExtraOption', {
+							addExtra: this.addExtra,
+							option: 'event'
+						});
+					}}
+				>
+					<Icon name="calendar" color={'#555'} size={30} />
+				</TouchableOpacity>
+			</Fragment>
+		);
+	};
+	renderTextInput = caption => {
+		return (
+			<TextInput
+				textAlignVertical={'top'}
+				multiline={true}
+				numberOfLines={4}
+				placeholder={'Your text here'}
+				placeholderTextColor={'#383838'}
+				maxLength={40}
+				style={[
+					styles.input,
+					{
+						color: this.state.newStory.fontColor
+							? this.state.newStory.fontColor
+							: null
+					}
+				]}
+				value={caption || ''}
+				onChangeText={caption => {
+					this.setState(state => ({
+						newStory: {
+							...state.newStory,
+							caption
+						}
+					}));
+					this.validate(caption);
+				}}
+			/>
 		);
 	};
 	render() {
@@ -178,98 +228,73 @@ class StoryModal extends Component<IProps, IState> {
 		const { image_url, caption } = this.state.newStory;
 		const { option, type } = this.props.data || { option: null, type: null };
 		const { navigation, profileInfo } = this.props;
-		const gradientHeight = 34;
-		const gradientBackground = this.state.newStory.backgroundColor
-			? this.state.newStory.backgroundColor
-			: 'purple';
-		const bckgData = Array.from({ length: gradientHeight });
+
 		return (
 			<View style={styles.mainView}>
 				<View style={styles.iconsWrp}>
-					<TouchableOpacity
-						style={styles.colorIcon}
-						onPress={() => {
-							this.props.navigation.navigate('ColorPicker', {
-								setColor: color =>
-									this.setState(state => ({
-										newStory: {
-											...state.newStory,
-											backgroundColor: color
-										}
-									}))
-							});
-						}}
-					>
-						<View style={styles.colorIcon}>
-							{bckgData.map((_, i) => (
-								<View
-									key={i}
-									style={{
-										position: 'absolute',
-										backgroundColor: gradientBackground,
-										height: 1,
-										bottom: gradientHeight - i,
-										right: 0,
-										left: 0,
-										zIndex: 2,
-										opacity: (1 / gradientHeight) * (i + 1)
-									}}
-								/>
-							))}
-						</View>
-					</TouchableOpacity>
-					<ImageUploader
-						startUpload={() => this.setState({ loading: true })}
-						saveUrl={(image_url: string) => {
-							this.setState(state => ({
-								newStory: { ...state.newStory, image_url },
-								loading: false
-							}));
-							this.validate();
-						}}
-					>
-						<Icon name="camera" color={'#000'} size={35} />
-					</ImageUploader>
-					<TouchableOpacity
-						onPress={() => {
-							this.setState({ showInput: !this.state.showInput });
-						}}
-					>
-						<Icon name="font" color={'#000'} size={35} />
-					</TouchableOpacity>
-
+					{this.state.showExtraOptions
+						? this.renderExtraOptions()
+						: this.renderBasicOptions()}
 					<TouchableOpacity
 						onPress={() => {
 							this.setState({ showExtraOptions: !this.state.showExtraOptions });
 						}}
 					>
-						<Icon name="plus" color={'#000'} size={35} />
+						<Icon name="plus" color={'#555'} size={30} />
 					</TouchableOpacity>
 				</View>
 
-				{this.state.showExtraOptions && this.renderExtraOptions()}
 				<View
 					style={[
 						styles.UploadWrp,
-						{ backgroundColor: this.state.newStory.backgroundColor }
+						{
+							backgroundColor: this.state.newStory.backgroundColor
+								? this.state.newStory.backgroundColor
+								: '#dadada'
+						}
 					]}
 				>
 					<Image
-						style={[styles.roundImage, { height: image_url ? 200 : 300 }]}
+						style={[styles.roundImage]}
 						source={{ uri: image_url ? image_url : config.DEFAULT_IMAGE }}
 					/>
-					{image_url ? (
-						<TouchableOpacity
-							onPress={() => {
-								this.setState(state => ({
-									newStory: { ...state.newStory, image_url: '' }
-								}));
-							}}
-							style={styles.deleteImageIcon}
-						>
-							<Icon name="trash" color={'#000'} size={35} />
-						</TouchableOpacity>
-					) : null}
+					<View style={styles.imageOptionsWrap}>
+						{image_url ? (
+							<TouchableOpacity
+								onPress={() => {
+									this.setState(state => ({
+										newStory: { ...state.newStory, image_url: '' }
+									}));
+								}}
+							>
+								<Icon name="trash" color={'#555'} size={30} />
+							</TouchableOpacity>
+						) : null}
+						{this.state.showInput ? (
+							<TouchableOpacity
+								onPress={() => {
+									this.props.navigation.navigate('ColorPicker', {
+										setColor: color =>
+											this.setState(state => ({
+												newStory: {
+													...state.newStory,
+													fontColor: color
+												}
+											}))
+									});
+								}}
+							>
+								<Icon
+									name="paint-brush"
+									color={this.state.newStory.fontColor}
+									size={30}
+								/>
+							</TouchableOpacity>
+						) : null}
+					</View>
+					{this.state.showInput || caption
+						? this.renderTextInput(caption)
+						: null}
 				</View>
 				{type ? (
 					<Extra
@@ -285,27 +310,18 @@ class StoryModal extends Component<IProps, IState> {
 						}}
 					/>
 				) : null}
-
-				<View style={styles.sendWrap}>
-					{this.state.showInput && this.renderTextInput(caption)}
-
-					<TouchableOpacity
-						style={styles.buttonWrp}
-						onPress={() => {
-							this.onSave();
-						}}
-						disabled={this.state.disabled}
-					>
-						<Text
-							style={[
-								styles.button,
-								this.state.disabled ? styles.disabledBtn : {}
-							]}
-						>
-							Save
-						</Text>
-					</TouchableOpacity>
-				</View>
+				<TouchableOpacity
+					style={[
+						styles.buttonWrp,
+						this.state.disabled ? styles.disabledBtn : {}
+					]}
+					onPress={() => {
+						this.onSave();
+					}}
+					disabled={this.state.disabled}
+				>
+					<Text style={styles.button}>Save</Text>
+				</TouchableOpacity>
 			</View>
 		);
 	}

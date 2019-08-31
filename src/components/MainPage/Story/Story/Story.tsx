@@ -6,12 +6,18 @@ import {
 	ImageBackground,
 	Image,
 	StyleSheet,
-	TouchableOpacity
+	TouchableOpacity,
+	Platform,
+	StatusBar,
+	NativeModules
 } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
-
+import { captionFont } from '../StoryModal/styles';
+const { StatusBarManager } = NativeModules;
 interface IStoryListItemProps {
 	imageUrl: string;
+	backgroundColor: string;
+	fontColor: string;
 	avatar: string;
 	name: string;
 	caption: string;
@@ -30,9 +36,17 @@ class StoryListItem extends Component<IStoryListItemProps> {
 		);
 	}
 
-	renderContent(imageUrl, avatar, caption, name, navigation) {
+	renderContent(
+		imageUrl,
+		avatar,
+		caption,
+		name,
+		navigation,
+		backgroundColor,
+		fontColor
+	) {
 		return (
-			<View style={styles.storyWrapper}>
+			<View style={[styles.storyWrapper, { backgroundColor: backgroundColor }]}>
 				<View style={styles.storyImageWrapper}>
 					<View style={styles.userBlock}>
 						<Image
@@ -44,26 +58,44 @@ class StoryListItem extends Component<IStoryListItemProps> {
 							{this.renderControls(navigation)}
 						</View>
 					</View>
-					<Text style={styles.caption}>{caption}</Text>
 					<ImageBackground
 						style={styles.storyImage}
 						source={{ uri: imageUrl }}
 						resizeMode="contain"
 					></ImageBackground>
+					<Text style={[styles.renderCaption, { color: fontColor }]}>
+						{caption}
+					</Text>
 				</View>
 			</View>
 		);
 	}
 	render() {
-		const { imageUrl, avatar, caption, name, navigation } = this.props;
-		return this.renderContent(imageUrl, avatar, caption, name, navigation);
+		const {
+			imageUrl,
+			avatar,
+			caption,
+			name,
+			navigation,
+			backgroundColor,
+			fontColor
+		} = this.props;
+		return this.renderContent(
+			imageUrl,
+			avatar,
+			caption,
+			name,
+			navigation,
+			backgroundColor,
+			fontColor
+		);
 	}
 }
 
+const HEADER_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;
 const styles = StyleSheet.create({
 	storyWrapper: {
 		flex: 1,
-		paddingTop: 10,
 		paddingBottom: 10
 	},
 	roundImage: {
@@ -75,23 +107,31 @@ const styles = StyleSheet.create({
 	},
 	storyImageWrapper: {
 		flex: 1,
-		backgroundColor: 'rgb(239, 239, 239)'
+		position: 'relative',
+		justifyContent: 'center'
 	},
 	storyImage: {
-		flex: 1,
-		height: '100%',
-		width: '100%'
+		flex: 1
+		// height: '100%',
+		// width: '100%'
 	},
-	caption: {
-		fontFamily: 'Inter-Regular',
-		fontSize: 17,
+	renderCaption: {
+		fontFamily: captionFont,
+		fontWeight: '600',
+		fontSize: 20,
 		lineHeight: 20,
 		letterSpacing: 0.4,
 		padding: 5,
-		color: 'rgb(18, 39, 55)'
+		position: 'absolute',
+		bottom: '10%',
+		left: 'auto',
+		textAlign: 'center',
+		width: '100%'
 	},
 	userBlock: {
+		paddingTop: HEADER_HEIGHT + 5,
 		flexDirection: 'row',
+		backgroundColor: 'rgba(246,246,246,0.5)',
 		alignItems: 'center'
 	},
 	userName: {

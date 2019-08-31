@@ -14,12 +14,11 @@ const mock_url =
 
 const newStoryDefault: INewStory = {
 	activityId: '',
-	backgroundColor: '#adadad', // grey
+	backgroundColor: '#dadada', // grey
 	fontColor: '#000', // black
 	movieId: null,
 	movieOption: '',
-	image_url: '',
-	// image_url: '',
+	image_url: mock_url,
 	caption: null,
 	activity: null,
 	type: ''
@@ -45,6 +44,7 @@ const HomeView = ({ navigation }) => {
 
 	return (
 		<View style={styles.container}>
+			{showModal ? <View style={styles.fadeModal}></View> : null}
 			<TouchableOpacity
 				style={styles.modalAnchor}
 				onPress={() => onPress(!showModal)}
@@ -60,6 +60,12 @@ const HomeView = ({ navigation }) => {
 						data={newStory.data}
 						showModal={onPress}
 					/>
+					<TouchableOpacity
+						style={styles.modalAnchor}
+						onPress={() => onPress(!showModal)}
+					>
+						<Text style={styles.addStoryView}>Close editor</Text>
+					</TouchableOpacity>
 				</View>
 			)}
 			<ParallaxScrollView
@@ -73,7 +79,7 @@ const HomeView = ({ navigation }) => {
 				)}
 			>
 				<View style={{ flex: 1 }}>
-					<PostCompomonent />
+					<PostComponent />
 				</View>
 			</ParallaxScrollView>
 		</View>
@@ -86,8 +92,10 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	addStoryView: {
-		padding: '2%',
-		backgroundColor: '#FF6501',
+		fontWeight: '600',
+		textTransform: 'uppercase',
+		padding: 8,
+		backgroundColor: '#ffab07',
 		borderRadius: 5,
 		textAlign: 'center',
 		fontSize: 15,
@@ -97,13 +105,24 @@ const styles = StyleSheet.create({
 		marginTop: 20
 	},
 	modalAnchor: {
-		position: 'relative',
-		width: 130
+		zIndex: 6,
+		width: 140,
+		marginLeft: 'auto',
+		marginRight: 'auto',
+		position: 'relative'
 	},
 	modal: {
 		position: 'absolute',
 		top: 60,
-		backgroundColor: '#e4e4e4',
+		zIndex: 6,
+		width: '80%',
+		height: '80%'
+	},
+	fadeModal: {
+		position: 'absolute',
+		height: '100%',
+		width: '100%',
+		backgroundColor: 'rgba(0,0,0,0.5)',
 		zIndex: 5
 	}
 });
