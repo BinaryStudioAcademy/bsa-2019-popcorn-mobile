@@ -2,10 +2,14 @@ import { addStory } from './actions';
 import { fetchStories } from '../../../redux/routines';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet, Alert } from 'react-native';
+import React, { Fragment } from 'react';
 import StoryList from './StoryList/StoryList';
 import SocketService from './../../../helpers/socket.helper';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import StoryModal from './StoryModal/index';
+import INewStory from './INewStory';
+import Spinner from '../../Spinner/Spinner';
 
 interface IStoryListItem {
 	id: string;
@@ -43,10 +47,15 @@ interface IProps {
 	navigation: any;
 }
 
-class StoryComponent extends React.Component<IProps> {
+interface IState {
+	showModal: boolean;
+}
+
+class StoryComponent extends React.Component<IProps, IState> {
 	constructor(props) {
 		super(props);
 		this.addSocketEvents(props.addStory);
+		this.state = { showModal: false };
 	}
 
 	componentDidMount() {
@@ -54,24 +63,35 @@ class StoryComponent extends React.Component<IProps> {
 	}
 
 	addSocketEvents = addStory => {
-		// SocketService.on('new-story', addStory);
+		SocketService.on('new-story', addStory);
 	};
-
 	render() {
+		console.log('render this.state = ', this.props);
 		const { stories, navigation } = this.props;
 		return (
-			<View style={{ height: 240 }}>
-				{stories && <StoryList navigation={navigation} stories={stories} />}
+			<View style={styles.container}>
+				<View style={{ height: 280 }}>
+					{stories && <StoryList navigation={navigation} stories={stories} />}
+				</View>
 			</View>
 		);
 	}
 }
+const styles = StyleSheet.create({
+	container: {
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: 280
+	}
+});
 
 const mapStateToProps = (rootState, props) => ({
 	...props,
 	stories: rootState.story.stories,
 	error: rootState.story.error,
-	loading: rootState.story.loading
+	loading: rootState.story.loading,
+	newStory: rootState.story.newStory
 });
 
 const actions = {
