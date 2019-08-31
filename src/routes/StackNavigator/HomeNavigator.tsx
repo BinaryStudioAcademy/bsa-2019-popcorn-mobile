@@ -11,6 +11,7 @@ import {
 	Top_StackNavigator,
 	Collections_StackNavigator,
 	Movies_StackNavigator,
+	Notifications_Navigator,
 	UserPage_StackNavigator,
 	Review_StackNavigator
 } from './MenuNavigators';
@@ -77,6 +78,14 @@ const HomeNavigator = createDrawerNavigator({
 			header: null
 		}
 	},
+
+	Notifications: {
+		screen: Notifications_Navigator,
+		navigationOptions: {
+			drawerLabel: () => null
+		}
+	},
+
 	PostConstructor: {
 		screen: PostConstructorNavigator,
 		navigationOptions: {

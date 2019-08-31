@@ -49,13 +49,19 @@ const Header = props => {
 					</TouchableOpacity>
 				</View>
 				<View style={styles.iconContainer}>
-					<SvgUri
-						style={styles.item}
-						height={24}
-						width={24}
-						source={require('../../assets/general/new.svg')}
-					/>
-					<Text style={styles.iconAlert}></Text>
+					<TouchableOpacity
+						onPress={() => {
+							props.navigation.navigate('Seventh');
+						}}
+					>
+						<SvgUri
+							style={styles.item}
+							height={24}
+							width={24}
+							source={require('../../assets/general/new.svg')}
+						/>
+						<Text style={styles.iconAlert}></Text>
+					</TouchableOpacity>
 				</View>
 			</View>
 		</View>
