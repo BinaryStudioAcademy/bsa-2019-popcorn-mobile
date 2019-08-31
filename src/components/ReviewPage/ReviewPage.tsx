@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import config from '../../config';
+import Spinner from '../Spinner/Spinner';
 
 interface IProps {}
 
@@ -21,6 +22,7 @@ class ReviewPage extends Component<IProps, IState> {
 	}
 
 	render() {
+		if (!this.props.reviews || !this.props.reviews.movie) return <Spinner />;
 		const { reviews } = this.props;
 
 		return (
