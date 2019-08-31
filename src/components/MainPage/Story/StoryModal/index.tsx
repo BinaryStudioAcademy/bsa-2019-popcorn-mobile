@@ -7,6 +7,7 @@ import {
 	View,
 	Alert
 } from 'react-native';
+import { CheckBox } from 'react-native-elements';
 import styles from './styles';
 import SvgUri from 'react-native-svg-uri';
 import { bindActionCreators } from 'redux';
@@ -19,7 +20,10 @@ import IUser from '../../../UserPage/IUser';
 import config from '../../../../config';
 import ImageUploader from '../../../ImageUploader';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import ColorPalette from 'react-native-color-palette';
+const DEFAULT_BACKGROUND = '#dadada';
 interface IProps {
 	sendStory: (newStory: INewStory) => any;
 	profileInfo: IUser;
@@ -36,8 +40,8 @@ interface IState {
 	disabled: boolean;
 	loading: boolean;
 	data: any;
-	showExtraOptions: boolean;
 	showInput: boolean;
+	checkedFontColor: [];
 }
 
 class StoryModal extends Component<IProps, IState> {
@@ -49,14 +53,18 @@ class StoryModal extends Component<IProps, IState> {
 			disabled: true,
 			loading: false,
 			data: props.data,
-			showExtraOptions: false,
-			showInput: false
+			showInput: false,
+			checkedFontColor: []
 		};
 	}
 
 	validate(caption = this.state.newStory.caption) {
-		const { image_url } = this.state.newStory;
-		if (caption && caption.match(/^(?!\s*$).*/) && image_url) {
+		const { image_url, backgroundColor, type } = this.state.newStory;
+		if (
+			(caption && caption.match(/^(?!\s*$).*/) && image_url) ||
+			(caption && caption.match(/^(?!\s*$).*/) && backgroundColor) ||
+			(type && image_url)
+		) {
 			this.setState({ disabled: false });
 		} else {
 			this.setState({ disabled: true });
@@ -87,20 +95,48 @@ class StoryModal extends Component<IProps, IState> {
 
 	componentWillUnmount(): void {
 		this.props.setNewStory({
-			newStory: this.state.newStory,
+			newStory: { ...this.state.newStory },
 			data: this.props.data
 		});
 	}
-	renderBasicOptions = () => {
-		let gradientHeight = 28;
-		let gradientBackground = this.state.newStory.backgroundColor
-			? this.state.newStory.backgroundColor
-			: 'purple';
-		let bckgData = Array.from({ length: gradientHeight });
+	renderColorPicker = () => {
+		// let selectedColor = '#C0392B';
 		return (
-			<Fragment>
+			<ColorPalette
+				onChange={color =>
+					this.setState(state => ({
+						newStory: {
+							...state.newStory,
+							fontColor: color
+						}
+					}))
+				}
+				value={this.state.newStory.fontColor}
+				colors={['#C0392B', '#E74C3C', '#9B59B6', '#8E44AD', '#2980B9']}
+				title={null}
+				icon={
+					<Icon name={'circle'} size={20} color={'rgba(255,255,255,0.2)'} />
+				}
+				paletteStyles={styles.colorPicker}
+			/>
+		);
+	};
+
+	renderFontColorPalette = () => {
+		return (
+			<View style={styles.colorPaletteWrap}>
+				<TouchableOpacity onPress={() => {}} style={styles.colorPalette}>
+					<FontAwesome5 name="brush" color={'#555'} size={20} />
+				</TouchableOpacity>
+				{this.renderColorPicker()}
+			</View>
+		);
+	};
+	renderBackgroundPalette = () => {
+		return (
+			<View style={styles.colorPaletteWrap}>
 				<TouchableOpacity
-					style={styles.colorIcon}
+					style={styles.colorPalette}
 					onPress={() => {
 						this.props.navigation.navigate('ColorPicker', {
 							setColor: color =>
@@ -113,24 +149,20 @@ class StoryModal extends Component<IProps, IState> {
 						});
 					}}
 				>
-					<View style={styles.colorIcon}>
-						{bckgData.map((_, i) => (
-							<View
-								key={i}
-								style={{
-									position: 'absolute',
-									backgroundColor: gradientBackground,
-									height: 1,
-									bottom: gradientHeight - i,
-									right: 0,
-									left: 0,
-									zIndex: 2,
-									opacity: (1 / gradientHeight) * (i + 1)
-								}}
-							/>
-						))}
-					</View>
+					<FontAwesome5 name="palette" color={'#555'} size={20} />
 				</TouchableOpacity>
+			</View>
+		);
+	};
+	clearExtra = () => {
+		this.props.setNewStory({
+			newStory: this.state.newStory,
+			data: null
+		});
+	};
+	renderBasicOptions = () => {
+		return (
+			<Fragment>
 				<ImageUploader
 					startUpload={() => this.setState({ loading: true })}
 					saveUrl={(image_url: string) => {
@@ -139,6 +171,7 @@ class StoryModal extends Component<IProps, IState> {
 							loading: false
 						}));
 						this.validate();
+						this.clearExtra();
 					}}
 				>
 					<Icon name="camera" color={'#555'} size={30} />
@@ -148,7 +181,7 @@ class StoryModal extends Component<IProps, IState> {
 						this.setState({ showInput: !this.state.showInput });
 					}}
 				>
-					<Icon name="font" color={'#555'} size={30} />
+					<Fontisto name="font" color={'#555'} size={30} />
 				</TouchableOpacity>
 			</Fragment>
 		);
@@ -158,7 +191,6 @@ class StoryModal extends Component<IProps, IState> {
 			<Fragment>
 				<TouchableOpacity
 					onPress={() => {
-						this.setState({ showExtraOptions: !this.state.showExtraOptions });
 						this.props.navigation.navigate('ChooseExtraOption', {
 							addExtra: this.addExtra,
 							option: 'survey'
@@ -169,7 +201,6 @@ class StoryModal extends Component<IProps, IState> {
 				</TouchableOpacity>
 				<TouchableOpacity
 					onPress={() => {
-						this.setState({ showExtraOptions: !this.state.showExtraOptions });
 						this.props.navigation.navigate('ChooseExtraOption', {
 							addExtra: this.addExtra,
 							option: 'top'
@@ -180,7 +211,6 @@ class StoryModal extends Component<IProps, IState> {
 				</TouchableOpacity>
 				<TouchableOpacity
 					onPress={() => {
-						this.setState({ showExtraOptions: !this.state.showExtraOptions });
 						this.props.navigation.navigate('ChooseExtraOption', {
 							addExtra: this.addExtra,
 							option: 'event'
@@ -198,7 +228,7 @@ class StoryModal extends Component<IProps, IState> {
 				textAlignVertical={'top'}
 				multiline={true}
 				numberOfLines={4}
-				placeholder={'Your text here'}
+				placeholder={'YOUR TEXT HERE'}
 				placeholderTextColor={'#383838'}
 				maxLength={40}
 				style={[
@@ -228,37 +258,28 @@ class StoryModal extends Component<IProps, IState> {
 		const { image_url, caption } = this.state.newStory;
 		const { option, type } = this.props.data || { option: null, type: null };
 		const { navigation, profileInfo } = this.props;
-
 		return (
 			<View style={styles.mainView}>
 				<View style={styles.iconsWrp}>
-					{this.state.showExtraOptions
-						? this.renderExtraOptions()
-						: this.renderBasicOptions()}
-					<TouchableOpacity
-						onPress={() => {
-							this.setState({ showExtraOptions: !this.state.showExtraOptions });
-						}}
-					>
-						<Icon name="plus" color={'#555'} size={30} />
-					</TouchableOpacity>
+					{this.renderBasicOptions()}
+					{this.renderExtraOptions()}
 				</View>
-
-				<View
-					style={[
-						styles.UploadWrp,
-						{
-							backgroundColor: this.state.newStory.backgroundColor
-								? this.state.newStory.backgroundColor
-								: '#dadada'
-						}
-					]}
-				>
-					<Image
-						style={[styles.roundImage]}
-						source={{ uri: image_url ? image_url : config.DEFAULT_IMAGE }}
-					/>
-					<View style={styles.imageOptionsWrap}>
+				<View style={styles.imageEditWrap}>
+					{this.renderBackgroundPalette()}
+					<View
+						style={[
+							styles.uploadWrap,
+							{
+								backgroundColor: this.state.newStory.backgroundColor
+									? this.state.newStory.backgroundColor
+									: DEFAULT_BACKGROUND
+							}
+						]}
+					>
+						<Image
+							style={[styles.roundImage]}
+							source={{ uri: image_url ? image_url : config.DEFAULT_IMAGE }}
+						/>
 						{image_url ? (
 							<TouchableOpacity
 								onPress={() => {
@@ -266,65 +287,50 @@ class StoryModal extends Component<IProps, IState> {
 										newStory: {
 											...state.newStory,
 											image_url: '',
-											backgroundColor: '#adadad'
+											backgroundColor: DEFAULT_BACKGROUND
 										}
 									}));
 								}}
+								style={styles.deleteImageOption}
 							>
-								<Icon name="trash" color={'#555'} size={30} />
+								<Icon name="times" color={'#555'} size={25} />
 							</TouchableOpacity>
 						) : null}
-						{this.state.showInput ? (
-							<TouchableOpacity
-								onPress={() => {
-									this.props.navigation.navigate('ColorPicker', {
-										setColor: color =>
-											this.setState(state => ({
-												newStory: {
-													...state.newStory,
-													fontColor: color
-												}
-											}))
-									});
-								}}
-							>
-								<Icon
-									name="paint-brush"
-									color={this.state.newStory.fontColor}
-									size={30}
-								/>
-							</TouchableOpacity>
-						) : null}
+						{this.state.showInput || caption
+							? this.renderTextInput(caption)
+							: null}
 					</View>
-					{this.state.showInput || caption
-						? this.renderTextInput(caption)
-						: null}
+					{this.renderFontColorPalette()}
 				</View>
 				{type ? (
-					<Extra
-						user={profileInfo}
-						type={type}
-						data={option}
-						navigation={navigation}
-						clearExtra={() => {
-							this.props.setNewStory({
-								newStory: this.state.newStory,
-								data: null
-							});
-						}}
-					/>
+					<View style={styles.renderExtraWrap}>
+						<Extra
+							user={profileInfo}
+							type={type}
+							data={option}
+							navigation={navigation}
+							clearExtra={() => {
+								this.props.setNewStory({
+									newStory: this.state.newStory,
+									data: null
+								});
+							}}
+						/>
+					</View>
 				) : null}
+
 				<TouchableOpacity
-					style={[
-						styles.buttonWrp,
-						this.state.disabled ? styles.disabledBtn : {}
-					]}
+					style={[styles.buttonWrap]}
 					onPress={() => {
 						this.onSave();
 					}}
 					disabled={this.state.disabled}
 				>
-					<Text style={styles.button}>Save</Text>
+					<Icon
+						name="check-circle-o"
+						color={this.state.disabled ? '#fff' : 'green'}
+						size={50}
+					/>
 				</TouchableOpacity>
 			</View>
 		);

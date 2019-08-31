@@ -102,8 +102,7 @@ const styles = StyleSheet.create({
 		width: 35,
 		height: 35,
 		borderRadius: 20,
-		margin: 9,
-		backgroundColor: '#adadad'
+		margin: 9
 	},
 	storyImageWrapper: {
 		flex: 1,

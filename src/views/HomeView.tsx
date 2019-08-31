@@ -8,6 +8,7 @@ import StoryComponent from './../components/MainPage/Story/';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import StoryModal from '../components/MainPage/Story/StoryModal';
 import INewStory from '../components/MainPage/Story/INewStory';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const mock_url =
 	'https://i.pinimg.com/736x/2c/f1/93/2cf193ee4bef23eb1a2a9b07faadd951.jpg';
@@ -29,7 +30,7 @@ type NewStory = {
 };
 
 const HomeView = ({ navigation }) => {
-	const [showModal, onPress] = useState(false);
+	const [showModal, onPress] = useState(true);
 	const [newStory, setNewStory] = useState<NewStory>({
 		newStory: newStoryDefault,
 		data: null
@@ -53,6 +54,12 @@ const HomeView = ({ navigation }) => {
 			</TouchableOpacity>
 			{showModal && (
 				<View style={styles.modal}>
+					<TouchableOpacity
+						style={styles.modalAnchorBack}
+						onPress={() => onPress(!showModal)}
+					>
+						<Icon name="arrow-circle-o-left" color={'#fff'} size={50} />
+					</TouchableOpacity>
 					<StoryModal
 						navigation={navigation}
 						newStory={newStory.newStory}
@@ -60,12 +67,6 @@ const HomeView = ({ navigation }) => {
 						data={newStory.data}
 						showModal={onPress}
 					/>
-					<TouchableOpacity
-						style={styles.modalAnchor}
-						onPress={() => onPress(!showModal)}
-					>
-						<Text style={styles.addStoryView}>Close editor</Text>
-					</TouchableOpacity>
 				</View>
 			)}
 			<ParallaxScrollView
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
 	container: {
 		justifyContent: 'center',
 		alignItems: 'center',
+		position: 'relative',
 		flex: 1
 	},
 	addStoryView: {
@@ -108,14 +110,21 @@ const styles = StyleSheet.create({
 		zIndex: 6,
 		width: 140,
 		marginLeft: 'auto',
-		marginRight: 'auto',
-		position: 'relative'
+		marginRight: 'auto'
+		// position: 'relative'
+	},
+	modalAnchorBack: {
+		zIndex: 6,
+		position: 'relative',
+		top: 0
+		// top: -50,
+		// left: 0
 	},
 	modal: {
 		position: 'absolute',
-		top: 60,
+		top: 10,
 		zIndex: 6,
-		width: '80%',
+		width: '90%',
 		height: '90%'
 	},
 	fadeModal: {
