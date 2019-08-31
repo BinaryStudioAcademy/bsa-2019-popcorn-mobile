@@ -42,11 +42,5 @@ export const uploadBase64 = async (
 	});
 	const { imageUrl } = await response.json();
 
-	let url;
-	url =
-		imageUrl.indexOf('\\') !== -1 ? imageUrl.split(`\\`) : imageUrl.split(`/`);
-	url.shift();
-	url = url.join('/');
-
-	return config.API_URL + '/' + url;
+	return imageUrl;
 };
