@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
 		top: 60,
 		zIndex: 6,
 		width: '80%',
-		height: '80%'
+		height: '90%'
 	},
 	fadeModal: {
 		position: 'absolute',
