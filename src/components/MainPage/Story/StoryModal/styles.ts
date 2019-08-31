@@ -21,32 +21,27 @@ export default StyleSheet.create({
 		height: 50,
 		textAlign: 'center'
 	},
-	colorIcon: {
-		width: 30,
-		height: 30,
-		overflow: 'hidden'
-	},
 	iconsWrp: {
 		width: '80%',
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		marginBottom: 10
+		marginBottom: 20
 	},
 
 	roundImage: {
-		height: imageHeight,
-		marginTop: 0,
-		marginBottom: 0,
+		height: '100%',
+		// marginTop: 0,
+		// marginBottom: 0,
 		position: 'relative'
 	},
-	imageOptionsWrap: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
+	deleteImageOption: {
+		// flexDirection: 'row',
+		// justifyContent: 'space-between',
 		position: 'absolute',
-		top: 10,
-		left: 10,
-		width: '90%'
+		top: 5,
+		left: 5
+		// width: '90%'
 	},
 	extraItemWrp: {
 		margin: 5,
@@ -64,27 +59,31 @@ export default StyleSheet.create({
 		justifyContent: 'center',
 		flexDirection: 'row'
 	},
-	buttonWrp: {
-		padding: 10,
-		width: 100,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#FF6501',
-		borderRadius: 10
+	buttonWrap: {
+		// padding: 10,
+		// width: 100,
+		// justifyContent: 'center',
+		// alignItems: 'center',
+		// backgroundColor: '#FF6501',
+		// borderRadius: 10,
+		position: 'absolute',
+		top: -60,
+		right: 0
 	},
-	button: {
-		textAlign: 'center',
-		fontSize: 18,
-		color: 'white',
-		fontFamily: 'Inter-SemiBold'
-	},
+	// button: {
+	// 	textAlign: 'center',
+	// 	fontSize: 18,
+	// 	color: 'white',
+	// 	fontFamily: 'Inter-SemiBold'
+	// },
 	mainView: {
 		marginTop: 10,
 		flex: 1,
-		padding: '3%',
+		paddingTop: 20,
 		backgroundColor: 'rgba(255,255,255,1)',
-		justifyContent: 'space-around',
-		alignItems: 'center'
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		position: 'relative'
 	},
 	extra: {
 		marginTop: 10,
@@ -92,7 +91,7 @@ export default StyleSheet.create({
 		borderLeftWidth: 5,
 		borderColor: 'rgba(0, 0, 0, 0.11)',
 		padding: '2%',
-		width: '80%',
+		width: '100%',
 		justifyContent: 'flex-start'
 	},
 	IconExtraWrp: {
@@ -108,9 +107,15 @@ export default StyleSheet.create({
 	disabledBtn: {
 		backgroundColor: 'rgba(68,68,68,0.3)'
 	},
-	UploadWrp: {
-		width: '80%',
+	imageEditWrap: {
+		width: '100%',
+		flexDirection: 'row',
+		justifyContent: 'center',
 		height: imageWrapHeight,
+		marginTop: 20
+	},
+	uploadWrap: {
+		width: '70%',
 		position: 'relative',
 		justifyContent: 'center',
 		shadowColor: '#000',
@@ -118,6 +123,18 @@ export default StyleSheet.create({
 		shadowOpacity: 0.8,
 		shadowRadius: 2,
 		elevation: 5
+	},
+	colorPicker: {
+		flexDirection: 'column'
+	},
+	colorPaletteWrap: {
+		width: '15%',
+		height: '100%',
+		alignItems: 'center',
+		justifyContent: 'flex-start'
+	},
+	colorPalette: {
+		alignItems: 'center'
 	},
 	bigFont: {
 		fontSize: 16,
@@ -138,6 +155,9 @@ export default StyleSheet.create({
 		fontSize: 14,
 		color: '#122737'
 	},
+	renderExtraWrap: {
+		width: '90%'
+	},
 	title: {
 		fontFamily: 'Inter-SemiBold',
 		fontSize: 16,
@@ -145,7 +165,7 @@ export default StyleSheet.create({
 		// width: '75%'
 	},
 	horizontalContainer: {
-		width: '80%',
+		width: '90%',
 		justifyContent: 'space-between',
 		flexDirection: 'row',
 		paddingRight: 10

@@ -1,6 +1,6 @@
 import React from 'react';
 import SvgUri from 'react-native-svg-uri';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, Alert } from 'react-native';
 import styles from './styles';
 import IUser from '../../../UserPage/IUser';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -71,7 +71,6 @@ const renderSurveyView = data => {
 
 const Extra = (props: IProps) => {
 	const { type, data, user, onSave } = props;
-
 	const viewActivity = () => {
 		switch (type) {
 			case 'event':
