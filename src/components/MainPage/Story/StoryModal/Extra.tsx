@@ -39,7 +39,7 @@ const renderEventView = data => {
 				</Text>
 				<View style={[styles.visitors]}>
 					<FontAwesomeIcon
-						style={{ ...styles.icon, color: '#122737' }}
+						style={{ ...styles.visitorsIcon, color: '#122737' }}
 						icon={faUsers}
 					/>
 					<Text>{data.eventVisitors.length}</Text>

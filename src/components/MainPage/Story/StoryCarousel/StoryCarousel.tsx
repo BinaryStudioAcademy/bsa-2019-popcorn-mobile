@@ -42,7 +42,9 @@ class StoryCarousel extends React.Component<IProps> {
 		const {
 			image_url,
 			user: { name, avatar },
-			caption
+			caption,
+			backgroundColor,
+			fontColor
 		} = item;
 		return (
 			<Story
@@ -52,6 +54,8 @@ class StoryCarousel extends React.Component<IProps> {
 				avatar={avatar}
 				name={name}
 				navigation={navigation}
+				backgroundColor={backgroundColor}
+				fontColor={fontColor}
 			/>
 		);
 	}
