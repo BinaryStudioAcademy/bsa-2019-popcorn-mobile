@@ -11,7 +11,8 @@ import {
 	Top_StackNavigator,
 	Collections_StackNavigator,
 	Movies_StackNavigator,
-	UserPage_StackNavigator
+	UserPage_StackNavigator,
+	Review_StackNavigator
 } from './MenuNavigators';
 import StoryComponent from './../../components/MainPage/Story/StoryCarousel/StoryCarousel';
 import PostConstructorNavigator from './PostConstructorNavigator';
@@ -80,6 +81,13 @@ const HomeNavigator = createDrawerNavigator({
 		screen: PostConstructorNavigator,
 		navigationOptions: {
 			drawerLabel: 'Create post'
+		}
+	},
+
+	ReviewPage: {
+		screen: Review_StackNavigator,
+		navigationOptions: {
+			drawerLabel: 'ReviewPage'
 		}
 	}
 });

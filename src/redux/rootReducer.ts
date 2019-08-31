@@ -8,6 +8,7 @@ import userEventsReducer from '../components/UserPage/redux/reducer';
 import eventsReducer from '../components/ContentPage/Events/reducer';
 import movieReducer from '../components/MainPage/Movie/Movie/reducer';
 import topsReducer from '../components/ContentPage/Tops/reducer';
+import reviewsReducer from '../components/ReviewPage/reducer';
 
 const reducers = {
 	story: storyReducer,
@@ -18,7 +19,8 @@ const reducers = {
 	authorization: authReducer,
 	userEvents: userEventsReducer,
 	events: eventsReducer,
-	tops: topsReducer
+	tops: topsReducer,
+	reviews: reviewsReducer
 };
 
 export default combineReducers({
