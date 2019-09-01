@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
-const orange = '#ffab07';
+const orange = '#f57c00';
 const imageHeight = '70%';
 const imageWrapHeight = '65%';
 export const captionFont = Platform.OS === 'android' ? 'monospace' : 'Courier';
@@ -10,6 +10,7 @@ export default StyleSheet.create({
 	input: {
 		position: 'absolute',
 		marginTop: 10,
+		zIndex: 100,
 		bottom: 0,
 		width: '90%',
 		alignSelf: 'center',
@@ -31,17 +32,12 @@ export default StyleSheet.create({
 
 	roundImage: {
 		height: '100%',
-		// marginTop: 0,
-		// marginBottom: 0,
 		position: 'relative'
 	},
 	deleteImageOption: {
-		// flexDirection: 'row',
-		// justifyContent: 'space-between',
 		position: 'absolute',
 		top: 5,
 		left: 5
-		// width: '90%'
 	},
 	extraItemWrp: {
 		margin: 5,
@@ -127,11 +123,14 @@ export default StyleSheet.create({
 	colorPicker: {
 		flexDirection: 'column'
 	},
+	colorIcon: {
+		marginBottom: 5
+	},
 	colorPaletteWrap: {
 		width: '15%',
 		height: '100%',
 		alignItems: 'center',
-		justifyContent: 'flex-start'
+		justifyContent: 'space-between'
 	},
 	colorPalette: {
 		alignItems: 'center'

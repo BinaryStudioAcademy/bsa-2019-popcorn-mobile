@@ -14,6 +14,7 @@ interface IProps {
 	type: string;
 	user: IUser;
 	onSave?: () => any;
+	// validate: () => any;
 }
 
 const renderTopView = data => {
@@ -52,7 +53,7 @@ const renderEventView = data => {
 				</Text>
 			</View>
 			{!!data.description && (
-				<Text numberOfLines={1} style={[styles.text, styles.description]}>
+				<Text numberOfLines={1} style={[styles.text]}>
 					{data.description}
 				</Text>
 			)}
@@ -71,6 +72,7 @@ const renderSurveyView = data => {
 
 const Extra = (props: IProps) => {
 	const { type, data, user, onSave } = props;
+
 	const viewActivity = () => {
 		switch (type) {
 			case 'event':
@@ -102,7 +104,12 @@ const Extra = (props: IProps) => {
 	}
 	return (
 		<View style={styles.extra}>
-			<TouchableOpacity onPress={() => (onSave ? onSave() : viewActivity())}>
+			<TouchableOpacity
+				onPress={() => {
+					// props.validate();
+					return onSave ? onSave() : viewActivity();
+				}}
+			>
 				{renderView(data)}
 			</TouchableOpacity>
 			{props.clearExtra && (
