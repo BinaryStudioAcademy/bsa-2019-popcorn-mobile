@@ -161,7 +161,6 @@ export default StyleSheet.create({
 		fontFamily: 'Inter-SemiBold',
 		fontSize: 16,
 		marginBottom: 3
-		// width: '75%'
 	},
 	horizontalContainer: {
 		width: '90%',
