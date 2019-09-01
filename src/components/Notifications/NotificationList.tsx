@@ -32,6 +32,10 @@ class NotificationList extends Component<IProps> {
 		this.addSocketEvents();
     }
 
+    componentDidMount() {
+        this.props.fetchNotifications(this.props.userInfo.id);
+    }
+
     addSocketEvents = () => {
 		SocketService.join(this.props.userInfo.id);
 		SocketService.on('new-notification', this.props.addNotification);
