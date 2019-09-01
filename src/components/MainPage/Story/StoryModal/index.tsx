@@ -18,9 +18,11 @@ import IUser from '../../../UserPage/IUser';
 import ImageUploader from '../../../ImageUploader';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import ColorPalette from 'react-native-color-palette';
 import DraggableText from './DraggableText';
+import Voting from './Voting';
 const DEFAULT_BACKGROUND = '#dadada';
 interface IProps {
 	sendStory: (newStory: INewStory) => any;
@@ -41,6 +43,7 @@ interface IState {
 	showInput: boolean;
 	uploadWrapHeight: number;
 	uploadWrapWidth: number;
+	showVoting: boolean;
 }
 
 class StoryModal extends Component<IProps, IState> {
@@ -55,7 +58,8 @@ class StoryModal extends Component<IProps, IState> {
 			data: props.data,
 			showInput: false,
 			uploadWrapHeight: 0,
-			uploadWrapWidth: 0
+			uploadWrapWidth: 0,
+			showVoting: false
 		};
 		this.update = this.handle.bind(this);
 	}
@@ -94,7 +98,8 @@ class StoryModal extends Component<IProps, IState> {
 			this.setState(state => ({
 				newStory: {
 					...state.newStory,
-					image_url: prevState.data.option.image
+					image_url: prevState.data.option.image,
+					caption: ''
 				}
 			}));
 			this.validate();
@@ -102,6 +107,7 @@ class StoryModal extends Component<IProps, IState> {
 	}
 	onSave() {
 		const { data } = this.state;
+		console.log('[ONSAVE]this.state.newstory', this.state.newStory);
 		this.props.sendStory({
 			...this.state.newStory,
 			caption: data ? '' : this.state.newStory.caption,
@@ -191,7 +197,7 @@ class StoryModal extends Component<IProps, IState> {
 	};
 	clearExtra = () => {
 		this.props.setNewStory({
-			newStory: { ...this.state.newStory, image_url: '' },
+			newStory: { ...this.state.newStory, image_url: '', caption: '' },
 			data: null
 		});
 	};
@@ -250,6 +256,17 @@ class StoryModal extends Component<IProps, IState> {
 					}}
 				>
 					<Icon name="calendar" color={'#555'} size={30} />
+				</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => {
+						this.setState({ showVoting: !this.state.showVoting });
+					}}
+				>
+					<MaterialCommunityIcons
+						name="cloud-question"
+						color={'#555'}
+						size={40}
+					/>
 				</TouchableOpacity>
 			</Fragment>
 		);
@@ -316,7 +333,15 @@ class StoryModal extends Component<IProps, IState> {
 							}
 						]}
 					></View>
-					{this.state.showInput || caption || image_url ? (
+					{this.state.showVoting ? (
+						<Voting
+							newStory={this.state.newStory}
+							areaWidth={this.state.uploadWrapWidth}
+							areaHeight={this.state.uploadWrapHeight}
+						/>
+					) : null}
+					{!this.state.showVoting &&
+					(this.state.showInput || caption || image_url) ? (
 						<DraggableText
 							update={this.update}
 							newStory={this.state.newStory}
