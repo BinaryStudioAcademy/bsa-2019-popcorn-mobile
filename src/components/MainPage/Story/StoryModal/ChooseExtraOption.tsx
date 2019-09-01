@@ -30,6 +30,7 @@ interface IProps {
 	navigation: any;
 	loading: boolean;
 	loadingEvent: boolean;
+	// validate: () => any;
 }
 
 class ChooseExtraOption extends React.Component<IProps> {
@@ -77,6 +78,7 @@ class ChooseExtraOption extends React.Component<IProps> {
 								onSave={() => {
 									this.props.navigation.navigate('First', { option, type });
 								}}
+								// validate={validate}
 							/>
 						))
 					) : (

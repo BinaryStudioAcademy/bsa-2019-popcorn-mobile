@@ -6,10 +6,6 @@ import { View, Text, StyleSheet, Alert } from 'react-native';
 import React, { Fragment } from 'react';
 import StoryList from './StoryList/StoryList';
 import SocketService from './../../../helpers/socket.helper';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import StoryModal from './StoryModal/index';
-import INewStory from './INewStory';
-import Spinner from '../../Spinner/Spinner';
 import ISelectedProfileInfo from '../../../views/UserPageView/SelectedProfileInterfase';
 
 interface IStoryListItem {
@@ -69,7 +65,6 @@ class StoryComponent extends React.Component<IProps, IState> {
 		SocketService.on('new-story', addStory);
 	};
 	render() {
-		console.log('render this.state = ', this.props);
 		const { stories, navigation } = this.props;
 		return (
 			<View style={styles.container}>

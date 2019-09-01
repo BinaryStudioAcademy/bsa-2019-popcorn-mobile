@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-// import styles from '../assets/style';
+import { Text, View, StyleSheet, Alert } from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
 import PostComponent from './../components/MainPage/Post/';
@@ -38,11 +37,15 @@ const HomeView = ({ navigation }) => {
 
 	if (navigation.state.params) {
 		const { option, type } = navigation.state.params;
-		navigation.state.params = null;
-		if (!newStory.data || newStory.data.id !== option.id)
-			setNewStory({ newStory: newStory.newStory, data: { option, type } });
-	}
 
+		navigation.state.params = null;
+		if (!newStory.data || newStory.data.id !== option.id) {
+			setNewStory({
+				newStory: { ...newStory.newStory },
+				data: { option, type }
+			});
+		}
+	}
 	return (
 		<View style={styles.container}>
 			{showModal ? <View style={styles.fadeModal}></View> : null}
@@ -97,7 +100,7 @@ const styles = StyleSheet.create({
 		fontWeight: '600',
 		textTransform: 'uppercase',
 		padding: 8,
-		backgroundColor: '#ffab07',
+		backgroundColor: '#fb8c00',
 		borderRadius: 5,
 		textAlign: 'center',
 		fontSize: 15,
@@ -111,14 +114,11 @@ const styles = StyleSheet.create({
 		width: 140,
 		marginLeft: 'auto',
 		marginRight: 'auto'
-		// position: 'relative'
 	},
 	modalAnchorBack: {
 		zIndex: 6,
 		position: 'relative',
 		top: 0
-		// top: -50,
-		// left: 0
 	},
 	modal: {
 		position: 'absolute',
