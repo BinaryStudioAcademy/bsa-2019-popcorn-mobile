@@ -6,22 +6,23 @@ import Moment from 'moment';
 
 
 interface IProps {
-    notification: any;
+    notification: INotification;
     readNotification: (any: any) => any
     userId: string
     navigation: any
 }
 
 const Notification: React.FC<IProps> = ({ notification, readNotification, userId, navigation }) => {
+    const onPress = () => {
+        readNotification({ id: notification.id, userId });
+        if (notification.url === '/') navigation.navigate('Home');
+        else navigation.navigate('Event', { eventId: notification.url.split ('/')[2] })
+    }
+
     return (
         <TouchableOpacity 
             style={[styles.main, !notification.isRead && styles.unread ]} 
-            onPress={() => { 
-                readNotification({ id: notification.id, userId });
-                if (notification.url === '/')
-                navigation.navigate('Home');
-                else navigation.navigate('Event', { eventId: notification.url.split ('/')[2] })
-            }}
+            onPress={onPress}
         >
             <View style={styles.imageContainer}>
                 <Image source={{ uri: notification.img }} style={styles.avatar} />
@@ -35,7 +36,7 @@ const Notification: React.FC<IProps> = ({ notification, readNotification, userId
                 </Text>
             </View>
         </TouchableOpacity>
-    )
+    );
 }
 
 export default Notification;

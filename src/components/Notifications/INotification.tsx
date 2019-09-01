@@ -1,10 +1,8 @@
 export default interface INotification {
     id: string,
-    userInfo: {
-        avatar: string,
-        name: string
-    },
-    type: string,
+    img: string,
+    url: string,
     date: Date,
-    isRead: boolean
+    isRead: boolean,
+    title: string
 }
