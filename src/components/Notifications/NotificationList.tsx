@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import Notification from './Notification';
 import { connect } from 'react-redux';
 import { addNotification } from './actions';
@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux';
 import { fetchNotifications, readNotification } from '../../redux/routines';
 import Spinner from '../Spinner/Spinner';
 import SocketService from '../../helpers/socket.helper';
-import { isEqual } from 'lodash';
 import INotification from './INotification';
 
 interface IParams {

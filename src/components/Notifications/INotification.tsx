@@ -4,5 +4,8 @@ export default interface INotification {
     url: string,
     date: Date,
     isRead: boolean,
-    title: string
+    title: string,
+    entityType: string,
+    entityId: string,
+    type: string
 }
