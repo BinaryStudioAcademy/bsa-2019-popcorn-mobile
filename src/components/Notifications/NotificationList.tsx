@@ -28,7 +28,7 @@ interface IProps {
 class NotificationList extends Component<IProps> {
     constructor(props) {
         super(props);
-		this.addSocketEvents();
+        this.addSocketEvents();
     }
 
     componentDidMount() {
@@ -76,4 +76,4 @@ const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(NotificationList);;
+)(NotificationList);
