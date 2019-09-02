@@ -5,6 +5,7 @@ import {
     faComment, 
     faPlusCircle, 
     faUserFriends, 
+    faStar
 } from '@fortawesome/free-solid-svg-icons';
 import webApi from '../helpers/webApi.helper';
 import config from '../config';
@@ -43,9 +44,15 @@ export const generateIcon = (type: string): any => {
                     <FontAwesomeIcon icon={faPlusCircle} style={styles.icon} />
                 </View>
         case 'new story from followed':
-                return <View style={styles.containerStyle}>
+            return <View style={styles.containerStyle}>
                     <FontAwesomeIcon icon={faPlusCircle} style={styles.icon} />
                 </View>
+        case 'review':
+            return <View style={styles.containerStyle}>
+                    <FontAwesomeIcon icon={faStar} style={styles.icon} />
+                </View>
+    case 'review':
+
         default: 
             return getIcon(type);
     }
