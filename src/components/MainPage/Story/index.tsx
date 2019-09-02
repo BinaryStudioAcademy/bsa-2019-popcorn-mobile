@@ -89,7 +89,7 @@ const mapStateToProps = (rootState, props) => ({
 	stories: rootState.story.stories,
 	error: rootState.story.error,
 	loading: rootState.story.loading,
-	newStory: rootState.story.newStory,
+
 	profileInfo: rootState.authorization.profileInfo
 });
 

@@ -11,16 +11,19 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import INewStory from '../INewStory';
 import IUser from '../../../UserPage/IUser';
-import IVoting from '../IVoting';
+import IVoting from './IVoting';
 
 interface IProps {
 	newStory: INewStory;
 	areaWidth: number;
 	areaHeight: number;
 	profileInfo: IUser;
-	validate: () => any;
+	validate: any;
 	voting: any;
+	data: any;
+	handleDisable: any;
 	updateVoting: (newVoting: IVoting | null, disabled: boolean) => void;
+	validateStory: any;
 }
 interface IState {
 	voteOptions: any;
@@ -31,6 +34,7 @@ const DEFAULT_BACKGROUND = '#dadada';
 const MATERIAL_GREY = '#757575';
 const MATERIAL_LIGHT_GREY = 'rgba(170,170,170,0.7)';
 const TITLE_COLOR = '#c63f17';
+
 export default class Voting extends Component<IProps, IState> {
 	gestures: any;
 	constructor(props: IProps) {
@@ -43,10 +47,10 @@ export default class Voting extends Component<IProps, IState> {
 				header: '',
 				backColor: DEFAULT_BACKGROUND,
 				backImage: '',
-				deltaPositionHeadX: 0,
-				deltaPositionHeadY: 0,
-				deltaPositionOptionBlockX: 0,
-				deltaPositionOptionBlockY: 0,
+				deltaPositionHeadX: 50,
+				deltaPositionHeadY: 50,
+				deltaPositionOptionBlockX: 70,
+				deltaPositionOptionBlockY: 70,
 				options: [
 					{
 						body: '',
@@ -149,7 +153,13 @@ export default class Voting extends Component<IProps, IState> {
 					selectTextOnFocus={true}
 					onEndEditing={text => {
 						if (text) {
-							this.props.validate();
+							// this.props.validate();
+							this.props.validateStory({
+								newStory: this.props.newStory,
+								data: this.props.data,
+								voting: this.props.voting,
+								handleDisable: this.props.handleDisable
+							});
 						}
 					}}
 					style={[styles.voteTitle, { color: newStory.fontColor }]}
@@ -158,9 +168,17 @@ export default class Voting extends Component<IProps, IState> {
 						this.setState(state => ({
 							voting: { ...state.voting, header: text }
 						}));
+						let tempOptions = this.state.voteOptions;
+						let bodyValues = tempOptions.map(value => value.body);
+						let newOptions = bodyValues.map(value => ({
+							body: value,
+							voted: 0
+						}));
 						let someIsEmpty = !text;
 						this.props.updateVoting(
-							!someIsEmpty ? { ...this.state.voting, header: text } : null,
+							!someIsEmpty
+								? { ...this.state.voting, options: newOptions, header: text }
+								: null,
 							someIsEmpty
 						);
 					}}

@@ -12,16 +12,21 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import INewStory from '../INewStory';
 interface IProps {
-	update: (newestStory: INewStory) => void;
+	updateInput: (boolean) => void;
+	setNewStory: (any) => void;
+	data: any;
 	backgroundColor: string;
 	caption: string;
 	areaWidth: number;
 	areaHeight: number;
 	newStory: INewStory;
 	validate: any;
+	voting: any;
+	handleDisable: any;
 	image_url: string | null;
 	showInput: boolean;
 	isExtra: boolean;
+	validateStory: any;
 }
 interface IState {
 	elementWidth: number;
@@ -62,7 +67,7 @@ export default class DraggableText extends Component<IProps, IState> {
 					this.setState({ inputDisabled: true });
 				}}
 				rotatable={false}
-				onEnd={(event, styles) => {
+				onEnd={styles => {
 					if (
 						styles.top >= vert_limit ||
 						styles.left >= horiz_limit ||
@@ -71,10 +76,13 @@ export default class DraggableText extends Component<IProps, IState> {
 					) {
 						this.gestures.reset(prevStyles => {});
 					} else {
-						this.props.update({
-							...newStory,
-							textPositionX: styles.left,
-							textPositionY: styles.top
+						this.props.setNewStory({
+							newStory: {
+								...newStory,
+								textPositionX: styles.left,
+								textPositionY: styles.top
+							},
+							data: this.props.data
 						});
 					}
 					this.setState({ inputDisabled: true });
@@ -98,9 +106,7 @@ export default class DraggableText extends Component<IProps, IState> {
 							<Text
 								style={[
 									styles.input,
-									{
-										color: newStory.fontColor ? newStory.fontColor : null
-									}
+									{ color: newStory.fontColor ? newStory.fontColor : null }
 								]}
 							>
 								{caption}
@@ -117,18 +123,30 @@ export default class DraggableText extends Component<IProps, IState> {
 								onEndEditing={() => {
 									if (caption) {
 										this.setState({ inputDisabled: true });
+									} else {
+										this.props.updateInput(false);
 									}
 								}}
 								style={[
 									styles.input,
-									{
-										color: newStory.fontColor ? newStory.fontColor : null
-									}
+									{ color: newStory.fontColor ? newStory.fontColor : null }
 								]}
 								value={caption || ''}
 								onChangeText={caption => {
-									this.props.update({ ...newStory, caption: caption });
-									this.props.validate(caption);
+									this.props.setNewStory({
+										newStory: {
+											...newStory,
+											caption: caption
+										},
+										data: this.props.data
+									});
+									this.props.validateStory({
+										caption: caption,
+										newStory: this.props.newStory,
+										data: this.props.data,
+										voting: this.props.voting,
+										handleDisable: this.props.handleDisable
+									});
 								}}
 							/>
 						)}
@@ -164,13 +182,23 @@ export default class DraggableText extends Component<IProps, IState> {
 								{this.renderGestures()}
 								<TouchableOpacity
 									onPress={() => {
-										this.props.update({
-											...newStory,
-											image_url: '',
-											backgroundColor: DEFAULT_BACKGROUND,
-											caption: ''
+										this.props.setNewStory({
+											newStory: {
+												...newStory,
+												image_url: '',
+												backgroundColor: DEFAULT_BACKGROUND,
+												caption: ''
+											},
+											data: this.props.data
 										});
-										this.props.validate('');
+										// this.props.validate('');
+										this.props.validateStory({
+											caption: '',
+											newStory: this.props.newStory,
+											data: this.props.data,
+											voting: this.props.voting,
+											handleDisable: this.props.handleDisable
+										});
 									}}
 									style={styles.deleteImageOption}
 								>

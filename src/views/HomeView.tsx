@@ -30,28 +30,38 @@ type NewStory = {
 	data: any;
 };
 
+const validateStory = ({ caption, newStory, data, voting, handleDisable }) => {
+	caption = caption === undefined ? newStory.caption : caption;
+	const { image_url, backgroundColor } = newStory;
+	if (
+		(caption && caption.match(/^(?!\s*$).*/) && image_url) ||
+		(caption && caption.match(/^(?!\s*$).*/) && backgroundColor) ||
+		(data && image_url) ||
+		voting
+	) {
+		handleDisable(false);
+	} else {
+		handleDisable(true);
+	}
+};
 const HomeView = ({ navigation }) => {
 	const [showModal, onPress] = useState(false);
 	const [newStory, setNewStory] = useState<NewStory>({
 		newStory: newStoryDefault,
 		data: null
 	});
-	const [story, resetStory] = useState<NewStory>({
-		newStory: newStoryDefault,
-		data: null
-	});
+	const [disabled, handleDisable] = useState<boolean>(false);
 
 	if (navigation.state.params) {
 		const { option, type } = navigation.state.params;
 		navigation.state.params = null;
 		if (!newStory.data || newStory.data.id !== option.id) {
 			setNewStory({
-				newStory: { ...newStory.newStory },
+				newStory: { ...newStory.newStory, image_url: option.image },
 				data: { option, type }
 			});
 		}
 	}
-	console.log('homeview ');
 	return (
 		<View style={styles.container}>
 			{showModal ? <View style={styles.fadeModal}></View> : null}
@@ -75,6 +85,9 @@ const HomeView = ({ navigation }) => {
 						setNewStory={setNewStory}
 						data={newStory.data}
 						showModal={onPress}
+						handleDisable={handleDisable}
+						disabled={disabled}
+						validateStory={validateStory}
 					/>
 				</View>
 			)}

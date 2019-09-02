@@ -14,7 +14,6 @@ interface IProps {
 	type: string;
 	user: IUser;
 	onSave?: () => any;
-	// validate: () => any;
 }
 
 const renderTopView = data => {
@@ -106,7 +105,6 @@ const Extra = (props: IProps) => {
 		<View style={styles.extra}>
 			<TouchableOpacity
 				onPress={() => {
-					// props.validate();
 					return onSave ? onSave() : viewActivity();
 				}}
 			>
