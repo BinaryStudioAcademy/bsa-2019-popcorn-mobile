@@ -5,8 +5,9 @@ import {
 } from '../../../redux/routines';
 
 const initialState = {
-	events: null,
-	tops: null,
+	events: undefined,
+	tops: undefined,
+	surveys: undefined,
 	loading: false
 };
 

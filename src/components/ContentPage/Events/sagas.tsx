@@ -3,7 +3,8 @@ import {
 	fetchEvents,
 	createEventVisitor,
 	updateEventVisitor,
-	deleteEventVisitor
+	deleteEventVisitor,
+	fetchEventById
 } from '../../../redux/routines';
 import config from '../../../config';
 import webApi from '../../../helpers/webApi.helper';
@@ -25,6 +26,25 @@ function* getEvents() {
 
 function* watchFetchEvents() {
 	yield takeEvery(fetchEvents.trigger, getEvents);
+}
+
+function* getEventById(action) {
+	try {
+		yield put(fetchEventById.request());
+		const data = yield call(webApi, {
+			endpoint: config.API_URL + '/api/event/' + action.payload,
+			method: 'GET'
+		});
+		yield put(fetchEventById.success(data));
+	} catch (e) {
+		yield put(fetchEventById.failure(e.message));
+	} finally {
+		yield put(fetchEventById.fulfill());
+	}
+}
+
+function* watchFetchEventById() {
+	yield takeEvery(fetchEventById.trigger, getEventById);
 }
 
 function* createVisitor(action) {
@@ -95,6 +115,7 @@ export default function* eventsSaga() {
 		watchFetchEvents(),
 		watchCreateVisitor(),
 		watchDeleteVisitor(),
-		watchUpdateVisitor()
+		watchUpdateVisitor(),
+		watchFetchEventById()
 	]);
 }

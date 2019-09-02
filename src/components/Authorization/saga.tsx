@@ -4,7 +4,7 @@ import config from '../../config';
 import webApi from '../../helpers/webApi.helper';
 import { Storage } from '../../helpers/storage.helper';
 
-export function* fetchLogin(action) {
+function* fetchLogin(action) {
 	try {
 		yield put(login.request());
 		const data = yield call(webApi, {
@@ -21,11 +21,11 @@ export function* fetchLogin(action) {
 			yield put(login.success({ user: data.user[0] }));
 		} else yield put(login.failure(data.message));
 	} catch (e) {
-		console.log('user saga login', e);
+		console.log('auth saga login', e);
 	}
 }
 
-export function* fetchUserByToken(action) {
+function* fetchUserByToken(action) {
 	try {
 		yield put(fetchUser.request());
 		let user = yield call(webApi, {
@@ -43,11 +43,11 @@ export function* fetchUserByToken(action) {
 			yield put(login.success({ user: user.data.user }));
 		}
 	} catch (e) {
-		console.log('user saga fetchUser:', e.message);
+		console.log('auth saga fetchUser:', e.message);
 	}
 }
 
-export function* fetchRegistration(action) {
+function* fetchRegistration(action) {
 	try {
 		yield put(register.request());
 		const data = yield call(webApi, {
@@ -64,7 +64,7 @@ export function* fetchRegistration(action) {
 			yield put(login.success({ user: data.user[0] }));
 		} else yield put(register.failure(data.message));
 	} catch (e) {
-		console.log('user saga fetch registration:', e.message);
+		console.log('auth saga fetch registration:', e.message);
 	}
 }
 
