@@ -67,7 +67,7 @@ class ChooseExtraOption extends React.Component<IProps> {
 			message = "You don't have any " + type;
 		return (
 			<View style={[styles.extraItemWrp, styles.grid]}>
-				<ScrollView contentContainerStyle={{ width: '100%' }}>
+				<ScrollView contentContainerStyle={{ flex: 1 }}>
 					{options && options.length > 0 ? (
 						options.map(option => (
 							<Extra

@@ -10,15 +10,21 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import INewStory from '../INewStory';
+import IUser from '../../../UserPage/IUser';
+import IVoting from '../IVoting';
 
 interface IProps {
 	newStory: INewStory;
 	areaWidth: number;
 	areaHeight: number;
+	profileInfo: IUser;
+	validate: () => any;
+	voting: any;
+	updateVoting: (newVoting: IVoting | null, disabled: boolean) => void;
 }
 interface IState {
 	voteOptions: any;
-	question: string;
+	voting: IVoting;
 	allowAddOption: boolean;
 }
 const DEFAULT_BACKGROUND = '#dadada';
@@ -31,8 +37,23 @@ export default class Voting extends Component<IProps, IState> {
 		super(props);
 		this.state = {
 			voteOptions: [{ id: 1, body: 'Yes' }, { id: 2, body: 'No' }],
-			question: '',
-			allowAddOption: true
+			allowAddOption: true,
+			voting: {
+				userId: this.props.profileInfo.id,
+				header: '',
+				backColor: DEFAULT_BACKGROUND,
+				backImage: '',
+				deltaPositionHeadX: 0,
+				deltaPositionHeadY: 0,
+				deltaPositionOptionBlockX: 0,
+				deltaPositionOptionBlockY: 0,
+				options: [
+					{
+						body: '',
+						voted: 0
+					}
+				]
+			}
 		};
 	}
 	addOption = () => {
@@ -41,15 +62,18 @@ export default class Voting extends Component<IProps, IState> {
 			id: Number(Math.random() * (100 - 3) + 3),
 			body: 'Yes, but'
 		});
-		let len = tempOptions.length;
 		console.log('tempOptions', tempOptions);
-		this.setState({ voteOptions: tempOptions, allowAddOption: len < 5 });
+		this.setState({
+			voteOptions: tempOptions,
+			allowAddOption: tempOptions.length < 5
+		});
 	};
 	deleteOption = id => {
 		let tempOptions = this.state.voteOptions.filter(item => item.id != id);
-		let len = tempOptions.length;
-		// console.log('tempOptions', tempOptions);
-		this.setState({ voteOptions: tempOptions, allowAddOption: len < 5 });
+		this.setState({
+			voteOptions: tempOptions,
+			allowAddOption: tempOptions.length < 5
+		});
 	};
 	renderOption = () => {
 		return this.state.voteOptions.map(option => (
@@ -68,13 +92,28 @@ export default class Voting extends Component<IProps, IState> {
 					value={option.body}
 					onChangeText={optionBody => {
 						let tempOptions = this.state.voteOptions.map(mapOption => {
-							console.log('mapOption', mapOption, 'option', option);
 							if (mapOption.id == option.id) {
 								mapOption.body = optionBody;
 							}
 							return mapOption;
 						});
-						this.setState({ voteOptions: tempOptions });
+						let bodyValues = tempOptions.map(value => value.body);
+						let newOptions = bodyValues.map(value => ({
+							body: value,
+							voted: 0
+						}));
+						this.setState(state => ({
+							voteOptions: tempOptions,
+							voting: { ...state.voting, options: newOptions }
+						}));
+						let someIsEmpty =
+							bodyValues.some(item => !item) || !this.state.voting.header;
+						this.props.updateVoting(
+							!someIsEmpty
+								? { ...this.state.voting, options: newOptions }
+								: null,
+							someIsEmpty
+						);
 					}}
 				/>
 				{option.id > 2 && (
@@ -91,6 +130,7 @@ export default class Voting extends Component<IProps, IState> {
 		));
 	};
 	render() {
+		console.log('voting.state', this.state);
 		const { areaWidth, areaHeight, newStory } = this.props;
 		return (
 			<View
@@ -103,15 +143,26 @@ export default class Voting extends Component<IProps, IState> {
 					textAlignVertical={'top'}
 					multiline={true}
 					numberOfLines={8}
-					placeholder={'QUESTION'}
+					placeholder={'Question'}
 					placeholderTextColor={TITLE_COLOR}
 					maxLength={60}
 					selectTextOnFocus={true}
-					onEndEditing={() => {}}
+					onEndEditing={text => {
+						if (text) {
+							this.props.validate();
+						}
+					}}
 					style={[styles.voteTitle, { color: newStory.fontColor }]}
-					value={this.state.question}
+					value={this.state.voting.header}
 					onChangeText={text => {
-						this.setState({ question: text });
+						this.setState(state => ({
+							voting: { ...state.voting, header: text }
+						}));
+						let someIsEmpty = !text;
+						this.props.updateVoting(
+							!someIsEmpty ? { ...this.state.voting, header: text } : null,
+							someIsEmpty
+						);
 					}}
 				/>
 				{this.renderOption()}

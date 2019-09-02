@@ -14,13 +14,15 @@ const mock_url =
 
 const newStoryDefault: INewStory = {
 	activityId: '',
-	backgroundColor: '#dadada', // grey
-	fontColor: '#000', // black
+	backgroundColor: '#dadada',
+	fontColor: '#000',
 	movieId: null,
 	movieOption: '',
-	image_url: mock_url,
+	image_url: '',
 	caption: null,
 	activity: null,
+	textPositionX: 0,
+	textPositionY: 0,
 	type: ''
 };
 type NewStory = {
@@ -29,15 +31,18 @@ type NewStory = {
 };
 
 const HomeView = ({ navigation }) => {
-	const [showModal, onPress] = useState(true);
+	const [showModal, onPress] = useState(false);
 	const [newStory, setNewStory] = useState<NewStory>({
+		newStory: newStoryDefault,
+		data: null
+	});
+	const [story, resetStory] = useState<NewStory>({
 		newStory: newStoryDefault,
 		data: null
 	});
 
 	if (navigation.state.params) {
 		const { option, type } = navigation.state.params;
-
 		navigation.state.params = null;
 		if (!newStory.data || newStory.data.id !== option.id) {
 			setNewStory({
@@ -46,6 +51,7 @@ const HomeView = ({ navigation }) => {
 			});
 		}
 	}
+	console.log('homeview ');
 	return (
 		<View style={styles.container}>
 			{showModal ? <View style={styles.fadeModal}></View> : null}
@@ -125,7 +131,7 @@ const styles = StyleSheet.create({
 		top: 10,
 		zIndex: 6,
 		width: '90%',
-		height: '90%'
+		height: '95%'
 	},
 	fadeModal: {
 		position: 'absolute',
