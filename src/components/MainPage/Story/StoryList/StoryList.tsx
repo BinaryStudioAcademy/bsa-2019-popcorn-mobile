@@ -60,7 +60,6 @@ class StoryList extends React.Component<IProps> {
 
 	render() {
 		const { stories, navigation } = this.props;
-		console.log('this.stories', stories);
 		return (
 			<FlatList
 				refreshing={false}

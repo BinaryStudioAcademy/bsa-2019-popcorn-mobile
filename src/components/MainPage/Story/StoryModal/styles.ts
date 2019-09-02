@@ -4,8 +4,8 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 const orange = '#f57c00';
 const imageHeight = '70%';
 const imageWrapHeight = '65%';
-export const captionFont = Platform.OS === 'android' ? 'monospace' : 'Courier';
-
+// export const captionFont = Platform.OS === 'android' ? 'monospace' : 'Courier';
+export const captionFont = 'Roboto';
 export default StyleSheet.create({
 	input: {
 		position: 'absolute',
@@ -56,22 +56,10 @@ export default StyleSheet.create({
 		flexDirection: 'row'
 	},
 	buttonWrap: {
-		// padding: 10,
-		// width: 100,
-		// justifyContent: 'center',
-		// alignItems: 'center',
-		// backgroundColor: '#FF6501',
-		// borderRadius: 10,
 		position: 'absolute',
 		top: -60,
 		right: 0
 	},
-	// button: {
-	// 	textAlign: 'center',
-	// 	fontSize: 18,
-	// 	color: 'white',
-	// 	fontFamily: 'Inter-SemiBold'
-	// },
 	mainView: {
 		marginTop: 10,
 		flex: 1,
@@ -148,7 +136,6 @@ export default StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
-		marginLeft: 5,
 		alignSelf: 'flex-start'
 	},
 	text: {
