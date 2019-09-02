@@ -2,6 +2,9 @@ import React from 'react';
 import Root from './containers/Root/root';
 import { store, persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { AsyncStorage } from 'react-native';
+import firebase from 'react-native-firebase';
+import { Alert } from 'react-native';
 
 class App extends React.Component {
 	render() {
@@ -14,3 +17,4 @@ class App extends React.Component {
 }
 
 export default App;
+console.disableYellowBox = true;

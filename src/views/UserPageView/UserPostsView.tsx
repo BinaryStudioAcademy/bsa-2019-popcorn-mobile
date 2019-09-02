@@ -1,22 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
 import { connect } from 'react-redux';
 
 import PostComponent from '../../components/MainPage/Post';
+import { View, Text } from 'native-base';
 interface IProps {
 	posts?: any;
 	getUsersPosts: () => any;
 	selectedProfileInfo: any;
 }
-const postsUser = {
-	user: {
-		name: 'User',
-		avatar: '1',
-		id: '12'
-	},
-	id: '123',
-	image_url: 'ad'
-};
 
 class UserPosts extends Component<IProps> {
 	constructor(props: IProps) {
@@ -25,7 +17,12 @@ class UserPosts extends Component<IProps> {
 	render() {
 		const { selectedProfileInfo } = this.props;
 		const { posts, getUsersPosts } = this.props;
-		return <PostComponent userId={selectedProfileInfo.id} />;
+		return (
+			<Fragment>
+				<View></View>
+				<PostComponent userId={selectedProfileInfo.id} />
+			</Fragment>
+		);
 	}
 }
 

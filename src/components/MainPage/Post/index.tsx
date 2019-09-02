@@ -6,6 +6,7 @@ import { FlatList } from 'react-native';
 import React from 'react';
 import Post from './Post/Post';
 import IPost from './IPost';
+import SocketService from '../../../helpers/socket.helper';
 
 import Spinner from '../../Spinner/Spinner';
 
@@ -29,7 +30,7 @@ class PostComponent extends React.Component<IProps> {
 	}
 
 	addSocketEvents = addPost => {
-		// SocketService.on('new-post', addPost);
+		SocketService.on('new-post', addPost);
 	};
 
 	renderPost({ item }) {

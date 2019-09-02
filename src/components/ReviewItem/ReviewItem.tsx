@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getReviewsByMovieId, setReviewReaction } from '../../redux/routines';
 import SvgUri from 'react-native-svg-uri';
+import { Left } from 'native-base';
 
 interface IProps {}
 
@@ -37,19 +38,17 @@ class ReviewItem extends Component<IProps, IState> {
 	render() {
 		const { data, updateReaction } = this.props;
 		const { text, user, created_at, analysis, reaction } = data;
-
 		const analysisRBGA = analysisToGRBA(analysis);
+
 		return (
 			<View
 				style={{
-					borderColor: analysisRBGA,
 					display: 'flex',
 					flexDirection: 'row',
 					flexWrap: 'wrap',
 					alignItems: 'flex-start',
-					borderWidth: 3,
 					marginBottom: 30,
-					padding: 15
+					paddingBottom: 15
 				}}
 			>
 				<View style={styles.reviewHeader}>
@@ -62,16 +61,11 @@ class ReviewItem extends Component<IProps, IState> {
 							}}
 							style={{ width: 30, height: 30, marginRight: 10 }}
 						/>
-						<Text>{user.name}</Text>
+						<View>
+							<Text>{user.name}</Text>
+							<Text style={styles.reviewDate}>{this.state.create}</Text>
+						</View>
 					</View>
-					<Text style={styles.reviewDate}>{this.state.create}</Text>
-				</View>
-				<Text
-					style={this.state.full ? styles.reviewTextFull : styles.reviewText}
-				>
-					{text}
-				</Text>
-				<View style={styles.reviewFooter}>
 					<View style={styles.reviewReact}>
 						<TouchableOpacity
 							style={styles.reviewIcon}
@@ -79,10 +73,11 @@ class ReviewItem extends Component<IProps, IState> {
 						>
 							<SvgUri
 								style={styles.item}
-								height={24}
-								width={24}
-								source={require('../../assets/general/dislike.svg')}
+								height={12}
+								width={12}
+								source={require('../../assets/general/like.svg')}
 							/>
+
 							<Text>{reaction.countLikes}</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
@@ -91,13 +86,24 @@ class ReviewItem extends Component<IProps, IState> {
 						>
 							<SvgUri
 								style={styles.item}
-								height={24}
-								width={24}
-								source={require('../../assets/general/like.svg')}
+								height={12}
+								width={12}
+								source={require('../../assets/general/dislike.svg')}
 							/>
 							<Text>{reaction.countDislikes}</Text>
 						</TouchableOpacity>
 					</View>
+				</View>
+				<View
+					style={this.state.full ? styles.reviewTextFull : styles.reviewText}
+				>
+					<Text
+						style={{ borderWidth: 3, borderColor: analysisRBGA, padding: 10 }}
+					>
+						{text}
+					</Text>
+				</View>
+				<View style={styles.reviewFooter}>
 					<View style={styles.reviewBtn}>
 						{text.length > 410 ? (
 							<TouchableOpacity
@@ -148,10 +154,10 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginRight: 30
+		marginRight: 10
 	},
 	item: {
-		marginRight: 10
+		marginRight: 5
 	},
 	reviewReact: {
 		display: 'flex',
@@ -166,14 +172,17 @@ const styles = StyleSheet.create({
 	reviewHeader: {
 		display: 'flex',
 		flexDirection: 'row',
-		alignItems: 'center',
+		alignItems: 'flex-start',
 		width: '100%',
-		marginBottom: 30,
+		marginBottom: 15,
 		justifyContent: 'space-between'
 	},
 	reviewDate: {
 		alignItems: 'flex-end',
-		color: 'grey'
+		color: 'grey',
+		width: '100%',
+		fontStyle: 'italic',
+		fontSize: 12
 	},
 	reviewRead: {
 		display: 'flex',
@@ -181,15 +190,19 @@ const styles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	reviewText: {
-		maxHeight: 220,
+		maxHeight: 120,
 		overflow: 'hidden',
 		lineHeight: 24,
 		fontSize: 16,
-		marginBottom: 30
+		marginBottom: 15,
+		display: 'flex',
+		flexDirection: 'row'
 	},
 	reviewTextFull: {
 		lineHeight: 24,
 		fontSize: 16,
-		marginBottom: 30
+		marginBottom: 30,
+		display: 'flex',
+		flexDirection: 'row'
 	}
 });

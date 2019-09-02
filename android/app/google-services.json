@@ -1,0 +1,40 @@
+{
+	"project_info": {
+		"project_number": "1087618889886",
+		"firebase_url": "https://popcorn-64a9a.firebaseio.com",
+		"project_id": "popcorn-64a9a",
+		"storage_bucket": "popcorn-64a9a.appspot.com"
+	},
+	"client": [
+		{
+			"client_info": {
+				"mobilesdk_app_id": "1:1087618889886:android:02a10fdc4658de4a",
+				"android_client_info": {
+					"package_name": "com.bsapopcornmobile"
+				}
+			},
+			"oauth_client": [
+				{
+					"client_id": "1087618889886-03vbc5nbca5bfa7r5iddbm6lp4fuabqq.apps.googleusercontent.com",
+					"client_type": 3
+				}
+			],
+			"api_key": [
+				{
+					"current_key": "AIzaSyBUPNEJ1pO6A75t-0hcTPV4eem9IteK5x4"
+				}
+			],
+			"services": {
+				"appinvite_service": {
+					"other_platform_oauth_client": [
+						{
+							"client_id": "1087618889886-03vbc5nbca5bfa7r5iddbm6lp4fuabqq.apps.googleusercontent.com",
+							"client_type": 3
+						}
+					]
+				}
+			}
+		}
+	],
+	"configuration_version": "1"
+}

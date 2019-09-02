@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchEventById } from '../../../redux/routines';
+
 import {
 	ScrollView,
 	View,
@@ -8,12 +12,27 @@ import {
 	TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Spinner from '../../Spinner/Spinner';
 
 interface IProps {
 	navigation: any;
+	event: any;
+	fetchEventById: (string) => any;
 }
 
 const EventPage: React.FC<IProps> = props => {
+	let event;
+	if (props.navigation.state.params.eventId) {
+		const eventId = props.navigation.state.params.eventId;
+		if (!props.event || props.event.id !== eventId) {
+			props.fetchEventById(props.navigation.state.params.eventId);
+			return <Spinner />;
+		} else event = props.event;
+	}
+
+	if (props.navigation.state.params.event)
+		event = props.navigation.state.params.event;
+
 	const {
 		title,
 		description,
@@ -23,7 +42,7 @@ const EventPage: React.FC<IProps> = props => {
 		location_lat,
 		location_lng,
 		eventVisitors
-	} = props.navigation.state.params.event;
+	} = event;
 	let dayStart = start_date.split('-')[2].split('T')[0];
 	let monStart = start_date.split('-')[1];
 	let timeStart =
@@ -195,6 +214,18 @@ const EventPage: React.FC<IProps> = props => {
 	);
 };
 
+const mapStateToProps = (rootState, props) => ({
+	...props,
+	event: rootState.events.currentEvent,
+	loading: rootState.events.loading
+});
+
+const actions = {
+	fetchEventById
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+
 const styles = StyleSheet.create({
 	container: {
 		padding: '3%'
@@ -323,4 +354,7 @@ const styles = StyleSheet.create({
 		fontFamily: 'Inter-Regular'
 	}
 });
-export default EventPage;
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(EventPage);

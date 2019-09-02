@@ -5,7 +5,8 @@ const config = {
 	DEFAULT_EVENT_IMAGE: '/src/assets/general/event.jpg',
 	DEFAULT_MOVIE_IMAGE: '/images/default/movie-default.png',
 	POSTER_PATH: 'https://image.tmdb.org/t/p/w500',
-	DEFAULT_POST: require('./assets/general/default-post.jpg')
+	DEFAULT_POST: require('./assets/general/default-post.jpg'),
+	DEFAULT_IMAGE: 'https://www.dc.volia.com/storage/default.png'
 };
 
 export default config;
