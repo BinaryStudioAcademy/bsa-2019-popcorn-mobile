@@ -84,10 +84,12 @@ export default StyleSheet.create({
 	extra: {
 		marginTop: 10,
 		marginBottom: 10,
+		marginLeft: 'auto',
+		marginRight: 'auto',
 		borderLeftWidth: 5,
 		borderColor: 'rgba(0, 0, 0, 0.11)',
 		padding: '2%',
-		width: '100%',
+		width: '80%',
 		justifyContent: 'flex-start'
 	},
 	IconExtraWrp: {

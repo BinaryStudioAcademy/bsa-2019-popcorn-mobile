@@ -23,6 +23,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import ColorPalette from 'react-native-color-palette';
 import DraggableText from './DraggableText';
 import Voting from './Voting';
+import IVoting from '../IVoting';
 const DEFAULT_BACKGROUND = '#dadada';
 interface IProps {
 	sendStory: (newStory: INewStory) => any;
@@ -44,10 +45,24 @@ interface IState {
 	uploadWrapHeight: number;
 	uploadWrapWidth: number;
 	showVoting: boolean;
+	voting: {} | null;
 }
-
+const newStoryDefault: INewStory = {
+	activityId: '',
+	backgroundColor: '#dadada',
+	fontColor: '#000',
+	movieId: null,
+	movieOption: '',
+	image_url: '',
+	caption: null,
+	activity: null,
+	textPositionX: 0,
+	textPositionY: 0,
+	type: ''
+};
 class StoryModal extends Component<IProps, IState> {
-	update: (textPosition: any) => void;
+	update: (newestStory: any) => void;
+	updateVoting: (newVoting: IVoting | null, disabled: boolean) => void;
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -59,25 +74,33 @@ class StoryModal extends Component<IProps, IState> {
 			showInput: false,
 			uploadWrapHeight: 0,
 			uploadWrapWidth: 0,
-			showVoting: false
+			showVoting: false,
+			voting: null
 		};
-		this.update = this.handle.bind(this);
+		this.update = this.handleUpdateStory.bind(this);
+		this.updateVoting = this.handleUpdateVoting.bind(this);
 	}
-	handle(newestStory) {
+	handleUpdateStory(newestStory) {
 		this.setState(state => ({
 			newStory: newestStory
+		}));
+	}
+	handleUpdateVoting(newVoting, value) {
+		this.setState(state => ({
+			voting: newVoting,
+			disabled: value
 		}));
 	}
 
 	validate(caption = this.state.newStory.caption) {
 		const { image_url, backgroundColor } = this.state.newStory;
-		console.log('THIS PROPS', this.props);
-		// const {type} = this.props.data;
-		console.log(`imageurl=${image_url}, this.props=${this.props}`);
+		// console.log('THIS PROPS', this.props, 'this.state', this.state);
+		// console.log(`imageurl=${image_url}, this.props=${this.props}`);
 		if (
 			(caption && caption.match(/^(?!\s*$).*/) && image_url) ||
 			(caption && caption.match(/^(?!\s*$).*/) && backgroundColor) ||
-			(this.props.data && image_url)
+			(this.props.data && image_url) ||
+			this.state.voting
 		) {
 			this.setState({ disabled: false });
 		} else {
@@ -89,6 +112,7 @@ class StoryModal extends Component<IProps, IState> {
 		this.validate();
 	}
 	componentDidUpdate(prevState, prevProps) {
+		console.log('this.props', this.props, 'prevprops', prevProps);
 		if (
 			prevState.data &&
 			this.state.data !== prevState.data &&
@@ -116,14 +140,15 @@ class StoryModal extends Component<IProps, IState> {
 			type: data ? data.type : '',
 			userId: this.props.profileInfo.id
 		});
+		this.props.setNewStory({ newStory: newStoryDefault, data: null });
 		this.props.showModal(false);
 	}
 
 	componentWillUnmount(): void {
-		this.props.setNewStory({
-			newStory: this.state.newStory,
-			data: this.props.data
-		});
+		// this.props.setNewStory({
+		// 	newStory: this.state.newStory,
+		// 	data: this.props.data
+		// });
 	}
 	renderColorPicker = itemColor => {
 		return (
@@ -180,6 +205,7 @@ class StoryModal extends Component<IProps, IState> {
 			</View>
 		);
 	};
+
 	renderBackgroundPalette = () => {
 		return (
 			<View style={styles.colorPaletteWrap}>
@@ -195,12 +221,14 @@ class StoryModal extends Component<IProps, IState> {
 			</View>
 		);
 	};
+
 	clearExtra = () => {
 		this.props.setNewStory({
 			newStory: { ...this.state.newStory, image_url: '', caption: '' },
 			data: null
 		});
 	};
+
 	renderBasicOptions = () => {
 		return (
 			<Fragment>
@@ -209,8 +237,9 @@ class StoryModal extends Component<IProps, IState> {
 					saveUrl={(image_url: string) => {
 						this.clearExtra();
 						this.setState(state => ({
-							newStory: { ...state.newStory, image_url },
-							loading: false
+							newStory: { ...state.newStory, image_url, caption: '' },
+							loading: false,
+							showVoting: false
 						}));
 						this.validate();
 					}}
@@ -259,7 +288,10 @@ class StoryModal extends Component<IProps, IState> {
 				</TouchableOpacity>
 				<TouchableOpacity
 					onPress={() => {
-						this.setState({ showVoting: !this.state.showVoting });
+						this.setState({
+							voting: this.state.showVoting ? null : this.state.voting,
+							showVoting: !this.state.showVoting
+						});
 					}}
 				>
 					<MaterialCommunityIcons
@@ -303,10 +335,10 @@ class StoryModal extends Component<IProps, IState> {
 	};
 	render() {
 		if (this.state.loading) return <Spinner />;
+		console.log('render this.props', this.props);
 		const { image_url, caption, backgroundColor } = this.state.newStory;
 		const { option, type } = this.props.data || { option: null, type: null };
 		const { navigation, profileInfo } = this.props;
-		console.log('this.state.newstory', this.state.newStory);
 		return (
 			<View style={styles.mainView}>
 				<View style={styles.iconsWrp}>
@@ -338,6 +370,10 @@ class StoryModal extends Component<IProps, IState> {
 							newStory={this.state.newStory}
 							areaWidth={this.state.uploadWrapWidth}
 							areaHeight={this.state.uploadWrapHeight}
+							profileInfo={this.props.profileInfo}
+							updateVoting={this.updateVoting}
+							validate={this.validate.bind(this)}
+							voting={this.state.voting}
 						/>
 					) : null}
 					{!this.state.showVoting &&

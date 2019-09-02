@@ -73,7 +73,8 @@ export default class DraggableText extends Component<IProps, IState> {
 					} else {
 						this.props.update({
 							...newStory,
-							textPosition: { x: styles.left, y: styles.top }
+							textPositionX: styles.left,
+							textPositionY: styles.top
 						});
 					}
 					this.setState({ inputDisabled: true });
@@ -166,8 +167,10 @@ export default class DraggableText extends Component<IProps, IState> {
 										this.props.update({
 											...newStory,
 											image_url: '',
-											backgroundColor: DEFAULT_BACKGROUND
+											backgroundColor: DEFAULT_BACKGROUND,
+											caption: ''
 										});
+										this.props.validate('');
 									}}
 									style={styles.deleteImageOption}
 								>
