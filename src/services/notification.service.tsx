@@ -51,7 +51,6 @@ export const generateIcon = (type: string): any => {
             return <View style={styles.containerStyle}>
                     <FontAwesomeIcon icon={faStar} style={styles.icon} />
                 </View>
-    case 'review':
 
         default: 
             return getIcon(type);
