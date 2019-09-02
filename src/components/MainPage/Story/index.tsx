@@ -66,7 +66,6 @@ class StoryComponent extends React.Component<IProps, IState> {
 		SocketService.on('new-story', addStory);
 	};
 	render() {
-		console.log('render this.state = ', this.props);
 		const { stories, navigation } = this.props;
 		return (
 			<View style={styles.container}>
