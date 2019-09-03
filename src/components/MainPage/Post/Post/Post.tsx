@@ -23,7 +23,11 @@ class Post extends Component<IPostProps> {
 		const { id, name, avatar } = this.props.post.user;
 		return (
 			<View style={styles.postWrapper}>
-				<TouchableOpacity onPress={() => this.props.navigation.navigate('UserPage', { userId: id })}>
+				<TouchableOpacity
+					onPress={() =>
+						this.props.navigation.navigate('UserPage', { userId: id })
+					}
+				>
 					<View style={styles.postHeader}>
 						<Image
 							style={styles.roundImage}

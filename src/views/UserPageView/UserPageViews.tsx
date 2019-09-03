@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
+import WatchlistComponent from './../../components/UserPage/WatchList';
 
 export class Tops extends Component {
 	render() {
@@ -23,7 +24,12 @@ export class Lists extends Component {
 }
 export class Watched extends Component {
 	render() {
-		return <View></View>;
+		return (
+			<View>
+				<View></View>
+				<WatchlistComponent />
+			</View>
+		);
 	}
 }
 export class Reviews extends Component {

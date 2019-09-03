@@ -7,10 +7,7 @@ import Test4 from './Test4/Test4'; //Tried Animated React Native
 import Test1 from './Test1'; //Tried Animated React Native
 import Spinner from '../../components/Spinner/Spinner';
 import { View } from 'react-native';
-import {
-	fetchUserById,
-	clearUserInfo
-} from '../../redux/routines';
+import { fetchUserById, clearUserInfo } from '../../redux/routines';
 
 interface IProps {
 	navigation: any;
@@ -18,7 +15,7 @@ interface IProps {
 	currentUser: any;
 	loading: boolean;
 	selectedProfileInfo: any;
-	clearUserInfo: () => void
+	clearUserInfo: () => void;
 }
 
 class UserPageView extends Component<IProps> {
@@ -27,30 +24,21 @@ class UserPageView extends Component<IProps> {
 		this.didBlurSubscribe();
 	}
 
-
 	didBlurSubscribe = () => {
-		this.props.navigation.addListener(
-			'didBlur',
-			() => {
-				this.props.clearUserInfo();
-			}
-		);
-		this.props.navigation.addListener(
-			'didFocus',
-			() => {
-				const { currentUser } = this.props;
-				const params = this.props.navigation.dangerouslyGetParent().state.params;
+		this.props.navigation.addListener('didBlur', () => {
+			this.props.clearUserInfo();
+		});
+		this.props.navigation.addListener('didFocus', () => {
+			const { currentUser } = this.props;
+			const params = this.props.navigation.dangerouslyGetParent().state.params;
 
-				if (!params)
-				this.props.fetchUserById(currentUser.id);
-				else 
-				this.props.fetchUserById(params.userId);
-			}
-		)
-	}
+			if (!params) this.props.fetchUserById(currentUser.id);
+			else this.props.fetchUserById(params.userId);
+		});
+	};
 
 	render() {
-		if (this.props.loading) return <Spinner />
+		if (this.props.loading) return <Spinner />;
 		return (
 			/* 			<Test4 />
 			 */ <Test1 />
@@ -67,8 +55,11 @@ const mapStateToProps = (rootState, props) => ({
 const actions = {
 	fetchUserById,
 	clearUserInfo
-}
+};
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserPageView);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(UserPageView);

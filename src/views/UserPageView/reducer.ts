@@ -1,7 +1,4 @@
-import {
-	fetchUserById,
-	clearUserInfo
-} from '../../redux/routines';
+import { fetchUserById, clearUserInfo } from '../../redux/routines';
 
 const initialState = {
 	loading: false,
@@ -18,14 +15,14 @@ export default function(state = initialState, action) {
 		case fetchUserById.SUCCESS:
 			return {
 				...state,
-                selectedUser: action.payload.user,
-                loading: false
+				selectedUser: action.payload.user,
+				loading: false
 			};
-		case clearUserInfo.TRIGGER: 
+		case clearUserInfo.TRIGGER:
 			return {
 				...state,
 				selectedUser: {}
-			}
+			};
 		default:
 			return state;
 	}
