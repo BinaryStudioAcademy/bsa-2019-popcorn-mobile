@@ -164,7 +164,8 @@ class UserProfileView extends Component<IProfileProps> {
 }
 
 const mapStateToProps = (rootState, props) => ({
-	selectedProfileInfo: rootState.authorization.profileInfo
+	currentUser: rootState.authorization.profileInfo,
+	selectedProfileInfo: rootState.userProfile.selectedUser,
 });
 
 export default connect(mapStateToProps)(UserProfileView);

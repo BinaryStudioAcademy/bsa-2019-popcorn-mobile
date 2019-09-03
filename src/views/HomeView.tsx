@@ -73,7 +73,7 @@ const HomeView = ({ navigation }) => {
 				)}
 			>
 				<View style={{ flex: 1 }}>
-					<PostComponent />
+					<PostComponent navigation={navigation}/>
 				</View>
 			</ParallaxScrollView>
 		</View>
