@@ -8,7 +8,9 @@ import { getReviewsByMovieId, setReviewReaction } from '../../redux/routines';
 import SvgUri from 'react-native-svg-uri';
 import { Left } from 'native-base';
 
-interface IProps {}
+interface IProps {
+	movieId: string;
+}
 
 interface IState {}
 
@@ -32,7 +34,7 @@ class ReviewItem extends Component<IProps, IState> {
 		const userId = this.props.data.user.id;
 		if (userId === this.props.currentUser) return;
 		this.props.setReviewReaction({ reviewId, isLike });
-		this.props.getReviewsByMovieId();
+		this.props.getReviewsByMovieId(this.props.movieId);
 	};
 
 	render() {
