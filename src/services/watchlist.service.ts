@@ -1,9 +1,10 @@
 import callWebApi from './../helpers/webApi.helper';
+import config from './../config';
 
 export const getWatchlist = async (userId: string) => {
 	const res = await callWebApi({
 		method: 'GET',
-		endpoint: `/api/watch/user/${userId}`
+		endpoint: config.API_URL + `/api/watch/user/${userId}`
 	});
 
 	return res;
@@ -11,7 +12,7 @@ export const getWatchlist = async (userId: string) => {
 
 export const addToWatchlist = async (movieId: string) => {
 	const res = await callWebApi({
-		endpoint: `/api/watch`,
+		endpoint: config.API_URL + `/api/watch`,
 		method: 'POST',
 		body: {
 			movieId,
@@ -23,7 +24,7 @@ export const addToWatchlist = async (movieId: string) => {
 
 export const updateWatchItem = async (id: string) => {
 	const res = await callWebApi({
-		endpoint: `/api/watch/${id}`,
+		endpoint: config.API_URL + `/api/watch/${id}`,
 		method: 'PUT'
 	});
 
@@ -32,8 +33,19 @@ export const updateWatchItem = async (id: string) => {
 
 export const removeWatchItem = async (id: string) => {
 	const res = await callWebApi({
-		endpoint: `/api/watch/${id}`,
+		endpoint: config.API_URL + `/api/watch/${id}`,
 		method: 'DELETE'
 	});
+	return res;
+};
+
+export const fetchMovieStatus = async (movieId: string) => {
+	console.log(movieId);
+
+	const res = await callWebApi({
+		endpoint: config.API_URL + `/api/watch/movie/${movieId}`,
+		method: 'GET'
+	});
+	console.log(res);
 	return res;
 };
