@@ -160,7 +160,7 @@ class Movie extends Component<IMovieProps, IState> {
 						<View>
 							<View style={styles.secondSectionInfowWrapperHeader}>
 								<Text style={styles.secondSectionSubTitle}>
-									{movie.release_date ? movie.release_date.slice(0, 4) : null}, 
+									{movie.release_date ? movie.release_date.slice(0, 4) : null},
 									{parsedGenres.join(', ')}
 								</Text>
 								<View style={styles.rateBlock}>
@@ -199,6 +199,17 @@ class Movie extends Component<IMovieProps, IState> {
 									<TouchableOpacity>
 										<Text style={[styles.text, styles.button]}>
 											Add to Watchlist
+										</Text>
+									</TouchableOpacity>
+									<TouchableOpacity
+										onPress={() =>
+											this.props.navigation.navigate('ReviewPage', {
+												id: movie.id
+											})
+										}
+									>
+										<Text style={[styles.text, styles.button]}>
+											Read reviews
 										</Text>
 									</TouchableOpacity>
 								</View>
@@ -363,19 +374,19 @@ const styles = StyleSheet.create({
 		textAlignVertical: 'center',
 		alignSelf: 'center',
 		width: 175,
-		height: 37,
+		height: 38,
 		backgroundColor: '#FF6501',
 		marginTop: 22,
-		borderRadius: 55,
+		borderRadius: 19,
 		textAlign: 'center',
-		lineHeight: 19,
 		fontSize: 16,
 		color: 'white',
 		fontFamily: 'Inter-SemiBold'
 	},
 	text: {
 		letterSpacing: 0.4,
-		fontFamily: 'Inter-Regular'
+		fontFamily: 'Inter-Regular',
+		lineHeight: 38
 	}
 });
 

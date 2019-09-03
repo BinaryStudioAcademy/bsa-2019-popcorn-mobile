@@ -52,8 +52,8 @@ class UserPageView extends Component<IProps> {
 	render() {
 		if (this.props.loading) return <Spinner />
 		return (
-/* 			<Test4 />
- */			<Test1/>
+			/* 			<Test4 />
+			 */ <Test1 />
 			// <Test3/>
 		);
 	}

@@ -4,10 +4,11 @@ import config from '../../config';
 import webApi from '../../helpers/webApi.helper';
 
 function* fetchMovieReviews(id) {
+	console.log(id);
 	try {
 		yield put(getReviewsByMovieId.request());
 		const data = yield call(webApi, {
-			endpoint: config.API_URL + '/api/review/movie/955',
+			endpoint: config.API_URL + '/api/review/movie/' + id.payload,
 			method: 'GET'
 		});
 		yield put(getReviewsByMovieId.success(data));

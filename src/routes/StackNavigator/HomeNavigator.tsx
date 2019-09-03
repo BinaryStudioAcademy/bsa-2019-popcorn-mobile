@@ -90,14 +90,6 @@ const HomeNavigator = createDrawerNavigator({
 		screen: PostConstructorNavigator,
 		navigationOptions: {
 			drawerLabel: 'Create post'
-
-		}
-	},
-
-	ReviewPage: {
-		screen: Review_StackNavigator,
-		navigationOptions: {
-			drawerLabel: 'ReviewPage'
 		}
 	},
 
