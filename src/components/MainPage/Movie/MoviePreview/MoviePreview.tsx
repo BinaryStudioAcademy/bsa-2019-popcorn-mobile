@@ -54,9 +54,7 @@ class MoviePreview extends Component<IMovieProps> {
 							</Text>
 						</View>
 						<Text style={[styles.movieInfo, styles.movieInfoBlock]}>
-							{
-								parsedGenres.join(', ')
-							}
+							{parsedGenres.join(', ')}
 						</Text>
 						{duration && (
 							<View style={styles.duration}>
@@ -74,9 +72,7 @@ class MoviePreview extends Component<IMovieProps> {
 							numberOfLines={1}
 						>
 							<Text style={styles.bold}>Movie cast: </Text>
-							{
-								parsedCast.join(', ')
-							}
+							{parsedCast.join(', ')}
 						</Text>
 					</View>
 				</View>
