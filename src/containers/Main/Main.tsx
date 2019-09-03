@@ -65,16 +65,16 @@ class Main extends Component<IProps> {
 
 		this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
 			const { data } = notificationOpen.notification;
-			if (data.type === 'post') this.props.navigation.navigate('Main');
-			else this.props.navigation.navigate('Event', { eventId: data.id });
+			if (data.type === 'post' || data.type === 'story') this.props.navigation.navigate('Main');
+			if (data.type === 'event') this.props.navigation.navigate('Event', { eventId: data.id });
 		});
 		
 
 		const notificationOpen = await firebase.notifications().getInitialNotification();
   		if (notificationOpen) {
   		    const { data } = notificationOpen.notification;
-			if (data.type === 'post') this.props.navigation.navigate('Main');
-			else this.props.navigation.navigate('Event', { eventId: data.id });
+			if (data.type === 'post' || data.type === 'story') this.props.navigation.navigate('Main');
+			if (data.type === 'event') this.props.navigation.navigate('Event', { eventId: data.id });
   		}
 	}
 
