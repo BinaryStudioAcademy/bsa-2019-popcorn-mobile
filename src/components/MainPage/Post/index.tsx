@@ -17,6 +17,7 @@ interface IProps {
 	fetchPosts: () => any;
 	addPost: (post: any) => any;
 	userId?: string;
+	navigation: any;
 }
 
 class PostComponent extends React.Component<IProps> {
@@ -34,7 +35,7 @@ class PostComponent extends React.Component<IProps> {
 	};
 
 	renderPost({ item }) {
-		return <Post post={item} />;
+		return <Post post={item} navigation={this.props.navigation} />;
 	}
 
 	render() {

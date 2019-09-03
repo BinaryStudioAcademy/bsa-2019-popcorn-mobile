@@ -21,5 +21,7 @@ export const fetchNotifications = createRoutine('FETCH_NOTIFICATIONS');
 export const readNotification = createRoutine('READ_NOTIFICATION');
 export const getReviewsByMovieId = createRoutine('GET_MOVIE_REVIEWS');
 export const setReviewReaction = createRoutine('SET_REVIEW_REACTION');
+export const fetchUserById = createRoutine('FETCH_USER_BY_ID');
+export const clearUserInfo = createRoutine('CLEAR_USER_INFO');
 export const fetchUserWatchList = createRoutine('FETCH_WATCH_LIST');
 export const fetchMovieStatus = createRoutine('FETCH_MOVIE_STATUS');

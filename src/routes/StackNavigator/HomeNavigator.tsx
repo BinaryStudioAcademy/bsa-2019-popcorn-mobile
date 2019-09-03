@@ -90,14 +90,13 @@ const HomeNavigator = createDrawerNavigator({
 		screen: PostConstructorNavigator,
 		navigationOptions: {
 			drawerLabel: 'Create post'
-
 		}
 	},
 
-	ReviewPage: {
-		screen: Review_StackNavigator,
+	UserPage: {
+		screen: UserPage_StackNavigator,
 		navigationOptions: {
-			drawerLabel: 'ReviewPage'
+			drawerLabel: null
 		}
 	}
 });

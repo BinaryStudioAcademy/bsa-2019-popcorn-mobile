@@ -7,18 +7,21 @@ import { Storage } from '../../helpers/storage.helper';
 import { sendDeviceToken } from '../../services/notification.service';
 
 interface IProps {
-	navigation: any
+	navigation: any;
 }
 
 class Main extends Component<IProps> {
-
 	notificationListener: any;
 	notificationOpenedListener: any;
 	messageListener: any;
 	onTokenRefreshListener: any;
 
 	async componentDidMount() {
-		const channel = new firebase.notifications.Android.Channel('insider', 'insider channel', firebase.notifications.Android.Importance.Max)
+		const channel = new firebase.notifications.Android.Channel(
+			'insider',
+			'insider channel',
+			firebase.notifications.Android.Importance.Max
+		);
 		firebase.notifications().android.createChannel(channel);
 		this.checkPermission();
 		this.createNotificationListeners();
@@ -38,7 +41,7 @@ class Main extends Component<IProps> {
 			}
 		}
 	}
-	
+
 	async checkPermission() {
 		const enabled = await firebase.messaging().hasPermission();
 		if (enabled) {
@@ -47,7 +50,7 @@ class Main extends Component<IProps> {
 			this.requestPermission();
 		}
 	}
-	
+
 	async requestPermission() {
 		try {
 			await firebase.messaging().requestPermission();
@@ -56,29 +59,36 @@ class Main extends Component<IProps> {
 			console.log('permission rejected');
 		}
 	}
-	
+
 	async createNotificationListeners() {
 		firebase.notifications().onNotification(notification => {
-			notification.android.setChannelId('insider').setSound('default')
-			firebase.notifications().displayNotification(notification)
+			notification.android.setChannelId('insider').setSound('default');
+			firebase.notifications().displayNotification(notification);
 		});
 
-		this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
+		this.notificationOpenedListener = firebase
+			.notifications()
+			.onNotificationOpened(notificationOpen => {
+				const { data } = notificationOpen.notification;
+				if (data.type === 'post' || data.type === 'story')
+					this.props.navigation.navigate('Main');
+				if (data.type === 'event')
+					this.props.navigation.navigate('Event', { eventId: data.id });
+			});
+
+		const notificationOpen = await firebase
+			.notifications()
+			.getInitialNotification();
+		if (notificationOpen) {
 			const { data } = notificationOpen.notification;
-			if (data.type === 'post') this.props.navigation.navigate('Main');
-			else this.props.navigation.navigate('Event', { eventId: data.id });
-		});
-		
-
-		const notificationOpen = await firebase.notifications().getInitialNotification();
-  		if (notificationOpen) {
-  		    const { data } = notificationOpen.notification;
-			if (data.type === 'post') this.props.navigation.navigate('Main');
-			else this.props.navigation.navigate('Event', { eventId: data.id });
-  		}
+			if (data.type === 'post' || data.type === 'story')
+				this.props.navigation.navigate('Main');
+			if (data.type === 'event')
+				this.props.navigation.navigate('Event', { eventId: data.id });
+		}
 	}
 
-	render () {
+	render() {
 		return (
 			<Swiper loop={false} showsPagination={false} index={0}>
 				<HomeNavigator />
@@ -86,6 +96,6 @@ class Main extends Component<IProps> {
 			</Swiper>
 		);
 	}
-};
+}
 
 export default Main;
