@@ -10,6 +10,7 @@ import movieReducer from '../components/MainPage/Movie/Movie/reducer';
 import topsReducer from '../components/ContentPage/Tops/reducer';
 import notificationReducer from '../components/Notifications/reducer';
 import reviewsReducer from '../components/ReviewPage/reducer';
+import chatReducer from '../views/Messages/reducer';
 
 const reducers = {
 	story: storyReducer,
@@ -22,7 +23,8 @@ const reducers = {
 	events: eventsReducer,
 	tops: topsReducer,
 	notifications: notificationReducer,
-	reviews: reviewsReducer
+	reviews: reviewsReducer,
+	chat: chatReducer
 };
 
 export default combineReducers({
