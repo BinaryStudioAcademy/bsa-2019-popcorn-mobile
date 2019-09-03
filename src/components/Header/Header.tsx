@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
+import NotificationIcon from './NotificationIcon';
 
 interface IProps {
 	data: any;
@@ -49,14 +50,12 @@ const Header = props => {
 					</TouchableOpacity>
 				</View>
 				<View style={styles.iconContainer}>
-					<TouchableOpacity onPress={() => { props.navigation.navigate('Seventh') }}>
-						<SvgUri
-							style={styles.item}
-							height={24}
-							width={24}
-							source={require('../../assets/general/new.svg')}
-						/>
-						<Text style={styles.iconAlert}></Text>
+					<TouchableOpacity
+						onPress={() => {
+							props.navigation.navigate('Seventh');
+						}}
+					>
+						<NotificationIcon />
 					</TouchableOpacity>
 				</View>
 			</View>

@@ -13,7 +13,7 @@ import EventPage from '../../components/ContentPage/Events/EventPage';
 import TopPage from '../../components/ContentPage/Tops/TopPage';
 import SurveyPage from '../../components/SurveyPage/SurveyPage';
 import ControlledVertical from '../../components/MainPage/Story/StoryModal/ColorPicker';
- 
+
 import UserPageView from '../../views/UserPageView/UserPageView';
 import ReviewPage from '../../components/ReviewPage/ReviewPage';
 
@@ -116,7 +116,8 @@ export const Notifications_Navigator = createStackNavigator({
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})
-	}});
+	}
+});
 export const UserPage_StackNavigator = createStackNavigator({
 	Fourth: {
 		screen: UserPageView,
@@ -130,7 +131,7 @@ export const Review_StackNavigator = createStackNavigator({
 	ReviewPage: {
 		screen: ReviewPage,
 		navigationOptions: ({ navigation }) => ({
-			header: Header
+			header: null
 		})
 	}
 });

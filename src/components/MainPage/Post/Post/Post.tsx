@@ -14,33 +14,40 @@ const { width } = Dimensions.get('window');
 
 interface IPostProps {
 	post: IPost;
+	navigation: any;
 }
 
 class Post extends Component<IPostProps> {
 	render() {
 		const { image_url, description, created_At } = this.props.post;
-		const { name, avatar } = this.props.post.user;
+		const { id, name, avatar } = this.props.post.user;
 		return (
 			<View style={styles.postWrapper}>
-				<View style={styles.postHeader}>
-					<Image
-						style={styles.roundImage}
-						source={{ uri: avatar || config.DEFAULT_AVATAR }}
-					/>
-					<View style={styles.infoBlock}>
-						<Text style={styles.userName}>{name}</Text>
-						<Text style={styles.info}>{created_At || 'Few days ago'}</Text>
+				<TouchableOpacity
+					onPress={() =>
+						this.props.navigation.navigate('UserPage', { userId: id })
+					}
+				>
+					<View style={styles.postHeader}>
+						<Image
+							style={styles.roundImage}
+							source={{ uri: avatar || config.DEFAULT_AVATAR }}
+						/>
+						<View style={styles.infoBlock}>
+							<Text style={styles.userName}>{name}</Text>
+							<Text style={styles.info}>{created_At || 'Few days ago'}</Text>
+						</View>
+						<View style={styles.headerControl}>
+							<TouchableOpacity>
+								<SvgUri
+									height={5}
+									width={20}
+									source={require('./../../../../assets/general/settings.svg')}
+								/>
+							</TouchableOpacity>
+						</View>
 					</View>
-					<View style={styles.headerControl}>
-						<TouchableOpacity>
-							<SvgUri
-								height={5}
-								width={20}
-								source={require('./../../../../assets/general/settings.svg')}
-							/>
-						</TouchableOpacity>
-					</View>
-				</View>
+				</TouchableOpacity>
 				<View style={styles.imageWrapper}>
 					<Image
 						style={styles.postImage}

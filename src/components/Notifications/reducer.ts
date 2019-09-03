@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				loading: true
-			}
+			};
 		case fetchNotifications.SUCCESS:
 			return {
 				...state,
@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
 			};
 		case ADD_NOTIFICATION:
 			const unreadNotifications = state.unreadNotifications
-				? [action.payload.notification, ...state.unreadNotifications]
+				? [...state.unreadNotifications, action.payload.notification]
 				: [action.payload.notification];
 			return {
 				...state,
