@@ -1,11 +1,11 @@
 import { fetchUserWatchList } from './../../../redux/routines';
 
 const initialState: {
-	watchcList?: Array<any>;
+	data?: Array<any>;
 	error: Error | null;
 	loading: boolean;
 } = {
-	watchcList: undefined,
+	data: undefined,
 	error: null,
 	loading: false
 };
@@ -20,7 +20,7 @@ export default function(state = initialState, action) {
 		case fetchUserWatchList.SUCCESS:
 			return {
 				...state,
-				watchcList: action.payload
+				data: action.payload
 			};
 		case fetchUserWatchList.FAILURE:
 			return {

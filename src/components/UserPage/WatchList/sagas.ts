@@ -10,7 +10,7 @@ import {
 export function* fetchWatchList(action) {
 	try {
 		yield put(fetchUserWatchList.request());
-		const { userId } = action.payload;
+		const userId = action.payload;
 		const response = yield call(watchListService.getWatchlist, userId);
 
 		yield put(fetchUserWatchList.success(response));
