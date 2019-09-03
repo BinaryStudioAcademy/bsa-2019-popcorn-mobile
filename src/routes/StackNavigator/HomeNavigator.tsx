@@ -99,6 +99,13 @@ const HomeNavigator = createDrawerNavigator({
 		navigationOptions: {
 			drawerLabel: 'ReviewPage'
 		}
+	},
+
+	UserPage: {
+		screen: UserPage_StackNavigator,
+		navigationOptions: {
+			drawerLabel: null
+		}
 	}
 });
 
