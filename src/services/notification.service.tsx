@@ -1,61 +1,70 @@
 import React, { ReactElement } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { View, StyleSheet } from 'react-native';
 import {
 	faComment,
-	faTag,
-	faThumbsUp,
+	faPlusCircle,
 	faUserFriends,
-	faUsers,
-	faEnvelope
+	faStar
 } from '@fortawesome/free-solid-svg-icons';
 import webApi from '../helpers/webApi.helper';
 import config from '../config';
+import { getIcon } from './postReaction.service';
 
-export const generateMessage = (type: string): string => {
+export const generateIcon = (type: string): any => {
+	const styles = StyleSheet.create({
+		icon: {
+			fontSize: 15,
+			color: 'white'
+		},
+		containerStyle: {
+			position: 'absolute',
+			bottom: 0,
+			right: 0,
+			width: 26,
+			height: 26,
+			alignItems: 'center',
+			justifyContent: 'center',
+			borderRadius: 13,
+			backgroundColor: '#FF6501'
+		}
+	});
+
 	switch (type) {
-		case 'post reaction':
-			return 'reacted to your post';
-		case 'post comment':
-			return 'commented on your post';
-		case 'post tag':
-			return 'tagged you in a post';
-		case 'post comment tag':
-			return 'tagged you in the post comments';
-		case 'event interested':
-			return 'is interested in your event';
-		case 'event participant':
-			return 'joined your event';
-		case 'event comment':
-			return 'commented on your event';
-		case 'event comment tag':
-			return 'tagged you in the event comments';
+		case 'comment':
+			return (
+				<View style={styles.containerStyle}>
+					<FontAwesomeIcon icon={faComment} style={styles.icon} />
+				</View>
+			);
 		case 'follower':
-			return 'started following you';
-		case 'movie comment tag':
-			return 'tagged you in the movie comments';
-		case 'message':
-			return 'wrote you a new message';
-		default:
-			return '';
-	}
-};
+			return (
+				<View style={styles.containerStyle}>
+					<FontAwesomeIcon icon={faUserFriends} style={styles.icon} />
+				</View>
+			);
+		case 'new post from followed':
+			return (
+				<View style={styles.containerStyle}>
+					<FontAwesomeIcon icon={faPlusCircle} style={styles.icon} />
+				</View>
+			);
+		case 'new story from followed':
+			return (
+				<View style={styles.containerStyle}>
+					<FontAwesomeIcon icon={faPlusCircle} style={styles.icon} />
+				</View>
+			);
+		case 'review':
+			return (
+				<View style={styles.containerStyle}>
+					<FontAwesomeIcon icon={faStar} style={styles.icon} />
+				</View>
+			);
 
-export const generateIcon = (type: string): ReactElement => {
-	const style = {
-		fontSize: 15,
-		color: 'white'
-	};
-	if (type.includes('reaction'))
-		return <FontAwesomeIcon icon={faThumbsUp} style={style} />;
-	if (type.includes('tag'))
-		return <FontAwesomeIcon icon={faTag} style={style} />;
-	if (type.includes('follower'))
-		return <FontAwesomeIcon icon={faUserFriends} style={style} />;
-	if (type.includes('comment'))
-		return <FontAwesomeIcon icon={faComment} style={style} />;
-	if (type.includes('event'))
-		return <FontAwesomeIcon icon={faUsers} style={style} />;
-	return <FontAwesomeIcon icon={faEnvelope} style={style} />;
+		default:
+			return getIcon(type);
+	}
 };
 
 export const sendDeviceToken = async token => {
