@@ -10,6 +10,7 @@ import MovieSaga from './../components/MainPage/Movie/Movie/saga';
 import TopSaga from '../components/ContentPage/Tops/sagas';
 import NotificationSaga from '../components/Notifications/sagas';
 import ReviewSaga from '../components/ReviewPage/sagas';
+import WatchlistSaga from '../components/UserPage/WatchList/sagas';
 import UserProfileSaga from '../views/UserPageView/saga';
 
 export default function* rootSaga() {
@@ -26,5 +27,7 @@ export default function* rootSaga() {
 		NotificationSaga(),
 		ReviewSaga(),
 		UserProfileSaga(),
+		ReviewSaga(),
+		WatchlistSaga()
 	]);
 }
