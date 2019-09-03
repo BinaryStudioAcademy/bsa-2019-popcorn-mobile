@@ -30,14 +30,12 @@ class ReviewPage extends Component<IProps, IState> {
 	}
 
 	componentDidMount() {
-		this.props.getReviewsByMovieId();
+		const movieId = this.props.navigation.state.params.id;
+
+		this.props.getReviewsByMovieId(movieId);
 		this.setState({
 			data: this.props.reviews.reviews
 		});
-	}
-
-	componentWillUpdate(props) {
-		console.log(props);
 	}
 
 	toggleFilter() {
@@ -83,7 +81,7 @@ class ReviewPage extends Component<IProps, IState> {
 				<View style={styles.header}>
 					<TouchableOpacity
 						onPress={() => {
-							navigation.navigate('Home');
+							navigation.goBack();
 						}}
 					>
 						<SvgUri
@@ -101,7 +99,7 @@ class ReviewPage extends Component<IProps, IState> {
 						<SvgUri
 							height={20}
 							width={20}
-							source={require('../../assets/general/settings.svg')}
+							source={require('../../assets/general/options.svg')}
 						/>
 					</TouchableOpacity>
 				</View>
@@ -138,12 +136,16 @@ class ReviewPage extends Component<IProps, IState> {
 					</View>
 				) : null}
 				<ScrollView style={styles.container}>
-					<Text style={styles.heading}>Reviews</Text>
+					{reviews.reviews.length === 0 ? (
+						<Text style={styles.empty}>There is no reviews</Text>
+					) : (
+						<Text style={styles.heading}>Reviews</Text>
+					)}
 					{reviews.reviews.map((item, i) => (
 						<ReviewItem
 							key={`rw${i}`}
 							data={item}
-							// movieId={this.props.navigation.state.params.id}
+							movieId={this.props.navigation.state.params.id}
 							currentUser={this.props.authorization.id}
 						/>
 					))}
@@ -181,6 +183,12 @@ const styles = StyleSheet.create({
 	},
 	sortItem: {
 		marginBottom: 10
+	},
+	empty: {
+		textAlign: 'center',
+		color: 'gray',
+		fontStyle: 'italic',
+		padding: 30
 	},
 	filter: {
 		position: 'absolute',
