@@ -22,7 +22,8 @@ interface IProps {
 	voting: any;
 	data: any;
 	handleDisable: any;
-	updateVoting: (newVoting: IVoting | null, disabled: boolean) => void;
+	updateState: (any, string) => void;
+	// updateVoting: (newVoting: IVoting | null, disabled: boolean) => void;
 	validateStory: any;
 }
 interface IState {
@@ -112,12 +113,13 @@ export default class Voting extends Component<IProps, IState> {
 						}));
 						let someIsEmpty =
 							bodyValues.some(item => !item) || !this.state.voting.header;
-						this.props.updateVoting(
+						this.props.updateState(
 							!someIsEmpty
 								? { ...this.state.voting, options: newOptions }
 								: null,
-							someIsEmpty
+							'voting'
 						);
+						this.props.handleDisable(someIsEmpty);
 					}}
 				/>
 				{option.id > 2 && (
@@ -175,12 +177,14 @@ export default class Voting extends Component<IProps, IState> {
 							voted: 0
 						}));
 						let someIsEmpty = !text;
-						this.props.updateVoting(
+
+						this.props.updateState(
 							!someIsEmpty
 								? { ...this.state.voting, options: newOptions, header: text }
 								: null,
-							someIsEmpty
+							'voting'
 						);
+						this.props.handleDisable(someIsEmpty);
 					}}
 				/>
 				{this.renderOption()}

@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import INewStory from '../INewStory';
 interface IProps {
-	updateInput: (boolean) => void;
+	updateState: (any, string) => void;
 	setNewStory: (any) => void;
 	data: any;
 	backgroundColor: string;
@@ -124,7 +124,7 @@ export default class DraggableText extends Component<IProps, IState> {
 									if (caption) {
 										this.setState({ inputDisabled: true });
 									} else {
-										this.props.updateInput(false);
+										this.props.updateState(false, 'showInput');
 									}
 								}}
 								style={[
