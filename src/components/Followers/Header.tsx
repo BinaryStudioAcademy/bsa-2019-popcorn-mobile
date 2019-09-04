@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 
 interface IProps {
     navigation: any;
+    followedCount: number;
+    followersCount: number;
 }
 
-const Header: React.FC<IProps> = ({ navigation }) => {
+const Header: React.FC<IProps> = ({ navigation, followedCount, followersCount }) => {
     const getActiveRouteName = (navigationState) => {
         if (!navigationState) {
           return null;
@@ -25,14 +27,14 @@ const Header: React.FC<IProps> = ({ navigation }) => {
                 <Text
                     style={[currentRoute === 'Followers' && { color: 'red' }]}
                 >
-                    Followers
+                    {followersCount} Followers
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {navigation.navigate('Followed')}}>
                 <Text
                     style={[currentRoute === 'Followed' && { color: 'red' }]}
                 >
-                    Following
+                    {followedCount} Following
                 </Text>
             </TouchableOpacity>
         </View>
@@ -41,7 +43,8 @@ const Header: React.FC<IProps> = ({ navigation }) => {
 
 const mapStateToProps = (rootState, props) => ({
 	currentUser: rootState.authorization.profileInfo,
-    amount: rootState.followers.followersCount,
+	followersCount: rootState.followers.followersCount,
+	followedCount: rootState.followers.followedCount,
 	selectedProfileInfo: rootState.userProfile.selectedUser
 });
 
@@ -51,6 +54,5 @@ export const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 20
     }
 });

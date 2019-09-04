@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import ISelectedProfileInfo from './SelectedProfileInterfase';
 import { changeStatus } from '../../redux/routines';
 import style from '../../assets/style';
+import { NavigationActions } from 'react-navigation';
 
 type IProfileProps = {
 	profileInfo: ISelectedProfileInfo;
@@ -103,13 +104,23 @@ class UserProfileView extends Component<IProfileProps> {
 						<View style={styles.horizontalContainer}>
 							<TouchableOpacity 
 								style={styles.followItem}
-								onPress={() => { this.props.navigation.navigate('Followers') }}
+								onPress={() => { this.props.navigation.navigate({
+									routeName: 'Follows',
+									action: NavigationActions.navigate({ 
+										routeName: 'Followers'
+									})
+								})}}
 							>
 								<Text style={[styles.followText, styles.followAmount]}>{this.props.followersCount}</Text>
 								<Text style={styles.followText}>followers</Text>
 							</TouchableOpacity>
 							<TouchableOpacity 
-								onPress={() => { this.props.navigation.navigate('Followed') }}
+								onPress={() => { this.props.navigation.navigate({
+									routeName: 'Follows',
+									action: NavigationActions.navigate({ 
+										routeName: 'Following'
+									})
+								})}}
 							>
 								<Text style={[styles.followText, styles.followAmount]}>{this.props.followedCount}</Text>
 								<Text style={styles.followText}>following</Text>

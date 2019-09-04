@@ -38,28 +38,20 @@ class UserPageView extends Component<IProps> {
 			'didFocus',
 			() => {
 				let id;
-				const { currentUser } = this.props;
+				const { currentUser, selectedProfileInfo } = this.props;
 				const params = this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().state.params;
 
 				if (!params) id = currentUser.id;
 				else id = params.userId;
-
-				this.props.fetchUserById(id);
-				this.props.fetchFollowedCount(id);
-				this.props.fetchFollowersCount(id);
-				if (this.props.currentUser.id !== id) 
-				this.props.fetchStatus({ userId: currentUser.id, followerId: id });
+				if (selectedProfileInfo.id !== id) {
+					this.props.fetchUserById(id);
+					this.props.fetchFollowedCount(id);
+					this.props.fetchFollowersCount(id);
+					if (this.props.currentUser.id !== id) 
+					this.props.fetchStatus({ userId: currentUser.id, followerId: id });
+				}
 			}
 		)
-	}
-
-	componentDidMount() {
-		const { currentUser } = this.props;
-		const params = this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().state.params
-		if (!params)
-		this.props.fetchUserById(currentUser.id);
-		else 
-		this.props.fetchUserById(params.userId);
 	}
 
 	render() {
