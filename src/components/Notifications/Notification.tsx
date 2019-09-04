@@ -1,14 +1,13 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import INotification from './INotification';
-import {
-	generateMessage,
-	generateIcon
-} from '../../services/notification.service';
 import Moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faComments, faStar } from '@fortawesome/free-solid-svg-icons';
+import { generateIcon } from '../../services/notification.service';
 
 interface IProps {
-	notification: any;
+	notification: INotification;
 	readNotification: (any: any) => any;
 	userId: string;
 	navigation: any;
@@ -20,20 +19,29 @@ const Notification: React.FC<IProps> = ({
 	userId,
 	navigation
 }) => {
+	const onPress = () => {
+		readNotification({ id: notification.id, userId });
+		const type = notification.entityType;
+		if (type === 'post' || type === 'story') navigation.navigate('Home');
+		if (type === 'event')
+			navigation.navigate('Event', { eventId: notification.entityId });
+	};
+
 	return (
 		<TouchableOpacity
 			style={[styles.main, !notification.isRead && styles.unread]}
-			onPress={() => {
-				readNotification({ id: notification.id, userId });
-				if (notification.url === '/') navigation.navigate('Home');
-				else
-					navigation.navigate('Event', {
-						eventId: notification.url.split('/')[2]
-					});
-			}}
+			onPress={onPress}
 		>
 			<View style={styles.imageContainer}>
-				<Image source={{ uri: notification.img }} style={styles.avatar} />
+				<Image
+					source={{
+						uri:
+							notification.img ||
+							'https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png'
+					}}
+					style={styles.avatar}
+				/>
+				<View style={styles.icon}>{generateIcon(notification.type)}</View>
 			</View>
 			<View>
 				<View style={styles.textContainer}>
@@ -46,7 +54,6 @@ const Notification: React.FC<IProps> = ({
 		</TouchableOpacity>
 	);
 };
-
 export default Notification;
 
 const styles = StyleSheet.create({
@@ -87,10 +94,8 @@ const styles = StyleSheet.create({
 	},
 	icon: {
 		position: 'absolute',
-		borderRadius: 13,
 		bottom: 0,
 		right: 0,
-		backgroundColor: '#FF6501',
 		width: 26,
 		height: 26,
 		alignItems: 'center',

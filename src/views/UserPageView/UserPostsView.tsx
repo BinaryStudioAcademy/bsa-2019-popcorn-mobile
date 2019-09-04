@@ -27,7 +27,8 @@ class UserPosts extends Component<IProps> {
 }
 
 const mapStateToProps = (rootState, props) => ({
-	selectedProfileInfo: rootState.authorization.profileInfo
+	currentUser: rootState.authorization.profileInfo,
+	selectedProfileInfo: rootState.userProfile.selectedUser
 });
 
 export default connect(mapStateToProps)(UserPosts);
