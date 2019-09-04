@@ -92,7 +92,7 @@ class Main extends Component<IProps> {
 		return (
 			<Swiper loop={false} showsPagination={false} index={0}>
 				<HomeNavigator />
-				<SidebarView />
+				<SidebarView navigation={this.props.navigation} />
 			</Swiper>
 		);
 	}
