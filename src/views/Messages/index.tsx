@@ -56,7 +56,6 @@ class ChatPage extends React.Component<IProps, IState> {
 		this.props.fetchChats(this.props.userId);
 	}
 	render() {
-		console.log('[INDEX]this.props', this.props);
 		if (
 			this.props.isLoadingList ||
 			!Object.keys(this.props.chats).length ||

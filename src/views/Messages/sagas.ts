@@ -80,7 +80,6 @@ function* watchCreateChat() {
 }
 
 export function* createMessage(action) {
-	console.log('saga action', action);
 	try {
 		yield call(webApi, {
 			method: 'POST',

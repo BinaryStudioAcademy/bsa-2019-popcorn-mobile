@@ -14,6 +14,8 @@ import { bindActionCreators } from 'redux';
 import { Spinner } from 'native-base';
 import moment from 'moment';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { INC_MESSAGE_BACKGROUND } from './styles';
+
 interface IProps {
 	createMessage: (userId: string, chatId: string, body: string) => void;
 	chatId: string;
@@ -61,7 +63,7 @@ const NewMessage: React.FC<IProps> = ({ chatId, userId, createMessage }) => {
 				>
 					<FontAwesome
 						name="send"
-						color={!message ? '#555' : '#1976d2'}
+						color={!message ? '#555' : INC_MESSAGE_BACKGROUND}
 						size={20}
 					/>
 				</TouchableOpacity>
@@ -75,10 +77,13 @@ const MY_MESSAGE_COLOR = 'rgba(102,255,153,0.3)';
 const styles = StyleSheet.create({
 	inputWrap: {
 		padding: 10,
+		flex: 1,
 		flexDirection: 'row',
+		alignItems: 'center',
 		justifyContent: 'space-between'
 	},
 	input: {
+		paddingTop: 0,
 		fontSize: 15,
 		width: '80%',
 		fontFamily: 'Inter-Regular'

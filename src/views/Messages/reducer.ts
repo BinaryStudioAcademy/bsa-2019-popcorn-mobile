@@ -24,11 +24,8 @@ const initialState: {
 export default function(state = initialState, action) {
 	switch (action.type) {
 		case FETCH_CHATS:
-			console.log('FETCH_CHATS');
-
 			return { ...state, isLoadingList: true };
 		case SET_CHATS:
-			console.log('SETCHATS action.payload', action.payload);
 			const chats: any = {};
 			action.payload.data.forEach(chat => (chats[chat.id] = chat));
 			return {
@@ -62,7 +59,6 @@ export default function(state = initialState, action) {
 			delete newMessage.chat;
 
 			const unreadMessage = { ...newMessage, chatId };
-			console.log('add messages to store action.payload', action.payload);
 			return {
 				...state,
 				chats: {
@@ -92,7 +88,6 @@ export default function(state = initialState, action) {
 				}
 			};
 		case UPDATE_MESSAGE_STORE:
-			console.log('updateMessage', action);
 			const { chatId: id, message } = action.payload;
 			const updatedMessages = state.chats[id].messages.map(mes =>
 				mes.id === message.id ? message : mes
