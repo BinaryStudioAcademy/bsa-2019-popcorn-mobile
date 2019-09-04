@@ -30,6 +30,32 @@ interface IProps {
 	updateMessage: (id: string, body: string) => void;
 }
 
+interface INewDateProps {
+	newDate: string;
+}
+
+export const NewDate: React.FC<INewDateProps> = ({ newDate }) => {
+	return (
+		<View style={styles.newDateWrap}>
+			<Text style={styles.newDate}>{newDate}</Text>
+		</View>
+	);
+};
+interface IPartnerProps {
+	user: any;
+}
+export const Partner: React.FC<IPartnerProps> = ({ user }) => {
+	return (
+		<View style={styles.partnerWrap}>
+			<Image
+				source={{ uri: user.avatar ? user.avatar : config.DEFAULT_AVATAR }}
+				style={styles.messageAvatar}
+			/>
+			<Text style={styles.messageTitle}>{user.name}</Text>
+		</View>
+	);
+};
+
 interface IState {}
 class Messages extends React.Component<IProps, IState> {
 	constructor(props) {
@@ -40,7 +66,6 @@ class Messages extends React.Component<IProps, IState> {
 	}
 	render() {
 		const { chatId } = this.props.navigation.state.params;
-		console.log('[MESSAGES]this.props', this.props);
 		if (!this.props.chat) {
 			return <Spinner />;
 		}
@@ -51,9 +76,10 @@ class Messages extends React.Component<IProps, IState> {
 			return <Spinner />;
 		}
 		const { messages } = this.props.chat;
-		// const messages = mockMessages;
+		let tmpDate = '';
 		return (
 			<View style={styles.container}>
+				<Partner user={this.props.chat.user} />
 				<ScrollView
 					contentContainerStyle={styles.messagesContainer}
 					ref="scrollView"
@@ -63,13 +89,32 @@ class Messages extends React.Component<IProps, IState> {
 					}}
 				>
 					{messages.map((message: any, id) => {
+						const date = new Date(message.created_at);
+						let newDate = moment(date)
+							.utc()
+							.format('D MMMM');
+						const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
 						const isMyMessage = message.user.id === this.props.userId;
-
-						return isMyMessage ? (
-							<OutgoingMessage key={message.id} outgoingMessage={message} />
-						) : (
-							<IncomingMessage key={message.id} outgoingMessage={message} />
-						);
+						if (currentDate !== tmpDate) {
+							tmpDate = currentDate;
+							return isMyMessage ? (
+								<View>
+									<NewDate newDate={newDate} />
+									<OutgoingMessage key={message.id} outgoingMessage={message} />
+								</View>
+							) : (
+								<View>
+									<NewDate newDate={newDate} />
+									<IncomingMessage key={message.id} outgoingMessage={message} />
+								</View>
+							);
+						} else {
+							return isMyMessage ? (
+								<OutgoingMessage key={message.id} outgoingMessage={message} />
+							) : (
+								<IncomingMessage key={message.id} outgoingMessage={message} />
+							);
+						}
 					})}
 				</ScrollView>
 				<View style={styles.sendMessageWrap}>
@@ -99,5 +144,3 @@ export default connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(Messages);
-
-// 		admin@gmail.com

@@ -41,7 +41,6 @@ export const createChat = (user1Id, user2Id) => {
 };
 
 export const createMessage = (userId, chatId, body) => {
-	console.log('actions message= ', userId, chatId, body);
 	return {
 		type: CREATE_MESSAGE,
 		payload: {
@@ -53,8 +52,6 @@ export const createMessage = (userId, chatId, body) => {
 };
 
 export const deleteMessage = (id, body) => {
-	console.log('deleteMessage', body);
-
 	return {
 		type: DELETE_MESSAGE,
 		payload: {
@@ -64,7 +61,6 @@ export const deleteMessage = (id, body) => {
 };
 
 export const updateMessage = (id, body) => {
-	console.log('update message body', body);
 	return {
 		type: UPDATE_MESSAGE,
 		payload: {
@@ -75,7 +71,6 @@ export const updateMessage = (id, body) => {
 };
 
 export const addMessage = message => {
-	console.log('socket add');
 	return {
 		type: ADD_MESSAGE_STORE,
 		payload: {
@@ -95,7 +90,6 @@ export const deleteMessageStore = (chatId, messageId) => {
 };
 
 export const updateMessageStore = (chatId, message) => {
-	console.log('update message message', message);
 	return {
 		type: UPDATE_MESSAGE_STORE,
 		payload: {
