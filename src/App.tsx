@@ -7,7 +7,6 @@ import firebase from 'react-native-firebase';
 import { Alert } from 'react-native';
 
 class App extends React.Component {
-
 	render() {
 		return (
 			<PersistGate loading={null} persistor={persistor}>

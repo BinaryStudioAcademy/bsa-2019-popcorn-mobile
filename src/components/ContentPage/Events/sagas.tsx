@@ -41,7 +41,7 @@ function* getEventById(action) {
 	} finally {
 		yield put(fetchEventById.fulfill());
 	}
-} 
+}
 
 function* watchFetchEventById() {
 	yield takeEvery(fetchEventById.trigger, getEventById);
