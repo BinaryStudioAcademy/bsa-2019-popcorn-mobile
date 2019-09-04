@@ -9,7 +9,10 @@ import Spinner from '../../components/Spinner/Spinner';
 import { View } from 'react-native';
 import {
 	fetchUserById,
-	clearUserInfo
+	clearUserInfo,
+	fetchFollowedCount,
+	fetchFollowersCount,
+	fetchStatus
 } from '../../redux/routines';
 
 interface IProps {
@@ -18,7 +21,10 @@ interface IProps {
 	currentUser: any;
 	loading: boolean;
 	selectedProfileInfo: any;
-	clearUserInfo: () => void
+	clearUserInfo: () => void;
+	fetchFollowedCount: (id: string) => void
+	fetchFollowersCount: (id: string) => void;
+	fetchStatus: (obj: { userId: string, followerId: string }) => void
 }
 
 class UserPageView extends Component<IProps> {
@@ -30,30 +36,38 @@ class UserPageView extends Component<IProps> {
 
 	didBlurSubscribe = () => {
 		this.props.navigation.addListener(
-			'didBlur',
-			() => {
-				this.props.clearUserInfo();
-			}
-		);
-		this.props.navigation.addListener(
 			'didFocus',
 			() => {
+				let id;
 				const { currentUser } = this.props;
-				const params = this.props.navigation.dangerouslyGetParent().state.params;
+				const params = this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().state.params;
 
-				if (!params)
-				this.props.fetchUserById(currentUser.id);
-				else 
-				this.props.fetchUserById(params.userId);
+				if (!params) id = currentUser.id;
+				else id = params.userId;
+
+				this.props.fetchUserById(id);
+				this.props.fetchFollowedCount(id);
+				this.props.fetchFollowersCount(id);
+				if (this.props.currentUser.id !== id) 
+				this.props.fetchStatus({ userId: currentUser.id, followerId: id });
 			}
 		)
+	}
+
+	componentDidMount() {
+		const { currentUser } = this.props;
+		const params = this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().state.params
+		if (!params)
+		this.props.fetchUserById(currentUser.id);
+		else 
+		this.props.fetchUserById(params.userId);
 	}
 
 	render() {
 		if (this.props.loading) return <Spinner />
 		return (
 /* 			<Test4 />
- */			<Test1/>
+ */			<Test1 navigation={this.props.navigation}/>
 			// <Test3/>
 		);
 	}
@@ -66,7 +80,10 @@ const mapStateToProps = (rootState, props) => ({
 
 const actions = {
 	fetchUserById,
-	clearUserInfo
+	clearUserInfo,
+	fetchFollowedCount,
+	fetchFollowersCount,
+	fetchStatus
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);

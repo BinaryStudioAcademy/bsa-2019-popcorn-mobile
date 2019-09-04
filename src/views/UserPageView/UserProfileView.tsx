@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
-import config from '../../config';
+import { bindActionCreators } from 'redux';
 import ISelectedProfileInfo from './SelectedProfileInterfase';
+import { changeStatus } from '../../redux/routines';
+import style from '../../assets/style';
 
 type IProfileProps = {
 	profileInfo: ISelectedProfileInfo;
@@ -12,6 +14,12 @@ type IProfileProps = {
 	cancelAvatar?: () => any;
 	setAvatar?: (url: string, id: string) => any;
 	selectedProfileInfo: any;
+	navigation: any;
+	followedCount: number,
+	followersCount: number;
+	followStatus: any;
+	currentUser: ISelectedProfileInfo;
+	changeStatus: (obj: { userId: string, followerId: string }) => void;
 };
 
 interface IProfileComponentState {
@@ -68,9 +76,13 @@ class UserProfileView extends Component<IProfileProps> {
 		super(props);
 	}
 
+	isCurrent = () => {
+		return this.props.currentUser.id === this.props.selectedProfileInfo.id;
+	}
+
 	render() {
 		let { location, aboutMe, mockAvatar } = mockProfileInfo;
-		let { male, female, name, avatar } = this.props.selectedProfileInfo;
+		let { male, female, name, avatar, id } = this.props.selectedProfileInfo;
 		if (!male && !female) {
 			female = true;
 		}
@@ -78,16 +90,59 @@ class UserProfileView extends Component<IProfileProps> {
 		if (!location) {
 			location = 'Kyiv';
 		}
-
 		return (
 			<View style={styles.profileWrap}>
-				<View>
+				<View style={styles.horizontalContainer}>
 					<Image
 						source={{
 							uri: avatar || mockAvatar
 						}}
 						style={styles.profileImg}
 					/>
+					<View style={styles.followBlock}>
+						<View style={styles.horizontalContainer}>
+							<TouchableOpacity 
+								style={styles.followItem}
+								onPress={() => { this.props.navigation.navigate('Followers') }}
+							>
+								<Text style={[styles.followText, styles.followAmount]}>{this.props.followersCount}</Text>
+								<Text style={styles.followText}>followers</Text>
+							</TouchableOpacity>
+							<TouchableOpacity 
+								onPress={() => { this.props.navigation.navigate('Followed') }}
+							>
+								<Text style={[styles.followText, styles.followAmount]}>{this.props.followedCount}</Text>
+								<Text style={styles.followText}>following</Text>
+							</TouchableOpacity>
+						</View>
+						{ 
+							!this.isCurrent() &&
+							<TouchableOpacity 
+								onPress={() => { 
+									this.props.changeStatus({ 
+										userId: this.props.currentUser.id,
+										followerId: this.props.selectedProfileInfo.id
+									})
+								;}}
+								style={styles.followBttn}
+							>
+								{
+									this.props.followStatus.isFollowing &&
+									<Text style={[styles.bttnText, styles.unfollowBttnText]}>Unfollow</Text>
+								}
+								{
+									!this.props.followStatus.isFollowing &&
+									!this.props.followStatus.isFollower &&
+									<Text style={[styles.bttnText, styles.followBttnText]}>Follow</Text> 
+								}
+								{
+									!this.props.followStatus.isFollowing &&
+									this.props.followStatus.isFollower &&
+									<Text style={[styles.bttnText, styles.followBttnText]}>Follow back</Text>
+								}
+							</TouchableOpacity>
+						}
+					</View>
 				</View>
 
 				<View style={styles.userInfo}>
@@ -166,9 +221,18 @@ class UserProfileView extends Component<IProfileProps> {
 const mapStateToProps = (rootState, props) => ({
 	currentUser: rootState.authorization.profileInfo,
 	selectedProfileInfo: rootState.userProfile.selectedUser,
+	followersCount: rootState.followers.followersCount,
+	followedCount: rootState.followers.followedCount,
+	followStatus: rootState.followers.followStatus
 });
 
-export default connect(mapStateToProps)(UserProfileView);
+const actions = {
+	changeStatus
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfileView);
 
 const styles = StyleSheet.create({
 	profileWrap: {
@@ -240,5 +304,50 @@ const styles = StyleSheet.create({
 		marginRight: 5,
 		fontWeight: '900',
 		width: 15
+	},
+	horizontalContainer: {
+		flexDirection: 'row',
+		alignItems: 'center'
+	},
+	followBlock: {
+		marginLeft: 30,
+	},
+	followItem: {
+		marginRight: 20,
+	},
+	followText: {
+		fontFamily: 'Inter-Regular',
+		color: '#122737',
+		letterSpacing: 0.4,
+		fontSize: 12,
+		textAlign: 'center'
+	},
+	followAmount: {
+		fontSize: 16,
+		fontFamily: 'Inter-SemiBold'
+	},
+	followBttn: {
+		width: '100%',
+		marginTop: 5,
+		justifyContent: 'center'
+	},
+	bttnText: {
+		fontSize: 15,
+		fontFamily: 'Inter-SemiBold',
+		letterSpacing: 0.4,
+		textAlign: 'center',
+		width: '100%',
+		padding: '2%',
+		borderRadius: 5,
+		height: 26
+	},
+	followBttnText: {
+		backgroundColor: '#FF6501',
+		color: 'white'
+	},
+	unfollowBttnText: {
+		color: '#FF6501',
+		borderWidth: 2,
+		borderColor: '#FF6501'
 	}
 });

@@ -8,13 +8,14 @@ import {
     fetchStatus
 } from '../../redux/routines';
 import webApi from '../../helpers/webApi.helper';
+import config from '../../config';
 
 export function* getFollowersCount(action) {
 	try {
         yield put(fetchFollowersCount.request());
 		const { count } = yield call(webApi, {
 			method: 'GET',
-			endpoint: `/api/follow/${action.payload.userId}/followers/count`
+			endpoint: `${config.API_URL}/api/follow/${action.payload}/followers/count`
 		});
 
 		yield put(fetchFollowersCount.success(count));
@@ -32,7 +33,7 @@ export function* getFollowers(action) {
         yield put(fetchFollowers.request())
 		const data = yield call(webApi, {
 			method: 'GET',
-			endpoint: `/api/follow/${action.payload.userId}/followers`
+			endpoint: `${config.API_URL}/api/follow/${action.payload}/followers`
 		});
 
 		yield put(fetchFollowers.success({
@@ -53,7 +54,7 @@ export function* getFollowedCount(action) {
         yield put(fetchFollowedCount.request());
 		const { count } = yield call(webApi, {
 			method: 'GET',
-			endpoint: `/api/follow/${action.payload.userId}/followings/count`
+			endpoint: `${config.API_URL}/api/follow/${action.payload}/followings/count`
 		});
 
 		yield put(fetchFollowedCount.success(count));
@@ -71,7 +72,7 @@ export function* getFollowed(action) {
         yield put(fetchFollowed.request())
 		const data = yield call(webApi, {
 			method: 'GET',
-			endpoint: `/api/follow/${action.payload.userId}/followings`
+			endpoint: `${config.API_URL}/api/follow/${action.payload}/followings`
 		});
 
 		yield put(fetchFollowed.success({
@@ -92,7 +93,7 @@ export function* getStatus(action) {
         yield put(fetchStatus.request());
 		const data = yield call(webApi, {
 			method: 'GET',
-			endpoint: `/api/follow/${action.payload.userId}/${action.payload.followerId}`
+			endpoint: `${config.API_URL}/api/follow/${action.payload.userId}/${action.payload.followerId}`
 		});
 
 		yield put(fetchStatus.success(data));
@@ -110,7 +111,7 @@ export function* updateStatus(action) {
         yield put(changeStatus.request());
 		yield call(webApi, {
 			method: 'POST',
-			endpoint: `/api/follow`,
+			endpoint: `${config.API_URL}/api/follow`,
 			body: {
 				userId: action.payload.userId,
 				followerId: action.payload.followerId
@@ -122,9 +123,7 @@ export function* updateStatus(action) {
             followerId: action.payload.followerId
         }));
 
-		yield put(fetchFollowersCount.trigger({
-            userId: action.payload.followerId
-        }));
+		yield put(fetchFollowersCount.trigger(action.payload.followerId));
 	} catch (e) {
 		console.log('follow saga change status:', e.message);
 	}
