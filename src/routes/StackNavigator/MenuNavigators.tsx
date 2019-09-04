@@ -16,6 +16,7 @@ import ControlledVertical from '../../components/MainPage/Story/StoryModal/Color
 
 import UserPageView from '../../views/UserPageView/UserPageView';
 import ReviewPage from '../../components/ReviewPage/ReviewPage';
+import UserProfileNavigation from './UserProfileNavigator';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -120,7 +121,7 @@ export const Notifications_Navigator = createStackNavigator({
 });
 export const UserPage_StackNavigator = createStackNavigator({
 	Fourth: {
-		screen: UserPageView,
+		screen: UserProfileNavigation,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})
