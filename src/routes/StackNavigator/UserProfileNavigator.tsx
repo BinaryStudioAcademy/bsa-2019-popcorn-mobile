@@ -4,6 +4,7 @@ import UserProfile from '../../views/UserPageView/UserPageView';
 import FollowersList from '../../components/Followers/FollowersList';
 import FollowedList from '../../components/Followers/FollowedList';
 import Header from '../../components/Followers/Header';
+import FollowersNavigator from '../TabNavigator/FollowersNavigator';
 
 const UserProfileNavigation = createStackNavigator({
 	Profile: {
@@ -12,16 +13,10 @@ const UserProfileNavigation = createStackNavigator({
 			header: null
 		}
 	},
-    Followers: {
-        screen: FollowersList,
+    Follows: {
+        screen: FollowersNavigator,
         navigationOptions: {
-            header: ({ navigation }) => <Header navigation={navigation}/>
-        }
-    },
-    Followed: {
-        screen: FollowedList,
-        navigationOptions: {
-            header: ({ navigation }) => <Header navigation={navigation}/>
+            header: null
         }
     }
 });

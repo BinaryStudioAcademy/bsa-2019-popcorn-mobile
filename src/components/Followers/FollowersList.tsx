@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchFollowers } from '../../redux/routines';
 import Spinner from '../Spinner/Spinner';
+import styles from './ListStyles';
 
 interface IProps {
     followers: any;
@@ -26,15 +27,18 @@ class followersList extends Component<IProps> {
         if (this.props.loading || !this.props.followers) return <Spinner />
         
         return (
-            <View>
+            <View style={styles.mainContainer}>
                 {this.props.followers.map(follower => 
-                    <TouchableOpacity key={follower.follower.id} onPress={() => { 
+                    <TouchableOpacity style={styles.follower} key={follower.follower.id} onPress={() => { 
                         this.props.navigation.navigate('UserPage', { 
                             userId: follower.follower.id 
                         });
                         this.props.navigation.navigate('Profile');
                     }}>
-                        <Text>{follower.follower.name}</Text>
+                        <View style={styles.imageContainer}>
+                            <Image source={{ uri: follower.follower.avatar || 'https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png'}} style={styles.avatar} />
+                        </View>
+                        <Text style={styles.name}>{follower.follower.name}</Text>
                     </TouchableOpacity>
                 )}
             </View>   

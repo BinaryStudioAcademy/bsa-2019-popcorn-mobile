@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchFollowed } from '../../redux/routines';
 import Spinner from '../Spinner/Spinner';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import styles from './ListStyles';
 
 interface IProps {
     followed: any;
@@ -27,15 +28,18 @@ class followedList extends Component<IProps> {
         if (this.props.loading || !this.props.followed) return <Spinner />
 
         return (
-            <View>
+            <View style={styles.mainContainer}>
                 {this.props.followed.map(followed => 
-                    <TouchableOpacity onPress={() => {
+                    <TouchableOpacity style={styles.follower} onPress={() => {
                         this.props.navigation.navigate('UserPage', {
                             userId: followed.user.id
                         });
                         this.props.navigation.navigate('Profile');
                     }}>
-                        <Text>{followed.user.name}</Text>
+                        <View style={styles.imageContainer}>
+                            <Image source={{ uri: followed.user.avatar || 'https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png'}} style={styles.avatar} />
+                        </View>
+                        <Text style={styles.name}>{followed.user.name}</Text>
                     </TouchableOpacity>
                 )}
             </View>
