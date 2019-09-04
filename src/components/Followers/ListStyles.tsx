@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     mainContainer: {
         paddingLeft: 20,
-        paddingRight: 20
+        paddingBottom: 20
     },
     follower: {
         marginTop: 10,
