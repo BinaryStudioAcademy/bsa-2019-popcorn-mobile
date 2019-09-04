@@ -25,7 +25,7 @@ function* readUserNotification(action) {
 			method: 'DELETE',
 			endpoint: config.API_URL + `/api/notification/${action.payload.id}`
 		});
-		if (data) yield put(fetchNotifications(action.payload.userId))
+		if (data) yield put(fetchNotifications(action.payload.userId));
 	} catch (e) {
 		console.log('notification saga readNotification: ', e.message);
 	}

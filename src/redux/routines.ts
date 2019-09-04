@@ -29,3 +29,5 @@ export const fetchStatus = createRoutine('FETCH_STATUS');
 export const changeStatus = createRoutine('CHANGE_STATUS');
 export const fetchUserById = createRoutine('FETCH_USER_BY_ID');
 export const clearUserInfo = createRoutine('CLEAR_USER_INFO');
+export const fetchUserWatchList = createRoutine('FETCH_WATCH_LIST');
+export const fetchMovieStatus = createRoutine('FETCH_MOVIE_STATUS');

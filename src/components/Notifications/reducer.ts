@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				loading: true
-			}
+			};
 		case fetchNotifications.SUCCESS:
 			return {
 				...state,

@@ -8,72 +8,71 @@ import SvgUri from 'react-native-svg-uri';
 import { View, StyleSheet, Text } from 'react-native';
 
 interface IProps {
-    userInfo: any,
-    fetchNotifications: (userId: string) => void;
-    isShown: boolean;
+	userInfo: any;
+	fetchNotifications: (userId: string) => void;
+	isShown: boolean;
 }
 
 interface IState {
-    isShown: boolean
+	isShown: boolean;
 }
 
 class NotificationIcon extends Component<IProps, IState> {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isShown: false
-        }
-        this.addSocketEvents();
-    }
+	constructor(props) {
+		super(props);
+		this.state = {
+			isShown: false
+		};
+		this.addSocketEvents();
+	}
 
-    componentDidMount() {
-        this.props.fetchNotifications(this.props.userInfo.id);
-        this.setState({ 
-            isShown: this.props.isShown
-        });
-    }
+	componentDidMount() {
+		this.props.fetchNotifications(this.props.userInfo.id);
+		this.setState({
+			isShown: this.props.isShown
+		});
+	}
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.isShown !== this.state.isShown) {
-            this.setState({ isShown: nextProps.isShown });
-        }
-    }
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.isShown !== this.state.isShown) {
+			this.setState({ isShown: nextProps.isShown });
+		}
+	}
 
-    addSocketEvents = () => {
+	addSocketEvents = () => {
 		SocketService.join(this.props.userInfo.id);
 		SocketService.on('new-notification', this.onAdd);
-    };
+	};
 
-    onAdd = () => {
-        this.setState({ isShown: true });
-    }
+	onAdd = () => {
+		this.setState({ isShown: true });
+	};
 
-    render() {
-        return (
-            <View>
-                <SvgUri
-			    	height={24}
-                    width={24}
-                    style={styles.item}
-			    	source={require('../../assets/general/new.svg')}
-			    />
-                {
-                    this.state.isShown &&
-                    <Text style={styles.iconAlert}></Text>
-                }
-            </View>
-        )
-    }
+	render() {
+		return (
+			<View>
+				<SvgUri
+					height={24}
+					width={24}
+					style={styles.item}
+					source={require('../../assets/general/new.svg')}
+				/>
+				{this.state.isShown && <Text style={styles.iconAlert}></Text>}
+			</View>
+		);
+	}
 }
 
 const mapStateToProps = (rootState, props) => ({
-    ...props,
-    isShown: !![...rootState.notifications.unreadNotifications].filter(item => !item.isRead).length,
-    userInfo: rootState.authorization.profileInfo,
+	...props,
+	isShown: !![...rootState.notifications.unreadNotifications].filter(
+		item => !item.isRead
+	).length,
+	userInfo: rootState.authorization.profileInfo
 });
 
 const actions = {
-    fetchNotifications,
+	fetchNotifications
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
@@ -84,7 +83,7 @@ export default connect(
 )(NotificationIcon);
 
 const styles = StyleSheet.create({
-    iconAlert: {
+	iconAlert: {
 		width: 10,
 		height: 10,
 		backgroundColor: 'red',
@@ -92,8 +91,8 @@ const styles = StyleSheet.create({
 		top: -5,
 		right: -5,
 		borderRadius: 5
-    },
-    item: {
+	},
+	item: {
 		marginLeft: 11
 	}
-})
+});

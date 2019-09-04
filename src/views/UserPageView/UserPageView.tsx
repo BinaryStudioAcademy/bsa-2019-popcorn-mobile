@@ -33,7 +33,6 @@ class UserPageView extends Component<IProps> {
 		this.didBlurSubscribe();
 	}
 
-
 	didBlurSubscribe = () => {
 		this.props.navigation.addListener(
 			'didFocus',
@@ -64,7 +63,7 @@ class UserPageView extends Component<IProps> {
 	}
 
 	render() {
-		if (this.props.loading) return <Spinner />
+		if (this.props.loading) return <Spinner />;
 		return (
 /* 			<Test4 />
  */			<Test1 navigation={this.props.navigation}/>
@@ -88,4 +87,7 @@ const actions = {
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserPageView);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(UserPageView);

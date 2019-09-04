@@ -50,7 +50,11 @@ const Header = props => {
 					</TouchableOpacity>
 				</View>
 				<View style={styles.iconContainer}>
-					<TouchableOpacity onPress={() => { props.navigation.navigate('Seventh') }}>
+					<TouchableOpacity
+						onPress={() => {
+							props.navigation.navigate('Seventh');
+						}}
+					>
 						<NotificationIcon />
 					</TouchableOpacity>
 				</View>

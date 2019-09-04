@@ -12,6 +12,7 @@ import notificationReducer from '../components/Notifications/reducer';
 import reviewsReducer from '../components/ReviewPage/reducer';
 import userProfileReducer from '../views/UserPageView/reducer';
 import followersReducer from '../components/Followers/reducer';
+import watchListReducer from './../components/UserPage/WatchList/reducer';
 
 const reducers = {
 	story: storyReducer,
@@ -27,6 +28,7 @@ const reducers = {
 	reviews: reviewsReducer,
 	userProfile: userProfileReducer,
 	followers: followersReducer,
+	watchList: watchListReducer
 };
 
 export default combineReducers({
