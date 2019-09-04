@@ -34,7 +34,7 @@ const UserNavigator = createMaterialTopTabNavigator(
 		Lists: {
 			screen: Lists
 		},
-		Watched: {
+		Watchlist: {
 			screen: Watched
 		}
 	},

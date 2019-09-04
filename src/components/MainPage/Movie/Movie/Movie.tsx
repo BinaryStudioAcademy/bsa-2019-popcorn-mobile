@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { fetchMovie } from '../../../../redux/routines';
+import { fetchMovie, fetchMovieStatus } from '../../../../redux/routines';
+import { addToWatchlist } from './../../../UserPage/WatchList/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import config from '../../../../config';
 import {
 	Text,
 	View,
-	Image,
+	ImageBackground,
 	StyleSheet,
 	Dimensions,
 	TouchableOpacity
@@ -14,14 +15,20 @@ import {
 import IMovie from '../IMovie';
 import SvgUri from 'react-native-svg-uri';
 import Spinner from './../../../Spinner/Spinner';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faPlusCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 const { width } = Dimensions.get('window');
 
 interface IMovieProps {
 	movie?: null | IMovie;
 	error: null | Error;
 	loading: boolean;
-	fetchMovie: () => any;
+	fetchMovie: (payload: any) => any;
 	navigation: any;
+	addToWatchlist: (movieId: string, userId: string) => any;
+	userId: string;
+	status: null | string;
+	fetchMovieStatus: (movieId: string) => any;
 }
 
 interface IState {
@@ -41,8 +48,9 @@ class Movie extends Component<IMovieProps, IState> {
 	}
 
 	componentDidMount() {
-		// @ts-ignore
-		this.props.fetchMovie({ id: this.props.navigation.getParam('id') });
+		const id = this.props.navigation.getParam('id');
+		this.props.fetchMovie({ id });
+		this.props.fetchMovieStatus(id);
 	}
 
 	rateYellowStarComponent(key: number, size) {
@@ -91,7 +99,7 @@ class Movie extends Component<IMovieProps, IState> {
 	}
 
 	render() {
-		const { movie } = this.props;
+		const { movie, status } = this.props;
 		let parsedGenres;
 		let parsedCast;
 		if (movie) {
@@ -102,7 +110,7 @@ class Movie extends Component<IMovieProps, IState> {
 		return movie ? (
 			<View style={styles.movieWrapper}>
 				<View style={styles.movieImageWrapper}>
-					<Image
+					<ImageBackground
 						source={{
 							uri:
 								config.POSTER_PATH + movie.poster_path ||
@@ -110,7 +118,30 @@ class Movie extends Component<IMovieProps, IState> {
 						}}
 						style={styles.movieImage}
 						resizeMode="contain"
-					/>
+					>
+						<View style={styles.controlsWrapper}>
+							{status && (
+								<View style={styles.updateControlWrapper}>
+									{status === 'watched' ? (
+										<FontAwesomeIcon
+											style={{
+												...styles.updateControl,
+												color: 'rgb(73, 199, 54)'
+											}}
+											icon={faCheckCircle}
+											size={40}
+										/>
+									) : (
+										<FontAwesomeIcon
+											style={styles.updateControl}
+											icon={faPlusCircle}
+											size={40}
+										/>
+									)}
+								</View>
+							)}
+						</View>
+					</ImageBackground>
 				</View>
 				{firstSection && (
 					<View style={styles.basicInfoWrapper}>
@@ -196,11 +227,17 @@ class Movie extends Component<IMovieProps, IState> {
 										<Text style={styles.bold}>Stars: </Text>
 										{parsedCast.join(', ')}
 									</Text>
-									<TouchableOpacity>
-										<Text style={[styles.text, styles.button]}>
-											Add to Watchlist
-										</Text>
-									</TouchableOpacity>
+									{!status && (
+										<TouchableOpacity
+											onPress={() =>
+												this.props.addToWatchlist(movie.id, this.props.userId)
+											}
+										>
+											<Text style={[styles.text, styles.button]}>
+												Add to Watchlist
+											</Text>
+										</TouchableOpacity>
+									)}
 									<TouchableOpacity
 										onPress={() =>
 											this.props.navigation.navigate('ReviewPage', {
@@ -387,18 +424,37 @@ const styles = StyleSheet.create({
 		letterSpacing: 0.4,
 		fontFamily: 'Inter-Regular',
 		lineHeight: 38
+	},
+	controlsWrapper: {
+		width: '100%',
+		flexDirection: 'row'
+	},
+	updateControlWrapper: {
+		marginLeft: 15,
+		marginTop: 5
+	},
+	updateControl: {
+		padding: 10,
+		color: 'white',
+		fontSize: 60,
+		borderRadius: 20,
+		backgroundColor: 'rgba(0, 0, 0, 0.726)'
 	}
 });
 
 const mapStateToProps = (rootState, props) => ({
 	...props,
 	movie: rootState.movie.movie,
+	status: rootState.movie.status,
 	error: rootState.movie.error,
-	loading: rootState.movie.loading
+	loading: rootState.movie.loading,
+	userId: rootState.authorization.profileInfo.id
 });
 
 const actions = {
-	fetchMovie
+	fetchMovie,
+	addToWatchlist,
+	fetchMovieStatus
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);

@@ -1,13 +1,11 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import {
-    fetchUserById
-} from '../../redux/routines';
+import { fetchUserById } from '../../redux/routines';
 import config from '../../config';
 import webApi from '../../helpers/webApi.helper';
 
 function* getSelectedUser(action) {
 	try {
-        yield put(fetchUserById.request())
+		yield put(fetchUserById.request());
 		const data = yield call(webApi, {
 			method: 'GET',
 			endpoint: config.API_URL + '/api/user/' + action.payload
@@ -20,12 +18,9 @@ function* getSelectedUser(action) {
 }
 
 function* watchFetchUserById() {
-    yield takeEvery(fetchUserById.trigger, getSelectedUser);
-} 
-
-export default function* userProfileSaga() {
-	yield all([
-		watchFetchUserById(),
-	]);
+	yield takeEvery(fetchUserById.trigger, getSelectedUser);
 }
 
+export default function* userProfileSaga() {
+	yield all([watchFetchUserById()]);
+}
