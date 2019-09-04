@@ -9,49 +9,68 @@ import {
 const initialState = {
 	followersCount: undefined,
 	followedCount: undefined,
-	followSystem: {},
-	followStatus: {}
+	followed: undefined,
+	followers: undefined,
+	followStatus: {},
+	loading: false
 };
 
 export default function(state = initialState, action) {
-	let newState;
 	switch (action.type) {
+		case fetchFollowersCount.REQUEST: 
+			return {
+				...state,
+				loading: true
+			}
 		case fetchFollowersCount.SUCCESS:
 			return {
 				...state,
-				followersCount: action.payload
+				followersCount: action.payload,
+				loading: false
 			};
+		case fetchFollowedCount.REQUEST: 
+			return {
+				...state,
+				loading: true
+			}
 		case fetchFollowedCount.SUCCESS:
 			return {
 				...state,
-				followingsCount: action.payload
+				followedCount: action.payload,
+				loading: false
 			};
+		case fetchFollowers.REQUEST: 
+			return {
+				...state,
+				loading: true
+			}
 		case fetchFollowers.SUCCESS:
 			return {
 				...state,
-				followSystem: {
-					...state.followSystem,
-					[action.payload.userId]: {
-						...state.followSystem[action.payload.userId],
-						followers: action.payload.data
-					}
-				}
+				followers: action.payload.data,
+				loading: false
 			};
+		case fetchFollowed.REQUEST: 
+			return {
+				...state,
+				loading: true
+			}
 		case fetchFollowed.SUCCESS:
 			return {
 				...state,
-				followSystem: {
-					...state.followSystem,
-					[action.payload.userId]: {
-						...state.followSystem[action.payload.userId],
-						followings: action.payload.data
-					}
-				}
+				followed: action.payload.data,
+				loading: false
 			};
+		case fetchStatus.REQUEST: 
+			return {
+				...state,
+				loading: true
+			}
 		case fetchStatus.SUCCESS:
 			return {
 				...state,
-				followStatus: { ...action.payload }
+				followStatus: { ...action.payload },
+				loading: false
 			};
 		default:
 			return state;

@@ -19,7 +19,11 @@ const THEME_COLOR = 'rgba(251,135,0,.7)';
 const FADED_THEME_COLOR = '#fff';
 const TAB_HEIGHT = 49;
 
-class UserPageTest1 extends Component {
+interface IProps {
+	navigation: any
+}
+
+class UserPageTest1 extends Component<IProps> {
 	constructor(props) {
 		super(props);
 		this.nScroll.addListener(
@@ -86,7 +90,7 @@ class UserPageTest1 extends Component {
 					)}
 					style={{ zIndex: 0 }}
 				>
-					<UserProfileView />
+					<UserProfileView navigation={this.props.navigation}/>
 					<Tabs
 						prerenderingSiblingsNumber={7}
 						onChangeTab={({ i }) => {

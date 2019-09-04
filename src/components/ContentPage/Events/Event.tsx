@@ -20,7 +20,6 @@ import {
 	formatToClient
 } from '../../../services/event.service';
 import Moment from 'moment';
-import config from '../../../config';
 
 interface IVisitor {
 	event: string;

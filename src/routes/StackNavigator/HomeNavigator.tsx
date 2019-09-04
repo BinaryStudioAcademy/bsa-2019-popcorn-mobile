@@ -104,7 +104,7 @@ const HomeNavigator = createDrawerNavigator({
 	UserPage: {
 		screen: UserPage_StackNavigator,
 		navigationOptions: {
-			drawerLabel: null
+			drawerLabel: () => null
 		}
 	}
 });
