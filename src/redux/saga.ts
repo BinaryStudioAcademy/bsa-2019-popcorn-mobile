@@ -10,6 +10,9 @@ import MovieSaga from './../components/MainPage/Movie/Movie/saga';
 import TopSaga from '../components/ContentPage/Tops/sagas';
 import NotificationSaga from '../components/Notifications/sagas';
 import ReviewSaga from '../components/ReviewPage/sagas';
+import WatchlistSaga from '../components/UserPage/WatchList/sagas';
+import UserProfileSaga from '../views/UserPageView/saga';
+import FollowersSaga from '../components/Followers/sagas';
 
 export default function* rootSaga() {
 	yield all([
@@ -23,6 +26,10 @@ export default function* rootSaga() {
 		MovieSaga(),
 		TopSaga(),
 		NotificationSaga(),
-		ReviewSaga()
+		ReviewSaga(),
+		UserProfileSaga(),
+		FollowersSaga(),
+		ReviewSaga(),
+		WatchlistSaga()
 	]);
 }
