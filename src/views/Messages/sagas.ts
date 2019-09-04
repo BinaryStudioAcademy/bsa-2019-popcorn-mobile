@@ -7,19 +7,19 @@ import {
 	CREATE_CHAT,
 	CREATE_MESSAGE,
 	DELETE_MESSAGE,
-	UPDATE_MESSAGE
+	UPDATE_MESSAGE,
+	READ_MESSAGES
 } from './actionTypes';
 import webApi from '../../helpers/webApi.helper';
 import config from '../../config';
 
 export function* fetchChats(action) {
 	try {
-		// alert(JSON.stringify(action.payload));
 		const data = yield call(webApi, {
 			method: 'GET',
 			endpoint: config.API_URL + `/api/chat/${action.payload.userId}`
 		});
-		// alert(data);
+
 		yield put({
 			type: SET_CHATS,
 			payload: {
@@ -36,6 +36,7 @@ function* watchFetchChats() {
 }
 
 export function* fetchMessages(action) {
+	console.log('fetchmessages action.patyload', action.payload);
 	try {
 		const messages = yield call(webApi, {
 			method: 'GET',
@@ -51,6 +52,17 @@ export function* fetchMessages(action) {
 				chatId: action.payload.chatId
 			}
 		});
+		// const read = yield call(webApi, {
+		// 	method: 'PUT',
+		// 	endpoint: config.API_URL + `/api/chat/${action.payload.chatId}/${action.payload.userId}/read`
+		// });
+		// yield put({
+		// 	type: READ_MESSAGES,
+		// 	payload: {
+		// 		userId: action.payload.userId,
+		// 		chatId: action.payload.chatId
+		// 	}
+		// });
 	} catch (e) {
 		console.log('chat saga fetch messages:', e.message);
 	}

@@ -73,8 +73,10 @@ const OutgoingMessage: React.FC<IProps> = ({
 				<View
 					style={[
 						styles.messageWrap,
+						optionsEnabled ? { marginTop: 8, marginBottom: 8 } : null,
+						,
 						{
-							backgroundColor: editing ? '#555' : OUT_MESSAGE_BACKGROUND,
+							backgroundColor: optionsEnabled ? '#555' : OUT_MESSAGE_BACKGROUND,
 							position: 'relative',
 							alignSelf: 'flex-end'
 						}
@@ -82,7 +84,10 @@ const OutgoingMessage: React.FC<IProps> = ({
 				>
 					{!editing ? (
 						<Text
-							style={[styles.messageTextWrap, { color: OUT_MESSAGE_COLOR }]}
+							style={[
+								styles.messageTextWrap,
+								{ color: optionsEnabled ? '#fff' : OUT_MESSAGE_COLOR }
+							]}
 						>
 							{body}
 						</Text>
@@ -106,68 +111,68 @@ const OutgoingMessage: React.FC<IProps> = ({
 							}}
 						/>
 					)}
-					<Text style={[styles.messageTimeWrap, { color: OUT_MESSAGE_COLOR }]}>
+					<Text
+						style={[
+							styles.messageTimeWrap,
+							{ color: optionsEnabled ? '#fff' : OUT_MESSAGE_COLOR }
+						]}
+					>
 						{time}
 					</Text>
-				</View>
-			</TouchableWithoutFeedback>
-			{optionsEnabled && (
-				<View style={styles.editWrap}>
-					{!editing ? (
-						<Fragment>
-							<TouchableOpacity
-								style={styles.editButton}
-								onPress={() => {
-									deleteMessage(outgoingMessage.id);
-								}}
-							>
-								<FontAwesome5 name="times" color={'#fff'} size={20} />
-							</TouchableOpacity>
-							<TouchableOpacity
-								style={styles.editButton}
-								onPress={() => {
-									toggleEditing(!editing);
-								}}
-							>
-								<FontAwesome5 name="pencil-alt" color={'#fff'} size={20} />
-							</TouchableOpacity>
-						</Fragment>
-					) : (
-						<Fragment>
-							<TouchableOpacity
-								disabled={disableSend}
-								style={styles.editButton}
-								onPress={() => {
-									// alert('ALERT');
-									toggleEditing(!editing);
-									toggleOptions(!optionsEnabled);
-									editMessage();
-								}}
-							>
-								<FontAwesome
-									name="send"
-									color={disableSend ? '#fff' : INC_MESSAGE_BACKGROUND}
-									size={20}
-								/>
-							</TouchableOpacity>
-							<TouchableOpacity
-								style={styles.editButton}
-								onPress={() => {
-									onMessageChange(body);
-									toggleEditing(!editing);
-									toggleOptions(!optionsEnabled);
-								}}
-							>
-								<MaterialCommunityIcons
-									name="cancel"
-									color={'#fff'}
-									size={20}
-								/>
-							</TouchableOpacity>
-						</Fragment>
+					{optionsEnabled && (
+						<View style={styles.editWrap}>
+							{!editing ? (
+								<Fragment>
+									<TouchableOpacity
+										onPress={() => {
+											deleteMessage(outgoingMessage.id);
+										}}
+									>
+										<FontAwesome5 name="times" color={'#555'} size={15} />
+									</TouchableOpacity>
+									<TouchableOpacity
+										onPress={() => {
+											toggleEditing(!editing);
+										}}
+									>
+										<FontAwesome5 name="pencil-alt" color={'#555'} size={15} />
+									</TouchableOpacity>
+								</Fragment>
+							) : (
+								<Fragment>
+									<TouchableOpacity
+										disabled={disableSend}
+										onPress={() => {
+											toggleEditing(!editing);
+											toggleOptions(!optionsEnabled);
+											editMessage();
+										}}
+									>
+										<FontAwesome
+											name="check"
+											color={disableSend ? '#555' : INC_MESSAGE_BACKGROUND}
+											size={15}
+										/>
+									</TouchableOpacity>
+									<TouchableOpacity
+										onPress={() => {
+											onMessageChange(body);
+											toggleEditing(!editing);
+											toggleOptions(!optionsEnabled);
+										}}
+									>
+										<MaterialCommunityIcons
+											name="cancel"
+											color={'#555'}
+											size={15}
+										/>
+									</TouchableOpacity>
+								</Fragment>
+							)}
+						</View>
 					)}
 				</View>
-			)}
+			</TouchableWithoutFeedback>
 		</Fragment>
 	);
 };
