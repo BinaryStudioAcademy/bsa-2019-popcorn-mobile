@@ -20,19 +20,26 @@ interface IProps {
 	createMessage: (userId: string, chatId: string, body: string) => void;
 	chatId: string;
 	userId: string;
+	scrollToEnd: () => any;
 }
 
 interface IState {
 	newMessage: string;
 }
 
-const NewMessage: React.FC<IProps> = ({ chatId, userId, createMessage }) => {
+const NewMessage: React.FC<IProps> = ({
+	chatId,
+	userId,
+	createMessage,
+	scrollToEnd
+}) => {
 	const [message, changeMessage] = useState('');
 
 	const sendMessage = () => {
 		if (message.trim() === '') return;
 		changeMessage('');
 		createMessage(userId, chatId, message);
+		scrollToEnd();
 	};
 
 	const onMessageChange = text => {
@@ -94,7 +101,7 @@ const styles = StyleSheet.create({
 		marginRight: 10
 	},
 	messageStroke: {
-		marginTop: 10,
+		// marginTop: 10,
 		backgroundColor: '#dadada',
 		height: 2,
 		width: '100%'

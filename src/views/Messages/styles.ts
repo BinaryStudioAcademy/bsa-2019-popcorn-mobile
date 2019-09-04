@@ -12,7 +12,13 @@ export const styles = StyleSheet.create({
 	},
 	messagesContainer: {
 		justifyContent: 'center',
-		padding: 10
+		padding: 10,
+		flex: 0.9,
+		paddingBottom: 0,
+		paddingTop: 0
+		// height: 60
+		// flex: 7
+		// paddingBottom: 20
 	},
 
 	messageInfo: {
@@ -63,22 +69,20 @@ export const styles = StyleSheet.create({
 		width: '100%'
 	},
 	sendMessageWrap: {
-		height: '10%'
+		// marginTop: 10,
+		flex: 0.1
+		// height: 60
 	},
 	editWrap: {
 		position: 'absolute',
-		height: 30,
-		right: 10,
-		width: 60,
-		top: -5,
-		backgroundColor: 'rgba(17,17,17,0.5)',
-		padding: 5,
+		height: 20,
+		right: 0,
+		width: 40,
+		top: -20,
+		padding: 3,
 		zIndex: 10,
 		flexDirection: 'row',
 		justifyContent: 'space-between'
-	},
-	editButton: {
-		// marginBottom: 8
 	},
 	messageTimeWrap: {
 		fontFamily: 'Inter-Regular',
@@ -121,6 +125,7 @@ export const styles = StyleSheet.create({
 	partnerWrap: {
 		flexDirection: 'row',
 		padding: 10,
+		marginBottom: 2,
 		alignItems: 'center',
 		width: '100%',
 		backgroundColor: OUT_MESSAGE_BACKGROUND

@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
 	fetchChats,
 	addMessage,
 	deleteMessageStore,
-	updateMessageStore
+	updateMessageStore,
+	addUnreadMessage
 } from './actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,15 +14,18 @@ import { Spinner } from 'native-base';
 import config from '../../config';
 import moment from 'moment';
 import SocketService from '../../helpers/socket.helper';
+import { INC_MESSAGE_BACKGROUND, INC_MESSAGE_COLOR } from './styles';
 
 interface IProps {
 	fetchChats: (userId) => void;
 	chats: any;
-	userId: string;
+	userProfile: any;
 	isLoadingList: boolean;
 	addMessage: (any) => void;
 	deleteMessageStore: (chatId, messageId) => void;
 	updateMessageStore: (chatId, message) => void;
+	addUnreadMessage: (chatId) => void;
+
 	navigation: any;
 }
 interface IState {}
@@ -39,11 +43,17 @@ class ChatPage extends React.Component<IProps, IState> {
 		this.addSocketEvents();
 	}
 	addSocketEvents = () => {
-		SocketService.join(this.props.userId);
+		SocketService.join(this.props.userProfile.id);
 		const { chats } = this.props;
 		if (Object.keys(chats).length > 0) {
 			Object.keys(chats).forEach(SocketService.join);
-			SocketService.on('new-message', this.props.addMessage);
+			SocketService.on('new-message', message => {
+				const chatId = message.chat.id;
+				this.props.addMessage(message);
+				if (message.user.id !== this.props.userProfile.id) {
+					this.props.addUnreadMessage(chatId);
+				}
+			});
 			SocketService.on('delete-message', ({ chatId, messageId }) =>
 				this.props.deleteMessageStore(chatId, messageId)
 			);
@@ -53,7 +63,7 @@ class ChatPage extends React.Component<IProps, IState> {
 		}
 	};
 	componentDidMount() {
-		this.props.fetchChats(this.props.userId);
+		this.props.fetchChats(this.props.userProfile.id);
 	}
 	render() {
 		if (
@@ -62,19 +72,19 @@ class ChatPage extends React.Component<IProps, IState> {
 			!this.props.chats
 		)
 			return <Spinner />;
-		const { navigation } = this.props;
 		const chats = Object.values(this.props.chats);
-
-		const messages = mockMessages;
+		console.log('[INDEX] CHATS = ', chats);
 		return (
-			<View style={styles.container}>
-				{/* <Text style={styles.chatTitle}>Chats Screen</Text> */}
+			<ScrollView contentContainerStyle={styles.container}>
 				{chats.map((chat: any, id) => {
-					let { avatar, name } = chat.user;
-					let { body, created_at } = chat.lastMessage;
+					let isOwn = chat.lastMessage.user.id === this.props.userProfile.id;
+					let { avatar } = chat.user;
+					// let avatar = isOwn ? this.props.userProfile.avatar : chat.user.avatar;
+					let name = isOwn ? 'You' : chat.user.name;
+					let { body, created_at, isRead } = chat.lastMessage;
 					let time = moment(created_at)
 						.utc()
-						.format('hh:mm A');
+						.format('D.MM.YY');
 					return (
 						<Fragment key={chat.id}>
 							<TouchableOpacity
@@ -93,17 +103,47 @@ class ChatPage extends React.Component<IProps, IState> {
 								</View>
 								<View style={styles.messageContent}>
 									<View style={styles.messageInfo}>
-										<Text style={styles.messageName}>{name}</Text>
-										<Text style={styles.messageTime}>{time}</Text>
+										<Text
+											style={[
+												styles.messageName,
+												!isRead && !isOwn ? { fontWeight: '700' } : null
+											]}
+										>
+											{name}
+										</Text>
+										<Text
+											style={[
+												styles.messageTime,
+												!isRead && !isOwn ? { fontWeight: '700' } : null
+											]}
+										>
+											{time}
+										</Text>
 									</View>
-									<Text style={styles.messageText}>{body}</Text>
+
+									<Text
+										numberOfLines={2}
+										style={[
+											styles.messageText,
+											!isRead && !isOwn ? { fontWeight: '700' } : null
+										]}
+									>
+										{body.length < 35
+											? `${body}`
+											: `${body.substring(0, 92)}...`}
+									</Text>
 								</View>
+								{!isRead && !isOwn && (
+									<View style={styles.notification}>
+										<Text style={styles.notificationNum}>10</Text>
+									</View>
+								)}
 							</TouchableOpacity>
 							<View style={styles.chatStroke}></View>
 						</Fragment>
 					);
 				})}
-			</View>
+			</ScrollView>
 		);
 	}
 }
@@ -111,6 +151,21 @@ class ChatPage extends React.Component<IProps, IState> {
 const styles = StyleSheet.create({
 	container: {
 		justifyContent: 'center'
+	},
+	notificationNum: {
+		color: INC_MESSAGE_COLOR,
+		fontSize: 12
+	},
+	notification: {
+		width: 25,
+		height: 25,
+		borderRadius: 25 / 2,
+		backgroundColor: INC_MESSAGE_BACKGROUND,
+		position: 'absolute',
+		right: 15,
+		justifyContent: 'center',
+		alignItems: 'center',
+		bottom: 5
 	},
 	chatAvatarWrap: {
 		flex: 1
@@ -126,7 +181,7 @@ const styles = StyleSheet.create({
 	},
 	chatItem: {
 		flexDirection: 'row',
-		padding: 15,
+		padding: 13,
 		alignItems: 'center'
 	},
 	chatContent: {},
@@ -135,10 +190,12 @@ const styles = StyleSheet.create({
 		fontSize: 13
 	},
 	messageContent: {
-		flex: 7
+		flex: 7,
+		position: 'relative'
 	},
 	messageInfo: {
 		flexDirection: 'row',
+
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		marginBottom: 5
@@ -147,16 +204,19 @@ const styles = StyleSheet.create({
 		fontFamily: 'Inter-Regular',
 		fontWeight: '300',
 		color: '#555',
-		fontSize: 13
+
+		fontSize: 13,
+		paddingRight: 10
 	},
 	messageText: {
 		fontFamily: 'Inter-Regular',
-		fontSize: 13
+		fontSize: 13,
+		fontWeight: '400'
 	},
 	messageName: {
-		fontFamily: 'Inter-Medium',
+		fontFamily: 'Inter-Regular',
 		fontSize: 14,
-		fontWeight: '600'
+		fontWeight: '500'
 	},
 	messageAvatarWrap: {
 		flex: 1
@@ -177,7 +237,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (rootState, props) => ({
 	...props,
 	chats: rootState.chat.chats,
-	userId: rootState.authorization.profileInfo.id,
+	userProfile: rootState.authorization.profileInfo,
 	isLoadingList: rootState.chat.isLoadingList
 });
 
@@ -185,7 +245,8 @@ const actions = {
 	fetchChats,
 	addMessage,
 	deleteMessageStore,
-	updateMessageStore
+	updateMessageStore,
+	addUnreadMessage
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
