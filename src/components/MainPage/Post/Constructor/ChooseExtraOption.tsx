@@ -5,14 +5,14 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import {
 	fetchEvents,
-	fetchUserEvents,
-	fetchUserSurveys,
-	fetchUserTops
+	fetchTops,
+	fetchUserSurveys
 } from '../../../../redux/routines';
 import SvgUri from 'react-native-svg-uri';
 import IUser from '../../../UserPage/IUser';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
+import { fetchSurveys } from '../../../ContentPage/Surveys/actions';
 
 interface IProps {
 	events: any;
@@ -20,8 +20,8 @@ interface IProps {
 	tops: any;
 	profileInfo: IUser;
 	fetchUserEvents: () => any;
-	fetchUserSurveys: (id: string) => any;
-	fetchUserTops: (id: string) => any;
+	fetchUserSurveys: () => any;
+	fetchUserTops: () => any;
 	navigation: any;
 	loading: boolean;
 	loadingEvent: boolean;
@@ -47,12 +47,12 @@ class ChooseExtraOption extends React.Component<IProps> {
 			case 'survey':
 				const { surveys, fetchUserSurveys } = this.props;
 				if (!surveys) {
-					fetchUserSurveys(profileInfo.id);
+					fetchUserSurveys();
 				} else options = surveys;
 				break;
 			case 'top':
 				const { tops, fetchUserTops } = this.props;
-				if (!tops) fetchUserTops(profileInfo.id);
+				if (!tops || tops.length === 0) fetchUserTops();
 				options = tops;
 				break;
 		}
@@ -87,16 +87,17 @@ const mapStateToProps = (rootState, props) => ({
 	...props,
 	profileInfo: rootState.authorization.profileInfo,
 	events: rootState.events.events,
-	surveys: rootState.userEvents.surveys,
-	tops: rootState.userEvents.tops,
+	surveys: rootState.survey.surveys,
+	tops: rootState.tops.tops,
 	loading: rootState.userEvents.loading,
-	loadingEvent: rootState.events.loading
+	loadingEvent: rootState.events.loading,
+	loadingTop: rootState.tops.loading
 });
 
 const actions = {
 	fetchUserEvents: fetchEvents,
-	fetchUserSurveys,
-	fetchUserTops
+	fetchUserSurveys: fetchSurveys,
+	fetchUserTops: fetchTops
 };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
