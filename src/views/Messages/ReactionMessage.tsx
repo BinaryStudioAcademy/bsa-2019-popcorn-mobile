@@ -1,12 +1,5 @@
-import React, { Component, Fragment } from 'react';
-import {
-	Text,
-	View,
-	StyleSheet,
-	Image,
-	ScrollView,
-	TextInput
-} from 'react-native';
+import React from 'react';
+import { Text, View, StyleSheet, Image } from 'react-native';
 
 interface IProps {
 	message: any;
@@ -160,8 +153,6 @@ const styles = StyleSheet.create({
 		borderRadius: 20
 	},
 	ownReactionStoryWrap: {
-		// flexDirection: 'row',
-		// alignItems: 'center',
 		alignItems: 'flex-end'
 	},
 	ownReactionReply: {
