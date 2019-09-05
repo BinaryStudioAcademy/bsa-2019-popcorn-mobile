@@ -13,12 +13,12 @@ const UserProfileNavigation = createStackNavigator({
 			header: null
 		}
 	},
-    Follows: {
-        screen: FollowersNavigator,
-        navigationOptions: {
-            header: null
-        }
-    }
+	Follows: {
+		screen: FollowersNavigator,
+		navigationOptions: {
+			header: null
+		}
+	}
 });
 
 export default UserProfileNavigation;
