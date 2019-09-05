@@ -30,7 +30,6 @@ const getEmoji = reactionType => {
 
 export const ReactionMessage: React.FC<IProps> = ({ message, isOwn }) => {
 	const { reactionType, story, body } = message;
-	console.log('message reaction=', message);
 	return (
 		<View
 			style={
@@ -38,7 +37,7 @@ export const ReactionMessage: React.FC<IProps> = ({ message, isOwn }) => {
 			}
 		>
 			<Text style={!isOwn ? styles.reactionReply : styles.ownReactionReply}>
-				{isOwn ? 'Replying to story' : 'Replies your story'}
+				{isOwn ? 'Reacted to story' : 'Reacted to your story'}
 			</Text>
 			<View
 				style={!isOwn ? styles.reactionStoryWrap : styles.ownReactionStoryWrap}
