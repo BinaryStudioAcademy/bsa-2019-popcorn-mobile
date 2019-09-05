@@ -41,9 +41,15 @@ class MoviePreview extends Component<IMovieProps> {
 		const parsedCast = JSON.parse(cast).map(actor => actor.name);
 		return (
 			<TouchableOpacity
-				onPress={() =>
-					this.props.navigation.navigate('Movie', { id: this.props.movie.id })
-				}
+				onPress={() => {
+					const state = this.props.navigation.state;
+					if (!state.params || !state.params.onSave)
+					this.props.navigation.navigate('Movie', { id: this.props.movie.id });
+					else if (state.params.onSave) {
+						state.params.onSave(String(this.props.movie.id));
+						this.props.navigation.navigate('Constructor', { movieId: this.props.movie.id })
+					}
+				}}
 			>
 				<View style={styles.movieWrapper}>
 					<ImageBackground
