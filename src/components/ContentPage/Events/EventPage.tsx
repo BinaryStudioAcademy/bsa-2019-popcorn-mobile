@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-	fetchEventById
-} from '../../../redux/routines';
+import { fetchEventById } from '../../../redux/routines';
 
 import {
 	ScrollView,
@@ -19,7 +17,7 @@ import Spinner from '../../Spinner/Spinner';
 interface IProps {
 	navigation: any;
 	event: any;
-	fetchEventById: (string) => any
+	fetchEventById: (string) => any;
 }
 
 const EventPage: React.FC<IProps> = props => {
@@ -28,12 +26,13 @@ const EventPage: React.FC<IProps> = props => {
 		const eventId = props.navigation.state.params.eventId;
 		if (!props.event || props.event.id !== eventId) {
 			props.fetchEventById(props.navigation.state.params.eventId);
-			return <Spinner />
+			return <Spinner />;
 		} else event = props.event;
 	}
 
-	if (props.navigation.state.params.event) event = props.navigation.state.params.event;
-	
+	if (props.navigation.state.params.event)
+		event = props.navigation.state.params.event;
+
 	const {
 		title,
 		description,

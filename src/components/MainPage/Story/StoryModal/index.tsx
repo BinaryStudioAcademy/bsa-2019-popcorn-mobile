@@ -262,7 +262,11 @@ class StoryModal extends Component<IProps, IState> {
 						<TouchableOpacity
 							onPress={() => {
 								this.setState(state => ({
-									newStory: { ...state.newStory, image_url: '', backgroundColor:'#adadad' }
+									newStory: {
+										...state.newStory,
+										image_url: '',
+										backgroundColor: '#adadad'
+									}
 								}));
 							}}
 							style={styles.deleteImageIcon}

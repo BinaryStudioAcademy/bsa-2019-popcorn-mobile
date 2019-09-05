@@ -8,21 +8,19 @@ import { fetchUser } from '../redux/routines';
 import navigationService from '../services/navigation.service';
 import SocketHelper from '../helpers/socket.helper';
 
-
 type userInfo = {
-    id: string;
-    name: string;
-    image: string;
-    any;
+	id: string;
+	name: string;
+	image: string;
+	any;
 };
 interface IProps {
-    isAuthorized: boolean;
-    fetchUser: (string) => void;
-    userInfo: userInfo | null;
+	isAuthorized: boolean;
+	fetchUser: (string) => void;
+	userInfo: userInfo | null;
 }
 
 class Root extends Component<IProps> {
-
 	componentDidMount() {
 		Storage.get('token').then(value => {
 			if (value && !this.props.isAuthorized) {
@@ -43,7 +41,7 @@ class Root extends Component<IProps> {
 
 	render() {
 		const { userInfo } = this.props;
-        if(userInfo) new SocketHelper(userInfo.id)
+		if (userInfo) new SocketHelper(userInfo.id);
 		return (
 			<AppNavigator
 				ref={navigatorRef => {

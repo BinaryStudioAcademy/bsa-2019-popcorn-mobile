@@ -17,6 +17,7 @@ import UserPageView from '../../views/UserPageView/UserPageView';
 import ReviewPage from '../../components/ReviewPage/ReviewPage';
 import Messages from '../../views/Messages/Messages';
 import Chats from '../../views/Messages/';
+import UserProfileNavigation from './UserProfileNavigator';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -129,7 +130,7 @@ export const Notifications_Navigator = createStackNavigator({
 });
 export const UserPage_StackNavigator = createStackNavigator({
 	Fourth: {
-		screen: UserPageView,
+		screen: UserProfileNavigation,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})
@@ -140,7 +141,7 @@ export const Review_StackNavigator = createStackNavigator({
 	ReviewPage: {
 		screen: ReviewPage,
 		navigationOptions: ({ navigation }) => ({
-			header: Header
+			header: null
 		})
 	}
 });
