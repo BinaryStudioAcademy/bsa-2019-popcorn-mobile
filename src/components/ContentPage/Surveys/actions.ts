@@ -16,7 +16,7 @@ export const fetchUserSurveys = id => {
 	};
 };
 
-export const fetchSurveys = id => {
+export const fetchSurveys = () => {
 	return {
 		type: FETCH_SURVEYS
 	};

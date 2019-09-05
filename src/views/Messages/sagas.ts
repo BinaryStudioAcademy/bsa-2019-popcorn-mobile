@@ -19,7 +19,7 @@ export function* fetchChats(action) {
 			method: 'GET',
 			endpoint: config.API_URL + `/api/chat/${action.payload.userId}`
 		});
-
+		console.log(data);
 		yield put({
 			type: SET_CHATS,
 			payload: {
@@ -76,6 +76,14 @@ export function* createChat(action) {
 				user2Id: action.payload.user2Id
 			}
 		});
+		yield put({
+			type: CREATE_MESSAGE,
+			payload: {
+				userId: action.payload.user1Id,
+				chatId: response.chatId,
+				body: { ...action.payload.newMessage }
+			}
+		});
 	} catch (e) {
 		console.log('chat saga create chat:', e.message);
 	}
@@ -93,7 +101,7 @@ export function* createMessage(action) {
 				config.API_URL +
 				`/api/chat/${action.payload.userId}/${action.payload.chatId}`,
 			body: {
-				body: action.payload.body
+				...action.payload.body
 			}
 		});
 	} catch (e) {

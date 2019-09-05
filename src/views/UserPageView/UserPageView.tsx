@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Test3 from './Test3'; //Tried Pure Parallax Scroll View
-import Test4 from './Test4/Test4'; //Tried Animated React Native
 import Test1 from './Test1'; //Tried Animated React Native
 import Spinner from '../../components/Spinner/Spinner';
 import { View } from 'react-native';
