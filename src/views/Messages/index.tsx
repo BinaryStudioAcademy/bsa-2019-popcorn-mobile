@@ -24,7 +24,7 @@ interface IProps {
 	addMessage: (any) => void;
 	deleteMessageStore: (chatId, messageId) => void;
 	updateMessageStore: (chatId, message) => void;
-	addUnreadMessage: (chatId) => void;
+	addUnreadMessage: (chatId, message) => void;
 
 	navigation: any;
 }
@@ -48,10 +48,11 @@ class ChatPage extends React.Component<IProps, IState> {
 		if (Object.keys(chats).length > 0) {
 			Object.keys(chats).forEach(SocketService.join);
 			SocketService.on('new-message', message => {
+				console.log('new-messaage add socket message', message);
 				const chatId = message.chat.id;
-				this.props.addMessage(message);
+				// this.props.addMessage(message);
 				if (message.user.id !== this.props.userProfile.id) {
-					this.props.addUnreadMessage(chatId);
+					this.props.addUnreadMessage(chatId, message);
 				}
 			});
 			SocketService.on('delete-message', ({ chatId, messageId }) =>
@@ -82,10 +83,12 @@ class ChatPage extends React.Component<IProps, IState> {
 					let {
 						body,
 						created_at,
-						isRead,
+						// isRead,
 						reactionType,
 						story
 					} = chat.lastMessage;
+					console.log('[INDEX] chat', chat);
+					let isRead = !chat.unreadMessagesCount;
 					let time = moment(created_at)
 						.utc()
 						.format('D.MM.YY');

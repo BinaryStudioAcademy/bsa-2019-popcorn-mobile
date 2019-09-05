@@ -37,12 +37,13 @@ function* watchFetchChats() {
 
 export function* fetchMessages(action) {
 	try {
-		yield call(webApi, {
+		const resp = yield call(webApi, {
 			method: 'PUT',
 			endpoint:
 				config.API_URL +
 				`/api/chat/${action.payload.chatId}/${action.payload.userId}/read`
 		});
+		console.log('RESP=', resp);
 		const messages = yield call(webApi, {
 			method: 'GET',
 			endpoint:
@@ -54,6 +55,13 @@ export function* fetchMessages(action) {
 			type: SET_MESSAGES,
 			payload: {
 				messages,
+				chatId: action.payload.chatId
+			}
+		});
+		yield put({
+			type: READ_MESSAGES,
+			payload: {
+				userId: action.payload.user1Id,
 				chatId: action.payload.chatId
 			}
 		});
