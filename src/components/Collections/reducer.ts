@@ -6,14 +6,14 @@ import {
 } from '../../redux/routines';
 
 interface IReducerState {
-	isLoading: boolean;
+	loading: boolean;
 	movieListsPreview?: Array<any>;
 	movieListDetails?: any;
 	selectedPreviewUserId?: string;
 }
 
 const initialState: IReducerState = {
-	isLoading: false,
+	loading: false,
 	movieListsPreview: undefined,
 	movieListDetails: undefined,
 	selectedPreviewUserId: undefined
@@ -22,12 +22,12 @@ const initialState: IReducerState = {
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case fetchCollectionPreview.REQUEST:
-			return { ...state, isLoading: true };
+			return { ...state, loading: true };
 
 		case fetchCollectionPreview.SUCCESS:
 			return {
 				...state,
-				isLoading: false,
+				loading: false,
 				movieListsPreview: action.payload.movieListsPreview,
 				selectedPreviewUserId: action.payload.selectedPreviewUserId
 			};
@@ -46,7 +46,7 @@ export default (state = initialState, action) => {
 		case saveCollection.REQUEST:
 			return {
 				...state,
-				isLoading: true
+				loading: true
 			};
 
 		case saveCollection.SUCCESS:
@@ -57,19 +57,19 @@ export default (state = initialState, action) => {
 					action.payload.newMovieList,
 					...state.movieListsPreview
 				],
-				isLoading: false
+				loading: false
 			};
 
 		case fetchCollectionDetails.REQUEST:
 			return {
 				...state,
-				isLoading: true
+				loading: true
 			};
 
 		case fetchCollectionDetails.SUCCESS:
 			return {
 				...state,
-				isLoading: false,
+				loading: false,
 				movieListDetails: action.payload.movieListDetails
 			};
 
