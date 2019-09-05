@@ -43,7 +43,7 @@ class ChatPage extends React.Component<IProps, IState> {
 		this.addSocketEvents();
 	}
 	addSocketEvents = () => {
-		SocketService.join(this.props.userProfile.id);
+		// SocketService.join(this.props.userProfile.id);
 		const { chats } = this.props;
 		if (Object.keys(chats).length > 0) {
 			Object.keys(chats).forEach(SocketService.join);
@@ -135,7 +135,9 @@ class ChatPage extends React.Component<IProps, IState> {
 								</View>
 								{!isRead && !isOwn && (
 									<View style={styles.notification}>
-										<Text style={styles.notificationNum}>10</Text>
+										<Text style={styles.notificationNum}>
+											{chat.unreadMessagesCount}
+										</Text>
 									</View>
 								)}
 							</TouchableOpacity>

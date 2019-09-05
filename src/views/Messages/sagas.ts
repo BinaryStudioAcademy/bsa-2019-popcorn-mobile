@@ -38,6 +38,12 @@ function* watchFetchChats() {
 export function* fetchMessages(action) {
 	console.log('fetchmessages action.patyload', action.payload);
 	try {
+		yield call(webApi, {
+			method: 'PUT',
+			endpoint:
+				config.API_URL +
+				`/api/chat/${action.payload.chatId}/${action.payload.userId}/read`
+		});
 		const messages = yield call(webApi, {
 			method: 'GET',
 			endpoint:
@@ -52,17 +58,6 @@ export function* fetchMessages(action) {
 				chatId: action.payload.chatId
 			}
 		});
-		// const read = yield call(webApi, {
-		// 	method: 'PUT',
-		// 	endpoint: config.API_URL + `/api/chat/${action.payload.chatId}/${action.payload.userId}/read`
-		// });
-		// yield put({
-		// 	type: READ_MESSAGES,
-		// 	payload: {
-		// 		userId: action.payload.userId,
-		// 		chatId: action.payload.chatId
-		// 	}
-		// });
 	} catch (e) {
 		console.log('chat saga fetch messages:', e.message);
 	}

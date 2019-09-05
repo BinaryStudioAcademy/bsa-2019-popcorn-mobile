@@ -30,6 +30,7 @@ interface IProps {
 }
 import { NewDate } from './NewDate';
 import { Partner } from './Partner';
+import { ReactionMessage } from './ReactionMessage';
 
 interface IState {
 	scrolling: boolean;
@@ -42,7 +43,6 @@ class Messages extends React.Component<IProps, IState> {
 		};
 	}
 	componentDidUpdate(prevProps) {
-		console.log('this.props', this.props);
 		if (
 			!this.state.scrolling &&
 			this.props.chat &&
@@ -51,7 +51,6 @@ class Messages extends React.Component<IProps, IState> {
 			prevProps.chat.messages &&
 			this.props.chat.messages.length > prevProps.chat.messages.length
 		) {
-			console.log('SCROLL', this.props);
 			this.setState({ scrolling: true });
 		}
 	}
@@ -67,13 +66,15 @@ class Messages extends React.Component<IProps, IState> {
 			.endOf('day');
 
 		let newDate = '';
-		if (moment(date) > yesterday) newDate = 'Today';
-		else if (moment(date) < yesterday && moment(date) > beforeYesterday)
+		if (moment(date) > yesterday) {
+			newDate = 'Today';
+		} else if (moment(date) < yesterday && moment(date) > beforeYesterday) {
 			newDate = 'Yesterday';
-		else
+		} else {
 			newDate = moment(date)
 				.utc()
 				.format('D MMMM');
+		}
 		return newDate;
 	}
 	render() {
@@ -87,7 +88,7 @@ class Messages extends React.Component<IProps, IState> {
 		if (!this.props.chat.messages) {
 			return <Spinner />;
 		}
-		console.log('[MESSAGES] this.props.chat', this.props.chat);
+
 		const { messages } = this.props.chat;
 		let tmpDate = '';
 		return (
@@ -107,6 +108,7 @@ class Messages extends React.Component<IProps, IState> {
 						{messages.map((message: any, id) => {
 							const date = new Date(message.created_at);
 							let newDate = this.getNewDate(date);
+							let isReaction = message.reactionType || message.story;
 							const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
 							const isMyMessage = message.user.id === this.props.userId;
 							if (currentDate !== tmpDate) {
@@ -114,6 +116,13 @@ class Messages extends React.Component<IProps, IState> {
 								return isMyMessage ? (
 									<View>
 										<NewDate newDate={newDate} />
+										{isReaction ? (
+											<ReactionMessage
+												key={message.id}
+												message={message}
+												isOwn={isMyMessage}
+											/>
+										) : null}
 										<OutgoingMessage
 											key={message.id}
 											outgoingMessage={message}
@@ -122,6 +131,13 @@ class Messages extends React.Component<IProps, IState> {
 								) : (
 									<View>
 										<NewDate newDate={newDate} />
+										{isReaction ? (
+											<ReactionMessage
+												key={message.id}
+												message={message}
+												isOwn={isMyMessage}
+											/>
+										) : null}
 										<IncomingMessage
 											key={message.id}
 											outgoingMessage={message}
@@ -129,10 +145,27 @@ class Messages extends React.Component<IProps, IState> {
 									</View>
 								);
 							} else {
-								return isMyMessage ? (
-									<OutgoingMessage key={message.id} outgoingMessage={message} />
-								) : (
-									<IncomingMessage key={message.id} outgoingMessage={message} />
+								return (
+									<Fragment>
+										{isReaction ? (
+											<ReactionMessage
+												key={message.id}
+												message={message}
+												isOwn={isMyMessage}
+											/>
+										) : null}
+										{isMyMessage ? (
+											<OutgoingMessage
+												key={message.id}
+												outgoingMessage={message}
+											/>
+										) : (
+											<IncomingMessage
+												key={message.id}
+												outgoingMessage={message}
+											/>
+										)}
+									</Fragment>
 								);
 							}
 						})}

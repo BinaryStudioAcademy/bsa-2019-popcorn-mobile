@@ -12,15 +12,15 @@ import {
 	Movies_StackNavigator,
 	Notifications_Navigator,
 	UserPage_StackNavigator,
-	Review_StackNavigator
+	Review_StackNavigator,
+	FirstActivity_StackNavigator
 } from './MenuNavigators';
 import StoryComponent from './../../components/MainPage/Story/StoryCarousel/StoryCarousel';
 import PostConstructorNavigator from './PostConstructorNavigator';
 
 const HomeNavigator = createDrawerNavigator({
 	Home: {
-		// screen: FirstActivity_StackNavigator,
-		screen: Messages_StackNavigator,
+		screen: FirstActivity_StackNavigator,
 		navigationOptions: {
 			drawerLabel: 'Home'
 		}

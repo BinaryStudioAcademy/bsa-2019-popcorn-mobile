@@ -95,7 +95,6 @@ const OutgoingMessage: React.FC<IProps> = ({
 						<TextInput
 							textAlignVertical={'top'}
 							multiline={true}
-							// numberOfLines={4}
 							placeholder={'Edit a message'}
 							placeholderTextColor={'#383838'}
 							selectTextOnFocus={true}
