@@ -55,18 +55,18 @@ const TopPage: React.FC<IProps> = ({ navigation }) => {
 						key={i}
 						onPress={() => { navigation.navigate('Movie', { id:  movie.movieId})  }}
 					>
-						<Image
+						{/* <Image
 							source={{
 								uri:
 									config.POSTER_PATH + movie.movie.poster_path || config.DEFAULT_MOVIE_IMAGE
 							}}
 							style={styles.poster}
 							resizeMode="contain"
-						/>
+						/> */}
 						<View style={{ marginLeft: 15, flex: 1 }}>
 							<View style={styles.titleContainer}>
 								<Text style={[styles.text, styles.number]}>{i + 1}</Text> 
-								<Text style={[styles.text, styles.movieTitle]}>{movie.movie.title}</Text>
+								{/* <Text style={[styles.text, styles.movieTitle]}>{movie.movie.title}</Text> */}
 							</View>
 							<Text style={[styles.text, styles.comment]}>{movie.comment}</Text>
 							<TouchableWithoutFeedback>
