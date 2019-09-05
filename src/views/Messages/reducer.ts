@@ -62,6 +62,9 @@ export default function(state = initialState, action) {
 			const chatId = newMessage.chat.id;
 			delete newMessage.chat;
 
+			if (!state.chats[chatId].messages) {
+				return { ...state };
+			}
 			return {
 				...state,
 				chats: {
@@ -121,16 +124,17 @@ export default function(state = initialState, action) {
 			};
 		case READ_MESSAGES:
 			const { chatId: id_chat, userId } = action.payload;
-			const filteredUnreadMessages = state.chats[id_chat].unreadMessages.filter(
-				message => message.chatId !== id_chat && message.user.id === userId
-			);
+			if (!state.chats[id_chat]) {
+				return { ...state };
+			}
+
 			return {
 				...state,
 				chats: {
 					...state.chats,
 					[id_chat]: {
 						...state.chats[id_chat],
-						unreadMessages: [...filteredUnreadMessages]
+						unreadMessagesCount: 0
 					}
 				}
 			};
