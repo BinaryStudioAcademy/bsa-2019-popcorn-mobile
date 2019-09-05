@@ -36,7 +36,6 @@ function* watchFetchChats() {
 }
 
 export function* fetchMessages(action) {
-	console.log('fetchmessages action.patyload', action.payload);
 	try {
 		yield call(webApi, {
 			method: 'PUT',
