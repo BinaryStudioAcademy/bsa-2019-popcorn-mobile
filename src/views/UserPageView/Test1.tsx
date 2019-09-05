@@ -20,7 +20,7 @@ const FADED_THEME_COLOR = '#fff';
 const TAB_HEIGHT = 49;
 
 interface IProps {
-	navigation: any
+	navigation: any;
 }
 
 class UserPageTest1 extends Component<IProps> {
@@ -90,7 +90,7 @@ class UserPageTest1 extends Component<IProps> {
 					)}
 					style={{ zIndex: 0 }}
 				>
-					<UserProfileView navigation={this.props.navigation}/>
+					<UserProfileView navigation={this.props.navigation} />
 					<Tabs
 						prerenderingSiblingsNumber={7}
 						onChangeTab={({ i }) => {

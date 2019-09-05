@@ -10,6 +10,7 @@ import movieReducer from '../components/MainPage/Movie/Movie/reducer';
 import topsReducer from '../components/ContentPage/Tops/reducer';
 import notificationReducer from '../components/Notifications/reducer';
 import reviewsReducer from '../components/ReviewPage/reducer';
+import chatReducer from '../views/Messages/reducer';
 import userProfileReducer from '../views/UserPageView/reducer';
 import followersReducer from '../components/Followers/reducer';
 import watchListReducer from './../components/UserPage/WatchList/reducer';
@@ -27,6 +28,7 @@ const reducers = {
 	tops: topsReducer,
 	notifications: notificationReducer,
 	reviews: reviewsReducer,
+	chat: chatReducer,
 	userProfile: userProfileReducer,
 	followers: followersReducer,
 	watchList: watchListReducer,

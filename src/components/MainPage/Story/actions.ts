@@ -1,5 +1,6 @@
-import { ADD_STORY, SEND_STORY } from './actionTypes';
+import { ADD_STORY, SEND_STORY, SEND_VOTING } from './actionTypes';
 import INewStory from './INewStory';
+import IVoting from './Voting/IVoting';
 
 export const addStory = story => {
 	return {
@@ -15,5 +16,12 @@ export const sendStory = (story: INewStory) => {
 		payload: {
 			story
 		}
+	};
+};
+
+export const sendVoting = (voting: IVoting) => {
+	return {
+		type: SEND_VOTING,
+		payload: voting
 	};
 };

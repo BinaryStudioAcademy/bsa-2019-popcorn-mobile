@@ -1,9 +1,12 @@
 import { FlatList } from 'react-native';
 import React from 'react';
 import StoryPreview from './../StoryPreview/StoryPreview';
+
 interface IStoryListItem {
 	id: string;
 	caption: string;
+	backgroundColor: string;
+	fontColor: string;
 	image_url: string;
 	user: {
 		avatar: string;
@@ -37,6 +40,8 @@ class StoryList extends React.Component<IProps> {
 	renderStory({ item, index }, navigation) {
 		const {
 			image_url,
+			backgroundColor,
+			fontColor,
 			user: { avatar },
 			caption
 		} = item;
@@ -47,6 +52,8 @@ class StoryList extends React.Component<IProps> {
 				avatar={avatar}
 				index={index}
 				navigation={navigation}
+				backgroundColor={backgroundColor}
+				fontColor={fontColor}
 			/>
 		);
 	}
