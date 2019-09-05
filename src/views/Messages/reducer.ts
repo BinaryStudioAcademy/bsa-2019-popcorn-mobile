@@ -120,7 +120,6 @@ export default function(state = initialState, action) {
 				}
 			};
 		case READ_MESSAGES:
-			console.log('read messages reducer action', action.payload);
 			const { chatId: id_chat, userId } = action.payload;
 			const filteredUnreadMessages = state.chats[id_chat].unreadMessages.filter(
 				message => message.chatId !== id_chat && message.user.id === userId
