@@ -73,15 +73,19 @@ class ChatPage extends React.Component<IProps, IState> {
 		)
 			return <Spinner />;
 		const chats = Object.values(this.props.chats);
-		console.log('[INDEX] CHATS = ', chats);
 		return (
 			<ScrollView contentContainerStyle={styles.container}>
 				{chats.map((chat: any, id) => {
 					let isOwn = chat.lastMessage.user.id === this.props.userProfile.id;
 					let { avatar } = chat.user;
-					// let avatar = isOwn ? this.props.userProfile.avatar : chat.user.avatar;
 					let name = isOwn ? 'You' : chat.user.name;
-					let { body, created_at, isRead } = chat.lastMessage;
+					let {
+						body,
+						created_at,
+						isRead,
+						reactionType,
+						story
+					} = chat.lastMessage;
 					let time = moment(created_at)
 						.utc()
 						.format('D.MM.YY');
@@ -128,7 +132,9 @@ class ChatPage extends React.Component<IProps, IState> {
 											!isRead && !isOwn ? { fontWeight: '700' } : null
 										]}
 									>
-										{body.length < 35
+										{reactionType || story
+											? 'Reacted to story'
+											: body.length < 35
 											? `${body}`
 											: `${body.substring(0, 92)}...`}
 									</Text>
