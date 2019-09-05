@@ -66,7 +66,7 @@ class StoryCarousel extends React.Component<IProps> {
 			<Swiper
 				loop={false}
 				index={index}
-				autoplay={true}
+				autoplay={false}
 				showsPagination={false}
 				autoplayTimeout={4}
 			>
