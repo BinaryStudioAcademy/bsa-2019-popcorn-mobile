@@ -1,9 +1,13 @@
-import { Dimensions, StyleSheet, Text } from 'react-native';
 import React from 'react';
 import Story from './../Story/Story';
 import Swiper from 'react-native-swiper';
 import { connect } from 'react-redux';
-
+import { bindActionCreators } from 'redux';
+import {
+	fetchChats,
+	createChat,
+	createMessage
+} from './../../../../views/Messages/actions';
 interface IStoryListItem {
 	id: string;
 	caption: string;
@@ -34,28 +38,28 @@ interface IStoryListItem {
 interface IProps {
 	stories: Array<IStoryListItem>;
 	navigation: any;
+	userId: string;
+	chats: any;
+	fetchChats: (userId) => void;
+	createMessage: (userId: string, chatId: string, body: any) => void;
+	createChat: (userId1: string, chatId2: string) => void;
 }
 
 class StoryCarousel extends React.Component<IProps> {
+	componentDidMount() {
+		this.props.fetchChats(this.props.userId);
+	}
 	renderStory(item) {
-		const { navigation } = this.props;
-		const {
-			image_url,
-			user: { name, avatar },
-			caption,
-			backgroundColor,
-			fontColor
-		} = item;
+		const { navigation, chats, createMessage, createChat, userId } = this.props;
 		return (
 			<Story
 				key={item.id}
-				imageUrl={image_url}
-				caption={caption}
-				avatar={avatar}
-				name={name}
+				story={item}
 				navigation={navigation}
-				backgroundColor={backgroundColor}
-				fontColor={fontColor}
+				createMessage={createMessage}
+				createChat={createChat}
+				userId={userId}
+				chats={chats}
 			/>
 		);
 	}
@@ -76,11 +80,20 @@ class StoryCarousel extends React.Component<IProps> {
 	}
 }
 
-const styles = StyleSheet.create({});
-
 const mapStateToProps = (rootState, props) => ({
 	...props,
-	stories: rootState.story.stories
+	stories: rootState.story.stories,
+	userId: rootState.authorization.profileInfo.id,
+	chats: rootState.chat.chats
 });
+const actions = {
+	fetchChats,
+	createChat,
+	createMessage
+};
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
-export default connect(mapStateToProps)(StoryCarousel);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(StoryCarousel);
