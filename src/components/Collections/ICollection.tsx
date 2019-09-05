@@ -46,7 +46,7 @@ export interface IMovieListDetails {
 export interface INewMovieList {
 	title: string;
 	isPrivate: boolean;
-	despription?: string;
+	description?: string;
 	imageUrl?: string;
 	moviesId: string[];
 }
