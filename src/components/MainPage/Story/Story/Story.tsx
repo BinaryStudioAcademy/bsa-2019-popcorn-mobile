@@ -15,48 +15,83 @@ import {
 import SvgUri from 'react-native-svg-uri';
 import { captionFont } from '../StoryModal/styles';
 const { StatusBarManager } = NativeModules;
-interface IStoryListItemProps {
-	imageUrl: string;
+interface IStoryListItem {
+	id: string;
+	caption: string;
+	image_url: string;
+	user: {
+		avatar: string;
+		id: string;
+		name: string;
+		any;
+	};
 	backgroundColor: string;
 	fontColor: string;
-	avatar: string;
-	name: string;
-	caption: string;
+	type: string;
+	voting?: {
+		backColor: string;
+		backImage: string;
+		deltaPositionHeadX: number;
+		deltaPositionHeadY: number;
+		deltaPositionOptionBlockX: number;
+		deltaPositionOptionBlockY: number;
+		header: string;
+		id: string;
+		options: Array<{
+			body: string;
+			voted: number;
+		}>;
+	};
+}
+interface IStoryListItemProps {
+	story: IStoryListItem;
 	navigation: any;
+	userId: string;
+	chats: any;
+	createMessage: (userId: string, chatId: string, body: any) => void;
+	createChat: (userId1: string, chatId2: string, newMessage: any) => void;
 }
 
 const reactions = [
 	{
 		id: 1,
-		value: '😹'
+		reactionType: 'laugh',
+		value: '🤣'
 	},
 	{
 		id: 2,
-		value: '🍿'
-	},
-	{
-		id: 3,
-		value: '😍'
-	},
-	{
-		id: 4,
-		value: '😮'
-	},
-	{
-		id: 5,
+		reactionType: 'fire',
 		value: '🔥'
 	},
 	{
-		id: 6,
+		id: 3,
+		reactionType: 'claps',
 		value: '👏🏻'
 	},
 	{
+		id: 4,
+		reactionType: 'stars',
+		value: '🤩'
+	},
+	{
+		id: 5,
+		reactionType: 'cry',
+		value: '😢'
+	},
+	{
+		id: 6,
+		reactionType: 'shock',
+		value: '😳'
+	},
+	{
 		id: 7,
-		value: '🎉'
+		reactionType: 'angry',
+		value: '😡'
 	},
 	{
 		id: 8,
-		value: '🙈'
+		reactionType: 'holiday',
+		value: '🥳'
 	}
 ];
 interface IState {
@@ -82,9 +117,13 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 	}
 	renderReactions(item) {
 		return (
-			<View style={styles.reactionWrapper}>
-				<Text style={styles.reactionBody}>{item.value}</Text>
-			</View>
+			<TouchableOpacity
+				onPress={() => this.sendReactionMessage(item.reactionType)}
+			>
+				<View style={styles.reactionWrapper}>
+					<Text style={styles.reactionBody}>{item.value}</Text>
+				</View>
+			</TouchableOpacity>
 		);
 	}
 
@@ -93,6 +132,50 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 			message: value
 		});
 	}
+
+	getChatId = id => {
+		for (const chatId in this.props.chats) {
+			if (this.props.chats[chatId].user.id === id) {
+				return chatId;
+			}
+		}
+	};
+
+	sendReactionMessage(reactionType: string) {
+		const { userId, story } = this.props;
+		const chatId = this.getChatId(story.user.id);
+		// this.setState({ showReactions: false })
+		if (!chatId) {
+			this.props.createChat(userId, story.user.id, {
+				storyId: story && story.id,
+				reactionType
+			});
+			return;
+		}
+		this.props.createMessage(userId, chatId, {
+			storyId: story.id,
+			reactionType
+		});
+	}
+
+	sendMessage(message) {
+		const { userId, story } = this.props;
+		const chatId = this.getChatId(story.user.id);
+		if (message.trim() === '') return;
+		this.setState({ message: '' });
+		if (!chatId) {
+			this.props.createChat(userId, story.user.id, {
+				body: message,
+				storyId: story && story.id
+			});
+			return;
+		}
+		this.props.createMessage(userId, chatId, {
+			body: message,
+			storyId: story && story.id
+		});
+	}
+
 	renderContent(
 		imageUrl,
 		avatar,
@@ -134,6 +217,7 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 								horizontal={false}
 								numColumns={4}
 								data={reactions}
+								keyboardShouldPersistTaps={'always'}
 								// keyExtractor={item => item.id}
 								renderItem={({ item }) => this.renderReactions(item)}
 							/>
@@ -145,14 +229,21 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 							onFocus={() => this.setState({ showReactions: true })}
 							onBlur={() => this.setState({ showReactions: false })}
 							placeholderTextColor={'rgb(252, 252, 252)'}
-							onChange={value => this.changeMessageValue(value)}
+							onChangeText={value => this.changeMessageValue(value)}
 							value={message}
 							style={[styles.reactionInput, styles.reactionInputText]}
 							placeholder={`Message ${name}`}
 						/>
-						{message && (
-							<Text style={[styles.reactionInputText, styles.bold]}>Send</Text>
-						)}
+
+						{message ? (
+							<View>
+								<TouchableOpacity onPress={() => this.sendMessage(message)}>
+									<Text style={[styles.reactionInputText, styles.bold]}>
+										Send
+									</Text>
+								</TouchableOpacity>
+							</View>
+						) : null}
 					</View>
 				</View>
 			</View>
@@ -160,14 +251,13 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 	}
 	render() {
 		const {
-			imageUrl,
-			avatar,
+			image_url: imageUrl,
+			user: { name, avatar },
 			caption,
-			name,
-			navigation,
 			backgroundColor,
 			fontColor
-		} = this.props;
+		} = this.props.story;
+		const { navigation } = this.props;
 		const { showReactions, message } = this.state;
 		return this.renderContent(
 			imageUrl,
