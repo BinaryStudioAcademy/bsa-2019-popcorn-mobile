@@ -4,7 +4,6 @@ import {
 	createDrawerNavigator
 } from 'react-navigation';
 import {
-	FirstActivity_StackNavigator,
 	Messages_StackNavigator,
 	Event_StackNavigator,
 	Survey_StackNavigator,
@@ -13,7 +12,8 @@ import {
 	Movies_StackNavigator,
 	Notifications_Navigator,
 	UserPage_StackNavigator,
-	Review_StackNavigator
+	Review_StackNavigator,
+	FirstActivity_StackNavigator
 } from './MenuNavigators';
 import StoryComponent from './../../components/MainPage/Story/StoryCarousel/StoryCarousel';
 import PostConstructorNavigator from './PostConstructorNavigator';
@@ -34,9 +34,10 @@ const HomeNavigator = createDrawerNavigator({
 
 	Messages: {
 		screen: Messages_StackNavigator,
-		navigationOptions: {
-			drawerLabel: 'Messages'
-		}
+		navigationOptions: ({ navigation }) => ({
+			drawerLabel: 'Messages',
+			navigation
+		})
 	},
 
 	Events: {
