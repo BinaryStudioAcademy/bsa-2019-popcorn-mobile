@@ -19,9 +19,7 @@ class UserPosts extends Component<IProps> {
 		const { posts, getUsersPosts } = this.props;
 		return (
 			<Fragment>
-				<View>
-				
-				</View>
+				<View></View>
 				<PostComponent userId={selectedProfileInfo.id} />
 			</Fragment>
 		);
@@ -29,7 +27,8 @@ class UserPosts extends Component<IProps> {
 }
 
 const mapStateToProps = (rootState, props) => ({
-	selectedProfileInfo: rootState.authorization.profileInfo
+	currentUser: rootState.authorization.profileInfo,
+	selectedProfileInfo: rootState.userProfile.selectedUser
 });
 
 export default connect(mapStateToProps)(UserPosts);

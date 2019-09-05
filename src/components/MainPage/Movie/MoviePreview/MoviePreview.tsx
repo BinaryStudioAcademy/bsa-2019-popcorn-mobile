@@ -3,7 +3,7 @@ import config from '../../../../config';
 import {
 	Text,
 	View,
-	Image,
+	ImageBackground,
 	StyleSheet,
 	TouchableOpacity,
 	Dimensions
@@ -11,23 +11,31 @@ import {
 import IMovie from '../IMovie';
 import SvgUri from 'react-native-svg-uri';
 import getFilmDuration from './../../../../helpers/movie.helper';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faPlusCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+
 const { width } = Dimensions.get('window');
 
 interface IMovieProps {
 	movie: IMovie;
 	navigation: any;
+	userId: string;
+	addToWatchlist: (movieId: string, userId: string) => any;
 }
 
 class MoviePreview extends Component<IMovieProps> {
 	render() {
 		const {
+			id,
 			poster_path,
 			title,
 			genres,
 			runtime,
 			cast,
-			release_date
+			release_date,
+			status
 		} = this.props.movie;
+		const { userId, addToWatchlist } = this.props;
 		const duration = getFilmDuration(runtime);
 		const parsedGenres = JSON.parse(genres).map(genre => genre.name);
 		const parsedCast = JSON.parse(cast).map(actor => actor.name);
@@ -38,14 +46,37 @@ class MoviePreview extends Component<IMovieProps> {
 				}
 			>
 				<View style={styles.movieWrapper}>
-					<Image
+					<ImageBackground
 						source={{
 							uri:
 								config.POSTER_PATH + poster_path || config.DEFAULT_MOVIE_IMAGE
 						}}
 						style={styles.movieImage}
 						resizeMode="contain"
-					/>
+					>
+						<View style={styles.controlsWrapper}>
+							{status && (
+								<View style={styles.updateControlWrapper}>
+									{status === 'watched' ? (
+										<FontAwesomeIcon
+											style={{
+												...styles.updateControl,
+												color: 'rgb(73, 199, 54)'
+											}}
+											icon={faCheckCircle}
+											size={20}
+										/>
+									) : (
+										<FontAwesomeIcon
+											style={styles.updateControl}
+											icon={faPlusCircle}
+											size={20}
+										/>
+									)}
+								</View>
+							)}
+						</View>
+					</ImageBackground>
 					<View style={styles.movieInfoBlock}>
 						<View style={styles.header}>
 							<Text style={styles.movieTitle}>{title}</Text>
@@ -54,9 +85,7 @@ class MoviePreview extends Component<IMovieProps> {
 							</Text>
 						</View>
 						<Text style={[styles.movieInfo, styles.movieInfoBlock]}>
-							{
-								parsedGenres.join(', ')
-							}
+							{parsedGenres.join(', ')}
 						</Text>
 						{duration && (
 							<View style={styles.duration}>
@@ -74,10 +103,15 @@ class MoviePreview extends Component<IMovieProps> {
 							numberOfLines={1}
 						>
 							<Text style={styles.bold}>Movie cast: </Text>
-							{
-								parsedCast.join(', ')
-							}
+							{parsedCast.join(', ')}
 						</Text>
+						{!status && (
+							<TouchableOpacity onPress={() => addToWatchlist(id, userId)}>
+								<Text style={[styles.text, styles.button]}>
+									Add to Watchlist
+								</Text>
+							</TouchableOpacity>
+						)}
 					</View>
 				</View>
 			</TouchableOpacity>
@@ -131,6 +165,37 @@ const styles = StyleSheet.create({
 	},
 	bold: {
 		fontFamily: 'Inter-Bold'
+	},
+	controlsWrapper: {
+		width: '100%',
+		flexDirection: 'row'
+	},
+	updateControlWrapper: {
+		marginLeft: 15,
+		marginTop: 5
+	},
+	updateControl: {
+		padding: 8,
+		borderRadius: 16,
+		color: 'white',
+		backgroundColor: 'rgba(0, 0, 0, 0.726)'
+	},
+	button: {
+		textAlignVertical: 'center',
+		width: 175,
+		height: 27,
+		backgroundColor: '#FF6501',
+		marginTop: 22,
+		borderRadius: 55,
+		textAlign: 'center',
+		lineHeight: 14,
+		fontSize: 12,
+		color: 'white',
+		fontFamily: 'Inter-SemiBold'
+	},
+	text: {
+		letterSpacing: 0.4,
+		fontFamily: 'Inter-Regular'
 	}
 });
 export default MoviePreview;

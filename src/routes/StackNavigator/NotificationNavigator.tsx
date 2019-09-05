@@ -17,4 +17,4 @@ const NotificationNavigator = createStackNavigator({
 	}
 });
 
-export default NotificationNavigator
+export default NotificationNavigator;
