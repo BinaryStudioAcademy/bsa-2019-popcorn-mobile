@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Test3 from './Test3'; //Tried Pure Parallax Scroll View
-import Test4 from './Test4/Test4'; //Tried Animated React Native
-import Test1 from './Test1'; //Tried Animated React Native
+import UserPage from './UserPage'; //Tried Animated React Native
 import Spinner from '../../components/Spinner/Spinner';
 import { View } from 'react-native';
 import {
@@ -55,11 +53,7 @@ class UserPageView extends Component<IProps> {
 
 	render() {
 		if (this.props.loading) return <Spinner />;
-		return (
-			/* 			<Test4 />
-			 */ <Test1 navigation={this.props.navigation} />
-			// <Test3/>
-		);
+		return <UserPage navigation={this.props.navigation} />;
 	}
 }
 const mapStateToProps = (rootState, props) => ({
