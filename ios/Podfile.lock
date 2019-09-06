@@ -121,6 +121,8 @@ PODS:
     - React-cxxreact (= 0.60.5)
     - React-jsi (= 0.60.5)
   - React-jsinspector (0.60.5)
+  - react-native-date-picker (2.7.0):
+    - React
   - react-native-fetch-blob (0.10.6):
     - React
   - react-native-image-picker (1.0.2):
@@ -180,6 +182,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-fetch-blob (from `../node_modules/react-native-fetch-blob`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -239,6 +242,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-date-picker:
+    :path: "../node_modules/react-native-date-picker"
   react-native-fetch-blob:
     :path: "../node_modules/react-native-fetch-blob"
   react-native-image-picker:
@@ -303,6 +308,7 @@ SPEC CHECKSUMS:
   React-jsi: 4d8c9efb6312a9725b18d6fc818ffc103f60fec2
   React-jsiexecutor: 90ad2f9db09513fc763bc757fdc3c4ff8bde2a30
   React-jsinspector: e08662d1bf5b129a3d556eb9ea343a3f40353ae4
+  react-native-date-picker: 648606a44e21d15725a61cc9f28e864f40ae8cdd
   react-native-fetch-blob: bb20b01ac09913978f86d6dba62a9548ba8060b7
   react-native-image-picker: 4c1d9b0377a3291d9b9a0e65c89e87d435e74516
   React-RCTActionSheet: b0f1ea83f4bf75fb966eae9bfc47b78c8d3efd90
@@ -323,6 +329,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
-PODFILE CHECKSUM: f6c34f70b4b054c173d011cb63b42f881a2cc0ad
+PODFILE CHECKSUM: 820ad5aaecb5788505595ae40c7d5af4aefbf8ab
 
 COCOAPODS: 1.8.0.beta.2
