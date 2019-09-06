@@ -82,7 +82,10 @@ class Messages extends React.Component<IProps, IState> {
 		if (!this.props.chat) {
 			return <Spinner />;
 		}
-		if (!this.props.chat.messages && !this.props.isLoadingMessages) {
+		if (
+			(!this.props.chat.messages && !this.props.isLoadingMessages) ||
+			this.props.chat.unreadMessagesCount
+		) {
 			this.props.fetchMessages(this.props.userId, chatId);
 		}
 		if (!this.props.chat.messages) {
@@ -108,7 +111,6 @@ class Messages extends React.Component<IProps, IState> {
 						{messages.map((message: any, id) => {
 							const date = new Date(message.created_at);
 							let newDate = this.getNewDate(date);
-							let isReaction = message.reactionType || message.story;
 							const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
 							const isMyMessage = message.user.id === this.props.userId;
 							if (currentDate !== tmpDate) {
@@ -116,55 +118,60 @@ class Messages extends React.Component<IProps, IState> {
 								return isMyMessage ? (
 									<View>
 										<NewDate newDate={newDate} />
-										{isReaction ? (
+										{message.story ? (
 											<ReactionMessage
 												key={message.id}
 												message={message}
 												isOwn={isMyMessage}
 											/>
 										) : null}
-										<OutgoingMessage
-											key={message.id}
-											outgoingMessage={message}
-										/>
+										{!message.reactionType ? (
+											<OutgoingMessage
+												key={message.id}
+												outgoingMessage={message}
+											/>
+										) : null}
 									</View>
 								) : (
 									<View>
 										<NewDate newDate={newDate} />
-										{isReaction ? (
+										{message.story ? (
 											<ReactionMessage
 												key={message.id}
 												message={message}
 												isOwn={isMyMessage}
 											/>
 										) : null}
-										<IncomingMessage
-											key={message.id}
-											outgoingMessage={message}
-										/>
+										{!message.reactionType ? (
+											<IncomingMessage
+												key={message.id}
+												outgoingMessage={message}
+											/>
+										) : null}
 									</View>
 								);
 							} else {
 								return (
 									<Fragment>
-										{isReaction ? (
+										{message.story ? (
 											<ReactionMessage
 												key={message.id}
 												message={message}
 												isOwn={isMyMessage}
 											/>
 										) : null}
-										{isMyMessage ? (
+
+										{!message.reactionType && isMyMessage ? (
 											<OutgoingMessage
 												key={message.id}
 												outgoingMessage={message}
 											/>
-										) : (
+										) : !message.reactionType ? (
 											<IncomingMessage
 												key={message.id}
 												outgoingMessage={message}
 											/>
-										)}
+										) : null}
 									</Fragment>
 								);
 							}

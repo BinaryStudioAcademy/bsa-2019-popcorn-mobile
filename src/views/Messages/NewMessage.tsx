@@ -37,8 +37,8 @@ const NewMessage: React.FC<IProps> = ({
 
 	const sendMessage = () => {
 		if (message.trim() === '') return;
-		changeMessage('');
 		createMessage(userId, chatId, message);
+		changeMessage('');
 		scrollToEnd();
 	};
 
