@@ -71,11 +71,12 @@ export const updateMessage = (id, body) => {
 	};
 };
 
-export const addMessage = message => {
+export const addMessage = (chatId, message) => {
 	return {
 		type: ADD_MESSAGE_STORE,
 		payload: {
-			message
+			message,
+			chatId
 		}
 	};
 };
@@ -110,10 +111,11 @@ export const readMessages = (chatId, userId) => {
 	};
 };
 
-export const addUnreadMessage = chatId => {
+export const addUnreadMessage = (chatId, message) => {
 	return {
 		type: ADD_UNREAD_MESSAGE,
 		payload: {
+			message,
 			chatId
 		}
 	};

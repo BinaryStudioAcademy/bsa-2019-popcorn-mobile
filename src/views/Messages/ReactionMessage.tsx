@@ -1,5 +1,14 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
+import SvgUri from 'react-native-svg-uri';
+// import { ReactComponent as LikeIcon } from '../../assets/reactions/like.svg';
+// import { ReactComponent as DislikeIcon } from '../../../../../../assets/icons/reactions/dislike.svg';
+// import { ReactComponent as PopcornIcon } from '../../../../../../assets/icons/reactions/popcorn.svg';
+// import { ReactComponent as AngryIcon } from '../../../../../../assets/icons/reactions/angry.svg';
+// import { ReactComponent as HahaIcon } from '../../../../../../assets/icons/reactions/haha.svg';
+// import { ReactComponent as WowIcon } from '../../../../../../assets/icons/reactions/wow.svg';
+// import { ReactComponent as SadIcon } from '../../../../../../assets/icons/reactions/sad.svg';
+// import { ReactComponent as FireIcon } from '../../../../../../assets/icons/reactions/fire.svg';
 
 interface IProps {
 	message: any;
@@ -7,22 +16,70 @@ interface IProps {
 }
 const getEmoji = reactionType => {
 	switch (reactionType) {
-		case 'laugh':
-			return '🤣';
+		case 'haha':
+			return (
+				<SvgUri
+					height={73}
+					width={70}
+					source={require('../../assets/reactions/haha.svg')}
+				/>
+			);
 		case 'fire':
-			return '🔥';
-		case 'claps':
-			return '👏🏻';
-		case 'stars':
-			return '🤩';
-		case 'cry':
-			return '😢';
-		case 'shock':
-			return '😳';
+			return (
+				<SvgUri
+					height={73}
+					width={70}
+					source={require('../../assets/reactions/fire.svg')}
+				/>
+			);
+		case 'dislike':
+			return (
+				<SvgUri
+					height={73}
+					width={70}
+					source={require('../../assets/reactions/dislike.svg')}
+				/>
+			);
+		case 'popcorn':
+			return (
+				<SvgUri
+					height={73}
+					width={70}
+					source={require('../../assets/reactions/popcorn.svg')}
+				/>
+			);
 		case 'angry':
-			return '😡';
-		case 'holiday':
-			return '🥳';
+			return (
+				<SvgUri
+					height={73}
+					width={70}
+					source={require('../../assets/reactions/angry.svg')}
+				/>
+			);
+		case 'wow':
+			return (
+				<SvgUri
+					height={73}
+					width={70}
+					source={require('../../assets/reactions/wow.svg')}
+				/>
+			);
+		case 'like':
+			return (
+				<SvgUri
+					height={73}
+					width={70}
+					source={require('../../assets/reactions/like.svg')}
+				/>
+			);
+		case 'sad':
+			return (
+				<SvgUri
+					height={73}
+					width={70}
+					source={require('../../assets/reactions/sad.svg')}
+				/>
+			);
 		default:
 			break;
 	}
@@ -66,9 +123,9 @@ export const ReactionMessage: React.FC<IProps> = ({ message, isOwn }) => {
 					</Text>
 				</View>
 				{reactionType && (
-					<Text style={!isOwn ? styles.reactionEmoji : styles.ownReactionEmoji}>
+					<View style={!isOwn ? styles.reactionEmoji : styles.ownReactionEmoji}>
 						{getEmoji(reactionType)}
-					</Text>
+					</View>
 				)}
 			</View>
 		</View>
