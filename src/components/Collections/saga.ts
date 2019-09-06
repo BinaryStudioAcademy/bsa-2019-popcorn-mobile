@@ -3,12 +3,13 @@ import {
     fetchCollectionDetails,
     fetchCollectionPreview,
     deleteCollection,
-    saveCollection
+	saveCollection,
+	fetchCollections
 } from '../../redux/routines';
 import webApi from '../../helpers/webApi.helper';
 import config from '../../config';
 
-export function* saveMovieList(action) {
+function* saveMovieList(action) {
 	const { movieList } = action.payload;
 	try {
         yield put(saveCollection.request());
@@ -24,7 +25,7 @@ export function* saveMovieList(action) {
 	}
 }
 
-export function* fetchMovieListsPreview(action) {
+function* fetchMovieListsPreview(action) {
 	const { userId } = action.payload;
 	try {
         yield put(fetchCollectionPreview.request());
@@ -39,7 +40,7 @@ export function* fetchMovieListsPreview(action) {
 	}
 }
 
-export function* deleteMovieList(action) {
+function* deleteMovieList(action) {
 	const { movieListId } = action.payload;
 	try {
         yield put(deleteCollection.request())
@@ -47,12 +48,13 @@ export function* deleteMovieList(action) {
 			method: 'DELETE',
 			endpoint: config.API_URL + `/api/movie-list/${movieListId}`
 		});
+		yield put(deleteCollection.success({ movieListId }));
 	} catch (e) {
 		console.log(e.message);
 	}
 }
 
-export function* fetchMovieListDetails(action) {
+function* fetchMovieListDetails(action) {
 	const { movieListId } = action.payload;
 	try {
         yield put(fetchCollectionDetails.request());
@@ -65,6 +67,24 @@ export function* fetchMovieListDetails(action) {
 	} catch (e) {
 		console.log(e.message);
 	}
+}
+
+function* getCollections() {
+	try {
+        yield put(fetchCollections.request());
+		const collections = yield call(webApi, {
+			method: 'GET',
+			endpoint: config.API_URL + `/api/movie-list`
+		});
+
+		yield put(fetchCollections.success(collections));
+	} catch (e) {
+		console.log(e.message);
+	}
+}
+
+function* watchFetchCollections() {
+	yield takeEvery(fetchCollections.trigger, getCollections);
 }
 
 function* watchSaveMovieList() {
@@ -88,6 +108,7 @@ export default function* collections() {
 		watchSaveMovieList(),
 		watchFetchListsPreview(),
 		watchDeleteMovieList(),
-		watchFetchMovieListDetails()
+		watchFetchMovieListDetails(),
+		watchFetchCollections()
 	]);
 }
