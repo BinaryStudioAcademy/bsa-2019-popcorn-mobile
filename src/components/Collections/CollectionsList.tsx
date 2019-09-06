@@ -9,6 +9,7 @@ import {
 import Spinner from '../Spinner/Spinner';
 import { IMovieListPreview } from './ICollection';
 import CollectionListItem from './CollectionsListItem';
+import styles from './styles';
 
 interface IProps {
     collections: Array<IMovieListPreview>;
@@ -32,13 +33,13 @@ class CollectionList extends Component<IProps> {
     render() {
         if (this.props.loading || !this.props.collections) return <Spinner />
         return (
-            <View>
+            <View style={{ marginTop: 10 }}>
                 {
                     this.isOwner() &&
-                    <TouchableOpacity onPress={() => { 
+                    <TouchableOpacity style={styles.addCollectionBttn} onPress={() => { 
                         this.props.navigation.navigate('CollectionConstructor') 
                     }}>
-                        <Text>Add collection</Text>
+                        <Text style={styles.bttnText}>Add collection</Text>
                     </TouchableOpacity>
                 }
                 <FlatList
