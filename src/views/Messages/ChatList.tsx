@@ -48,9 +48,9 @@ class ChatList extends React.Component<IProps, IState> {
 			Object.keys(chats).forEach(SocketService.join);
 			SocketService.on('new-message', message => {
 				const chatId = message.chat.id;
-				if (message.user.id !== this.props.userProfile.id) {
-					return this.props.addUnreadMessage(chatId, message);
-				} else return this.props.addMessage(chatId, message);
+				// if (message.user.id !== this.props.userProfile.id) {
+				return this.props.addUnreadMessage(chatId, message);
+				// } else return this.props.addMessage(chatId, message);
 			});
 			SocketService.on('delete-message', ({ chatId, messageId }) => {
 				this.props.deleteMessageStore(chatId, messageId);
@@ -129,9 +129,11 @@ class ChatList extends React.Component<IProps, IState> {
 									>
 										{reactionType || story
 											? 'Reacted to story'
-											: body.length < 35
-											? `${body}`
-											: `${body.substring(0, 92)}...`}
+											: body
+											? body.length < 35
+												? `${body}`
+												: `${body.substring(0, 92)}...`
+											: ''}
 									</Text>
 								</View>
 								{!isRead && !isOwn && (
