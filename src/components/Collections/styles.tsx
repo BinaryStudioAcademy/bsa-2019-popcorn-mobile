@@ -78,5 +78,83 @@ export default StyleSheet.create({
     bttnText: {
 		fontFamily: 'Inter-Medium',
 		color: 'white'
-	}
+    },
+    avatar: {
+		width: 30, 
+		height: 30,
+        marginRight: 10,
+        borderRadius: 15
+	},
+	collectionDate: {
+		marginLeft: 'auto'
+	},
+	imageBackground: {
+		width: '100%',
+		height: 180
+	},
+	background: {
+		flex: 1,
+		height: '100%',
+		backgroundColor: 'rgba(0, 0, 0, 0.6)',
+		padding: 10
+	},
+	imageText: {
+		color: 'white',
+		fontFamily: 'Inter-Medium'
+	},
+	poster: {
+		height: 200,
+		width: 134
+	},
+	collectionText: {
+		fontFamily: 'Inter-Regular',
+		color: '#122737',
+		letterSpacing: 0.4
+	},
+	collectionTitle: {
+		marginTop: 'auto',
+		fontFamily: 'Inter-Black',
+		fontSize: 32,
+		letterSpacing: 0.4,
+		marginBottom: 10
+	},
+	horizontalContainer: {
+		flexDirection: 'row',
+		alignItems: 'center'
+	},
+	description: {
+		margin: 10,
+		fontSize: 16,
+		marginBottom: 20
+	},
+	topItem: {
+		margin: 10,
+		flexDirection: 'row'
+	},
+	number: {
+		fontSize: 18,
+		lineHeight: 25,
+		color: 'white',
+		fontFamily: 'Inter-Bold',
+		width: 25,
+		height: 25,
+		backgroundColor: '#FF6501',
+		marginRight: 5,
+		textAlign: 'center'
+	},
+	movieTitle: {
+		fontSize: 18,
+		fontFamily: 'Inter-SemiBold',
+		lineHeight: 25,
+		flex: 1,
+	},
+	titleContainer: {
+		marginBottom: 20,
+		flexDirection: 'row',
+		alignItems: 'flex-start',
+		width: '100%'
+	},
+	comment: {
+		fontSize: 14
+	},
 });
