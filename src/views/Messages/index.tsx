@@ -1,6 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { Text, View, StyleSheet, ScrollView, Image } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
 	fetchChats,
 	addMessage,
@@ -11,10 +9,6 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Spinner } from 'native-base';
-import config from '../../config';
-import moment from 'moment';
-import SocketService from '../../helpers/socket.helper';
-import { INC_MESSAGE_BACKGROUND, INC_MESSAGE_COLOR } from './styles';
 import ChatList from './ChatList';
 
 interface IProps {
@@ -46,7 +40,6 @@ class ChatPage extends React.Component<IProps, IState> {
 			!this.props.chats
 		)
 			return <Spinner />;
-		const chats = Object.values(this.props.chats);
 		return <ChatList navigation={this.props.navigation} />;
 	}
 }

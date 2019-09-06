@@ -43,9 +43,7 @@ class ChatList extends React.Component<IProps, IState> {
 		this.addSocketEvents();
 	}
 	addSocketEvents = () => {
-		// SocketService.join(this.props.userProfile.id);
 		const { chats } = this.props;
-		const chats2 = Object.values(this.props.chats);
 		if (Object.keys(chats).length > 0) {
 			Object.keys(chats).forEach(SocketService.join);
 			SocketService.on('new-message', message => {
@@ -62,8 +60,19 @@ class ChatList extends React.Component<IProps, IState> {
 			});
 		}
 	};
+	sortChats(chat1, chat2) {
+		if (chat1.lastMessage.created_at < chat2.lastMessage.created_at) {
+			return 1;
+		}
+		if (chat1.lastMessage.created_at > chat2.lastMessage.created_at) {
+			return -1;
+		}
+		return 0;
+	}
+
 	render() {
-		const chats = Object.values(this.props.chats);
+		const chats = Object.values(this.props.chats).sort(this.sortChats);
+
 		return (
 			<ScrollView contentContainerStyle={styles.container}>
 				{chats.map((chat: any, id) => {
