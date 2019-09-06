@@ -1,6 +1,5 @@
 import { createStackNavigator } from 'react-navigation';
 import Home from '../../views/HomeView';
-import Collections from '../../views/CollectionsView';
 import Header from '../../components/Header/Header';
 import SurveyNavigator from '../StackNavigator/SurveyNavigator';
 import EventsTab from '../../components/ContentPage/Events/EventTab';
@@ -12,8 +11,7 @@ import EventPage from '../../components/ContentPage/Events/EventPage';
 import TopPage from '../../components/ContentPage/Tops/TopPage';
 import SurveyPage from '../../components/SurveyPage/SurveyPage';
 import ControlledVertical from '../../components/MainPage/Story/StoryModal/ColorPicker';
-
-import UserPageView from '../../views/UserPageView/UserPageView';
+import CollectionsNavigator from './CollectionNavigator';
 import ReviewPage from '../../components/ReviewPage/ReviewPage';
 import Messages from '../../views/Messages/Messages';
 import Chats from '../../views/Messages/';
@@ -104,7 +102,7 @@ export const Survey_StackNavigator = createStackNavigator({
 
 export const Collections_StackNavigator = createStackNavigator({
 	Sixth: {
-		screen: Collections,
+		screen: CollectionsNavigator,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})

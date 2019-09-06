@@ -35,3 +35,4 @@ export const fetchCollectionPreview = createRoutine('FETCH_COLLECTION_PREVIEW');
 export const fetchCollectionDetails = createRoutine('FETCH_COLLECTION_DETAILS');
 export const saveCollection = createRoutine('SAVE_COLLECTION');
 export const deleteCollection = createRoutine('DELETE_COLLECTION');
+export const fetchCollections = createRoutine('FETCH_COLLECTIONS');
