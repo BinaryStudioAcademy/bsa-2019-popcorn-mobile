@@ -100,15 +100,17 @@ function* watchCreateChat() {
 }
 
 export function* createMessage(action) {
+	let newBody =
+		typeof action.payload.body === 'string'
+			? { body: action.payload.body }
+			: { ...action.payload.body };
 	try {
 		yield call(webApi, {
 			method: 'POST',
 			endpoint:
 				config.API_URL +
 				`/api/chat/${action.payload.userId}/${action.payload.chatId}`,
-			body: {
-				body: action.payload.body
-			}
+			body: newBody
 		});
 	} catch (e) {
 		console.log('chat saga create message:', e.message);

@@ -129,7 +129,7 @@ class ChatList extends React.Component<IProps, IState> {
 									>
 										{reactionType || story
 											? 'Reacted to story'
-											: body
+											: typeof body === 'string'
 											? body.length < 35
 												? `${body}`
 												: `${body.substring(0, 92)}...`
