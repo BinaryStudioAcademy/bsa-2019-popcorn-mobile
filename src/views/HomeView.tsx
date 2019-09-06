@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-// import styles from '../assets/style';
+import { Text, View, StyleSheet, Alert } from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
 import PostComponent from './../components/MainPage/Post/';
@@ -8,20 +7,22 @@ import StoryComponent from './../components/MainPage/Story/';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import StoryModal from '../components/MainPage/Story/StoryModal';
 import INewStory from '../components/MainPage/Story/INewStory';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const mock_url =
 	'https://i.pinimg.com/736x/2c/f1/93/2cf193ee4bef23eb1a2a9b07faadd951.jpg';
 
 const newStoryDefault: INewStory = {
 	activityId: '',
-	backgroundColor: '#adadad', // grey
-	fontColor: '#000', // black
+	backgroundColor: '#dadada',
+	fontColor: '#000',
 	movieId: null,
 	movieOption: '',
 	image_url: '',
-	// image_url: '',
 	caption: null,
 	activity: null,
+	textPositionX: 0,
+	textPositionY: 0,
 	type: ''
 };
 type NewStory = {
@@ -29,22 +30,41 @@ type NewStory = {
 	data: any;
 };
 
+const validateStory = ({ caption, newStory, data, voting, handleDisable }) => {
+	caption = caption === undefined ? newStory.caption : caption;
+	const { image_url, backgroundColor } = newStory;
+	if (
+		(caption && caption.match(/^(?!\s*$).*/) && image_url) ||
+		(caption && caption.match(/^(?!\s*$).*/) && backgroundColor) ||
+		(data && image_url) ||
+		voting
+	) {
+		handleDisable(false);
+	} else {
+		handleDisable(true);
+	}
+};
 const HomeView = ({ navigation }) => {
 	const [showModal, onPress] = useState(false);
 	const [newStory, setNewStory] = useState<NewStory>({
 		newStory: newStoryDefault,
 		data: null
 	});
+	const [disabled, handleDisable] = useState<boolean>(false);
 
 	if (navigation.state.params) {
 		const { option, type } = navigation.state.params;
 		navigation.state.params = null;
-		if (!newStory.data || newStory.data.id !== option.id)
-			setNewStory({ newStory: newStory.newStory, data: { option, type } });
+		if (!newStory.data || newStory.data.id !== option.id) {
+			setNewStory({
+				newStory: { ...newStory.newStory, image_url: option.image },
+				data: { option, type }
+			});
+		}
 	}
-
 	return (
 		<View style={styles.container}>
+			{showModal ? <View style={styles.fadeModal}></View> : null}
 			<TouchableOpacity
 				style={styles.modalAnchor}
 				onPress={() => onPress(!showModal)}
@@ -53,12 +73,21 @@ const HomeView = ({ navigation }) => {
 			</TouchableOpacity>
 			{showModal && (
 				<View style={styles.modal}>
+					<TouchableOpacity
+						style={styles.modalAnchorBack}
+						onPress={() => onPress(!showModal)}
+					>
+						<Icon name="arrow-circle-o-left" color={'#fff'} size={50} />
+					</TouchableOpacity>
 					<StoryModal
 						navigation={navigation}
 						newStory={newStory.newStory}
 						setNewStory={setNewStory}
 						data={newStory.data}
 						showModal={onPress}
+						handleDisable={handleDisable}
+						disabled={disabled}
+						validateStory={validateStory}
 					/>
 				</View>
 			)}
@@ -83,11 +112,14 @@ const styles = StyleSheet.create({
 	container: {
 		justifyContent: 'center',
 		alignItems: 'center',
+		position: 'relative',
 		flex: 1
 	},
 	addStoryView: {
-		padding: '2%',
-		backgroundColor: '#FF6501',
+		fontWeight: '600',
+		textTransform: 'uppercase',
+		padding: 8,
+		backgroundColor: '#fb8c00',
 		borderRadius: 5,
 		textAlign: 'center',
 		fontSize: 15,
@@ -97,13 +129,28 @@ const styles = StyleSheet.create({
 		marginTop: 20
 	},
 	modalAnchor: {
+		zIndex: 6,
+		width: 140,
+		marginLeft: 'auto',
+		marginRight: 'auto'
+	},
+	modalAnchorBack: {
+		zIndex: 6,
 		position: 'relative',
-		width: 130
+		top: 0
 	},
 	modal: {
 		position: 'absolute',
-		top: 60,
-		backgroundColor: '#e4e4e4',
+		top: 10,
+		zIndex: 6,
+		width: '90%',
+		height: '95%'
+	},
+	fadeModal: {
+		position: 'absolute',
+		height: '100%',
+		width: '100%',
+		backgroundColor: 'rgba(0,0,0,0.5)',
 		zIndex: 5
 	}
 });

@@ -16,11 +16,11 @@ type IProfileProps = {
 	setAvatar?: (url: string, id: string) => any;
 	selectedProfileInfo: any;
 	navigation: any;
-	followedCount: number,
+	followedCount: number;
 	followersCount: number;
 	followStatus: any;
 	currentUser: ISelectedProfileInfo;
-	changeStatus: (obj: { userId: string, followerId: string }) => void;
+	changeStatus: (obj: { userId: string; followerId: string }) => void;
 };
 
 interface IProfileComponentState {
@@ -79,7 +79,7 @@ class UserProfileView extends Component<IProfileProps> {
 
 	isCurrent = () => {
 		return this.props.currentUser.id === this.props.selectedProfileInfo.id;
-	}
+	};
 
 	render() {
 		let { location, aboutMe, mockAvatar } = mockProfileInfo;
@@ -102,57 +102,67 @@ class UserProfileView extends Component<IProfileProps> {
 					/>
 					<View style={styles.followBlock}>
 						<View style={styles.horizontalContainer}>
-							<TouchableOpacity 
+							<TouchableOpacity
 								style={styles.followItem}
-								onPress={() => { this.props.navigation.navigate({
-									routeName: 'Follows',
-									action: NavigationActions.navigate({ 
-										routeName: 'Followers'
-									})
-								})}}
+								onPress={() => {
+									this.props.navigation.navigate({
+										routeName: 'Follows',
+										action: NavigationActions.navigate({
+											routeName: 'Followers'
+										})
+									});
+								}}
 							>
-								<Text style={[styles.followText, styles.followAmount]}>{this.props.followersCount}</Text>
+								<Text style={[styles.followText, styles.followAmount]}>
+									{this.props.followersCount}
+								</Text>
 								<Text style={styles.followText}>followers</Text>
 							</TouchableOpacity>
-							<TouchableOpacity 
-								onPress={() => { this.props.navigation.navigate({
-									routeName: 'Follows',
-									action: NavigationActions.navigate({ 
-										routeName: 'Following'
-									})
-								})}}
+							<TouchableOpacity
+								onPress={() => {
+									this.props.navigation.navigate({
+										routeName: 'Follows',
+										action: NavigationActions.navigate({
+											routeName: 'Following'
+										})
+									});
+								}}
 							>
-								<Text style={[styles.followText, styles.followAmount]}>{this.props.followedCount}</Text>
+								<Text style={[styles.followText, styles.followAmount]}>
+									{this.props.followedCount}
+								</Text>
 								<Text style={styles.followText}>following</Text>
 							</TouchableOpacity>
 						</View>
-						{ 
-							!this.isCurrent() &&
-							<TouchableOpacity 
-								onPress={() => { 
-									this.props.changeStatus({ 
+						{!this.isCurrent() && (
+							<TouchableOpacity
+								onPress={() => {
+									this.props.changeStatus({
 										userId: this.props.currentUser.id,
 										followerId: this.props.selectedProfileInfo.id
-									})
-								;}}
+									});
+								}}
 								style={styles.followBttn}
 							>
-								{
-									this.props.followStatus.isFollowing &&
-									<Text style={[styles.bttnText, styles.unfollowBttnText]}>Unfollow</Text>
-								}
-								{
-									!this.props.followStatus.isFollowing &&
-									!this.props.followStatus.isFollower &&
-									<Text style={[styles.bttnText, styles.followBttnText]}>Follow</Text> 
-								}
-								{
-									!this.props.followStatus.isFollowing &&
-									this.props.followStatus.isFollower &&
-									<Text style={[styles.bttnText, styles.followBttnText]}>Follow back</Text>
-								}
+								{this.props.followStatus.isFollowing && (
+									<Text style={[styles.bttnText, styles.unfollowBttnText]}>
+										Unfollow
+									</Text>
+								)}
+								{!this.props.followStatus.isFollowing &&
+									!this.props.followStatus.isFollower && (
+										<Text style={[styles.bttnText, styles.followBttnText]}>
+											Follow
+										</Text>
+									)}
+								{!this.props.followStatus.isFollowing &&
+									this.props.followStatus.isFollower && (
+										<Text style={[styles.bttnText, styles.followBttnText]}>
+											Follow back
+										</Text>
+									)}
 							</TouchableOpacity>
-						}
+						)}
 					</View>
 				</View>
 
@@ -239,11 +249,14 @@ const mapStateToProps = (rootState, props) => ({
 
 const actions = {
 	changeStatus
-}
+};
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfileView);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(UserProfileView);
 
 const styles = StyleSheet.create({
 	profileWrap: {
@@ -321,10 +334,10 @@ const styles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	followBlock: {
-		marginLeft: 30,
+		marginLeft: 30
 	},
 	followItem: {
-		marginRight: 20,
+		marginRight: 20
 	},
 	followText: {
 		fontFamily: 'Inter-Regular',
