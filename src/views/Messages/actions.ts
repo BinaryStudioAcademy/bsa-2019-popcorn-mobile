@@ -71,12 +71,12 @@ export const updateMessage = (id, body) => {
 	};
 };
 
-export const addMessage = message => {
-	console.log('actions add message message=', message);
+export const addMessage = (chatId, message) => {
 	return {
 		type: ADD_MESSAGE_STORE,
 		payload: {
-			message
+			message,
+			chatId
 		}
 	};
 };

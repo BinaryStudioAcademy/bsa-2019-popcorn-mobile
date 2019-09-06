@@ -82,7 +82,10 @@ class Messages extends React.Component<IProps, IState> {
 		if (!this.props.chat) {
 			return <Spinner />;
 		}
-		if (!this.props.chat.messages && !this.props.isLoadingMessages) {
+		if (
+			(!this.props.chat.messages && !this.props.isLoadingMessages) ||
+			this.props.chat.unreadMessagesCount
+		) {
 			this.props.fetchMessages(this.props.userId, chatId);
 		}
 		if (!this.props.chat.messages) {

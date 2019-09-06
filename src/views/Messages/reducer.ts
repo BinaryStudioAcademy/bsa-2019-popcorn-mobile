@@ -62,7 +62,6 @@ export default function(state = initialState, action) {
 			const newMessage = action.payload.message;
 			const chatId = newMessage.chat.id;
 			delete newMessage.chat;
-			console.log('ADD_MESSAGE_STORE state.chats[chatId]', state.chats[chatId]);
 			if (!state.chats[chatId].messages) {
 				return { ...state };
 			}
@@ -79,7 +78,6 @@ export default function(state = initialState, action) {
 				}
 			};
 		case ADD_UNREAD_MESSAGE:
-			console.log('add unread payload=', action.payload);
 			return {
 				...state,
 				chats: {
@@ -105,7 +103,8 @@ export default function(state = initialState, action) {
 					...state.chats,
 					[chat_id]: {
 						...state.chats[chat_id],
-						messages: [...filteredMessages]
+						messages: [...filteredMessages],
+						lastMessage: filteredMessages[filteredMessages.length - 1]
 					}
 				}
 			};
@@ -121,13 +120,13 @@ export default function(state = initialState, action) {
 					...state.chats,
 					[id]: {
 						...state.chats[id],
-						messages: [...updatedMessages]
+						messages: [...updatedMessages],
+						lastMessage: updatedMessages[updatedMessages.length - 1]
 					}
 				}
 			};
 		case READ_MESSAGES:
 			const { chatId: id_chat, userId } = action.payload;
-			console.log('read messages action=', action.payload);
 			if (!state.chats[id_chat]) {
 				return { ...state };
 			}
