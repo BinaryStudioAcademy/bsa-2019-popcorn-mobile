@@ -1,6 +1,6 @@
 import React from 'react';
 import SvgUri from 'react-native-svg-uri';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, Alert } from 'react-native';
 import styles from './styles';
 import IUser from '../../../UserPage/IUser';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -39,7 +39,7 @@ const renderEventView = data => {
 				</Text>
 				<View style={[styles.visitors]}>
 					<FontAwesomeIcon
-						style={{ ...styles.icon, color: '#122737' }}
+						style={{ ...styles.visitorsIcon, color: '#122737' }}
 						icon={faUsers}
 					/>
 					<Text>{data.eventVisitors.length}</Text>
@@ -52,7 +52,7 @@ const renderEventView = data => {
 				</Text>
 			</View>
 			{!!data.description && (
-				<Text numberOfLines={1} style={[styles.text, styles.description]}>
+				<Text numberOfLines={1} style={[styles.text]}>
 					{data.description}
 				</Text>
 			)}
@@ -103,7 +103,11 @@ const Extra = (props: IProps) => {
 	}
 	return (
 		<View style={styles.extra}>
-			<TouchableOpacity onPress={() => (onSave ? onSave() : viewActivity())}>
+			<TouchableOpacity
+				onPress={() => {
+					return onSave ? onSave() : viewActivity();
+				}}
+			>
 				{renderView(data)}
 			</TouchableOpacity>
 			{props.clearExtra && (
