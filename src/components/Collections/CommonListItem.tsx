@@ -16,7 +16,7 @@ interface IProps {
 
 const CollectionsListItem: React.FC<IProps> = ({ preview, navigation }) => {
     const { createdAt, title, description, user, imageUrl, moviesId } = preview;
-    const image = imageUrl ? 'https://' + imageUrl : 'https://www.goldderby.com/wp-content/uploads/2017/12/Oscar-statuette-trophy-atmo.png';
+    const image = imageUrl ? imageUrl : 'https://www.goldderby.com/wp-content/uploads/2017/12/Oscar-statuette-trophy-atmo.png';
     return (
         <TouchableOpacity
 			style={styles.main}
@@ -28,7 +28,7 @@ const CollectionsListItem: React.FC<IProps> = ({ preview, navigation }) => {
 				<View style={styles.firstColumn}>
 					<Image
 						source={{
-							uri: image
+							uri: image.includes('https') ? image : 'https://' + image
 						}}
 						style={{ width: 110, height: 80 }}
 					/>
