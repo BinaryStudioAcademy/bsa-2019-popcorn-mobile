@@ -11,6 +11,8 @@ import {
 
 interface IStoryListItemProps {
 	imageUrl: string;
+	backgroundColor: string;
+	fontColor: string;
 	avatar: string;
 	caption: string;
 	index: number;
@@ -18,12 +20,12 @@ interface IStoryListItemProps {
 }
 
 class StoryPreview extends Component<IStoryListItemProps> {
-	renderContent(imageUrl, avatar, caption) {
+	renderContent(imageUrl, avatar, caption, backgroundColor, fontColor) {
 		return (
 			<View style={styles.storyWrapperPreview}>
 				<View style={styles.storyImageWrapper}>
 					<ImageBackground
-						style={styles.storyImage}
+						style={[styles.storyImage, { backgroundColor: backgroundColor }]}
 						source={{ uri: imageUrl }}
 						resizeMode="contain"
 					>
@@ -39,13 +41,27 @@ class StoryPreview extends Component<IStoryListItemProps> {
 	}
 
 	render() {
-		const { imageUrl, avatar, caption, index, navigation } = this.props;
+		const {
+			imageUrl,
+			avatar,
+			caption,
+			index,
+			navigation,
+			backgroundColor,
+			fontColor
+		} = this.props;
 		return (
 			<TouchableOpacity
 				onPress={() => navigation.navigate('Story', { index })}
 				style={{ height: 240 }}
 			>
-				{this.renderContent(imageUrl, avatar, caption)}
+				{this.renderContent(
+					imageUrl,
+					avatar,
+					caption,
+					backgroundColor,
+					fontColor
+				)}
 			</TouchableOpacity>
 		);
 	}
@@ -61,8 +77,7 @@ const styles = StyleSheet.create({
 		width: 20,
 		height: 20,
 		borderRadius: 20,
-		margin: 6,
-		backgroundColor: '#adadad'
+		margin: 6
 	},
 	storyImageWrapper: {
 		flex: 1,

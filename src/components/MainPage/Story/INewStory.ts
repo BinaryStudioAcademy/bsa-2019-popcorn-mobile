@@ -8,6 +8,7 @@ export default interface INewStory {
 	movieOption: string;
 	backgroundColor: string;
 	fontColor: string;
-	textPosition?: { x: number; y: number };
+	textPositionX: number;
+	textPositionY: number;
 	userId?: string;
 }

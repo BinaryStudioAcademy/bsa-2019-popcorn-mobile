@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import {
 	fetchEvents,
+	fetchTops,
 	fetchUserEvents,
 	fetchUserSurveys,
 	fetchUserTops
@@ -14,6 +15,7 @@ import IUser from '../../../UserPage/IUser';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
 import React from 'react';
+import { fetchSurveys } from '../../../ContentPage/Surveys/actions';
 
 const arrow = require('../../../../assets/general/arrow-circle-o-left.svg');
 
@@ -22,12 +24,13 @@ interface IProps {
 	surveys: any;
 	tops: any;
 	profileInfo: IUser;
-	fetchUserEvents: (id: string) => any;
-	fetchUserSurveys: (id: string) => any;
-	fetchUserTops: (id: string) => any;
+	fetchUserEvents: () => any;
+	fetchUserSurveys: () => any;
+	fetchUserTops: () => any;
 	navigation: any;
 	loading: boolean;
 	loadingEvent: boolean;
+	// validate: () => any;
 }
 
 class ChooseExtraOption extends React.Component<IProps> {
@@ -43,18 +46,19 @@ class ChooseExtraOption extends React.Component<IProps> {
 		switch (type) {
 			case 'event':
 				const { events, fetchUserEvents } = this.props;
-				if (!events) fetchUserEvents(profileInfo.id);
-				else options = events;
+				if (!events || events.length === 0) {
+					fetchUserEvents();
+				} else options = events;
 				break;
 			case 'survey':
 				const { surveys, fetchUserSurveys } = this.props;
 				if (!surveys) {
-					fetchUserSurveys(profileInfo.id);
+					fetchUserSurveys();
 				} else options = surveys;
 				break;
 			case 'top':
 				const { tops, fetchUserTops } = this.props;
-				if (!tops) fetchUserTops(profileInfo.id);
+				if (!tops || tops.length === 0) fetchUserTops();
 				options = tops;
 				break;
 		}
@@ -63,7 +67,7 @@ class ChooseExtraOption extends React.Component<IProps> {
 			message = "You don't have any " + type;
 		return (
 			<View style={[styles.extraItemWrp, styles.grid]}>
-				<ScrollView>
+				<ScrollView contentContainerStyle={{ flex: 1 }}>
 					{options && options.length > 0 ? (
 						options.map(option => (
 							<Extra
@@ -74,6 +78,7 @@ class ChooseExtraOption extends React.Component<IProps> {
 								onSave={() => {
 									this.props.navigation.navigate('First', { option, type });
 								}}
+								// validate={validate}
 							/>
 						))
 					) : (
@@ -89,16 +94,17 @@ const mapStateToProps = (rootState, props) => ({
 	...props,
 	profileInfo: rootState.authorization.profileInfo,
 	events: rootState.events.events,
-	surveys: rootState.userEvents.surveys,
-	tops: rootState.userEvents.tops,
+	surveys: rootState.survey.surveys,
+	tops: rootState.tops.tops,
 	loading: rootState.userEvents.loading,
-	loadingEvent: rootState.events.loading
+	loadingEvent: rootState.events.loading,
+	loadingTop: rootState.tops.loading
 });
 
 const actions = {
 	fetchUserEvents: fetchEvents,
-	fetchUserSurveys,
-	fetchUserTops
+	fetchUserSurveys: fetchSurveys,
+	fetchUserTops: fetchTops
 };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
