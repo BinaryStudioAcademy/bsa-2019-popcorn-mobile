@@ -24,8 +24,6 @@ class CollectionsView extends Component<IProps> {
 	render () {
 		if (this.props.loading || !this.props.collections) return <Spinner />
 		return (
-			<View style={styles.container}>
-				<View style={styles.container}>
 					<FlatList
                 	    refreshing={false}
                 	    data={this.props.collections}
@@ -37,8 +35,6 @@ class CollectionsView extends Component<IProps> {
                 	        />
                 	    }
                 	/>
-				</View>
-			</View>
 		);
 	}
 }

@@ -157,4 +157,30 @@ export default StyleSheet.create({
 	comment: {
 		fontSize: 14
 	},
+	input: {
+		width: '90%',
+		margin: 20,
+		borderColor: 'rgba(0, 0, 0, 0.11)',
+		borderWidth: 1,
+		padding: 12,
+		paddingLeft: 15,
+		fontSize: 16,
+		borderRadius: 3,
+	},
+	imageUploader: {
+		marginLeft: 20,
+		marginBottom: 10,
+		alignSelf: 'center'
+	},
+	UploadWrp: {
+		width: '85%',
+		marginLeft: 'auto',
+		marginRight: 'auto',
+		height: 200
+	},
+	collectionImage: {
+		height: 200,
+		borderRadius: 20,
+		backgroundColor: '#adadad'
+	}
 });

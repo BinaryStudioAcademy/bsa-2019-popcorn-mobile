@@ -46,7 +46,7 @@ class MoviePreview extends Component<IMovieProps> {
 					if (!state.params || !state.params.onSave)
 					this.props.navigation.navigate('Movie', { id: this.props.movie.id });
 					else if (state.params.onSave) {
-						state.params.onSave(String(this.props.movie.id));
+						state.params.onSave(this.props.movie);
 						this.props.navigation.navigate('Constructor', { movieId: this.props.movie.id })
 					}
 				}}

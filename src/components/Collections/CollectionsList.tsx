@@ -31,7 +31,7 @@ class CollectionList extends Component<IProps> {
     }
 
     render() {
-        if (this.props.loading || !this.props.collections) return <Spinner />
+        /* if (this.props.loading || !this.props.collections) return <Spinner /> */
         return (
             <View style={{ marginTop: 10 }}>
                 {

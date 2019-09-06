@@ -4,9 +4,9 @@ import {
     Text, 
     TouchableOpacity, 
     TextInput, 
-    StyleSheet,
     CheckBox,
-    Image
+    Image,
+    ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,6 +16,13 @@ import {
 import { INewMovieList } from './ICollection';
 import ImageUploader from '../ImageUploader/index';
 import Spinner from '../Spinner/Spinner';
+import styles from './styles';
+import SvgUri from 'react-native-svg-uri';
+import config from '../../config';
+import collections from './saga';
+
+const camera = require('../../assets/general/camera.svg');
+
 
 interface IProps {
     navigation: any;
@@ -24,7 +31,8 @@ interface IProps {
 
 interface IState {
    collection: INewMovieList ,
-   loading: boolean
+   loading: boolean,
+   movieDetails: any
 }
 
 class Collection extends Component<IProps, IState> {
@@ -38,6 +46,7 @@ class Collection extends Component<IProps, IState> {
                 moviesId: [],
                 imageUrl: ''
             },
+            movieDetails: [],
             loading: false
         }
     }
@@ -69,15 +78,17 @@ class Collection extends Component<IProps, IState> {
         });
     }
 
-    onNewMovie = (id) => {
+    onNewMovie = (movie) => {
         const movies = this.state.collection.moviesId;
-        movies.push(id);
-        console.log(movies);
+        const { movieDetails } = this.state;
+        movies.push(movie.id);
+        movieDetails.push(movie);
         this.setState({
             collection: {
                 ...this.state.collection,
                 moviesId: movies
-            }
+            }, 
+            movieDetails
         });
     }
 
@@ -98,17 +109,29 @@ class Collection extends Component<IProps, IState> {
         const { title, description, imageUrl, isPrivate } = this.state.collection;
         if (this.state.loading === true) return <Spinner />
         return (
-            <View>
+            <ScrollView>
                 <TextInput 
-                    value={title} 
-                    onChangeText={this.onChangeTitle} 
                     style={styles.input}
+                    textAlignVertical={'top'}
+                    value={title} 
+					multiline={true}
+					numberOfLines={1}
+                    onChangeText={this.onChangeTitle} 
+                    placeholder='Title'
                 />
                 <TextInput 
                     value={description} 
+                    textAlignVertical={'top'}
+					multiline={true}
+					numberOfLines={2}
                     onChangeText={this.onChangeDescription} 
                     style={styles.input}
+                    placeholder='Description'
                 />
+                <TouchableOpacity style={{ flexDirection: 'row', marginLeft: 20, alignItems: 'center', width: 100 }} onPress={this.onChangePrivacy}>
+                    <CheckBox value={isPrivate} onChange={this.onChangePrivacy} />
+                    <Text style={{...styles.collectionText, fontSize: 16, fontFamily: 'InterMedium' }}>private</Text>
+                </TouchableOpacity>
                 <View>
                     <ImageUploader
 				    	startUpload={() => this.setState({ loading: true })}
@@ -122,29 +145,50 @@ class Collection extends Component<IProps, IState> {
                             });
 				    	}}
 				    >
-                        <Text>Image</Text>
+                        <SvgUri style={styles.imageUploader} width={50} height={50} source={camera} />
                     </ImageUploader>
                     {
                         !!imageUrl &&
-                        <Image source={{ uri: imageUrl }} style={{ width: 100, height: 100 }}/>
+                        <View style={styles.UploadWrp}>
+							<Image style={styles.collectionImage} source={{ uri: imageUrl }} />
+						</View>
                     }
                 </View>
-                <TouchableOpacity onPress={this.onChangePrivacy}>
-                    <CheckBox value={isPrivate} onChange={this.onChangePrivacy} />
-                    <Text>private</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { 
-                    navigation.navigate('ChooseMovie', { onSave: this.onNewMovie }) 
-                }}>
-                    <Text>Add movie</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.onSave}>
-                    <Text>Save collection</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                    <Text>Go back</Text>
-                </TouchableOpacity>
-            </View>
+                <View style={{marginLeft: 20}}>
+                    {
+                        this.state.movieDetails.map(movie => 
+                            <View 
+			    			style={styles.topItem} 
+			    			key={movie.id}
+			    		>
+			    			<Image
+			    				source={{
+			    					uri:
+			    						config.POSTER_PATH + movie.poster_path || config.DEFAULT_MOVIE_IMAGE
+			    				}}
+			    				style={styles.poster}
+			    				resizeMode="contain"
+			    			/> 
+			    			<View style={{ marginLeft: 15, flex: 1 }}>
+			    				<View style={styles.titleContainer}>
+			    					<Text style={[styles.collectionText, styles.movieTitle]}>{movie.title}</Text> 
+			    				</View>
+			    			</View>
+			    		</View>
+                        )  
+                    }
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: "space-around", marginTop: 20 }}>
+                    <TouchableOpacity style={{...styles.addCollectionBttn, marginRight: 10}} onPress={() => { 
+                        navigation.navigate('ChooseMovie', { onSave: this.onNewMovie }) 
+                    }}>
+                        <Text style={styles.bttnText}>Add movie</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.addCollectionBttn} onPress={this.onSave}>
+                        <Text style={styles.bttnText}>Save</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         )
     }
 }
@@ -162,9 +206,3 @@ const actions = {
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Collection);
-
-const styles = StyleSheet.create({
-    input: {
-        borderWidth: 1
-    },
-})
