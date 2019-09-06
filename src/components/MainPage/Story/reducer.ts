@@ -1,10 +1,9 @@
 import { fetchStories } from './../../../redux/routines';
-import { ADD_STORY } from './actionTypes';
-import INewStory from './INewStory';
+import { ADD_STORY, CHANGE_ACTIVITY } from './actionTypes';
 
 const initialState: {
 	stories: any;
-	newStory?: INewStory;
+	newVoting?: { type: string; activity: any };
 	error: Error | null;
 	loading: boolean;
 } = {
@@ -48,6 +47,16 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				stories
+			};
+		case CHANGE_ACTIVITY:
+			return {
+				...state,
+				newVoting: {
+					...state.newVoting,
+					type: action.payload.type,
+					activity: action.payload.activity
+				},
+				photoSaved: false
 			};
 		default:
 			return state;

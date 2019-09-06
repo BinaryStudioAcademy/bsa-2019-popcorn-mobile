@@ -6,10 +6,7 @@ import { View, Text, StyleSheet, Alert } from 'react-native';
 import React, { Fragment } from 'react';
 import StoryList from './StoryList/StoryList';
 import SocketService from './../../../helpers/socket.helper';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import StoryModal from './StoryModal/index';
-import INewStory from './INewStory';
-import Spinner from '../../Spinner/Spinner';
+import ISelectedProfileInfo from '../../../views/UserPageView/SelectedProfileInterfase';
 
 interface IStoryListItem {
 	id: string;
@@ -45,6 +42,7 @@ interface IProps {
 	fetchStories: () => any;
 	addStory: (story: any) => any;
 	navigation: any;
+	profileInfo: ISelectedProfileInfo;
 }
 
 interface IState {
@@ -63,6 +61,7 @@ class StoryComponent extends React.Component<IProps, IState> {
 	}
 
 	addSocketEvents = addStory => {
+		SocketService.join(this.props.profileInfo.id);
 		SocketService.on('new-story', addStory);
 	};
 	render() {
@@ -90,7 +89,8 @@ const mapStateToProps = (rootState, props) => ({
 	stories: rootState.story.stories,
 	error: rootState.story.error,
 	loading: rootState.story.loading,
-	newStory: rootState.story.newStory
+
+	profileInfo: rootState.authorization.profileInfo
 });
 
 const actions = {

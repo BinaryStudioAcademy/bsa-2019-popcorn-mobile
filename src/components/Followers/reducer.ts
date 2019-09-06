@@ -1,9 +1,9 @@
 import {
-    fetchStatus,
-    fetchFollowed,
-    fetchFollowedCount,
-    fetchFollowers,
-    fetchFollowersCount
+	fetchStatus,
+	fetchFollowed,
+	fetchFollowedCount,
+	fetchFollowers,
+	fetchFollowersCount
 } from '../../redux/routines';
 
 const initialState = {
@@ -17,55 +17,55 @@ const initialState = {
 
 export default function(state = initialState, action) {
 	switch (action.type) {
-		case fetchFollowersCount.REQUEST: 
+		case fetchFollowersCount.REQUEST:
 			return {
 				...state,
 				loading: true
-			}
+			};
 		case fetchFollowersCount.SUCCESS:
 			return {
 				...state,
 				followersCount: action.payload,
 				loading: false
 			};
-		case fetchFollowedCount.REQUEST: 
+		case fetchFollowedCount.REQUEST:
 			return {
 				...state,
 				loading: true
-			}
+			};
 		case fetchFollowedCount.SUCCESS:
 			return {
 				...state,
 				followedCount: action.payload,
 				loading: false
 			};
-		case fetchFollowers.REQUEST: 
+		case fetchFollowers.REQUEST:
 			return {
 				...state,
 				loading: true
-			}
+			};
 		case fetchFollowers.SUCCESS:
 			return {
 				...state,
 				followers: action.payload.data,
 				loading: false
 			};
-		case fetchFollowed.REQUEST: 
+		case fetchFollowed.REQUEST:
 			return {
 				...state,
 				loading: true
-			}
+			};
 		case fetchFollowed.SUCCESS:
 			return {
 				...state,
 				followed: action.payload.data,
 				loading: false
 			};
-		case fetchStatus.REQUEST: 
+		case fetchStatus.REQUEST:
 			return {
 				...state,
 				loading: true
-			}
+			};
 		case fetchStatus.SUCCESS:
 			return {
 				...state,

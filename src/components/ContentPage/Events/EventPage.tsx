@@ -9,9 +9,12 @@ import {
 	Text,
 	Image,
 	StyleSheet,
-	TouchableOpacity
+	TouchableOpacity,
+	TouchableWithoutFeedback
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import moment from 'moment';
+import config from '../../../config';
 import Spinner from '../../Spinner/Spinner';
 
 interface IProps {
@@ -42,31 +45,25 @@ const EventPage: React.FC<IProps> = props => {
 		location_lat,
 		location_lng,
 		eventVisitors
-	} = event;
-	let dayStart = start_date.split('-')[2].split('T')[0];
-	let monStart = start_date.split('-')[1];
-	let timeStart =
-		start_date
-			.split('-')[2]
-			.split('T')[1]
-			.split(':')[0] +
-		':' +
-		start_date
-			.split('-')[2]
-			.split('T')[1]
-			.split(':')[1];
-	let dayEnd = end_date.split('-')[2].split('T')[0];
-	let monEnd = end_date.split('-')[1];
-	let timeEnd =
-		end_date
-			.split('-')[2]
-			.split('T')[1]
-			.split(':')[0] +
-		':' +
-		end_date
-			.split('-')[2]
-			.split('T')[1]
-			.split(':')[1];
+	} = props.navigation.state.params.event;
+	let timeStart = moment(start_date)
+		.utc()
+		.format('hh:mm A');
+	let dayStart = moment(start_date)
+		.utc()
+		.format('DD');
+	let monStart = moment(start_date)
+		.utc()
+		.format('MMM');
+	let timeEnd = moment(end_date)
+		.utc()
+		.format('hh:mm A');
+	let dayEnd = moment(end_date)
+		.utc()
+		.format('DD');
+	let monEnd = moment(end_date)
+		.utc()
+		.format('MMM');
 	let interestedUsers = eventVisitors.filter(
 		user => user.status === 'interested'
 	);
@@ -96,14 +93,19 @@ const EventPage: React.FC<IProps> = props => {
 				</View>
 				<View style={styles.eventActionWrap}>
 					<View style={styles.eventAction}>
-						<Icon
-							name="star"
-							color={'#37393a'}
-							size={14}
-							style={styles.eventIcon}
-						/>
+						<TouchableWithoutFeedback>
+							<TouchableOpacity>
+								<Icon
+									name="star"
+									color={'#37393a'}
+									size={14}
+									style={[styles.eventIcon]}
+								/>
+							</TouchableOpacity>
+						</TouchableWithoutFeedback>
 						<Text style={styles.eventActionLabel}>Interested</Text>
 					</View>
+
 					<View style={styles.eventAction}>
 						<Icon
 							name="check"
@@ -139,7 +141,7 @@ const EventPage: React.FC<IProps> = props => {
 						size={14}
 						style={styles.eventInfoIcon}
 					/>
-					<Text style={styles.eventDate}>
+					<Text>
 						{dayStart} {monStart} {timeStart} - {dayEnd} {monEnd} {timeEnd}
 					</Text>
 				</View>
@@ -150,7 +152,7 @@ const EventPage: React.FC<IProps> = props => {
 						size={14}
 						style={styles.eventInfoIcon}
 					/>
-					<Text style={styles.eventDate}>
+					<Text>
 						{location_lat} {location_lng}
 					</Text>
 				</View>
@@ -162,8 +164,7 @@ const EventPage: React.FC<IProps> = props => {
 					<View style={styles.eventDetails}>
 						<Text style={styles.eventDetailsTitle}>Discussion</Text>
 						<Text style={styles.eventDetailsText}>
-							Lorem ipsum dolor sit amet, eiusmod tempor incididunt ut labore et
-							aliqua.
+							No discussion has been started.
 						</Text>
 					</View>
 				</View>
@@ -175,7 +176,9 @@ const EventPage: React.FC<IProps> = props => {
 								interestedUsers.map(user => (
 									<Image
 										source={{
-											uri: user.avatar
+											uri: user.user.avatar
+												? user.user.avatar
+												: config.DEFAULT_AVATAR_MOBILE
 										}}
 										style={styles.eventVisitorImg}
 									/>
@@ -189,7 +192,9 @@ const EventPage: React.FC<IProps> = props => {
 								goingUsers.map(user => (
 									<Image
 										source={{
-											uri: user.avatar
+											uri: user.user.avatar
+												? user.user.avatar
+												: config.DEFAULT_AVATAR_MOBILE
 										}}
 										style={styles.eventVisitorImg}
 									/>
@@ -198,18 +203,14 @@ const EventPage: React.FC<IProps> = props => {
 					</View>
 				</View>
 			</View>
-			{/*<TouchableOpacity*/}
-			{/*	style={styles.buttonWrap}*/}
-			{/*	onPress={() => {*/}
-			{/*		// const { navigation } = props;*/}
-			{/*		*/}
-			{/*		// const { routeName, key } = navigation.getParam('prevState');*/}
-
-			{/*		// navigation.navigate({ routeName, key, params: {} });*/}
-			{/*	}}*/}
-			{/*>*/}
-			{/*	<Text style={[styles.text, styles.button]}>Go back</Text>*/}
-			{/*</TouchableOpacity>*/}
+			<TouchableOpacity
+				style={styles.buttonWrap}
+				onPress={() => {
+					props.navigation.navigate('EventList');
+				}}
+			>
+				<Text style={[styles.text, styles.button]}>Go back</Text>
+			</TouchableOpacity>
 		</ScrollView>
 	);
 };
@@ -252,6 +253,7 @@ const styles = StyleSheet.create({
 		fontFamily: 'Inter-Regular'
 	},
 	eventTitleWrap: {
+		flex: 1,
 		justifyContent: 'center'
 	},
 	eventTitle: {
@@ -305,7 +307,7 @@ const styles = StyleSheet.create({
 	eventInfoWrap: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		padding: '3%',
+		padding: 10,
 		fontFamily: 'Inter-Regular'
 	},
 	eventDate: {},

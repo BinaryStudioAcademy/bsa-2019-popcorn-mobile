@@ -1,18 +1,18 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 import {
-    fetchFollowers,
-    fetchFollowersCount,
-    fetchFollowed,
-    fetchFollowedCount,
-    changeStatus,
-    fetchStatus
+	fetchFollowers,
+	fetchFollowersCount,
+	fetchFollowed,
+	fetchFollowedCount,
+	changeStatus,
+	fetchStatus
 } from '../../redux/routines';
 import webApi from '../../helpers/webApi.helper';
 import config from '../../config';
 
 export function* getFollowersCount(action) {
 	try {
-        yield put(fetchFollowersCount.request());
+		yield put(fetchFollowersCount.request());
 		const { count } = yield call(webApi, {
 			method: 'GET',
 			endpoint: `${config.API_URL}/api/follow/${action.payload}/followers/count`
@@ -30,16 +30,18 @@ function* watchFetchFollowersCount() {
 
 export function* getFollowers(action) {
 	try {
-        yield put(fetchFollowers.request())
+		yield put(fetchFollowers.request());
 		const data = yield call(webApi, {
 			method: 'GET',
 			endpoint: `${config.API_URL}/api/follow/${action.payload}/followers`
 		});
 
-		yield put(fetchFollowers.success({
-            userId: action.payload.userId,
-            data
-        }));
+		yield put(
+			fetchFollowers.success({
+				userId: action.payload.userId,
+				data
+			})
+		);
 	} catch (e) {
 		console.log('follow saga fetch followings count:', e.message);
 	}
@@ -51,7 +53,7 @@ function* watchFetchFollowers() {
 
 export function* getFollowedCount(action) {
 	try {
-        yield put(fetchFollowedCount.request());
+		yield put(fetchFollowedCount.request());
 		const { count } = yield call(webApi, {
 			method: 'GET',
 			endpoint: `${config.API_URL}/api/follow/${action.payload}/followings/count`
@@ -69,16 +71,18 @@ function* watchFetchFollowingsCount() {
 
 export function* getFollowed(action) {
 	try {
-        yield put(fetchFollowed.request())
+		yield put(fetchFollowed.request());
 		const data = yield call(webApi, {
 			method: 'GET',
 			endpoint: `${config.API_URL}/api/follow/${action.payload}/followings`
 		});
 
-		yield put(fetchFollowed.success({
-            userId: action.payload.userId,
-            data
-        }));
+		yield put(
+			fetchFollowed.success({
+				userId: action.payload.userId,
+				data
+			})
+		);
 	} catch (e) {
 		console.log('follow saga fetch followers:', e.message);
 	}
@@ -90,7 +94,7 @@ function* watchFetchFollowings() {
 
 export function* getStatus(action) {
 	try {
-        yield put(fetchStatus.request());
+		yield put(fetchStatus.request());
 		const data = yield call(webApi, {
 			method: 'GET',
 			endpoint: `${config.API_URL}/api/follow/${action.payload.userId}/${action.payload.followerId}`
@@ -108,7 +112,7 @@ function* watchCheckStatus() {
 
 export function* updateStatus(action) {
 	try {
-        yield put(changeStatus.request());
+		yield put(changeStatus.request());
 		yield call(webApi, {
 			method: 'POST',
 			endpoint: `${config.API_URL}/api/follow`,
@@ -118,10 +122,12 @@ export function* updateStatus(action) {
 			}
 		});
 
-		yield put(fetchStatus.trigger({
-            userId: action.payload.userId,
-            followerId: action.payload.followerId
-        }));
+		yield put(
+			fetchStatus.trigger({
+				userId: action.payload.userId,
+				followerId: action.payload.followerId
+			})
+		);
 
 		yield put(fetchFollowersCount.trigger(action.payload.followerId));
 	} catch (e) {
