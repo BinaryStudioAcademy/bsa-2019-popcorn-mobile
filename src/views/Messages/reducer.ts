@@ -7,7 +7,8 @@ import {
 	DELETE_MESSAGE_STORE,
 	UPDATE_MESSAGE_STORE,
 	READ_MESSAGES,
-	ADD_UNREAD_MESSAGE
+	ADD_UNREAD_MESSAGE,
+	READ_MESSAGES_STORE
 } from './actionTypes';
 
 const initialState: {
@@ -61,6 +62,9 @@ export default function(state = initialState, action) {
 			const newMessage = action.payload.message;
 			const chatId = newMessage.chat.id;
 			delete newMessage.chat;
+			if (!state.chats[chatId].messages) {
+				return { ...state };
+			}
 
 			return {
 				...state,
@@ -80,7 +84,7 @@ export default function(state = initialState, action) {
 					...state.chats,
 					[action.payload.chatId]: {
 						...state.chats[action.payload.chatId],
-
+						lastMessage: action.payload.message,
 						unreadMessagesCount:
 							state.chats[action.payload.chatId].unreadMessagesCount + 1
 					}
@@ -99,7 +103,8 @@ export default function(state = initialState, action) {
 					...state.chats,
 					[chat_id]: {
 						...state.chats[chat_id],
-						messages: [...filteredMessages]
+						messages: [...filteredMessages],
+						lastMessage: filteredMessages[filteredMessages.length - 1]
 					}
 				}
 			};
@@ -115,22 +120,24 @@ export default function(state = initialState, action) {
 					...state.chats,
 					[id]: {
 						...state.chats[id],
-						messages: [...updatedMessages]
+						messages: [...updatedMessages],
+						lastMessage: updatedMessages[updatedMessages.length - 1]
 					}
 				}
 			};
 		case READ_MESSAGES:
 			const { chatId: id_chat, userId } = action.payload;
-			const filteredUnreadMessages = state.chats[id_chat].unreadMessages.filter(
-				message => message.chatId !== id_chat && message.user.id === userId
-			);
+			if (!state.chats[id_chat]) {
+				return { ...state };
+			}
+
 			return {
 				...state,
 				chats: {
 					...state.chats,
 					[id_chat]: {
 						...state.chats[id_chat],
-						unreadMessages: [...filteredUnreadMessages]
+						unreadMessagesCount: 0
 					}
 				}
 			};
