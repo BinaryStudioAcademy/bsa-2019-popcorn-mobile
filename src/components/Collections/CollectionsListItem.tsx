@@ -46,8 +46,7 @@ const CollectionsListItem: React.FC<IProps> = ({ preview, navigation, deleteColl
 						{
 							isPrivate &&
 							<FontAwesomeIcon icon={faLock} size={12} style={{ marginRight: 3, color: '#fb8700' }} />
-						} 
-						{` ${title}`}
+						} {`${title}`}
 					</Text>
 					<Text numberOfLines={3} style={[styles.text]}>
 						{description}
