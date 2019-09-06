@@ -46,7 +46,7 @@ class CollectionsView extends Component<IProps> {
 const mapStateToProps = (rootState, props) => ({
     ...props,
     loading: rootState.collections.loading,
-	collections: rootState.collections.collections,
+	collections: rootState.collections.collections
 });
 
 const actions = {
