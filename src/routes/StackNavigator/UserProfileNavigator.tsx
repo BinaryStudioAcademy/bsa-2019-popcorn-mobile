@@ -1,10 +1,9 @@
-import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import UserProfile from '../../views/UserPageView/UserPageView';
-import FollowersList from '../../components/Followers/FollowersList';
-import FollowedList from '../../components/Followers/FollowedList';
-import Header from '../../components/Followers/Header';
 import FollowersNavigator from '../TabNavigator/FollowersNavigator';
+import Collection from '../../components/Collections/Collection';
+import CollectionConstructor from '../../components/Collections/CollectionConstructor';
+import MovieListView from '../../components/MainPage/Movie/index';
 
 const UserProfileNavigation = createStackNavigator({
 	Profile: {
@@ -13,12 +12,37 @@ const UserProfileNavigation = createStackNavigator({
 			header: null
 		}
 	},
-	Follows: {
-		screen: FollowersNavigator,
-		navigationOptions: {
-			header: null
-		}
-	}
+    Follows: {
+        screen: FollowersNavigator,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Collection: {
+        screen: Collection,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CollectionConstructor: {
+        screen: createStackNavigator({
+            Constructor: {
+                screen: CollectionConstructor,
+                navigationOptions: {
+                    header: null
+                }
+            },
+            ChooseMovie: {
+                screen: MovieListView,
+                navigationOptions: {
+                    header: null
+                }
+            }
+        }),
+        navigationOptions: {
+            header: null
+        }
+    }
 });
 
 export default UserProfileNavigation;
