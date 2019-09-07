@@ -1,13 +1,5 @@
-import Gestures from 'react-native-easy-gestures';
 import React, { Component, Fragment } from 'react';
-import {
-	View,
-	Text,
-	StyleSheet,
-	TextInput,
-	TouchableOpacity,
-	ImageBackground
-} from 'react-native';
+import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import INewStory from '../INewStory';
 import IUser from '../../../UserPage/IUser';
@@ -23,7 +15,6 @@ interface IProps {
 	data: any;
 	handleDisable: any;
 	updateState: (any, string) => void;
-	// updateVoting: (newVoting: IVoting | null, disabled: boolean) => void;
 	validateStory: any;
 }
 interface IState {
@@ -67,7 +58,6 @@ export default class Voting extends Component<IProps, IState> {
 			id: Number(Math.random() * (100 - 3) + 3),
 			body: 'Yes, but'
 		});
-		console.log('tempOptions', tempOptions);
 		this.setState({
 			voteOptions: tempOptions,
 			allowAddOption: tempOptions.length < 5
@@ -136,7 +126,6 @@ export default class Voting extends Component<IProps, IState> {
 		));
 	};
 	render() {
-		console.log('voting.state', this.state);
 		const { areaWidth, areaHeight, newStory } = this.props;
 		return (
 			<View
@@ -148,14 +137,12 @@ export default class Voting extends Component<IProps, IState> {
 				<TextInput
 					textAlignVertical={'top'}
 					multiline={true}
-					numberOfLines={8}
 					placeholder={'Question'}
 					placeholderTextColor={TITLE_COLOR}
 					maxLength={60}
 					selectTextOnFocus={true}
 					onEndEditing={text => {
 						if (text) {
-							// this.props.validate();
 							this.props.validateStory({
 								newStory: this.props.newStory,
 								data: this.props.data,
