@@ -31,7 +31,7 @@ class CollectionList extends Component<IProps> {
     }
 
     render() {
-        /* if (this.props.loading || !this.props.collections) return <Spinner /> */
+        if (this.props.loading || !this.props.collections) return <Spinner />
         return (
             <View style={{ marginTop: 10 }}>
                 {
@@ -43,7 +43,7 @@ class CollectionList extends Component<IProps> {
                     </TouchableOpacity>
                 }
                 <FlatList
-                    refreshing={false}
+                    refreshing={true}
                     data={this.props.collections}
                     keyExtractor={(item: any) => item.id}
                     renderItem={({ item }) =>

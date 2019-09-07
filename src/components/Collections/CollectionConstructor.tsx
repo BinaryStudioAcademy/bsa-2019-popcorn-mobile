@@ -171,8 +171,9 @@ class Collection extends Component<IProps, IState> {
 			    			/> 
 			    			<View style={{ marginLeft: 15, flex: 1 }}>
 			    				<View style={styles.titleContainer}>
-			    					<Text style={[styles.collectionText, styles.movieTitle]}>{movie.title}</Text> 
+			    					<Text style={[styles.collectionText, styles.movieTitle]}>{movie.title}</Text>
 			    				</View>
+                                <Text numberOfLines={7} style={[styles.collectionText, styles.comment]}>{movie.overview}</Text> 
 			    			</View>
 			    		</View>
                         )  
