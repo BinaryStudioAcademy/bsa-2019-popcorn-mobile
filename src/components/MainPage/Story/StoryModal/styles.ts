@@ -4,8 +4,8 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 const orange = '#f57c00';
 const imageHeight = '70%';
 const imageWrapHeight = '65%';
-// export const captionFont = Platform.OS === 'android' ? 'monospace' : 'Courier';
-export const captionFont = 'Roboto';
+export const captionFont = Platform.OS === 'android' ? 'monospace' : 'Courier';
+// export const captionFont = 'Roboto';
 export default StyleSheet.create({
 	input: {
 		position: 'absolute',
