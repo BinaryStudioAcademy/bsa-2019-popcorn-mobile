@@ -8,8 +8,8 @@ import {
 } from './actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spinner } from 'native-base';
 import ChatList from './ChatList';
+import Spinner from '../../components/Spinner/Spinner';
 
 interface IProps {
 	fetchChats: (userId) => void;
