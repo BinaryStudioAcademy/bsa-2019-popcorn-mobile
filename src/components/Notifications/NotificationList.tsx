@@ -61,9 +61,7 @@ class NotificationList extends Component<IProps> {
 
 const mapStateToProps = (rootState, props) => ({
 	...props,
-	unreadNotifications: [
-		...rootState.notifications.unreadNotifications
-	].reverse(),
+	unreadNotifications: rootState.notifications.unreadNotifications,
 	userInfo: rootState.authorization.profileInfo,
 	loading: rootState.notifications.loading
 });
