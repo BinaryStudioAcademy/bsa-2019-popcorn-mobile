@@ -56,7 +56,6 @@ export default class DraggableText extends Component<IProps, IState> {
 		} = this.props;
 		const horiz_limit = (areaWidth - this.state.elementWidth) / 2;
 		const vert_limit = areaHeight - this.state.elementHeight;
-
 		return (
 			<Gestures
 				ref={c => {
@@ -67,7 +66,7 @@ export default class DraggableText extends Component<IProps, IState> {
 					this.setState({ inputDisabled: true });
 				}}
 				rotatable={false}
-				onEnd={styles => {
+				onEnd={(event, styles) => {
 					if (
 						styles.top >= vert_limit ||
 						styles.left >= horiz_limit ||
@@ -98,7 +97,7 @@ export default class DraggableText extends Component<IProps, IState> {
 							this.setState({ elementHeight: height, elementWidth: width });
 						}}
 						style={[
-							{ alignSelf: 'center', zIndex: 100, position: 'absolute' },
+							{ alignSelf: 'center' },
 							!this.state.inputDisabled ? styles.inputActive : null
 						]}
 					>
@@ -114,12 +113,11 @@ export default class DraggableText extends Component<IProps, IState> {
 						) : (
 							<TextInput
 								textAlignVertical={'top'}
-								multiline={true}
-								numberOfLines={8}
-								placeholder={'YOUR TEXT HERE'}
+								multiline={false}
+								placeholder={'YOUR TEXT HERE '}
 								placeholderTextColor={'#383838'}
 								maxLength={140}
-								selectTextOnFocus={false}
+								selectTextOnFocus={true}
 								onEndEditing={() => {
 									if (caption) {
 										this.setState({ inputDisabled: true });
@@ -164,6 +162,7 @@ export default class DraggableText extends Component<IProps, IState> {
 			newStory,
 			image_url
 		} = this.props;
+		console.log();
 		return (
 			<Fragment>
 				{image_url ? (
@@ -191,7 +190,6 @@ export default class DraggableText extends Component<IProps, IState> {
 											},
 											data: this.props.data
 										});
-										// this.props.validate('');
 										this.props.validateStory({
 											caption: '',
 											newStory: this.props.newStory,
@@ -214,7 +212,8 @@ export default class DraggableText extends Component<IProps, IState> {
 							height: areaHeight,
 							overflow: 'hidden',
 							backgroundColor: backgroundColor,
-							position: 'absolute'
+							position: 'absolute',
+							zIndex: 9
 						}}
 					>
 						{this.renderGestures()}
@@ -229,18 +228,15 @@ const styles = StyleSheet.create({
 		fontWeight: '600',
 		fontFamily: 'Courier',
 		letterSpacing: 0.1,
-		fontSize: 18,
-		alignSelf: 'flex-start'
+		fontSize: 16,
+		alignSelf: 'flex-start',
+		flexDirection: 'row'
 	},
 	inputActive: {
 		backgroundColor: 'rgba(255,255,255,0.2)',
 		shadowColor: 'rgba(255,255,255,0.3)',
-		shadowOffset: { width: 4, height: 3 },
 		shadowOpacity: 0.8,
-		borderRadius: 5,
-		padding: 2,
-		shadowRadius: 3,
-		elevation: 8
+		paddingRight: 5
 	},
 	dragImageArea: {
 		width: '100%',
