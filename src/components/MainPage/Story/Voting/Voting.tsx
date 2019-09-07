@@ -199,7 +199,6 @@ const styles = StyleSheet.create({
 		width: '100%',
 		fontSize: 18,
 		color: '#c2185b',
-		textTransform: 'uppercase',
 		textAlign: 'center'
 	},
 	addOptionWrap: {
