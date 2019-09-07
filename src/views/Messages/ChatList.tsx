@@ -10,7 +10,6 @@ import {
 } from './actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spinner } from 'native-base';
 import config from '../../config';
 import moment from 'moment';
 import SocketService from '../../helpers/socket.helper';
