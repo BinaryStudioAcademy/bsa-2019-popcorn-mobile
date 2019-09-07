@@ -1,27 +1,18 @@
 import React, { Component, Fragment } from 'react';
-import {
-	Text,
-	View,
-	StyleSheet,
-	Image,
-	ScrollView,
-	TextInput
-} from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, ScrollView } from 'react-native';
 import { fetchMessages, deleteMessage, updateMessage } from './actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spinner } from 'native-base';
 import moment from 'moment';
 import NewMessage from './NewMessage';
-import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import OutgoingMessage from './OutgoingMessage';
 import { styles } from './styles';
 import IncomingMessage from './IncomingMessage';
+import Spinner from '../../components/Spinner/Spinner';
 
 interface IProps {
 	fetchMessages: (userId: string, chatId: string) => void;
-	chat: any; //todo
+	chat: any;
 	userId: string;
 	isLoadingMessages: boolean;
 	navigation: any;
