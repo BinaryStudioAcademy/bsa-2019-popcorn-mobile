@@ -1,27 +1,18 @@
 import React, { Component, Fragment } from 'react';
-import {
-	Text,
-	View,
-	StyleSheet,
-	Image,
-	ScrollView,
-	TextInput
-} from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, ScrollView } from 'react-native';
 import { fetchMessages, deleteMessage, updateMessage } from './actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spinner } from 'native-base';
 import moment from 'moment';
 import NewMessage from './NewMessage';
-import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import OutgoingMessage from './OutgoingMessage';
 import { styles } from './styles';
 import IncomingMessage from './IncomingMessage';
+import Spinner from '../../components/Spinner/Spinner';
 
 interface IProps {
 	fetchMessages: (userId: string, chatId: string) => void;
-	chat: any; //todo
+	chat: any;
 	userId: string;
 	isLoadingMessages: boolean;
 	navigation: any;
@@ -82,7 +73,10 @@ class Messages extends React.Component<IProps, IState> {
 		if (!this.props.chat) {
 			return <Spinner />;
 		}
-		if (!this.props.chat.messages && !this.props.isLoadingMessages) {
+		if (
+			(!this.props.chat.messages && !this.props.isLoadingMessages) ||
+			this.props.chat.unreadMessagesCount
+		) {
 			this.props.fetchMessages(this.props.userId, chatId);
 		}
 		if (!this.props.chat.messages) {
@@ -108,7 +102,6 @@ class Messages extends React.Component<IProps, IState> {
 						{messages.map((message: any, id) => {
 							const date = new Date(message.created_at);
 							let newDate = this.getNewDate(date);
-							let isReaction = message.reactionType || message.story;
 							const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
 							const isMyMessage = message.user.id === this.props.userId;
 							if (currentDate !== tmpDate) {
@@ -116,55 +109,60 @@ class Messages extends React.Component<IProps, IState> {
 								return isMyMessage ? (
 									<View>
 										<NewDate newDate={newDate} />
-										{isReaction ? (
+										{message.story ? (
 											<ReactionMessage
 												key={message.id}
 												message={message}
 												isOwn={isMyMessage}
 											/>
 										) : null}
-										<OutgoingMessage
-											key={message.id}
-											outgoingMessage={message}
-										/>
+										{!message.reactionType ? (
+											<OutgoingMessage
+												key={message.id}
+												outgoingMessage={message}
+											/>
+										) : null}
 									</View>
 								) : (
 									<View>
 										<NewDate newDate={newDate} />
-										{isReaction ? (
+										{message.story ? (
 											<ReactionMessage
 												key={message.id}
 												message={message}
 												isOwn={isMyMessage}
 											/>
 										) : null}
-										<IncomingMessage
-											key={message.id}
-											outgoingMessage={message}
-										/>
+										{!message.reactionType ? (
+											<IncomingMessage
+												key={message.id}
+												outgoingMessage={message}
+											/>
+										) : null}
 									</View>
 								);
 							} else {
 								return (
 									<Fragment>
-										{isReaction ? (
+										{message.story ? (
 											<ReactionMessage
 												key={message.id}
 												message={message}
 												isOwn={isMyMessage}
 											/>
 										) : null}
-										{isMyMessage ? (
+
+										{!message.reactionType && isMyMessage ? (
 											<OutgoingMessage
 												key={message.id}
 												outgoingMessage={message}
 											/>
-										) : (
+										) : !message.reactionType ? (
 											<IncomingMessage
 												key={message.id}
 												outgoingMessage={message}
 											/>
-										)}
+										) : null}
 									</Fragment>
 								);
 							}

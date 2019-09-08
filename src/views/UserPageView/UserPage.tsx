@@ -67,7 +67,7 @@ class UserPageTest1 extends Component<IProps> {
 						this.heights[i] = newHeight;
 					}}
 				>
-					<TabViewComponent />
+					<TabViewComponent navigation={this.props.navigation} />
 				</View>
 			</View>
 		);

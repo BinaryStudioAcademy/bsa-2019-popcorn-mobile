@@ -55,32 +55,32 @@ interface IStoryListItemProps {
 const reactions = [
 	{
 		id: 1,
-		reactionType: 'laugh',
+		reactionType: 'like',
 		value: '🤣'
 	},
 	{
 		id: 2,
-		reactionType: 'fire',
+		reactionType: 'dislike',
 		value: '🔥'
 	},
 	{
 		id: 3,
-		reactionType: 'claps',
+		reactionType: 'popcorn',
 		value: '👏🏻'
 	},
 	{
 		id: 4,
-		reactionType: 'stars',
+		reactionType: 'haha',
 		value: '🤩'
 	},
 	{
 		id: 5,
-		reactionType: 'cry',
+		reactionType: 'wow',
 		value: '😢'
 	},
 	{
 		id: 6,
-		reactionType: 'shock',
+		reactionType: 'sad',
 		value: '😳'
 	},
 	{
@@ -90,7 +90,7 @@ const reactions = [
 	},
 	{
 		id: 8,
-		reactionType: 'holiday',
+		reactionType: 'fire',
 		value: '🥳'
 	}
 ];
@@ -104,6 +104,75 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 		this.state = {
 			showReactions: false
 		};
+	}
+
+	getIcon(reactionType) {
+		switch (reactionType) {
+			case 'like':
+				return (
+					<SvgUri
+						height={45}
+						width={45}
+						source={require(`./../../../../assets/reactions/like.svg`)}
+					/>
+				);
+			case 'dislike':
+				return (
+					<SvgUri
+						height={45}
+						width={45}
+						source={require(`./../../../../assets/reactions/dislike.svg`)}
+					/>
+				);
+			case 'popcorn':
+				return (
+					<SvgUri
+						height={45}
+						width={45}
+						source={require(`./../../../../assets/reactions/popcorn.svg`)}
+					/>
+				);
+			case 'haha':
+				return (
+					<SvgUri
+						height={45}
+						width={45}
+						source={require(`./../../../../assets/reactions/haha.svg`)}
+					/>
+				);
+			case 'wow':
+				return (
+					<SvgUri
+						height={45}
+						width={45}
+						source={require(`./../../../../assets/reactions/wow.svg`)}
+					/>
+				);
+			case 'sad':
+				return (
+					<SvgUri
+						height={45}
+						width={45}
+						source={require(`./../../../../assets/reactions/sad.svg`)}
+					/>
+				);
+			case 'angry':
+				return (
+					<SvgUri
+						height={45}
+						width={45}
+						source={require(`./../../../../assets/reactions/angry.svg`)}
+					/>
+				);
+			case 'fire':
+				return (
+					<SvgUri
+						height={45}
+						width={45}
+						source={require(`./../../../../assets/reactions/fire.svg`)}
+					/>
+				);
+		}
 	}
 	renderControls(navigation) {
 		return (
@@ -121,7 +190,7 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 				onPress={() => this.sendReactionMessage(item.reactionType)}
 			>
 				<View style={styles.reactionWrapper}>
-					<Text style={styles.reactionBody}>{item.value}</Text>
+					{this.getIcon(item.reactionType)}
 				</View>
 			</TouchableOpacity>
 		);
