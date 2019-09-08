@@ -74,6 +74,10 @@ class Main extends Component<IProps> {
 					this.props.navigation.navigate('Main');
 				if (data.type === 'event')
 					this.props.navigation.navigate('Event', { eventId: data.id });
+				if (data.type === 'message')
+					this.props.navigation.navigate('Message', { chatId: data.id });
+				if (data.type === 'follower')
+					this.props.navigation.navigate('Follower', { userId: data.id });
 			});
 
 		const notificationOpen = await firebase
@@ -85,6 +89,10 @@ class Main extends Component<IProps> {
 				this.props.navigation.navigate('Main');
 			if (data.type === 'event')
 				this.props.navigation.navigate('Event', { eventId: data.id });
+			if (data.type === 'message')
+				this.props.navigation.navigate('Message', { chatId: data.id });
+			if (data.type === 'follower')
+				this.props.navigation.navigate('Follower', { userId: data.id });
 		}
 	}
 

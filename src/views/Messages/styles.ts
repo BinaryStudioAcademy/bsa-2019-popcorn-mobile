@@ -16,9 +16,6 @@ export const styles = StyleSheet.create({
 		flex: 0.9,
 		paddingBottom: 0,
 		paddingTop: 0
-		// height: 60
-		// flex: 7
-		// paddingBottom: 20
 	},
 
 	messageInfo: {
@@ -69,9 +66,7 @@ export const styles = StyleSheet.create({
 		width: '100%'
 	},
 	sendMessageWrap: {
-		// marginTop: 10,
 		flex: 0.1
-		// height: 60
 	},
 	editWrap: {
 		position: 'absolute',

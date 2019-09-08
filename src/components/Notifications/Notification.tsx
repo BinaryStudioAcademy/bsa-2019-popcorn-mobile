@@ -2,8 +2,6 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import INotification from './INotification';
 import Moment from 'moment';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faComments, faStar } from '@fortawesome/free-solid-svg-icons';
 import { generateIcon } from '../../services/notification.service';
 
 interface IProps {
@@ -25,6 +23,8 @@ const Notification: React.FC<IProps> = ({
 		if (type === 'post' || type === 'story') navigation.navigate('Home');
 		if (type === 'event')
 			navigation.navigate('Event', { eventId: notification.entityId });
+		if (type === 'follower')
+			navigation.navigate('Follower', { userId: notification.entityId });
 	};
 
 	return (
