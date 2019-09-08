@@ -14,6 +14,7 @@ import chatReducer from '../views/Messages/reducer';
 import userProfileReducer from '../views/UserPageView/reducer';
 import followersReducer from '../components/Followers/reducer';
 import watchListReducer from './../components/UserPage/WatchList/reducer';
+import collectionsReducer from '../components/Collections/reducer';
 
 const reducers = {
 	story: storyReducer,
@@ -30,7 +31,8 @@ const reducers = {
 	chat: chatReducer,
 	userProfile: userProfileReducer,
 	followers: followersReducer,
-	watchList: watchListReducer
+	watchList: watchListReducer,
+	collections: collectionsReducer
 };
 
 export default combineReducers({

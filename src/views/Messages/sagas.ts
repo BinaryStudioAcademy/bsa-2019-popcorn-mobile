@@ -19,7 +19,6 @@ export function* fetchChats(action) {
 			method: 'GET',
 			endpoint: config.API_URL + `/api/chat/${action.payload.userId}`
 		});
-		console.log(data);
 		yield put({
 			type: SET_CHATS,
 			payload: {
@@ -43,7 +42,6 @@ export function* fetchMessages(action) {
 				config.API_URL +
 				`/api/chat/${action.payload.chatId}/${action.payload.userId}/read`
 		});
-		console.log('RESP=', resp);
 		const messages = yield call(webApi, {
 			method: 'GET',
 			endpoint:
@@ -102,15 +100,17 @@ function* watchCreateChat() {
 }
 
 export function* createMessage(action) {
+	let newBody =
+		typeof action.payload.body === 'string'
+			? { body: action.payload.body }
+			: { ...action.payload.body };
 	try {
 		yield call(webApi, {
 			method: 'POST',
 			endpoint:
 				config.API_URL +
 				`/api/chat/${action.payload.userId}/${action.payload.chatId}`,
-			body: {
-				...action.payload.body
-			}
+			body: newBody
 		});
 	} catch (e) {
 		console.log('chat saga create message:', e.message);
