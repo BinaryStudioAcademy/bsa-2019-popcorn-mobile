@@ -69,13 +69,9 @@ export const styles = StyleSheet.create({
 		flex: 0.1
 	},
 	editWrap: {
-		position: 'absolute',
 		height: 20,
-		right: 0,
 		width: 40,
-		top: -20,
 		padding: 3,
-		zIndex: 10,
 		flexDirection: 'row',
 		justifyContent: 'space-between'
 	},
@@ -86,7 +82,10 @@ export const styles = StyleSheet.create({
 		flex: 2,
 		textAlign: 'right'
 	},
-
+	outgoingWrap: {
+		justifyContent: 'flex-end',
+		alignItems: 'flex-end'
+	},
 	messageWrap: {
 		flexDirection: 'row',
 		padding: 10,

@@ -162,7 +162,6 @@ export default class DraggableText extends Component<IProps, IState> {
 			newStory,
 			image_url
 		} = this.props;
-		console.log();
 		return (
 			<Fragment>
 				{image_url ? (
@@ -185,8 +184,7 @@ export default class DraggableText extends Component<IProps, IState> {
 											newStory: {
 												...newStory,
 												image_url: '',
-												backgroundColor: DEFAULT_BACKGROUND,
-												caption: ''
+												backgroundColor: DEFAULT_BACKGROUND
 											},
 											data: this.props.data
 										});
