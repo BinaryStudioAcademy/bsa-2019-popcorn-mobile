@@ -225,21 +225,21 @@ class SurveyPage extends React.Component<IProps, IState> {
 										);
 								})}
 							</View>
-						</View>
-						<View>
-							{this.state.isDisabled && (
-								<Text style={styles.surveyFooter}>
-									Please, answer all required questions.
-								</Text>
-							)}
-							{!this.props.isPreview && (
-								<TouchableOpacity
-									onPress={this.sendAnswer}
-									style={styles.surveyBtn}
-								>
-									<Text style={styles.surveyBtnText}>Send</Text>
-								</TouchableOpacity>
-							)}
+							<View>
+								{this.state.isDisabled && (
+									<Text style={styles.surveyFooter}>
+										Please, answer all required questions.
+									</Text>
+								)}
+								{!this.props.isPreview && (
+									<TouchableOpacity
+										onPress={this.sendAnswer}
+										style={styles.surveyBtn}
+									>
+										<Text style={styles.surveyBtnText}>Send</Text>
+									</TouchableOpacity>
+								)}
+							</View>
 						</View>
 					</View>
 				</>
