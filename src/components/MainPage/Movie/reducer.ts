@@ -18,8 +18,8 @@ const initialState: {
 		genresValues: [],
 		ratingValues: [],
 		yearValues: {
-			startDate: '',
-			endDate: ''
+			startDate: '1900-01-01',
+			endDate: '2019-09-06'
 		},
 		descriptionValue: '',
 		castValues: '',
@@ -38,7 +38,8 @@ export default function(state = initialState, action) {
 		case fetchMovies.SUCCESS:
 			return {
 				...state,
-				movies: action.payload
+				movies: action.payload,
+				error: null
 			};
 		case fetchMovies.FAILURE:
 			return {
@@ -86,7 +87,6 @@ export default function(state = initialState, action) {
 				loading: false
 			};
 		case 'SET_FILTERS':
-			console.log(action.payload.filters);
 			return {
 				...state,
 				filters: action.payload.filters

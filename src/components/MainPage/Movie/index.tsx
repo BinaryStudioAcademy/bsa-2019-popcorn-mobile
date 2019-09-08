@@ -76,6 +76,7 @@ class MovieComponent extends React.Component<IProps> {
 
 	render() {
 		const { movies, watchList, navigation } = this.props;
+
 		return (
 			<>
 				<View style={{ padding: 15 }}>
@@ -84,18 +85,18 @@ class MovieComponent extends React.Component<IProps> {
 						action={this.handleNameChange}
 						showFilter={true}
 						quickEvent={this.testEventForQuickShow}
-						quickShowBlock={true}
+						quickShowBlock={false}
 					/>
 				</View>
-				movies && watchList && (
-				<FlatList
-					refreshing={false}
-					onRefresh={() => this.onRefresh()}
-					data={movies}
-					keyExtractor={item => item.id}
-					renderItem={({ item }) => this.renderMovie({ item }, navigation)}
-				/>
-				)
+				{movies && watchList && (
+					<FlatList
+						refreshing={false}
+						onRefresh={() => this.onRefresh()}
+						data={movies}
+						keyExtractor={item => item.id}
+						renderItem={({ item }) => this.renderMovie({ item }, navigation)}
+					/>
+				)}
 			</>
 		);
 	}

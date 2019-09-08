@@ -17,7 +17,6 @@ export function* getMovies() {
 			method: 'GET'
 		});
 
-		console.log(response);
 		yield put(fetchMovies.success(response));
 	} catch (error) {
 		yield put(fetchMovies.failure(error.message));
@@ -51,7 +50,6 @@ function* watchGetGenres() {
 }
 
 export function* getFiltredMovies(action) {
-	console.log(action);
 	try {
 		yield put(fetchFiltred.request());
 
@@ -61,7 +59,6 @@ export function* getFiltredMovies(action) {
 			body: action.payload
 		});
 
-		console.log(response);
 		yield put(fetchMovies.success(response));
 	} catch (error) {
 		yield put(fetchFiltred.failure(error.message));
