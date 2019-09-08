@@ -145,7 +145,6 @@ class StoryModal extends Component<IProps, IState> {
 			},
 			data: null
 		});
-		this.setState({ showInput: false });
 	};
 
 	renderExtraOptions = () => {
