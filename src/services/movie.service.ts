@@ -8,6 +8,13 @@ export const getAllMovies = async () => {
 	});
 	return res;
 };
+export const getSearchMovies = async data => {
+	const res = await callWebApi({
+		method: 'GET',
+		endpoint: config.API_URL + '/api/movie/find?title=' + data
+	});
+	return res;
+};
 
 export const getMovieById = async (id: string) => {
 	const res = await callWebApi({
