@@ -16,12 +16,14 @@ export default function(state = initialState, action) {
 		case getReviewsByMovieId.SUCCESS:
 			return {
 				...state,
-				reviews: action.payload
+				reviews: action.payload,
+				loading: false
 			};
 		case getReviewsByMovieId.FAILURE:
 			return {
 				...state,
-				error: action.payload
+				error: action.payload,
+				loading: true
 			};
 		case getReviewsByMovieId.FULFILL:
 			return {

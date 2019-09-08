@@ -1,11 +1,17 @@
-import { fetchMovies, fetchUserWatchList } from '../../../redux/routines';
+import {
+	fetchMovies,
+	fetchUserWatchList,
+	fetchFiltred
+} from '../../../redux/routines';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import React from 'react';
 import MoviePreview from './MoviePreview/MoviePreview';
 import IMovie from './IMovie';
 import { addToWatchlist } from './../../UserPage/WatchList/actions';
+import SearchInput from '../../Search/SearchInput';
+import { setFilters } from './actions';
 
 interface IProps {
 	movies?: null | Array<IMovie>;
@@ -48,19 +54,50 @@ class MovieComponent extends React.Component<IProps> {
 		);
 	}
 
+	convert(newDate) {
+		let year = newDate.getFullYear();
+		let mnth = ('0' + (newDate.getMonth() + 1)).slice(-2);
+		let day = ('0' + newDate.getDate()).slice(-2);
+		return [year, mnth, day].join('-');
+	}
+
+	handleNameChange = val => {
+		const searchName = {
+			...this.props.filters,
+			nameValue: val
+		};
+		this.props.setFilters(searchName);
+		this.props.fetchFiltred(searchName);
+	};
+
+	testEventForQuickShow(data) {
+		console.log(data);
+	}
+
 	render() {
 		const { movies, watchList, navigation } = this.props;
+
 		return (
-			movies &&
-			watchList && (
-				<FlatList
-					refreshing={false}
-					onRefresh={() => this.onRefresh()}
-					data={movies}
-					keyExtractor={item => item.id}
-					renderItem={({ item }) => this.renderMovie({ item }, navigation)}
-				/>
-			)
+			<>
+				<View style={{ padding: 15 }}>
+					<SearchInput
+						navigation={navigation}
+						action={this.handleNameChange}
+						showFilter={true}
+						quickEvent={this.testEventForQuickShow}
+						quickShowBlock={false}
+					/>
+				</View>
+				{movies && watchList && (
+					<FlatList
+						refreshing={false}
+						onRefresh={() => this.onRefresh()}
+						data={movies}
+						keyExtractor={item => item.id}
+						renderItem={({ item }) => this.renderMovie({ item }, navigation)}
+					/>
+				)}
+			</>
 		);
 	}
 }
@@ -68,6 +105,7 @@ class MovieComponent extends React.Component<IProps> {
 const mapStateToProps = (rootState, props) => ({
 	...props,
 	movies: rootState.movies.movies,
+	filters: rootState.movies.filters,
 	error: rootState.movies.error,
 	loading: rootState.movies.loading,
 	watchList: rootState.watchList.data,
@@ -77,7 +115,9 @@ const mapStateToProps = (rootState, props) => ({
 const actions = {
 	fetchMovies,
 	fetchUserWatchList,
-	addToWatchlist
+	addToWatchlist,
+	fetchFiltred,
+	setFilters
 };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
