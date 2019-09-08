@@ -7,10 +7,7 @@ import StoryComponent from './../components/MainPage/Story/';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import StoryModal from '../components/MainPage/Story/StoryModal';
 import INewStory from '../components/MainPage/Story/INewStory';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-const mock_url =
-	'https://i.pinimg.com/736x/2c/f1/93/2cf193ee4bef23eb1a2a9b07faadd951.jpg';
+import config from '../config';
 
 const newStoryDefault: INewStory = {
 	activityId: '',
@@ -44,6 +41,20 @@ const validateStory = ({ caption, newStory, data, voting, handleDisable }) => {
 		handleDisable(true);
 	}
 };
+
+const getDefaultImage = type => {
+	switch (type) {
+		case 'event':
+			return config.DEFAULT_EVENT_IMAGE;
+		case 'survey':
+			return config.DEFAULT_SURVEY_IMAGE;
+		case 'top':
+			return config.DEFAULT_TOP_IMAGE;
+		default:
+			return '';
+	}
+};
+
 const HomeView = ({ navigation }) => {
 	const [showModal, onPress] = useState(false);
 	const [newStory, setNewStory] = useState<NewStory>({
@@ -56,8 +67,13 @@ const HomeView = ({ navigation }) => {
 		const { option, type } = navigation.state.params;
 		navigation.state.params = null;
 		if (!newStory.data || newStory.data.id !== option.id) {
+			let extraImage = getDefaultImage(type);
 			setNewStory({
-				newStory: { ...newStory.newStory, image_url: option.image },
+				newStory: {
+					...newStory.newStory,
+					image_url: option.image ? option.image : extraImage,
+					caption: ''
+				},
 				data: { option, type }
 			});
 		}
@@ -73,12 +89,6 @@ const HomeView = ({ navigation }) => {
 			</TouchableOpacity>
 			{showModal && (
 				<View style={styles.modal}>
-					<TouchableOpacity
-						style={styles.modalAnchorBack}
-						onPress={() => onPress(!showModal)}
-					>
-						<Icon name="arrow-circle-o-left" color={'#fff'} size={50} />
-					</TouchableOpacity>
 					<StoryModal
 						navigation={navigation}
 						newStory={newStory.newStory}
@@ -141,7 +151,7 @@ const styles = StyleSheet.create({
 	},
 	modal: {
 		position: 'absolute',
-		top: 10,
+		bottom: 10,
 		zIndex: 6,
 		width: '90%',
 		height: '95%'

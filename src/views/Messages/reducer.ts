@@ -60,12 +60,11 @@ export default function(state = initialState, action) {
 			};
 		case ADD_MESSAGE_STORE:
 			const newMessage = action.payload.message;
-			const chatId = newMessage.chat.id;
+			const chatId = action.payload.chatId;
 			delete newMessage.chat;
 			if (!state.chats[chatId].messages) {
 				return { ...state };
 			}
-
 			return {
 				...state,
 				chats: {

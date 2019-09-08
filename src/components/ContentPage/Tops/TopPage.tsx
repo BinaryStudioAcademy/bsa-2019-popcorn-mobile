@@ -1,93 +1,120 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
 import Moment from 'moment';
 import config from '../../../config';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import Spinner from '../../Spinner/Spinner';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchTop } from '../../../redux/routines';
 
 interface IProps {
 	navigation: any;
+	top: any;
+	loading: boolean;
+	fetchTop: (id: string) => void;
 }
 
-const TopPage: React.FC<IProps> = ({ navigation }) => {
-	const { 
-		title, 
-		description, 
-		movieInTop, 
-		topImageUrl, 
-		user,
-		created_at
-	} = navigation.state.params.top;
-	return (
-		<ParallaxScrollView 
-			parallaxHeaderHeight={180}
-			backgroundColor="#FFFFFF"
-			contentBackgroundColor="#FFFFFF"
-			renderForeground={() => <ImageBackground 
-					source={{ uri: topImageUrl || 'https://www.goldderby.com/wp-content/uploads/2017/12/Oscar-statuette-trophy-atmo.png' }}
-					style={styles.imageBackground}
-				>
-					<View style={styles.background}>
-						<View style={styles.horizontalContainer}>
+class TopPage extends Component<IProps>  {
+
+	componentDidMount() {
+		const topId = this.props.navigation.state.params.topId;
+		this.props.fetchTop(topId);
+	}
+
+	render() {
+		const { navigation, top, loading } = this.props;
+		if (!top || loading) return <Spinner />
+		const { 
+			title, 
+			description, 
+			movieInTop, 
+			topImageUrl, 
+			user,
+			created_at
+		} = this.props.top;
+		return (
+			<ParallaxScrollView 
+				parallaxHeaderHeight={180}
+				backgroundColor="#FFFFFF"
+				contentBackgroundColor="#FFFFFF"
+				renderForeground={() => <ImageBackground 
+						source={{ uri: topImageUrl || 'https://www.goldderby.com/wp-content/uploads/2017/12/Oscar-statuette-trophy-atmo.png' }}
+						style={styles.imageBackground}
+					>
+						<View style={styles.background}>
+							<View style={styles.horizontalContainer}>
+								<Image
+									source={{
+										uri:
+											user.avatar ||
+											'https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png'
+									}}
+									style={styles.avatar}
+								/>
+								<Text style={[styles.text, styles.imageText]}>{user.name}</Text>
+								<Text style={[styles.text, styles.imageText, styles.date]}>
+									{Moment(created_at).format('ll')}
+								</Text>	
+							</View>
+						 	<Text style={[styles.imageText, styles.title]}>{title}</Text>
+						</View>
+					</ImageBackground>
+				}
+			>	
+				<Text style={[styles.text, styles.description]}>{description}</Text>
+				{
+					movieInTop.map((movie, i) => <TouchableWithoutFeedback>
+						<TouchableOpacity 
+							style={styles.topItem} 
+							key={i}
+							onPress={() => { navigation.navigate('Movie', { id:  movie.movieId})  }}
+						>
 							<Image
 								source={{
-									uri:
-										user.avatar ||
-										'https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png'
+									uri: movie.movie.poster_path ?
+										config.POSTER_PATH + movie.movie.poster_path : config.DEFAULT_MOVIE_IMAGE
 								}}
-								style={styles.avatar}
+								style={styles.poster}
+								resizeMode="contain"
 							/>
-							<Text style={[styles.text, styles.imageText]}>{user.name}</Text>
-							<Text style={[styles.text, styles.imageText, styles.date]}>
-								{Moment(created_at).format('ll')}
-							</Text>	
-						</View>
-					 	<Text style={[styles.imageText, styles.title]}>{title}</Text>
-					</View>
-				</ImageBackground>
-			}
-		>	
-			<Text style={[styles.text, styles.description]}>{description}</Text>
-			{
-				movieInTop.map((movie, i) => <TouchableWithoutFeedback>
-					<TouchableOpacity 
-						style={styles.topItem} 
-						key={i}
-						onPress={() => { navigation.navigate('Movie', { id:  movie.movieId})  }}
-					>
-						<Image
-							source={{
-								uri:
-									config.POSTER_PATH + movie.movie.poster_path || config.DEFAULT_MOVIE_IMAGE
-							}}
-							style={styles.poster}
-							resizeMode="contain"
-						/>
-						<View style={{ marginLeft: 15, flex: 1 }}>
-							<View style={styles.titleContainer}>
-								<Text style={[styles.text, styles.number]}>{i + 1}</Text> 
-								<Text style={[styles.text, styles.movieTitle]}>{movie.movie.title}</Text>
+							<View style={{ marginLeft: 15, flex: 1 }}>
+								<View style={styles.titleContainer}>
+									<Text style={[styles.text, styles.number]}>{i + 1}</Text> 
+									<Text style={[styles.text, styles.movieTitle]}>{movie.movie.title}</Text>
+								</View>
+								<Text style={[styles.text, styles.comment]}>{movie.comment}</Text>
+								<TouchableWithoutFeedback>
+									<TouchableOpacity style={[styles.watchListBttn]}>
+										<Text style={styles.bttnText}>Add to Watchlist</Text>
+									</TouchableOpacity>
+								</TouchableWithoutFeedback>
 							</View>
-							<Text style={[styles.text, styles.comment]}>{movie.comment}</Text>
-							<TouchableWithoutFeedback>
-								<TouchableOpacity style={[styles.watchListBttn]}>
-									<Text style={styles.bttnText}>Add to Watchlist</Text>
-								</TouchableOpacity>
-							</TouchableWithoutFeedback>
-						</View>
-					</TouchableOpacity>
-				</TouchableWithoutFeedback>)
-			}
-			<TouchableOpacity onPress={() => { navigation.goBack() }}>
-				<Text style={styles.button}>
-					Go back
-				</Text>
-			</TouchableOpacity>
-		</ParallaxScrollView>
-	);
+						</TouchableOpacity>
+					</TouchableWithoutFeedback>)
+				}
+			</ParallaxScrollView>
+		);
+	}
 };
 
-export default TopPage;
+const mapStateToProps = (rootState, props) => ({
+	...props,
+	top: rootState.tops.top,
+	loading: rootState.tops.loading
+});
+
+const actions = {
+	fetchTop
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(TopPage);
 
 const styles = StyleSheet.create({
 	avatar: {

@@ -20,12 +20,11 @@ export function* getStories() {
 export function* sendStory(action) {
 	const { story } = action.payload;
 	try {
-		const a = yield call(webApi, {
+		yield call(webApi, {
 			method: 'POST',
 			endpoint: config.API_URL + '/api/story/',
 			body: { ...story }
 		});
-		alert(JSON.stringify(a));
 	} catch (e) {
 		console.warn('profile saga fetch stories:', e.message);
 		alert(JSON.stringify(e.message));
@@ -33,7 +32,6 @@ export function* sendStory(action) {
 }
 
 export function* sendVoting({ payload }) {
-	// console.log('action', action);
 	const options = payload.voting.options.map(option => ({
 		text: option.body,
 		voted: option.voted
@@ -47,7 +45,6 @@ export function* sendVoting({ payload }) {
 				options
 			}
 		});
-		console.log('data', data);
 		const calldata = yield call(webApi, {
 			method: 'POST',
 			endpoint: config.API_URL + `/api/voting/${data.id}/options`,
@@ -56,7 +53,6 @@ export function* sendVoting({ payload }) {
 			}
 		});
 		const newActivity = { id: data.id, name: data.header };
-		console.log('calldata', calldata);
 		const final = yield put({
 			type: CHANGE_ACTIVITY,
 			payload: {
@@ -79,7 +75,6 @@ export function* sendVoting({ payload }) {
 				story: updatedStory
 			}
 		});
-		console.log('final', final);
 	} catch (e) {
 		console.log('story modal creating vote: ', e.message);
 	}

@@ -1,11 +1,7 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
-const screenWidth = Math.round(Dimensions.get('window').width);
-const screenHeight = Math.round(Dimensions.get('window').height);
 const orange = '#f57c00';
-const imageHeight = '70%';
 const imageWrapHeight = '65%';
-// export const captionFont = Platform.OS === 'android' ? 'monospace' : 'Courier';
-export const captionFont = 'Roboto';
+export const captionFont = Platform.OS === 'android' ? 'monospace' : 'Courier';
 export default StyleSheet.create({
 	input: {
 		position: 'absolute',
@@ -55,15 +51,16 @@ export default StyleSheet.create({
 		justifyContent: 'center',
 		flexDirection: 'row'
 	},
-	buttonWrap: {
-		position: 'absolute',
-		top: -60,
-		right: 0
+	btnNavigate: {
+		flexDirection: 'row',
+		justifyContent: 'space-between'
 	},
 	mainView: {
 		marginTop: 10,
 		flex: 1,
+		height: '100%',
 		paddingTop: 20,
+		paddingBottom: 10,
 		backgroundColor: 'rgba(255,255,255,1)',
 		justifyContent: 'flex-start',
 		alignItems: 'center',

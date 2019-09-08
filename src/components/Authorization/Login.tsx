@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
 		height: 37,
 		backgroundColor: '#FF6501',
 		marginTop: 22,
-		borderRadius: 55,
+		borderRadius: 37 / 2,
 		textAlign: 'center',
 		lineHeight: 36,
 		fontSize: 18,

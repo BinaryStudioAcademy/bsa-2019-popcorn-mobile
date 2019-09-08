@@ -14,7 +14,7 @@ const Top: React.FC<IProps> = ({ top, navigation }) => {
 		<TouchableOpacity
 			style={styles.main}
 			onPress={() => {
-				navigation.navigate('TopPage', { top });
+				navigation.navigate('TopPage', { topId: top.id });
 			}}
 		>
 			<View style={styles.container}>
