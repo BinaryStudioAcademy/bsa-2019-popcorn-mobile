@@ -14,8 +14,6 @@ import getFilmDuration from './../../../../helpers/movie.helper';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPlusCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
-const { width } = Dimensions.get('window');
-
 interface IMovieProps {
 	movie: IMovie;
 	navigation: any;
@@ -44,10 +42,14 @@ class MoviePreview extends Component<IMovieProps> {
 				onPress={() => {
 					const state = this.props.navigation.state;
 					if (!state.params || !state.params.onSave)
-					this.props.navigation.navigate('Movie', { id: this.props.movie.id });
+						this.props.navigation.navigate('Movie', {
+							id: this.props.movie.id
+						});
 					else if (state.params.onSave) {
 						state.params.onSave(this.props.movie);
-						this.props.navigation.navigate('Constructor', { movieId: this.props.movie.id })
+						this.props.navigation.navigate('Constructor', {
+							movieId: this.props.movie.id
+						});
 					}
 				}}
 			>
@@ -86,7 +88,7 @@ class MoviePreview extends Component<IMovieProps> {
 					<View style={styles.movieInfoBlock}>
 						<View style={styles.header}>
 							<Text style={styles.movieTitle}>{title}</Text>
-							<Text style={styles.movieTitle}>
+							<Text style={styles.movieYear}>
 								{release_date ? '(' + release_date.slice(0, 4) + ')' : null}
 							</Text>
 						</View>
@@ -127,7 +129,7 @@ class MoviePreview extends Component<IMovieProps> {
 
 const styles = StyleSheet.create({
 	movieWrapper: {
-		width: width,
+		flex: 1,
 		flexDirection: 'row',
 		marginVertical: 10,
 		backgroundColor: '#FFFFFF'
@@ -150,7 +152,17 @@ const styles = StyleSheet.create({
 		marginVertical: 5,
 		width: '70%'
 	},
+	movieYear: {
+		flex: 1,
+		fontFamily: 'Inter-Bold',
+		fontSize: 13,
+		lineHeight: 15,
+		letterSpacing: 0.4,
+		color: 'rgb(18, 39, 55)',
+		marginRight: 10
+	},
 	movieTitle: {
+		flex: 2,
 		fontFamily: 'Inter-Bold',
 		fontSize: 13,
 		lineHeight: 15,

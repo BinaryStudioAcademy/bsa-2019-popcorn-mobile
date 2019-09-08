@@ -12,6 +12,7 @@ import INewStory from '../INewStory';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import TextButton from './TextButton';
 
 interface IProps {
 	newStory: INewStory;
@@ -34,31 +35,6 @@ interface IState {
 	showVoting: boolean;
 	voting: IVoting | null;
 }
-
-export const TextButton = (props: IProps) => {
-	const {
-		newStory,
-		handleDisable,
-		validateStory,
-		setNewStory,
-		data,
-		clearExtra,
-		voting,
-		handleUpdateState,
-		showInput
-	} = props;
-	return (
-		<TouchableOpacity
-			onPress={() => {
-				handleUpdateState(null, 'voting');
-				handleUpdateState(false, 'showVoting');
-				handleUpdateState(newStory.caption ? true : !showInput, 'showInput');
-			}}
-		>
-			<Fontisto name="font" color={'#555'} size={30} />
-		</TouchableOpacity>
-	);
-};
 
 interface IOpenButtonProps {
 	newStory: INewStory;
@@ -143,7 +119,7 @@ export default class Options extends Component<IProps, IState> {
 						this.props.clearExtra();
 						this.props.handleUpdateState(null, 'voting');
 						this.props.setNewStory({
-							newStory: { ...this.props.newStory, image_url, caption: '' },
+							newStory: { ...this.props.newStory, image_url },
 							data: this.props.data
 						});
 						this.props.handleUpdateState(false, 'loading');
@@ -160,13 +136,7 @@ export default class Options extends Component<IProps, IState> {
 				</ImageUploader>
 				<TextButton
 					newStory={this.props.newStory}
-					handleDisable={this.props.handleDisable}
 					handleUpdateState={this.props.handleUpdateState}
-					voting={this.props.voting}
-					clearExtra={this.props.clearExtra}
-					setNewStory={this.props.setNewStory}
-					validateStory={this.props.validateStory}
-					data={this.props.data}
 					showInput={this.props.showInput}
 				/>
 			</Fragment>
