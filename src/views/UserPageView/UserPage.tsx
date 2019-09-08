@@ -11,11 +11,11 @@ import {
 	Tops
 } from './UserPageViews';
 import UserPosts from './UserPostsView';
+import { ORANGE_PROFILE } from './styles';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const HEADER_HEIGHT = 69;
 const SCROLL_HEIGHT = 300;
-const THEME_COLOR = 'rgba(251,135,0,.7)';
 const FADED_THEME_COLOR = '#fff';
 const TAB_HEIGHT = 49;
 
@@ -62,12 +62,10 @@ class UserPageTest1 extends Component<IProps> {
 							height > this.state.height - TAB_HEIGHT
 								? height
 								: this.state.height - TAB_HEIGHT;
-						console.log(`i = ${i}, layout.height=${height}, minheight=${newHeight},
-					screen_height = ${SCREEN_HEIGHT}`);
 						this.heights[i] = newHeight;
 					}}
 				>
-					<TabViewComponent navigation={this.props.navigation}/>
+					<TabViewComponent navigation={this.props.navigation} />
 				</View>
 			</View>
 		);
@@ -120,7 +118,7 @@ class UserPageTest1 extends Component<IProps> {
 													height: TAB_HEIGHT,
 													backgroundColor: FADED_THEME_COLOR,
 													fontSize: 18,
-													color: THEME_COLOR
+													color: ORANGE_PROFILE
 												}}
 											>
 												<TabHeading
@@ -132,7 +130,7 @@ class UserPageTest1 extends Component<IProps> {
 													<Animated.Text
 														style={{
 															fontWeight: active ? 'bold' : 'normal',
-															color: THEME_COLOR,
+															color: ORANGE_PROFILE,
 															fontSize: 16
 														}}
 													>
@@ -142,7 +140,7 @@ class UserPageTest1 extends Component<IProps> {
 											</Animated.View>
 										</TouchableOpacity>
 									)}
-									underlineStyle={{ backgroundColor: THEME_COLOR }}
+									underlineStyle={{ backgroundColor: ORANGE_PROFILE }}
 								/>
 							</Animated.View>
 						)}
