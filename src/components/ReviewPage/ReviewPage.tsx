@@ -52,27 +52,23 @@ class ReviewPage extends Component<IProps, IState> {
 	}
 
 	render() {
-		if (!this.props.reviews || !this.props.reviews.movie) return <Spinner />;
-		const { reviews, loading = true, navigation } = this.props;
-
-		console.log(reviews);
+		if (!this.props.reviews || !this.props.movie) return <Spinner />;
+		const { reviews, loading, navigation, movie } = this.props;
 
 		switch (this.state.filterType) {
 			case 'mostLiked':
-				reviews.reviews.sort(
-					(a, b) => b.reaction.countLikes - a.reaction.countLikes
-				);
+				reviews.sort((a, b) => b.reaction.countLikes - a.reaction.countLikes);
 				break;
 			case 'mostDisliked':
-				reviews.reviews.sort(
+				reviews.sort(
 					(a, b) => b.reaction.countDislikes - a.reaction.countDislikes
 				);
 				break;
 			case 'fromGood':
-				reviews.reviews.sort((a, b) => b.analysis - a.analysis);
+				reviews.sort((a, b) => b.analysis - a.analysis);
 				break;
 			case 'fromBad':
-				reviews.reviews.sort((a, b) => a.analysis - b.analysis);
+				reviews.sort((a, b) => a.analysis - b.analysis);
 				break;
 		}
 
@@ -90,7 +86,7 @@ class ReviewPage extends Component<IProps, IState> {
 							source={require('../../assets/general/back.svg')}
 						/>
 					</TouchableOpacity>
-					<Text style={styles.title}>{reviews.movie.title}</Text>
+					<Text style={styles.title}>{movie.title}</Text>
 					<TouchableOpacity
 						onPress={() => {
 							this.toggleFilter();
@@ -136,12 +132,12 @@ class ReviewPage extends Component<IProps, IState> {
 					</View>
 				) : null}
 				<ScrollView style={styles.container}>
-					{reviews.reviews.length === 0 ? (
+					{reviews.length === 0 ? (
 						<Text style={styles.empty}>There is no reviews</Text>
 					) : (
 						<Text style={styles.heading}>Reviews</Text>
 					)}
-					{reviews.reviews.map((item, i) => (
+					{reviews.map((item, i) => (
 						<ReviewItem
 							key={`rw${i}`}
 							data={item}
@@ -160,6 +156,7 @@ export default ReviewPage;
 const mapStateToProps = (rootState, props) => ({
 	...props,
 	reviews: rootState.reviews.reviews,
+	movie: rootState.movie.movie,
 	loading: rootState.reviews.loading,
 	authorization: rootState.authorization.profileInfo
 });
