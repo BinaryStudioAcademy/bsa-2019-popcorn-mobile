@@ -4,7 +4,6 @@ import config from '../../config';
 import webApi from '../../helpers/webApi.helper';
 
 function* fetchMovieReviews(id) {
-	console.log(id);
 	try {
 		yield put(getReviewsByMovieId.request());
 		const data = yield call(webApi, {
@@ -34,7 +33,6 @@ function* setReviewReact(data) {
 		});
 		yield put(setReviewReaction.success(response));
 	} catch (e) {
-		console.log(e);
 		yield put(setReviewReaction.failure(e.message));
 	} finally {
 		yield put(setReviewReaction.fulfill());

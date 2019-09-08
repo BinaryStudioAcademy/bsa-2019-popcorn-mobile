@@ -31,7 +31,7 @@ target 'BSAPopcornMobile' do
 
 
 
-  pod 'react-native-date-picker', :path => '../node_modules/react-native-date-picker'
+
 
   target 'BSAPopcornMobileTests' do
     inherit! :search_paths

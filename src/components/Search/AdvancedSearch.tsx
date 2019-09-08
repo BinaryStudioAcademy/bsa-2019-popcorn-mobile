@@ -219,7 +219,7 @@ class AdvancedSearch extends React.Component<
 
 	render() {
 		if (!this.props.genres && !this.props.filters) return <Spinner />;
-		const { genres, filters } = this.props;
+		const { genres = [], filters } = this.props;
 
 		return (
 			<View style={styles.container}>
