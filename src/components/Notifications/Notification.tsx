@@ -21,8 +21,10 @@ const Notification: React.FC<IProps> = ({
 		readNotification({ id: notification.id, userId });
 		const type = notification.entityType;
 		if (type === 'post' || type === 'story') navigation.navigate('Home');
-		if (type === 'event') navigation.navigate('Event', { eventId: notification.entityId });
-		if (type === 'follower') navigation.navigate('Follower', { userId: notification.entityId });
+		if (type === 'event')
+			navigation.navigate('Event', { eventId: notification.entityId });
+		if (type === 'follower')
+			navigation.navigate('Follower', { userId: notification.entityId });
 	};
 
 	return (

@@ -13,15 +13,10 @@ import {
 
 const initialState: {
 	chats: any;
-	// unreadMessages: Array<{
-	// 	chatId: string,
-	// 	unreadMessagesCount: number
-	// }>;
 	isLoadingList: boolean;
 	isLoadingMessages: boolean;
 } = {
 	chats: {},
-	// unreadMessages: [],
 	isLoadingList: false,
 	isLoadingMessages: false
 };

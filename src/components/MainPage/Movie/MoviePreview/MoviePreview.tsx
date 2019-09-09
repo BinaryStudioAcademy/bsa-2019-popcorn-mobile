@@ -5,8 +5,7 @@ import {
 	View,
 	ImageBackground,
 	StyleSheet,
-	TouchableOpacity,
-	Dimensions
+	TouchableOpacity
 } from 'react-native';
 import IMovie from '../IMovie';
 import SvgUri from 'react-native-svg-uri';
@@ -35,8 +34,14 @@ class MoviePreview extends Component<IMovieProps> {
 		} = this.props.movie;
 		const { userId, addToWatchlist } = this.props;
 		const duration = getFilmDuration(runtime);
-		const parsedGenres = JSON.parse(genres).map(genre => genre.name);
-		const parsedCast = JSON.parse(cast).map(actor => actor.name);
+		let parsedGenres = [];
+		if (genres) {
+			parsedGenres = JSON.parse(genres).map(genre => genre.name);
+		}
+		let parsedCast = [];
+		if (cast) {
+			parsedCast = JSON.parse(cast).map(actor => actor.name);
+		}
 		return (
 			<TouchableOpacity
 				onPress={() => {
@@ -56,8 +61,9 @@ class MoviePreview extends Component<IMovieProps> {
 				<View style={styles.movieWrapper}>
 					<ImageBackground
 						source={{
-							uri:
-								config.POSTER_PATH + poster_path || config.DEFAULT_MOVIE_IMAGE
+							uri: poster_path
+								? config.POSTER_PATH + poster_path
+								: config.DEFAULT_MOVIE_IMAGE
 						}}
 						style={styles.movieImage}
 						resizeMode="contain"

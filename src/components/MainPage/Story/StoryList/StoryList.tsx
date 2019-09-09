@@ -1,6 +1,7 @@
-import { FlatList } from 'react-native';
+import { FlatList, View, StyleSheet } from 'react-native';
 import React from 'react';
 import StoryPreview from './../StoryPreview/StoryPreview';
+import ConstructorPreview from './../StoryConstructorPreview';
 
 interface IStoryListItem {
 	id: string;
@@ -34,10 +35,11 @@ interface IStoryListItem {
 interface IProps {
 	stories: Array<IStoryListItem>;
 	navigation: any;
+	currUser: any;
 }
 
-class StoryList extends React.Component<IProps> {
-	renderStory({ item, index }, navigation) {
+const StoryList = (props: IProps) => {
+	const renderStory = ({ item, index }, navigation) => {
 		const {
 			image_url,
 			backgroundColor,
@@ -56,23 +58,33 @@ class StoryList extends React.Component<IProps> {
 				fontColor={fontColor}
 			/>
 		);
-	}
+	};
 
-	render() {
-		const { stories, navigation } = this.props;
-		return (
-			<FlatList
-				refreshing={false}
-				data={stories}
-				horizontal={true}
-				showsHorizontalScrollIndicator={false}
-				keyExtractor={item => item.id}
-				renderItem={({ item, index }) =>
-					this.renderStory({ item, index }, navigation)
-				}
-			/>
-		);
+	const { stories, navigation, currUser } = props;
+	return (
+		<>
+			<View style={styles.storyListContainer}>
+				<ConstructorPreview navigation={navigation} user={currUser} />
+				<FlatList
+					refreshing={false}
+					data={stories}
+					horizontal={true}
+					showsHorizontalScrollIndicator={false}
+					keyExtractor={item => item.id}
+					renderItem={({ item, index }) =>
+						renderStory({ item, index }, navigation)
+					}
+				/>
+			</View>
+		</>
+	);
+};
+
+const styles = StyleSheet.create({
+	storyListContainer: {
+		marginLeft: 20,
+		flexDirection: 'row'
 	}
-}
+});
 
 export default StoryList;

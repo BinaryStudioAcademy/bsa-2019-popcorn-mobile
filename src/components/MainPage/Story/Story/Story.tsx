@@ -280,7 +280,6 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 					</Text>
 					{showReactions && (
 						<View style={styles.reactionsListWrapper}>
-							<Text style={styles.reactionTitle}>Quick Reactions</Text>
 							<FlatList
 								style={styles.reactionsList}
 								horizontal={false}
@@ -350,7 +349,7 @@ const styles = StyleSheet.create({
 		bottom: 0,
 		left: 0,
 		right: 0,
-		backgroundColor: 'rgba(0,0,0, 0.5)'
+		backgroundColor: 'rgba(0,0,0, 0.7)'
 	},
 	storyWrapper: {
 		flex: 1
@@ -387,9 +386,8 @@ const styles = StyleSheet.create({
 	userBlock: {
 		position: 'relative',
 		zIndex: 5,
-		paddingTop: HEADER_HEIGHT + 5,
+		paddingTop: 5,
 		flexDirection: 'row',
-		backgroundColor: 'rgba(246,246,246,0.5)',
 		alignItems: 'center'
 	},
 	userName: {
@@ -398,7 +396,7 @@ const styles = StyleSheet.create({
 		lineHeight: 20,
 		letterSpacing: 0.4,
 		padding: 5,
-		color: 'rgb(18, 39, 55)'
+		color: 'rgb(252, 252, 252)'
 	},
 	closeWrapper: {
 		marginLeft: 'auto',

@@ -77,7 +77,7 @@ function* logOut(action) {
 			parse: false
 		});
 		yield put(logout.success());
-	} catch(e) {
+	} catch (e) {
 		console.log('auth saga logout: ', e.message);
 	}
 }
@@ -99,5 +99,10 @@ function* watchLogout() {
 }
 
 export default function* auth() {
-	yield all([watchFetchLogin(), watchFetchUser(), watchFetchRegistration(), watchLogout()]);
+	yield all([
+		watchFetchLogin(),
+		watchFetchUser(),
+		watchFetchRegistration(),
+		watchLogout()
+	]);
 }
