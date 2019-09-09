@@ -42,7 +42,16 @@ class UserProfileView extends Component<IProfileProps> {
 	isCurrent = () => {
 		return this.props.currentUser.id === this.props.selectedProfileInfo.id;
 	};
-
+	createNewChat = () => {
+		// const chatId = this.getChatId(story.user.id);
+		// if (!chatId) {
+		// 	this.props.createChat(userId, story.user.id, {
+		// 		storyId: story && story.id,
+		// 		reactionType
+		// 	});
+		// 	return;
+		// }
+	};
 	render() {
 		let { location } = this.props.selectedProfileInfo;
 		if (!location) {
@@ -173,6 +182,7 @@ class UserProfileView extends Component<IProfileProps> {
 										<TouchableOpacity
 											onPress={() => {
 												//ToDO: create chat
+												this.createNewChat();
 											}}
 											style={styles.messageIconWrap}
 										>
