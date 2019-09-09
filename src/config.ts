@@ -1,10 +1,11 @@
 import { APP_API_URL } from 'react-native-dotenv';
 const config = {
-	API_URL: 'http://192.168.0.102:5000',
+	API_URL: 'https://popcorn-staging.herokuapp.com',
 	DEFAULT_AVATAR: '/images/default/avatar-default.png',
 	DEFAULT_EVENT_IMAGE:
 		'https://tickera-wpsalad.netdna-ssl.com/wp-content/themes/tickera/style/img/freebies/icons/events/6.png',
-	DEFAULT_MOVIE_IMAGE: '/images/default/movie-default.png',
+	DEFAULT_MOVIE_IMAGE:
+		'https://dummyimage.com/130x200/e8e8e8/fff.png&text=MOVIE',
 	POSTER_PATH: 'https://image.tmdb.org/t/p/w500',
 	DEFAULT_POST: require('./assets/general/default-post.jpg'),
 	DEFAULT_IMAGE: 'https://www.dc.volia.com/storage/default.png',
