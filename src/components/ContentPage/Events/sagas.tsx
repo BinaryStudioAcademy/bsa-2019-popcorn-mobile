@@ -58,6 +58,7 @@ function* createVisitor(action) {
 			}
 		});
 		yield put(fetchEvents.trigger());
+		yield put(fetchEventById.trigger(action.payload.eventId));
 	} catch (e) {
 		yield put(createEventVisitor.failure(e.message));
 	} finally {
@@ -80,6 +81,7 @@ function* updateVisitor(action) {
 			}
 		});
 		yield put(fetchEvents.trigger());
+		yield put(fetchEventById.trigger(action.payload.eventId));
 	} catch (e) {
 		yield put(updateEventVisitor.failure(e.message));
 	} finally {
@@ -95,10 +97,11 @@ function* deleteVisitor(action) {
 	try {
 		yield put(deleteEventVisitor.request());
 		const data = yield call(webApi, {
-			endpoint: config.API_URL + '/api/event/visitor/' + action.payload,
+			endpoint: config.API_URL + '/api/event/visitor/' + action.payload.visitorId,
 			method: 'DELETE'
 		});
 		yield put(fetchEvents.trigger());
+		yield put(fetchEventById.trigger(action.payload.eventId));
 	} catch (e) {
 		yield put(deleteEventVisitor.failure(e.message));
 	} finally {
