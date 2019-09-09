@@ -2,7 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchEventById } from '../../../redux/routines';
-
+import {
+	createEventVisitor,
+	updateEventVisitor,
+	deleteEventVisitor
+} from '../../../redux/routines';
 import {
 	ScrollView,
 	View,
@@ -21,6 +25,10 @@ interface IProps {
 	navigation: any;
 	event: any;
 	fetchEventById: (string) => any;
+	createEventVisitor: (visitor) => any;
+	updateEventVisitor: (visitor) => any;
+	deleteEventVisitor: (visitor) => any;
+	currentUser: string;
 }
 
 const EventPage: React.FC<IProps> = props => {
@@ -33,8 +41,32 @@ const EventPage: React.FC<IProps> = props => {
 		} else event = props.event;
 	}
 
-	if (props.navigation.state.params.event)
-		event = props.navigation.state.params.event;
+	const visitor = props.event.eventVisitors.find(
+		visitor => visitor.userId === props.currentUser
+	);
+
+	const setVisitor = (status: string) => {
+		if (visitor) {
+			if (visitor.status === status)
+				props.deleteEventVisitor({
+					visitorId: visitor.id, 
+					eventId: event.id
+				});
+			else
+				props.updateEventVisitor({
+					id: visitor.id,
+					eventId: event.id,
+					userId: props.currentUser,
+					status
+				});
+		} else {
+			props.createEventVisitor({
+				eventId: event.id,
+				userId: props.currentUser,
+				status
+			});
+		}
+	};
 
 	const {
 		title,
@@ -45,7 +77,7 @@ const EventPage: React.FC<IProps> = props => {
 		location_lat,
 		location_lng,
 		eventVisitors
-	} = props.navigation.state.params.event;
+	} = event;
 	let timeStart = moment(start_date)
 		.utc()
 		.format('hh:mm A');
@@ -85,54 +117,56 @@ const EventPage: React.FC<IProps> = props => {
 					</View>
 					<View style={styles.eventTitleWrap}>
 						<Text style={styles.eventTitle}>{title}</Text>
-						<View style={styles.eventCreatorWrap}>
-							<Text style={styles.eventCreatorLabel}>Creator</Text>
-							<Text style={styles.eventCreator}>Millie Bobbie Brown</Text>
-						</View>
 					</View>
 				</View>
 				<View style={styles.eventActionWrap}>
-					<View style={styles.eventAction}>
-						<TouchableWithoutFeedback>
-							<TouchableOpacity>
+					<TouchableOpacity style={styles.eventAction} onPress={() => { 
+						setVisitor('interested') 
+					}}>
+							{
+								(!visitor || visitor.status !== 'interested') &&
 								<Icon
 									name="star"
 									color={'#37393a'}
 									size={14}
 									style={[styles.eventIcon]}
 								/>
-							</TouchableOpacity>
-						</TouchableWithoutFeedback>
+							}
+							{
+								!!visitor && visitor.status === 'interested' &&
+								<Icon
+									name="check"
+									color={'#37393a'}
+									size={14}
+									style={[styles.eventIcon]}
+								/>
+							}
 						<Text style={styles.eventActionLabel}>Interested</Text>
-					</View>
+					</TouchableOpacity>
 
-					<View style={styles.eventAction}>
-						<Icon
-							name="check"
-							color={'#37393a'}
-							size={14}
-							style={styles.eventIcon}
-						/>
+					<TouchableOpacity style={styles.eventAction} onPress={() => { 
+						setVisitor('going') 
+					}}>
+						{
+							(!visitor || visitor.status !== "going") &&
+							<Icon
+								name='user-plus'
+								color='#37393a'
+								size={14}
+								style={styles.eventIcon}
+							/>
+						}
+						{
+							!!visitor && visitor.status === 'going' &&
+							<Icon 
+								name="check"
+								color='#37393a'
+								size={14}
+								style={styles.eventIcon}
+							/>
+						}
 						<Text style={styles.eventActionLabel}>Going</Text>
-					</View>
-					<View style={styles.eventAction}>
-						<Icon
-							name="share"
-							color={'#37393a'}
-							size={14}
-							style={styles.eventIcon}
-						/>
-						<Text style={styles.eventActionLabel}>Share</Text>
-					</View>
-					<View style={styles.eventAction}>
-						<Icon
-							name="ellipsis-h"
-							color={'#37393a'}
-							size={14}
-							style={styles.eventIcon}
-						/>
-						<Text style={styles.eventActionLabel}>More</Text>
-					</View>
+					</TouchableOpacity>
 				</View>
 				<View style={styles.eventInfoWrap}>
 					<Icon
@@ -156,18 +190,15 @@ const EventPage: React.FC<IProps> = props => {
 						{location_lat} {location_lng}
 					</Text>
 				</View>
-				<View style={styles.eventDetailsWrap}>
-					<View style={styles.eventDetails}>
-						<Text style={styles.eventDetailsTitle}>About</Text>
-						<Text style={styles.eventDetailsText}>{description}</Text>
+				{
+					!!description &&
+					<View style={styles.eventDetailsWrap}>
+						<View style={styles.eventDetails}>
+							<Text style={styles.eventDetailsTitle}>About</Text>
+							<Text style={styles.eventDetailsText}>{description}</Text>
+						</View>
 					</View>
-					<View style={styles.eventDetails}>
-						<Text style={styles.eventDetailsTitle}>Discussion</Text>
-						<Text style={styles.eventDetailsText}>
-							No discussion has been started.
-						</Text>
-					</View>
-				</View>
+				}
 				<View style={styles.eventDetailsWrap}>
 					<View style={styles.eventDetails}>
 						<Text style={styles.eventDetailsTitle}>Interested</Text>
@@ -175,14 +206,20 @@ const EventPage: React.FC<IProps> = props => {
 							{interestedUsers &&
 								interestedUsers.map(user => (
 									<Image
+										key={user.id}
 										source={{
 											uri: user.user.avatar
 												? user.user.avatar
-												: config.DEFAULT_AVATAR_MOBILE
+												: config.DEFAULT_AVATAR
 										}}
 										style={styles.eventVisitorImg}
 									/>
-								))}
+								))
+							}
+							{
+								!interestedUsers.length &&
+								<Text style={[styles.text, styles.eventCreatorLabel]}>Nobody is interested</Text>
+							}
 						</ScrollView>
 					</View>
 					<View style={styles.eventDetails}>
@@ -194,23 +231,20 @@ const EventPage: React.FC<IProps> = props => {
 										source={{
 											uri: user.user.avatar
 												? user.user.avatar
-												: config.DEFAULT_AVATAR_MOBILE
+												: config.DEFAULT_AVATAR
 										}}
 										style={styles.eventVisitorImg}
 									/>
-								))}
+								))
+							}
+							{
+								!goingUsers.length &&
+								<Text style={[styles.text, styles.eventCreatorLabel]}>Nobody is going</Text>
+							}
 						</ScrollView>
 					</View>
 				</View>
 			</View>
-			<TouchableOpacity
-				style={styles.buttonWrap}
-				onPress={() => {
-					props.navigation.navigate('EventList');
-				}}
-			>
-				<Text style={[styles.text, styles.button]}>Go back</Text>
-			</TouchableOpacity>
 		</ScrollView>
 	);
 };
@@ -218,11 +252,15 @@ const EventPage: React.FC<IProps> = props => {
 const mapStateToProps = (rootState, props) => ({
 	...props,
 	event: rootState.events.currentEvent,
-	loading: rootState.events.loading
+	loading: rootState.events.loading,
+	currentUser: rootState.authorization.profileInfo.id
 });
 
 const actions = {
-	fetchEventById
+	fetchEventById,
+	updateEventVisitor,
+	deleteEventVisitor,
+	createEventVisitor
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
@@ -266,7 +304,7 @@ const styles = StyleSheet.create({
 		marginTop: 5
 	},
 	eventCreatorLabel: {
-		fontSize: 14,
+		fontSize: 12,
 		marginRight: 5,
 		color: '#37393a',
 		fontWeight: '400'
@@ -334,7 +372,8 @@ const styles = StyleSheet.create({
 	eventVisitorImg: {
 		width: 30,
 		height: 30,
-		marginRight: 10
+		marginRight: 5,
+		marginLeft: 5
 	},
 	buttonWrap: {
 		alignItems: 'center'
