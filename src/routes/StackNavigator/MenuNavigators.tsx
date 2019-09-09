@@ -5,6 +5,7 @@ import SurveyNavigator from '../StackNavigator/SurveyNavigator';
 import EventsTab from '../../components/ContentPage/Events/EventTab';
 import MovieNavigator from './MovieNavigator';
 import TopsTab from '../../components/ContentPage/Tops/TopTab';
+import SurveyTab from '../../components/ContentPage/Surveys/SurveyTab';
 import ActivityNavigator from '../StackNavigator/ActivityNavigator';
 import ChooseExtraOption from '../../components/MainPage/Story/StoryModal/ChooseExtraOption';
 import EventPage from '../../components/ContentPage/Events/EventPage';
@@ -93,7 +94,7 @@ export const Top_StackNavigator = createStackNavigator({
 
 export const Survey_StackNavigator = createStackNavigator({
 	Fifth: {
-		screen: SurveyNavigator,
+		screen: SurveyTab,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})

@@ -42,7 +42,6 @@ class SurveyList extends React.Component<IProps, IState> {
 						))}
 					</View>
 				</ScrollView>
-				{/* <Tabs active={'Surveys'} navigation={navigation} /> */}
 			</View>
 		);
 	}
