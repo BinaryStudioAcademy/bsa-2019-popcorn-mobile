@@ -5,8 +5,7 @@ import {
 	View,
 	ImageBackground,
 	StyleSheet,
-	TouchableOpacity,
-	Dimensions
+	TouchableOpacity
 } from 'react-native';
 import IMovie from '../IMovie';
 import SvgUri from 'react-native-svg-uri';

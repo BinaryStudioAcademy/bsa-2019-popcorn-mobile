@@ -26,12 +26,6 @@ const UserProfileNavigation = createStackNavigator({
     },
     CollectionConstructor: {
         screen: createStackNavigator({
-            Constructor: {
-                screen: CollectionConstructor,
-                navigationOptions: {
-                    header: null
-                }
-            },
             ChooseMovie: {
                 screen: MovieListView,
                 navigationOptions: {
