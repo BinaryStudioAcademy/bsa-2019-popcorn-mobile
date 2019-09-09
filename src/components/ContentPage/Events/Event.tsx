@@ -5,7 +5,8 @@ import {
 	TouchableOpacity,
 	TouchableWithoutFeedback,
 	StyleSheet,
-	Image
+	Image,
+	Dimensions
 } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
@@ -20,6 +21,7 @@ import {
 	formatToClient
 } from '../../../services/event.service';
 import Moment from 'moment';
+const { width } = Dimensions.get('window');
 
 interface IVisitor {
 	event: string;
@@ -70,14 +72,15 @@ const Event: React.FC<IProps> = ({
 			}}
 		>
 			<View style={styles.container}>
-				<View>
+				<View style={{ marginRight: 10 }}>
 					<Image
 						source={{
 							uri:
 								data.image ||
 								'https://blog.hootsuite.com/wp-content/uploads/2017/06/social-media-content-calendar-940x470.jpg'
 						}}
-						style={{ width: 140, height: 100 }}
+						style={{ width: 110, height: 80 }}
+						resizeMode="cover"
 					/>
 				</View>
 				<View style={styles.column}>
@@ -104,10 +107,10 @@ const Event: React.FC<IProps> = ({
 							{data.description}
 						</Text>
 					)}
-					<View style={[styles.horizontalContainer]}>
+					<View style={[styles.horizontalContainer, { justifyContent: "flex-start" }]}>
 						<TouchableWithoutFeedback>
 							<TouchableOpacity
-								style={styles.button}
+								style={[styles.button, { marginRight: 10 } ]}
 								onPress={() => setVisitorStatus('interested')}
 							>
 								{!!visitor && visitor.status === 'interested' && (
@@ -153,7 +156,6 @@ const styles = StyleSheet.create({
 		borderColor: 'rgba(0, 0, 0, .1)',
 		borderWidth: 1,
 		flexDirection: 'row',
-		justifyContent: 'space-between',
 		width: '100%',
 		alignItems: 'center'
 	},
@@ -165,10 +167,11 @@ const styles = StyleSheet.create({
 		width: '100%'
 	},
 	imageContainer: {
-		width: '35%'
+		width: 110,
+		height: '100%',
+		marginRight: 5
 	},
 	button: {
-		width: 105,
 		flexDirection: 'row',
 		flexWrap: 'nowrap',
 		height: 25,
@@ -177,7 +180,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#FF6501',
 		marginTop: 5,
 		borderRadius: 55,
-		padding: 2,
+		padding: 10,
 		alignSelf: 'flex-end'
 	},
 	text: {
@@ -200,7 +203,7 @@ const styles = StyleSheet.create({
 		marginRight: 4
 	},
 	column: {
-		width: '58%'
+		width: width - 165
 	},
 	visitors: {
 		flexDirection: 'row',
