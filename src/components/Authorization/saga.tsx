@@ -1,5 +1,5 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { login, register, fetchUser } from '../../redux/routines';
+import { login, register, fetchUser, logout } from '../../redux/routines';
 import config from '../../config';
 import webApi from '../../helpers/webApi.helper';
 import { Storage } from '../../helpers/storage.helper';
@@ -68,6 +68,20 @@ function* fetchRegistration(action) {
 	}
 }
 
+function* logOut(action) {
+	try {
+		yield put(logout.request());
+		yield call(webApi, {
+			method: 'DELETE',
+			endpoint: `${config.API_URL}/api/notification/token/${action.payload}`,
+			parse: false
+		});
+		yield put(logout.success());
+	} catch (e) {
+		console.log('auth saga logout: ', e.message);
+	}
+}
+
 function* watchFetchLogin() {
 	yield takeEvery(login.trigger, fetchLogin);
 }
@@ -80,6 +94,15 @@ function* watchFetchRegistration() {
 	yield takeEvery(register.trigger, fetchRegistration);
 }
 
+function* watchLogout() {
+	yield takeEvery(logout.trigger, logOut);
+}
+
 export default function* auth() {
-	yield all([watchFetchLogin(), watchFetchUser(), watchFetchRegistration()]);
+	yield all([
+		watchFetchLogin(),
+		watchFetchUser(),
+		watchFetchRegistration(),
+		watchLogout()
+	]);
 }

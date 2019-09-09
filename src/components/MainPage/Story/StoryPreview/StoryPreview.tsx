@@ -35,7 +35,9 @@ class StoryPreview extends Component<IStoryListItemProps> {
 						/>
 					</ImageBackground>
 				</View>
-				<Text style={styles.captionPreview}>{caption}</Text>
+				<Text style={styles.captionPreview} numberOfLines={1}>
+					{caption}
+				</Text>
 			</View>
 		);
 	}
@@ -53,7 +55,7 @@ class StoryPreview extends Component<IStoryListItemProps> {
 		return (
 			<TouchableOpacity
 				onPress={() => navigation.navigate('Story', { index })}
-				style={{ height: 240 }}
+				style={{ height: 170 }}
 			>
 				{this.renderContent(
 					imageUrl,
@@ -69,17 +71,18 @@ class StoryPreview extends Component<IStoryListItemProps> {
 
 const styles = StyleSheet.create({
 	storyWrapperPreview: {
-		height: 240,
-		width: 140,
-		marginHorizontal: 10
+		height: 172,
+		width: 100,
+		marginHorizontal: 6
 	},
 	roundImagePreview: {
-		width: 20,
-		height: 20,
-		borderRadius: 20,
+		width: 25,
+		height: 25,
+		borderRadius: 25,
 		margin: 6
 	},
 	storyImageWrapper: {
+		height: 153,
 		flex: 1,
 		backgroundColor: 'rgb(239, 239, 239)',
 		marginBottom: 5

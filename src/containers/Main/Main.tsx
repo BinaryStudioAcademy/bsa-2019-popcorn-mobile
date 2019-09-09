@@ -14,7 +14,6 @@ class Main extends Component<IProps> {
 	notificationListener: any;
 	notificationOpenedListener: any;
 	messageListener: any;
-	onTokenRefreshListener: any;
 
 	async componentDidMount() {
 		const channel = new firebase.notifications.Android.Channel(
@@ -25,10 +24,6 @@ class Main extends Component<IProps> {
 		firebase.notifications().android.createChannel(channel);
 		this.checkPermission();
 		this.createNotificationListeners();
-	}
-
-	componentWillUnmount() {
-		this.onTokenRefreshListener();
 	}
 
 	async getToken() {
@@ -99,7 +94,7 @@ class Main extends Component<IProps> {
 	render() {
 		return (
 			<Swiper loop={false} showsPagination={false} index={0}>
-				<HomeNavigator />
+				<HomeNavigator screenProps={this.props.navigation} />
 				<SidebarView navigation={this.props.navigation} />
 			</Swiper>
 		);

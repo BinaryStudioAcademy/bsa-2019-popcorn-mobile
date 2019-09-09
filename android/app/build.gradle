@@ -197,6 +197,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-date-picker')
     compile(project(':react-native-firebase')) {   
        transitive = false
     }
