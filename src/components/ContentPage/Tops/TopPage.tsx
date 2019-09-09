@@ -3,7 +3,10 @@ import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
 import Moment from 'moment';
 import config from '../../../config';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import {
+	TouchableOpacity,
+	TouchableWithoutFeedback
+} from 'react-native-gesture-handler';
 import Spinner from '../../Spinner/Spinner';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,8 +19,7 @@ interface IProps {
 	fetchTop: (id: string) => void;
 }
 
-class TopPage extends Component<IProps>  {
-
+class TopPage extends Component<IProps> {
 	componentDidMount() {
 		const topId = this.props.navigation.state.params.topId;
 		this.props.fetchTop(topId);
@@ -25,22 +27,27 @@ class TopPage extends Component<IProps>  {
 
 	render() {
 		const { navigation, top, loading } = this.props;
-		if (!top || loading) return <Spinner />
-		const { 
-			title, 
-			description, 
-			movieInTop, 
-			topImageUrl, 
+		if (!top || loading) return <Spinner />;
+		const {
+			title,
+			description,
+			movieInTop,
+			topImageUrl,
 			user,
 			created_at
 		} = this.props.top;
 		return (
-			<ParallaxScrollView 
+			<ParallaxScrollView
 				parallaxHeaderHeight={180}
 				backgroundColor="#FFFFFF"
 				contentBackgroundColor="#FFFFFF"
-				renderForeground={() => <ImageBackground 
-						source={{ uri: topImageUrl || 'https://www.goldderby.com/wp-content/uploads/2017/12/Oscar-statuette-trophy-atmo.png' }}
+				renderForeground={() => (
+					<ImageBackground
+						source={{
+							uri:
+								topImageUrl ||
+								'https://www.goldderby.com/wp-content/uploads/2017/12/Oscar-statuette-trophy-atmo.png'
+						}}
 						style={styles.imageBackground}
 					>
 						<View style={styles.background}>
@@ -56,35 +63,42 @@ class TopPage extends Component<IProps>  {
 								<Text style={[styles.text, styles.imageText]}>{user.name}</Text>
 								<Text style={[styles.text, styles.imageText, styles.date]}>
 									{Moment(created_at).format('ll')}
-								</Text>	
+								</Text>
 							</View>
-						 	<Text style={[styles.imageText, styles.title]}>{title}</Text>
+							<Text style={[styles.imageText, styles.title]}>{title}</Text>
 						</View>
 					</ImageBackground>
-				}
-			>	
+				)}
+			>
 				<Text style={[styles.text, styles.description]}>{description}</Text>
-				{
-					movieInTop.map((movie, i) => <TouchableWithoutFeedback>
-						<TouchableOpacity 
-							style={styles.topItem} 
+				{movieInTop.map((movie, i) => (
+					<TouchableWithoutFeedback>
+						<TouchableOpacity
+							style={styles.topItem}
 							key={i}
-							onPress={() => { navigation.navigate('Movie', { id:  movie.movieId})  }}
+							onPress={() => {
+								navigation.navigate('Movie', { id: movie.movieId });
+							}}
 						>
 							<Image
 								source={{
-									uri: movie.movie.poster_path ?
-										config.POSTER_PATH + movie.movie.poster_path : config.DEFAULT_MOVIE_IMAGE
+									uri: movie.movie.poster_path
+										? config.POSTER_PATH + movie.movie.poster_path
+										: config.DEFAULT_MOVIE_IMAGE
 								}}
 								style={styles.poster}
 								resizeMode="contain"
 							/>
 							<View style={{ marginLeft: 15, flex: 1 }}>
 								<View style={styles.titleContainer}>
-									<Text style={[styles.text, styles.number]}>{i + 1}</Text> 
-									<Text style={[styles.text, styles.movieTitle]}>{movie.movie.title}</Text>
+									<Text style={[styles.text, styles.number]}>{i + 1}</Text>
+									<Text style={[styles.text, styles.movieTitle]}>
+										{movie.movie.title}
+									</Text>
 								</View>
-								<Text style={[styles.text, styles.comment]}>{movie.comment}</Text>
+								<Text style={[styles.text, styles.comment]}>
+									{movie.comment}
+								</Text>
 								<TouchableWithoutFeedback>
 									<TouchableOpacity style={[styles.watchListBttn]}>
 										<Text style={styles.bttnText}>Add to Watchlist</Text>
@@ -92,12 +106,12 @@ class TopPage extends Component<IProps>  {
 								</TouchableWithoutFeedback>
 							</View>
 						</TouchableOpacity>
-					</TouchableWithoutFeedback>)
-				}
+					</TouchableWithoutFeedback>
+				))}
 			</ParallaxScrollView>
 		);
 	}
-};
+}
 
 const mapStateToProps = (rootState, props) => ({
 	...props,
@@ -118,7 +132,7 @@ export default connect(
 
 const styles = StyleSheet.create({
 	avatar: {
-		width: 30, 
+		width: 30,
 		height: 30,
 		marginRight: 10
 	},
@@ -183,7 +197,7 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontFamily: 'Inter-Medium',
 		lineHeight: 25,
-		flex: 1,
+		flex: 1
 	},
 	titleContainer: {
 		marginBottom: 20,
@@ -208,7 +222,7 @@ const styles = StyleSheet.create({
 		margin: 20,
 		alignSelf: 'center'
 	},
-	watchListBttn: {	
+	watchListBttn: {
 		width: 130,
 		flexDirection: 'row',
 		flexWrap: 'nowrap',
@@ -225,4 +239,4 @@ const styles = StyleSheet.create({
 		fontFamily: 'Inter-Medium',
 		color: 'white'
 	}
-})
+});
