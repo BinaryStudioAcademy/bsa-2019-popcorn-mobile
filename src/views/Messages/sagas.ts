@@ -86,8 +86,14 @@ export function* createChat(action) {
 			type: CREATE_MESSAGE,
 			payload: {
 				userId: action.payload.user1Id,
-				chatId: response.chatId,
-				body: { ...action.payload.newMessage }
+				chatId: response.chat.id,
+				body: { ...action.payload.body }
+			}
+		});
+		yield put({
+			type: FETCH_CHATS,
+			payload: {
+				userId: action.payload.user1Id
 			}
 		});
 	} catch (e) {
