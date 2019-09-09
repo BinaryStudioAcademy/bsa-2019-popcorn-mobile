@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, Image, View } from 'react-native';
 import styles from './ListStyles';
+import config from '../../config';
 
 interface IProps {
 	navigation: any;
@@ -24,9 +25,7 @@ const FollowListItem: React.FC<IProps> = ({ item, navigation }) => {
 			<View style={styles.imageContainer}>
 				<Image
 					source={{
-						uri:
-							user.avatar ||
-							'https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png'
+						uri: user.avatar || config.DEFAULT_AVATAR
 					}}
 					style={styles.avatar}
 				/>

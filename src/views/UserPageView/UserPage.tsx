@@ -15,28 +15,36 @@ import { ORANGE_PROFILE } from './styles';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const HEADER_HEIGHT = 69;
-const SCROLL_HEIGHT = 300;
+const PROFILE_HEIGHT = 300;
 const FADED_THEME_COLOR = '#fff';
 const TAB_HEIGHT = 49;
 
 interface IProps {
 	navigation: any;
 }
+interface IState {
+	activeTab: number;
+	height: number;
+	profileHeight: number;
+}
 
-class UserPageTest1 extends Component<IProps> {
+class UserPageTest1 extends Component<IProps, IState> {
 	constructor(props) {
 		super(props);
 		this.nScroll.addListener(
 			Animated.event([{ value: this.scroll }], { useNativeDriver: false })
 		);
+		this.state = {
+			activeTab: 0,
+			height: SCREEN_HEIGHT - HEADER_HEIGHT,
+			profileHeight: 0
+		};
 	}
+	updateProfileHeight = height => {
+		this.setState({ profileHeight: height });
+	};
 	nScroll = new Animated.Value(0);
 	scroll = new Animated.Value(0);
-
-	tabY = this.nScroll.interpolate({
-		inputRange: [0, SCROLL_HEIGHT, SCROLL_HEIGHT + 1],
-		outputRange: [0, 0, 1]
-	});
 
 	components = {
 		Posts: UserPosts,
@@ -71,12 +79,13 @@ class UserPageTest1 extends Component<IProps> {
 		);
 	};
 	heights = [SCREEN_HEIGHT - HEADER_HEIGHT];
-	state = {
-		activeTab: 0,
-		height: SCREEN_HEIGHT - HEADER_HEIGHT
-	};
 
 	render() {
+		const tabY = this.nScroll.interpolate({
+			inputRange: [0, this.state.profileHeight, this.state.profileHeight + 1],
+			outputRange: [0, 0, 1]
+		});
+
 		return (
 			<View>
 				<Animated.ScrollView
@@ -88,7 +97,10 @@ class UserPageTest1 extends Component<IProps> {
 					)}
 					style={{ zIndex: 0 }}
 				>
-					<UserProfileView navigation={this.props.navigation} />
+					<UserProfileView
+						navigation={this.props.navigation}
+						updateProfileHeight={this.updateProfileHeight.bind(this)}
+					/>
 					<Tabs
 						prerenderingSiblingsNumber={7}
 						onChangeTab={({ i }) => {
@@ -97,7 +109,7 @@ class UserPageTest1 extends Component<IProps> {
 						renderTabBar={props => (
 							<Animated.View
 								style={{
-									transform: [{ translateY: this.tabY }],
+									transform: [{ translateY: tabY }],
 									zIndex: 1,
 									width: '100%',
 									backgroundColor: '#fff'
