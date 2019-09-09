@@ -24,19 +24,10 @@ interface IProps {
 	deleteMessageStore: (chatId, messageId) => void;
 	updateMessageStore: (chatId, message) => void;
 	addUnreadMessage: (chatId, message) => void;
-
 	navigation: any;
 }
-interface IState {}
-const mockMessages = [
-	{
-		mesId: 1,
-		mesBody: 'Message',
-		mesFrom: { id: '1', name: 'Victor' }
-	}
-];
 
-class ChatList extends React.Component<IProps, IState> {
+class ChatList extends React.Component<IProps> {
 	constructor(props) {
 		super(props);
 		this.addSocketEvents();
@@ -44,12 +35,10 @@ class ChatList extends React.Component<IProps, IState> {
 	addSocketEvents = () => {
 		const { chats } = this.props;
 		if (Object.keys(chats).length > 0) {
-			Object.keys(chats).forEach(SocketService.join);
+			Object.keys(chats).forEach(chat => SocketService.join(chat));
 			SocketService.on('new-message', message => {
 				const chatId = message.chat.id;
-				// if (message.user.id !== this.props.userProfile.id) {
 				return this.props.addUnreadMessage(chatId, message);
-				// } else return this.props.addMessage(chatId, message);
 			});
 			SocketService.on('delete-message', ({ chatId, messageId }) => {
 				this.props.deleteMessageStore(chatId, messageId);
@@ -60,36 +49,75 @@ class ChatList extends React.Component<IProps, IState> {
 		}
 	};
 	sortChats(chat1, chat2) {
-		if (chat1.lastMessage.created_at < chat2.lastMessage.created_at) {
+		if (
+			chat1.lastMessage &&
+			chat2.lastMessage &&
+			chat1.lastMessage.created_at < chat2.lastMessage.created_at
+		) {
 			return 1;
 		}
-		if (chat1.lastMessage.created_at > chat2.lastMessage.created_at) {
+		if (
+			!chat1.lastMessage ||
+			!chat2.lastMessage ||
+			chat1.lastMessage.created_at > chat2.lastMessage.created_at
+		) {
 			return -1;
 		}
 		return 0;
 	}
+	getNewDate(date) {
+		const beforeYesterday = moment()
+			.add(-2, 'day')
+			.endOf('day');
+		const yesterday = moment()
+			.add(-1, 'day')
+			.endOf('day');
 
+		let newDate = '';
+		if (moment(date) > yesterday) {
+			newDate = 'Today';
+		} else if (moment(date) < yesterday && moment(date) > beforeYesterday) {
+			newDate = 'Yesterday';
+		} else {
+			newDate = moment(date)
+				.utc()
+				.format('D MMMM');
+		}
+		return newDate;
+	}
 	render() {
 		const chats = Object.values(this.props.chats).sort(this.sortChats);
-
 		return (
 			<ScrollView contentContainerStyle={styles.container}>
 				{chats.map((chat: any, id) => {
-					let isOwn = chat.lastMessage.user.id === this.props.userProfile.id;
+					let isOwn =
+						chat.lastMessage &&
+						chat.lastMessage.user.id === this.props.userProfile.id;
 					let { avatar } = chat.user;
 					let name = isOwn ? 'You' : chat.user.name;
-					let { body, created_at, reactionType, story } = chat.lastMessage;
+					let body, created_at, reactionType, story;
+					if (chat.lastMessage) {
+						body = chat.lastMessage.body;
+						created_at = chat.lastMessage.created_at;
+						reactionType = chat.lastMessage.reactionType;
+						story = chat.lastMessage.story;
+					} else {
+						(body = ''),
+							(created_at = new Date()),
+							(reactionType = null),
+							(story = null);
+					}
+					const date = new Date(created_at);
+					let newDate = this.getNewDate(date);
 					let isRead = !chat.unreadMessagesCount;
-					let time = moment(created_at)
-						.utc()
-						.format('D.MM.YY');
 					return (
 						<Fragment key={chat.id}>
 							<TouchableOpacity
 								style={styles.chatItem}
 								onPress={() =>
 									this.props.navigation.navigate('Messages', {
-										chatId: chat.id
+										chatId: chat.id,
+										getNewDate: this.getNewDate
 									})
 								}
 							>
@@ -115,7 +143,7 @@ class ChatList extends React.Component<IProps, IState> {
 												!isRead && !isOwn ? { fontWeight: '700' } : null
 											]}
 										>
-											{time}
+											{newDate}
 										</Text>
 									</View>
 
@@ -199,7 +227,6 @@ const styles = StyleSheet.create({
 	},
 	messageInfo: {
 		flexDirection: 'row',
-
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		marginBottom: 5
@@ -208,7 +235,6 @@ const styles = StyleSheet.create({
 		fontFamily: 'Inter-Regular',
 		fontWeight: '300',
 		color: '#555',
-
 		fontSize: 13,
 		paddingRight: 10
 	},
