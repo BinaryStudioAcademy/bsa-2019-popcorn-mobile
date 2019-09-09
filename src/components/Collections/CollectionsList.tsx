@@ -34,14 +34,6 @@ class CollectionList extends Component<IProps> {
         if (this.props.loading || !this.props.collections) return <Spinner />
         return (
             <View style={{ marginTop: 10 }}>
-                {
-                    this.isOwner() &&
-                    <TouchableOpacity style={styles.addCollectionBttn} onPress={() => { 
-                        this.props.navigation.navigate('CollectionConstructor') 
-                    }}>
-                        <Text style={styles.bttnText}>Add collection</Text>
-                    </TouchableOpacity>
-                }
                 <FlatList
                     refreshing={true}
                     data={this.props.collections}

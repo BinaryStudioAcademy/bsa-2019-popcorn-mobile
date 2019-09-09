@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
 	postWrapper: {
 		width: width,
 		backgroundColor: '#FFFFFF',
-		marginVertical: 20
+		marginVertical: 8
 	},
 	postHeader: {
 		flexDirection: 'row',
