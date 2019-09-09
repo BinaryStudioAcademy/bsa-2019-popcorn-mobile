@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    mainContainer: {
+	mainContainer: {
 		flex: 1
-    },
-    main: {
+	},
+	main: {
 		margin: 10
 	},
 	container: {
@@ -58,10 +58,10 @@ export default StyleSheet.create({
 		fontFamily: 'Inter-Medium',
 		textAlign: 'right',
 		marginTop: 'auto',
-        textDecorationLine: 'underline',
-        marginBottom: 5
-    },
-    addCollectionBttn: {	
+		textDecorationLine: 'underline',
+		marginBottom: 5
+	},
+	addCollectionBttn: {
 		width: 130,
 		flexDirection: 'row',
 		flexWrap: 'nowrap',
@@ -72,18 +72,18 @@ export default StyleSheet.create({
 		marginTop: 20,
 		borderRadius: 55,
 		padding: 2,
-        marginBottom: 10,
-        alignSelf: 'center'
-    },
-    bttnText: {
+		marginBottom: 10,
+		alignSelf: 'center'
+	},
+	bttnText: {
 		fontFamily: 'Inter-Medium',
 		color: 'white'
-    },
-    avatar: {
-		width: 30, 
+	},
+	avatar: {
+		width: 30,
 		height: 30,
-        marginRight: 10,
-        borderRadius: 15
+		marginRight: 10,
+		borderRadius: 15
 	},
 	collectionDate: {
 		marginLeft: 'auto'
@@ -146,7 +146,7 @@ export default StyleSheet.create({
 		fontSize: 18,
 		fontFamily: 'Inter-SemiBold',
 		lineHeight: 25,
-		flex: 1,
+		flex: 1
 	},
 	titleContainer: {
 		marginBottom: 20,
@@ -165,7 +165,7 @@ export default StyleSheet.create({
 		padding: 12,
 		paddingLeft: 15,
 		fontSize: 16,
-		borderRadius: 3,
+		borderRadius: 3
 	},
 	imageUploader: {
 		marginLeft: 20,
