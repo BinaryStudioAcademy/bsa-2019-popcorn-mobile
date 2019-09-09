@@ -65,11 +65,17 @@ class StoryComponent extends React.Component<IProps, IState> {
 		SocketService.on('new-story', addStory);
 	};
 	render() {
-		const { stories, navigation } = this.props;
+		const { stories, navigation, profileInfo } = this.props;
 		return (
 			<View style={styles.container}>
-				<View style={{ height: 280 }}>
-					{stories && <StoryList navigation={navigation} stories={stories} />}
+				<View>
+					{stories && (
+						<StoryList
+							navigation={navigation}
+							currUser={profileInfo}
+							stories={stories}
+						/>
+					)}
 				</View>
 			</View>
 		);
@@ -80,7 +86,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'center',
 		alignItems: 'center',
-		height: 280
+		height: 180
 	}
 });
 
