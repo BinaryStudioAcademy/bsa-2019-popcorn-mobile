@@ -1,8 +1,8 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 import {
-    fetchCollectionDetails,
-    fetchCollectionPreview,
-    deleteCollection,
+	fetchCollectionDetails,
+	fetchCollectionPreview,
+	deleteCollection,
 	saveCollection,
 	fetchCollections
 } from '../../redux/routines';
@@ -12,7 +12,7 @@ import config from '../../config';
 function* saveMovieList(action) {
 	const { movieList } = action.payload;
 	try {
-        yield put(saveCollection.request());
+		yield put(saveCollection.request());
 		const newMovieList = yield call(webApi, {
 			method: 'POST',
 			endpoint: config.API_URL + '/api/movie-list',
@@ -28,13 +28,18 @@ function* saveMovieList(action) {
 function* fetchMovieListsPreview(action) {
 	const { userId } = action.payload;
 	try {
-        yield put(fetchCollectionPreview.request());
+		yield put(fetchCollectionPreview.request());
 		const movieListsPreview = yield call(webApi, {
 			method: 'GET',
 			endpoint: config.API_URL + `/api/movie-list/${userId}`
 		});
 
-		yield put(fetchCollectionPreview.success({ movieListsPreview, selectedPreviewUserId: userId }));
+		yield put(
+			fetchCollectionPreview.success({
+				movieListsPreview,
+				selectedPreviewUserId: userId
+			})
+		);
 	} catch (e) {
 		console.log(e.message);
 	}
@@ -43,7 +48,7 @@ function* fetchMovieListsPreview(action) {
 function* deleteMovieList(action) {
 	const { movieListId } = action.payload;
 	try {
-        yield put(deleteCollection.request())
+		yield put(deleteCollection.request());
 		yield call(webApi, {
 			method: 'DELETE',
 			endpoint: config.API_URL + `/api/movie-list/${movieListId}`
@@ -57,7 +62,7 @@ function* deleteMovieList(action) {
 function* fetchMovieListDetails(action) {
 	const { movieListId } = action.payload;
 	try {
-        yield put(fetchCollectionDetails.request());
+		yield put(fetchCollectionDetails.request());
 		const movieListDetails = yield call(webApi, {
 			method: 'GET',
 			endpoint: config.API_URL + `/api/movie-list/details/${movieListId}`
@@ -71,7 +76,7 @@ function* fetchMovieListDetails(action) {
 
 function* getCollections() {
 	try {
-        yield put(fetchCollections.request());
+		yield put(fetchCollections.request());
 		const collections = yield call(webApi, {
 			method: 'GET',
 			endpoint: config.API_URL + `/api/movie-list`

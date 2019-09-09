@@ -12,31 +12,31 @@ const UserProfileNavigation = createStackNavigator({
 			header: null
 		}
 	},
-    Follows: {
-        screen: FollowersNavigator,
-        navigationOptions: {
-            header: null
-        }
-    },
-    Collection: {
-        screen: Collection,
-        navigationOptions: {
-            header: null
-        }
-    },
-    CollectionConstructor: {
-        screen: createStackNavigator({
-            ChooseMovie: {
-                screen: MovieListView,
-                navigationOptions: {
-                    header: null
-                }
-            }
-        }),
-        navigationOptions: {
-            header: null
-        }
-    }
+	Follows: {
+		screen: FollowersNavigator,
+		navigationOptions: {
+			header: null
+		}
+	},
+	Collection: {
+		screen: Collection,
+		navigationOptions: {
+			header: null
+		}
+	},
+	CollectionConstructor: {
+		screen: createStackNavigator({
+			ChooseMovie: {
+				screen: MovieListView,
+				navigationOptions: {
+					header: null
+				}
+			}
+		}),
+		navigationOptions: {
+			header: null
+		}
+	}
 });
 
 export default UserProfileNavigation;
