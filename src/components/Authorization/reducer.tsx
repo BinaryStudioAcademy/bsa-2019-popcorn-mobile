@@ -33,6 +33,8 @@ export default function(state = initialState, action) {
 		case login.SUCCESS:
 			return {
 				...state,
+				loginError: '',
+				registerError: '',
 				profileInfo: action.payload.user
 			};
 		case login.FAILURE:
