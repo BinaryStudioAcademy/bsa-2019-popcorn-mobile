@@ -32,11 +32,12 @@ class Root extends Component<IProps> {
 	}
 
 	componentDidUpdate(prevProps) {
-		const token = Storage.get('token');
-		if (prevProps.isAuthorized !== this.props.isAuthorized) {
-			if (token) NavigationService.navigate('Main');
-			else NavigationService.navigate('Auth');
-		}
+		Storage.get('token').then(value => {
+			if (prevProps.isAuthorized !== this.props.isAuthorized) {
+				if (value) NavigationService.navigate('Main');
+				else NavigationService.navigate('Auth');
+			}
+		});
 	}
 
 	render() {

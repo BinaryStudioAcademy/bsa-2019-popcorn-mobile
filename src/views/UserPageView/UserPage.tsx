@@ -11,32 +11,40 @@ import {
 	Tops
 } from './UserPageViews';
 import UserPosts from './UserPostsView';
+import { ORANGE_PROFILE } from './styles';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const HEADER_HEIGHT = 69;
-const SCROLL_HEIGHT = 300;
-const THEME_COLOR = 'rgba(251,135,0,.7)';
+const PROFILE_HEIGHT = 300;
 const FADED_THEME_COLOR = '#fff';
 const TAB_HEIGHT = 49;
 
 interface IProps {
 	navigation: any;
 }
+interface IState {
+	activeTab: number;
+	height: number;
+	profileHeight: number;
+}
 
-class UserPageTest1 extends Component<IProps> {
+class UserPageTest1 extends Component<IProps, IState> {
 	constructor(props) {
 		super(props);
 		this.nScroll.addListener(
 			Animated.event([{ value: this.scroll }], { useNativeDriver: false })
 		);
+		this.state = {
+			activeTab: 0,
+			height: SCREEN_HEIGHT - HEADER_HEIGHT,
+			profileHeight: 0
+		};
 	}
+	updateProfileHeight = height => {
+		this.setState({ profileHeight: height });
+	};
 	nScroll = new Animated.Value(0);
 	scroll = new Animated.Value(0);
-
-	tabY = this.nScroll.interpolate({
-		inputRange: [0, SCROLL_HEIGHT, SCROLL_HEIGHT + 1],
-		outputRange: [0, 0, 1]
-	});
 
 	components = {
 		Posts: UserPosts,
@@ -62,8 +70,6 @@ class UserPageTest1 extends Component<IProps> {
 							height > this.state.height - TAB_HEIGHT
 								? height
 								: this.state.height - TAB_HEIGHT;
-						console.log(`i = ${i}, layout.height=${height}, minheight=${newHeight},
-					screen_height = ${SCREEN_HEIGHT}`);
 						this.heights[i] = newHeight;
 					}}
 				>
@@ -73,12 +79,13 @@ class UserPageTest1 extends Component<IProps> {
 		);
 	};
 	heights = [SCREEN_HEIGHT - HEADER_HEIGHT];
-	state = {
-		activeTab: 0,
-		height: SCREEN_HEIGHT - HEADER_HEIGHT
-	};
 
 	render() {
+		const tabY = this.nScroll.interpolate({
+			inputRange: [0, this.state.profileHeight, this.state.profileHeight + 1],
+			outputRange: [0, 0, 1]
+		});
+
 		return (
 			<View>
 				<Animated.ScrollView
@@ -90,7 +97,10 @@ class UserPageTest1 extends Component<IProps> {
 					)}
 					style={{ zIndex: 0 }}
 				>
-					<UserProfileView navigation={this.props.navigation} />
+					<UserProfileView
+						navigation={this.props.navigation}
+						updateProfileHeight={this.updateProfileHeight.bind(this)}
+					/>
 					<Tabs
 						prerenderingSiblingsNumber={7}
 						onChangeTab={({ i }) => {
@@ -99,7 +109,7 @@ class UserPageTest1 extends Component<IProps> {
 						renderTabBar={props => (
 							<Animated.View
 								style={{
-									transform: [{ translateY: this.tabY }],
+									transform: [{ translateY: tabY }],
 									zIndex: 1,
 									width: '100%',
 									backgroundColor: '#fff'
@@ -120,7 +130,7 @@ class UserPageTest1 extends Component<IProps> {
 													height: TAB_HEIGHT,
 													backgroundColor: FADED_THEME_COLOR,
 													fontSize: 18,
-													color: THEME_COLOR
+													color: ORANGE_PROFILE
 												}}
 											>
 												<TabHeading
@@ -132,7 +142,7 @@ class UserPageTest1 extends Component<IProps> {
 													<Animated.Text
 														style={{
 															fontWeight: active ? 'bold' : 'normal',
-															color: THEME_COLOR,
+															color: ORANGE_PROFILE,
 															fontSize: 16
 														}}
 													>
@@ -142,7 +152,7 @@ class UserPageTest1 extends Component<IProps> {
 											</Animated.View>
 										</TouchableOpacity>
 									)}
-									underlineStyle={{ backgroundColor: THEME_COLOR }}
+									underlineStyle={{ backgroundColor: ORANGE_PROFILE }}
 								/>
 							</Animated.View>
 						)}
