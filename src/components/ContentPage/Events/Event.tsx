@@ -47,7 +47,7 @@ const Event: React.FC<IProps> = ({
 	const setVisitorStatus = (status: string) => {
 		if (visitor) {
 			if (visitor.status === status)
-				setVisitor({ status: '', visitorId: visitor.id });
+				setVisitor({ status: '', visitorId: visitor.id, event: event.id });
 			else
 				setVisitor({
 					status,
@@ -66,7 +66,7 @@ const Event: React.FC<IProps> = ({
 		<TouchableOpacity
 			style={styles.main}
 			onPress={() => {
-				navigation.navigate('EventPage', { event });
+				navigation.navigate('EventPage', { eventId: event.id });
 			}}
 		>
 			<View style={styles.container}>
