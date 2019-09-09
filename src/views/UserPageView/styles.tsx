@@ -1,27 +1,25 @@
 import { StyleSheet } from 'react-native';
 export const ORANGE_PROFILE = '#FF6501';
+export const DARK_BLUE = '#11264ec4';
 
 export const styles = StyleSheet.create({
 	profileWrap: {
-		maxHeight: 300,
-		height: 300,
 		flex: 1,
 		paddingTop: 20,
 		paddingLeft: 10,
-		paddingRight: 20
-		// justifyContent: 'center',
-		// alignItems: 'center'
+		paddingBottom: 10,
+		paddingRight: 10
 	},
 	userInfo: {
-		// flex: 1,
-		// flex: 3,
 		width: '100%',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		alignItems: 'center'
+		alignItems: 'center',
+		marginBottom: 10
 	},
 	userMainInfo: {
 		justifyContent: 'flex-start',
+		alignItems: 'flex-start',
 		flex: 1,
 		flexDirection: 'row'
 	},
@@ -32,9 +30,45 @@ export const styles = StyleSheet.create({
 		letterSpacing: 0.5,
 		textTransform: 'uppercase'
 	},
+	messageIcon: {
+		color: ORANGE_PROFILE
+	},
+	messageIcon2: {
+		color: DARK_BLUE,
+		marginRight: 5
+	},
+	sendMessage: {
+		fontFamily: 'Inter-SemiBold',
+		color: DARK_BLUE,
+		letterSpacing: 0.4,
+		fontSize: 14
+	},
+	messageIconWrap: {
+		marginTop: 5,
+		width: '100%',
+		paddingLeft: 2,
+		paddingRight: 2,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		color: DARK_BLUE,
+		borderWidth: 2,
+		borderColor: DARK_BLUE,
+		borderRadius: 7
+	},
+	userWrap: {
+		flex: 1.5
+	},
+	imageWrap: {
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		position: 'relative'
+	},
 	profileImg: {
-		width: 50,
-		height: 50,
+		flex: 0.3,
+		width: 48,
+		height: 48,
 		marginRight: 10
 	},
 	userPersonal: {
@@ -42,20 +76,19 @@ export const styles = StyleSheet.create({
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		marginBottom: 5
-		// width: '100%'
 	},
 	mainWrap: {
+		flex: 1.1,
 		justifyContent: 'center'
 	},
 	userAbout: {
+		flex: 1.5,
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		marginTop: 15
-		// width: '100%'
 	},
 	userFavorites: {
-		marginTop: 25,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'flex-start'
@@ -67,10 +100,11 @@ export const styles = StyleSheet.create({
 		fontWeight: '600'
 	},
 	userFavSubtitle: {
-		width: 95,
+		width: 85,
 		fontWeight: 'bold',
 		color: '#000',
-		letterSpacing: 0.4
+		letterSpacing: 0.4,
+		marginTop: 15
 	},
 	userSubtitle: {
 		fontWeight: 'bold',
@@ -88,11 +122,10 @@ export const styles = StyleSheet.create({
 		borderRadius: 10,
 		color: '#fff',
 		lineHeight: 15,
-		marginBottom: 15,
+		marginTop: 15,
 		marginLeft: 5
 	},
 	userMoviesWrap: {
-		flex: 1,
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		justifyContent: 'flex-start'
@@ -100,20 +133,29 @@ export const styles = StyleSheet.create({
 	userIcon: {
 		marginLeft: 10,
 		fontWeight: '900',
-		width: 15,
 		alignSelf: 'center',
 		color: ORANGE_PROFILE
 	},
 	horizontalContainer: {
+		flex: 1,
 		flexDirection: 'row',
 		marginLeft: 'auto',
 		alignItems: 'flex-start',
-		justifyContent: 'flex-start'
+		width: '100%',
+		justifyContent: 'space-around',
+		marginBottom: 5
+	},
+	horizontalContainerWrap: {
+		flex: 1,
+		flexDirection: 'row',
+		marginLeft: 'auto',
+		alignItems: 'flex-start',
+		justifyContent: 'space-between'
 	},
 	followBlock: {
+		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center',
-		marginLeft: 30
+		justifyContent: 'center'
 	},
 	followItem: {
 		marginRight: 20
@@ -131,26 +173,31 @@ export const styles = StyleSheet.create({
 	},
 	followBttn: {
 		width: '100%',
-		marginTop: 5,
-		justifyContent: 'center'
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'space-around'
 	},
 	bttnText: {
-		fontSize: 15,
+		fontSize: 14,
 		fontFamily: 'Inter-SemiBold',
 		letterSpacing: 0.4,
 		textAlign: 'center',
 		width: '100%',
-		padding: '2%',
-		borderRadius: 5,
-		height: 26
+		paddingTop: 3,
+		paddingBottom: 3,
+		paddingLeft: 5,
+		paddingRight: 5,
+		borderRadius: 7
 	},
 	followBttnText: {
-		backgroundColor: '#FF6501',
-		color: 'white'
+		backgroundColor: DARK_BLUE,
+		color: 'white',
+		height: 26
 	},
 	unfollowBttnText: {
-		color: '#FF6501',
+		color: DARK_BLUE,
+		height: 26,
 		borderWidth: 2,
-		borderColor: '#FF6501'
+		borderColor: DARK_BLUE
 	}
 });

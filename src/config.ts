@@ -1,7 +1,8 @@
 import { APP_API_URL } from 'react-native-dotenv';
 const config = {
-	API_URL: 'http://192.168.0.102:5000',
-	DEFAULT_AVATAR: '/images/default/avatar-default.png',
+	API_URL: 'http://192.168.88.30:5000',
+	DEFAULT_AVATAR:
+		'https://cdn1.iconfinder.com/data/icons/user-pictures/100/unknown-512.png',
 	DEFAULT_EVENT_IMAGE:
 		'https://tickera-wpsalad.netdna-ssl.com/wp-content/themes/tickera/style/img/freebies/icons/events/6.png',
 	DEFAULT_MOVIE_IMAGE: '/images/default/movie-default.png',
