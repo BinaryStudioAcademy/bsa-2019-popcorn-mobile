@@ -18,11 +18,13 @@ export class Surveys extends Component {
 		return <View></View>;
 	}
 }
-export class Lists extends Component<{navigation: any}> {
+export class Lists extends Component<{ navigation: any }> {
 	render() {
-		return <View>
-			<CollectionsList navigation={this.props.navigation} />
-		</View>;
+		return (
+			<View>
+				<CollectionsList navigation={this.props.navigation} />
+			</View>
+		);
 	}
 }
 export class Watched extends Component {

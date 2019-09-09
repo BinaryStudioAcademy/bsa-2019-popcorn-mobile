@@ -48,13 +48,15 @@ class Post extends Component<IPostProps> {
 						</View>
 					</View>
 				</TouchableOpacity>
-				<View style={styles.imageWrapper}>
-					<Image
-						style={styles.postImage}
-						source={{ uri: image_url }}
-						resizeMode="contain"
-					/>
-				</View>
+				{!!image_url && (
+					<View style={styles.imageWrapper}>
+						<Image
+							style={styles.postImage}
+							source={{ uri: image_url }}
+							resizeMode="contain"
+						/>
+					</View>
+				)}
 				<View style={styles.postControls}>
 					<View style={styles.postControlsItem}>
 						<TouchableOpacity>
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
 	postWrapper: {
 		width: width,
 		backgroundColor: '#FFFFFF',
-		marginVertical: 20
+		marginVertical: 8
 	},
 	postHeader: {
 		flexDirection: 'row',
