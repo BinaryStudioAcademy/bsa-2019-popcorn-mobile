@@ -1,9 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { View, ScrollView } from 'react-native';
 import { fetchMessages, deleteMessage, updateMessage } from './actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import moment from 'moment';
 import NewMessage from './NewMessage';
 import OutgoingMessage from './OutgoingMessage';
 import { styles } from './styles';
@@ -48,28 +47,8 @@ class Messages extends React.Component<IProps, IState> {
 	scrollToEnd = () => {
 		this.refs.scrollView.scrollToEnd({ animated: true });
 	};
-	getNewDate(date) {
-		const beforeYesterday = moment()
-			.add(-2, 'day')
-			.endOf('day');
-		const yesterday = moment()
-			.add(-1, 'day')
-			.endOf('day');
-
-		let newDate = '';
-		if (moment(date) > yesterday) {
-			newDate = 'Today';
-		} else if (moment(date) < yesterday && moment(date) > beforeYesterday) {
-			newDate = 'Yesterday';
-		} else {
-			newDate = moment(date)
-				.utc()
-				.format('D MMMM');
-		}
-		return newDate;
-	}
 	render() {
-		const { chatId } = this.props.navigation.state.params;
+		const { chatId, getNewDate } = this.props.navigation.state.params;
 		if (!this.props.chat) {
 			return <Spinner />;
 		}
@@ -82,7 +61,6 @@ class Messages extends React.Component<IProps, IState> {
 		if (!this.props.chat.messages) {
 			return <Spinner />;
 		}
-
 		const { messages } = this.props.chat;
 		let tmpDate = '';
 		return (
@@ -101,7 +79,7 @@ class Messages extends React.Component<IProps, IState> {
 					>
 						{messages.map((message: any, id) => {
 							const date = new Date(message.created_at);
-							let newDate = this.getNewDate(date);
+							let newDate = getNewDate(date);
 							const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
 							const isMyMessage = message.user.id === this.props.userId;
 							if (currentDate !== tmpDate) {
