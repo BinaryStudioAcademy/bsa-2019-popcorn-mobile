@@ -1,4 +1,4 @@
-import { login, register, fetchUser } from '../../redux/routines';
+import { login, register, fetchUser, logout } from '../../redux/routines';
 import IUser from '../UserPage/IUser';
 
 const initialState: {
@@ -33,6 +33,8 @@ export default function(state = initialState, action) {
 		case login.SUCCESS:
 			return {
 				...state,
+				loginError: '',
+				registerError: '',
 				profileInfo: action.payload.user
 			};
 		case login.FAILURE:
@@ -45,6 +47,11 @@ export default function(state = initialState, action) {
 				...state,
 				registerError: action.payload
 			};
+		case logout.SUCCESS: 
+			return {
+				...state,
+				profileInfo: null
+			}
 		default:
 			return state;
 	}
