@@ -1,6 +1,6 @@
+import React from 'react';
 import {
 	createAppContainer,
-	createStackNavigator,
 	createDrawerNavigator
 } from 'react-navigation';
 import {
@@ -12,11 +12,11 @@ import {
 	Movies_StackNavigator,
 	Notifications_Navigator,
 	UserPage_StackNavigator,
-	Review_StackNavigator,
 	FirstActivity_StackNavigator
 } from './MenuNavigators';
 import StoryComponent from './../../components/MainPage/Story/StoryCarousel/StoryCarousel';
 import PostConstructorNavigator from './PostConstructorNavigator';
+import LogoutDrawer from '../../components/Authorization/Logout/LogoutDrawer';
 
 const HomeNavigator = createDrawerNavigator({
 	Home: {
@@ -99,7 +99,12 @@ const HomeNavigator = createDrawerNavigator({
 		navigationOptions: {
 			drawerLabel: () => null
 		}
+	}},
+	{
+		contentComponent: (props) => <LogoutDrawer {...props} />
 	}
-});
+);
 
 export default createAppContainer(HomeNavigator);
+	
+
