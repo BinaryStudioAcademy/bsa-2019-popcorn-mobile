@@ -63,7 +63,7 @@ export const generateIcon = (type: string): any => {
 			);
 
 		default:
-			return getIcon(type);
+			return getIcon(type, 26);
 	}
 };
 
