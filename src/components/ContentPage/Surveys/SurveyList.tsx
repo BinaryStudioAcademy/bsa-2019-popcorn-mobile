@@ -12,6 +12,7 @@ import { bindActionCreators } from 'redux';
 import * as action from './actions';
 import { fetchSurveys } from './saga';
 import Tabs from '../Tabs';
+import Spinner from '../../Spinner/Spinner';
 
 interface IProps {
 	fetchSurveys: () => any;
@@ -31,7 +32,9 @@ class SurveyList extends React.Component<IProps, IState> {
 	}
 
 	render() {
-		const { surveys = [], navigation } = this.props;
+		const { surveys = [], loading, navigation } = this.props;
+		if (loading) return <Spinner />;
+
 		return (
 			<View style={[styles.container]}>
 				<ScrollView>
@@ -49,7 +52,8 @@ class SurveyList extends React.Component<IProps, IState> {
 
 const mapStateToProps = (rootState, props) => ({
 	...props,
-	surveys: rootState.survey.surveys
+	surveys: rootState.survey.surveys,
+	loading: rootState.survey.loading
 });
 
 const actions = {

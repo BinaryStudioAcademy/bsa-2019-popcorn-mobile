@@ -81,6 +81,7 @@ class SurveyPage extends React.Component<IProps, IState> {
 	}
 
 	static getDerivedStateFromProps(props, state) {
+		if (!props.surveyInfo) return;
 		if (props.surveyInfo.questions) {
 			return {
 				answers: props.surveyInfo.questions.map(question => ({
@@ -164,12 +165,7 @@ class SurveyPage extends React.Component<IProps, IState> {
 	};
 
 	render() {
-		if (
-			!this.state.answers ||
-			!this.props.surveyInfo ||
-			!this.props.surveyInfo.questions
-		)
-			return <Spinner />;
+		if (this.props.loading) return <Spinner />;
 
 		const { surveyInfo, navigation } = this.props;
 		const {
@@ -180,7 +176,6 @@ class SurveyPage extends React.Component<IProps, IState> {
 			description,
 			questions = []
 		} = surveyInfo;
-
 		return (
 			<ScrollView>
 				<>

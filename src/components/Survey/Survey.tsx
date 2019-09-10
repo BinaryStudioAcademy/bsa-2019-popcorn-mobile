@@ -4,7 +4,8 @@ import {
 	StyleSheet,
 	View,
 	Text,
-	TouchableOpacity
+	TouchableOpacity,
+	Image
 } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 import { connect } from 'react-redux';
@@ -34,43 +35,30 @@ class Survey extends Component<IProps, IState> {
 		const { data, user } = this.props;
 
 		return (
-			<View style={styles.survey}>
-				<TouchableOpacity
-					onPress={() => this.props.nav.navigate('SurveyPage', { id: data.id })}
-					style={styles.surveyTitle}
-				>
-					<Text>{data.title}</Text>
-				</TouchableOpacity>
-				{user ? (
-					<View style={styles.surveyControls}>
-						<TouchableOpacity
-							style={styles.surveyBtn}
-							onPress={() => this.toggleStatus()}
-						>
-							{data.type === 'Open' ? (
-								<SvgUri
-									height={20}
-									width={20}
-									source={require('../../assets/general/hide.svg')}
-								/>
-							) : (
-								<SvgUri
-									height={20}
-									width={20}
-									source={require('../../assets/general/view.svg')}
-								/>
-							)}
-						</TouchableOpacity>
-						<TouchableOpacity style={[styles.surveyBtn, styles.delete]}>
-							<SvgUri
-								height={15}
-								width={15}
-								source={require('../../assets/general/del.svg')}
-							/>
-						</TouchableOpacity>
+			<TouchableOpacity
+				onPress={() => this.props.nav.navigate('SurveyPage', { id: data.id })}
+			>
+				<View style={styles.container}>
+					<View>
+						<Image
+							source={{
+								uri:
+									data.image ||
+									'https://www.checkmarket.com/wp-content/uploads/2016/08/survey-checklist.png'
+							}}
+							style={{ width: 140, height: 100 }}
+						/>
 					</View>
-				) : null}
-			</View>
+					<View style={styles.column}>
+						<Text style={[styles.text, styles.title]}>{data.title}</Text>
+						{!!data.description && (
+							<Text style={[styles.text, styles.description]}>
+								{data.description}
+							</Text>
+						)}
+					</View>
+				</View>
+			</TouchableOpacity>
 		);
 	}
 }
@@ -89,6 +77,20 @@ export default connect(
 )(Survey);
 
 const styles = StyleSheet.create({
+	container: {
+		padding: 10,
+		borderColor: 'rgba(0, 0, 0, .1)',
+		borderWidth: 1,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		width: '100%',
+		alignItems: 'flex-start',
+		marginBottom: 10
+	},
+	column: {
+		width: '58%',
+		paddingLeft: 10
+	},
 	survey: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -112,8 +114,15 @@ const styles = StyleSheet.create({
 		fontFamily: 'Inter-SemiBold'
 	},
 	text: {
-		letterSpacing: 0.4,
-		fontFamily: 'Inter-Regular'
+		fontFamily: 'Inter-Regular',
+		fontSize: 14,
+		color: '#122737'
+	},
+	title: {
+		fontFamily: 'Inter-SemiBold',
+		fontSize: 16,
+		marginBottom: 10,
+		width: '75%'
 	},
 	surveyTitle: {
 		width: '75%',
