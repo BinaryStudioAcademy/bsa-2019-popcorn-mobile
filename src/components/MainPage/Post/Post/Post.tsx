@@ -94,10 +94,6 @@ class Post extends Component<IPostProps, IState> {
 								source={{ uri: image_url }}
 								resizeMode="contain"
 							/>
-							<View style={styles.infoBlock}>
-								<Text style={styles.userName}>{name}</Text>
-								<Text style={styles.info}>{newDate || 'Few days ago'}</Text>
-							</View>
 						</View>
 					)}
 					<View style={styles.postControls}>
