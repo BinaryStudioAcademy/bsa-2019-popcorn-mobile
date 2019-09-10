@@ -13,7 +13,7 @@ import OutgoingMessage from './OutgoingMessage';
 import { styles } from './styles';
 import IncomingMessage from './IncomingMessage';
 import Spinner from '../../components/Spinner/Spinner';
-import { getNewDate } from './getNewDate';
+import { getNewDate } from '../../helpers/dateFormat.helper';
 
 interface IProps {
 	fetchMessages: (userId: string, chatId: string) => void;

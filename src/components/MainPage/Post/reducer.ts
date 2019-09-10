@@ -37,8 +37,8 @@ export default function(state = initialState, action) {
 			};
 		case ADD_POST:
 			const posts = state.posts
-				? [action.payload.story, ...state.posts]
-				: [action.payload.story];
+				? [action.payload.post, ...state.posts]
+				: [action.payload.post];
 			return {
 				...state,
 				posts

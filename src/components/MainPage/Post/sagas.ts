@@ -3,7 +3,7 @@ import { call, put, takeEvery, all } from 'redux-saga/effects';
 import * as postService from './../../../services/post.service';
 import webApi from '../../../helpers/webApi.helper';
 import config from '../../../config';
-import { SEND_POST } from './actionTypes';
+import { SEND_POST, DELETE_POST } from './actionTypes';
 export function* getPosts() {
 	try {
 		yield put(fetchPosts.request());
@@ -30,6 +30,19 @@ export function* sendPost(action) {
 	}
 }
 
+export function* deletePost(action) {
+	try {
+		yield call(postService.deletePost, action.payload.postId);
+		yield put(fetchPosts());
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+function* watchDeletePost() {
+	yield takeEvery(DELETE_POST, deletePost);
+}
+
 function* watchGetPosts() {
 	yield takeEvery(fetchPosts.TRIGGER, getPosts);
 }
@@ -38,5 +51,5 @@ function* watchSendPost() {
 }
 
 export default function* messagesSaga() {
-	yield all([watchGetPosts(), watchSendPost()]);
+	yield all([watchGetPosts(), watchSendPost(), watchDeletePost()]);
 }
