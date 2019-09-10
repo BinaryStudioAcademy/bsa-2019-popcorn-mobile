@@ -52,8 +52,8 @@ class ReviewPage extends Component<IProps, IState> {
 	}
 
 	render() {
-		if (!this.props.reviews || !this.props.movie) return <Spinner />;
 		const { reviews, loading, navigation, movie } = this.props;
+		if (loading) return <Spinner />;
 
 		switch (this.state.filterType) {
 			case 'mostLiked':
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
 	container: {
 		paddingLeft: 15,
 		paddingRight: 15,
-		paddingBottom: 45
+		marginBottom: 60
 	},
 	sortItem: {
 		marginBottom: 10
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
 	filter: {
 		position: 'absolute',
 		right: 0,
-		top: 70,
+		top: 56,
 		zIndex: 9,
 		backgroundColor: '#fff',
 		padding: 10,
@@ -202,8 +202,6 @@ const styles = StyleSheet.create({
 		fontWeight: '700',
 		marginBottom: 15,
 		paddingBottom: 15,
-		borderColor: 'red',
-		borderBottomWidth: 1,
 		display: 'flex'
 	},
 	header: {
@@ -215,7 +213,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#ff6501',
 		paddingLeft: 15,
 		paddingRight: 15,
-		paddingTop: 30,
+		paddingTop: 15,
 		paddingBottom: 15
 	},
 	title: {

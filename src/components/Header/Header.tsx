@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 		flexWrap: 'nowrap',
 		width: '100%',
 		flexDirection: 'row',
-		paddingTop: 30,
+		paddingTop: 8,
 		paddingBottom: 8,
 		borderBottomColor: 'rgba(0, 0, 0, 0.1)',
 		borderBottomWidth: 1

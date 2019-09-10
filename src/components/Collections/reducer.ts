@@ -1,7 +1,7 @@
 import {
-    fetchCollectionDetails,
-    fetchCollectionPreview,
-    saveCollection,
+	fetchCollectionDetails,
+	fetchCollectionPreview,
+	saveCollection,
 	deleteCollection,
 	fetchCollections
 } from '../../redux/routines';
@@ -11,7 +11,7 @@ interface IReducerState {
 	movieListsPreview?: Array<any>;
 	movieListDetails?: any;
 	selectedPreviewUserId?: string;
-	collections?: Array<any>
+	collections?: Array<any>;
 }
 
 const initialState: IReducerState = {
@@ -36,16 +36,16 @@ export default (state = initialState, action) => {
 			};
 
 		case deleteCollection.SUCCESS:
-            const { movieListId } = action.payload;
-            if (!state.movieListsPreview) return state;
+			const { movieListId } = action.payload;
+			if (!state.movieListsPreview) return state;
 			const prevMovieList = [...state.movieListsPreview];
 			if (!state.collections)
-			return {
-				...state,
-				movieListsPreview: prevMovieList.filter(
-					movieList => movieList.id !== movieListId
-				)
-			};
+				return {
+					...state,
+					movieListsPreview: prevMovieList.filter(
+						movieList => movieList.id !== movieListId
+					)
+				};
 			const prevCollections = [...state.collections];
 			return {
 				...state,
@@ -55,7 +55,7 @@ export default (state = initialState, action) => {
 				collections: prevCollections.filter(
 					collection => collection.id !== movieListId
 				)
-			}
+			};
 
 		case saveCollection.REQUEST:
 			return {
@@ -71,10 +71,7 @@ export default (state = initialState, action) => {
 					action.payload.newMovieList,
 					...state.movieListsPreview
 				],
-				collections: [
-					action.payload.newMovieList,
-					...state.collections
-				],
+				collections: [action.payload.newMovieList, ...state.collections],
 				loading: false
 			};
 
@@ -90,7 +87,7 @@ export default (state = initialState, action) => {
 				loading: false,
 				movieListDetails: action.payload.movieListDetails
 			};
-		case fetchCollections.REQUEST: 
+		case fetchCollections.REQUEST:
 			return {
 				...state,
 				loading: true
@@ -100,7 +97,7 @@ export default (state = initialState, action) => {
 				...state,
 				loading: false,
 				collections: action.payload
-			}
+			};
 		}
 		default:
 			return state;

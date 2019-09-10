@@ -31,7 +31,7 @@ function* getTop(action) {
 			method: 'GET'
 		});
 		yield put(fetchTop.success(data));
-	} catch(e) {
+	} catch (e) {
 		console.log('saga fetch top: ', e.message);
 	} finally {
 		yield put(fetchTop.fulfill());
@@ -43,5 +43,5 @@ function* watchFetchTop() {
 }
 
 export default function* topsSaga() {
-	yield all([ watchFetchTops(), watchFetchTop() ]);
+	yield all([watchFetchTops(), watchFetchTop()]);
 }

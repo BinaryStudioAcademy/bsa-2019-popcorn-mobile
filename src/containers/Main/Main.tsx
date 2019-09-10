@@ -71,7 +71,7 @@ class Main extends Component<IProps> {
 					this.props.navigation.navigate('Event', { eventId: data.id });
 				if (data.type === 'message')
 					this.props.navigation.navigate('Message', { chatId: data.id });
-				if (data.type === 'follower') 
+				if (data.type === 'follower')
 					this.props.navigation.navigate('Follower', { userId: data.id });
 			});
 
@@ -86,7 +86,7 @@ class Main extends Component<IProps> {
 				this.props.navigation.navigate('Event', { eventId: data.id });
 			if (data.type === 'message')
 				this.props.navigation.navigate('Message', { chatId: data.id });
-			if (data.type === 'follower') 
+			if (data.type === 'follower')
 				this.props.navigation.navigate('Follower', { userId: data.id });
 		}
 	}
@@ -94,7 +94,7 @@ class Main extends Component<IProps> {
 	render() {
 		return (
 			<Swiper loop={false} showsPagination={false} index={0}>
-				<HomeNavigator screenProps={this.props.navigation}/>
+				<HomeNavigator screenProps={this.props.navigation} />
 				<SidebarView navigation={this.props.navigation} />
 			</Swiper>
 		);
