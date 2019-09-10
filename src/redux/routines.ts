@@ -9,6 +9,7 @@ export const fetchMovies = createRoutine('FETCH_MOVIES');
 export const fetchFiltred = createRoutine('FETCH_FILTRED_MOVIES');
 export const fetchGenres = createRoutine('FETCH_GENRES');
 export const fetchPosts = createRoutine('FETCH_POSTS');
+export const fetchPost = createRoutine('FETCH_POST');
 export const fetchUserEvents = createRoutine('FETCH_USER_EVENTS');
 export const fetchEvents = createRoutine('FETCH_EVENTS');
 export const fetchUserSurveys = createRoutine('FETCH_USER_SURVEYS');
