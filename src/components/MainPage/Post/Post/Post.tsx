@@ -132,7 +132,7 @@ class Post extends Component<IPostProps, IState> {
 							/>
 						</View>
 					)}
-					{reactions && this.getReactionsBlock(reactions)}
+					{!!reactions.length && this.getReactionsBlock(reactions)}
 					<View style={styles.postControls}>
 						<View style={styles.postControlsItem}>
 							{showReactionsModal && (
