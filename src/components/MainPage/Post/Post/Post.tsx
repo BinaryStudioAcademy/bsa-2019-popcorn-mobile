@@ -10,54 +10,90 @@ import {
 import IPost from './../IPost';
 import config from '../../../../config';
 import SvgUri from 'react-native-svg-uri';
-import { getNewDateTime } from '../../../../helpers/dateFormat.helper';
 const { width } = Dimensions.get('window');
-import Modal from './../SettingsModal';
+import SettingsModal from './../SettingsModal';
+import ReactionsModal from './../Reactions';
+import { getIcon } from './../../../../services/postReaction.service';
+
 interface IPostProps {
 	post: IPost;
 	navigation: any;
 	isCreator: boolean;
+	userId: string;
 	deletePost: (postId: string) => any;
+	reactPost: (type: string, userId: string, postId: string) => any;
 }
 
 interface IState {
-	showModal: boolean;
+	showSettingsModal: boolean;
+	showReactionsModal: boolean;
 }
 
 class Post extends Component<IPostProps, IState> {
 	constructor(props) {
 		super(props);
 		this.state = {
-			showModal: false
+			showSettingsModal: false,
+			showReactionsModal: false
 		};
-		this.toggleModal = this.toggleModal.bind(this);
+		this.toggleSettingsModal = this.toggleSettingsModal.bind(this);
+		this.toggleReactionsModal = this.toggleReactionsModal.bind(this);
 	}
 
-	toggleModal() {
-		const { showModal } = this.state;
+	toggleSettingsModal() {
+		const { showSettingsModal } = this.state;
 		this.setState({
-			showModal: !showModal
+			showSettingsModal: !showSettingsModal
 		});
 	}
 
+	toggleReactionsModal() {
+		const { showReactionsModal } = this.state;
+		this.setState({
+			showReactionsModal: !showReactionsModal
+		});
+	}
+
+	countReactionsSum(reactions) {
+		return reactions
+			.map(item => +item.count)
+			.reduce((acc, val) => acc + val, 0);
+	}
+
+	getReactionsBlock(reactions) {
+		return (
+			<View style={styles.likesWrapper}>
+				{reactions.map((item, i) => (
+					<View style={i !== 0 && styles.reactionWrapper}>
+						{getIcon(item.type, 20)}
+					</View>
+				))}
+				<Text style={styles.sumCount}>
+					{this.countReactionsSum(reactions)} reactions
+				</Text>
+			</View>
+		);
+	}
+
 	render() {
-		const { isCreator, deletePost } = this.props;
-		const { image_url, description, createdAt, id: postId } = this.props.post;
-		let date;
-		if (createdAt) {
-			date = new Date(createdAt);
-		}
-		let newDate = getNewDateTime(date);
+		const { isCreator, deletePost, reactPost, userId } = this.props;
+		const {
+			image_url,
+			description,
+			createdAt,
+			id: postId,
+			reactions
+		} = this.props.post;
 		const { id, name, avatar } = this.props.post.user;
-		const { showModal } = this.state;
+		const { showSettingsModal, showReactionsModal } = this.state;
 		return (
 			<>
 				<View style={styles.postWrapper}>
-					{showModal && (
-						<Modal
+					{showSettingsModal && (
+						<SettingsModal
 							deletePost={deletePost}
 							postId={postId}
-							toggleModal={this.toggleModal}
+							toggleModal={this.toggleSettingsModal}
 						/>
 					)}
 					<TouchableOpacity
@@ -76,7 +112,7 @@ class Post extends Component<IPostProps, IState> {
 							</View>
 							{isCreator && (
 								<View style={styles.headerControl}>
-									<TouchableOpacity onPress={() => this.toggleModal()}>
+									<TouchableOpacity onPress={() => this.toggleSettingsModal()}>
 										<SvgUri
 											height={5}
 											width={20}
@@ -96,9 +132,18 @@ class Post extends Component<IPostProps, IState> {
 							/>
 						</View>
 					)}
+					{reactions && this.getReactionsBlock(reactions)}
 					<View style={styles.postControls}>
 						<View style={styles.postControlsItem}>
-							<TouchableOpacity>
+							{showReactionsModal && (
+								<ReactionsModal
+									userId={userId}
+									postId={postId}
+									reactPost={reactPost}
+									toggleModal={this.toggleReactionsModal}
+								/>
+							)}
+							<TouchableOpacity onPress={() => this.toggleReactionsModal()}>
 								<SvgUri
 									height={22}
 									width={22}
@@ -112,15 +157,6 @@ class Post extends Component<IPostProps, IState> {
 									height={22}
 									width={22}
 									source={require('./../../../../assets/general/commentIcon.svg')}
-								/>
-							</TouchableOpacity>
-						</View>
-						<View style={[styles.postControlsItem, styles.shareControl]}>
-							<TouchableOpacity>
-								<SvgUri
-									height={22}
-									width={22}
-									source={require('./../../../../assets/general/shareIcon.svg')}
 								/>
 							</TouchableOpacity>
 						</View>
@@ -197,6 +233,24 @@ const styles = StyleSheet.create({
 		borderRadius: 20,
 		margin: 9,
 		backgroundColor: '#adadad'
+	},
+	likesWrapper: {
+		marginHorizontal: 8,
+		marginVertical: 8,
+		flexDirection: 'row',
+		alignItems: 'center'
+	},
+	reactionWrapper: {
+		position: 'relative',
+		marginLeft: -8
+	},
+	sumCount: {
+		marginLeft: 6,
+		fontFamily: 'Inter-Regular',
+		fontSize: 15,
+		lineHeight: 17,
+		letterSpacing: 0.4,
+		color: 'rgba(18, 39, 55, 0.7)'
 	}
 });
 export default Post;
