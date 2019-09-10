@@ -8,6 +8,8 @@ export default interface IPost {
 	description?: string;
 	extraTitle?: string | null;
 	extraLink?: string | null;
+	extraData?: any;
+	extraType: string;
 	content?: {
 		image: string;
 		link: string;
