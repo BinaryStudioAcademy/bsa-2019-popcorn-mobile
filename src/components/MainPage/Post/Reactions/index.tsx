@@ -1,128 +1,93 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import SvgUri from 'react-native-svg-uri';
-
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { getIcon } from './../../../../services/postReaction.service';
 interface IProps {
 	postId: string;
-	reactPost: (postId: string) => any;
+	userId: string;
+	reactPost: (type: string, userId: string, postId: string) => any;
 	toggleModal: () => any;
 }
 
 const reactions = [
 	{
 		id: 1,
-		reactionType: 'like',
-		value: '🤣'
+		reactionType: 'like'
 	},
 	{
 		id: 2,
-		reactionType: 'dislike',
-		value: '🔥'
+		reactionType: 'dislike'
 	},
 	{
 		id: 3,
-		reactionType: 'popcorn',
-		value: '👏🏻'
+		reactionType: 'popcorn'
 	},
 	{
 		id: 4,
-		reactionType: 'haha',
-		value: '🤩'
+		reactionType: 'haha'
 	},
 	{
 		id: 5,
-		reactionType: 'wow',
-		value: '😢'
+		reactionType: 'wow'
 	},
 	{
 		id: 6,
-		reactionType: 'sad',
-		value: '😳'
+		reactionType: 'sad'
 	},
 	{
 		id: 7,
-		reactionType: 'angry',
-		value: '😡'
-	},
-	{
-		id: 8,
-		reactionType: 'fire',
-		value: '🥳'
+		reactionType: 'angry'
 	}
 ];
 
 const PostReactions = (props: IProps) => {
-	const getIcon = reactionType => {
-		switch (reactionType) {
-			case 'like':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/like.svg`)}
-					/>
-				);
-			case 'dislike':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/dislike.svg`)}
-					/>
-				);
-			case 'popcorn':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/popcorn.svg`)}
-					/>
-				);
-			case 'haha':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/haha.svg`)}
-					/>
-				);
-			case 'wow':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/wow.svg`)}
-					/>
-				);
-			case 'sad':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/sad.svg`)}
-					/>
-				);
-			case 'angry':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/angry.svg`)}
-					/>
-				);
-			case 'fire':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/fire.svg`)}
-					/>
-				);
-		}
+	const renderReactions = (item, userId, postId) => {
+		return (
+			<TouchableOpacity
+				key={item.id}
+				onPress={() => (
+					props.reactPost(item.reactionType, userId, postId),
+					props.toggleModal()
+				)}
+			>
+				<View style={styles.reactionWrapper}>
+					{getIcon(item.reactionType, 30)}
+				</View>
+			</TouchableOpacity>
+		);
 	};
-	return <></>;
+
+	return (
+		<View style={styles.modal}>
+			{reactions.map(item => renderReactions(item, props.userId, props.postId))}
+		</View>
+	);
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	modal: {
+		position: 'absolute',
+		zIndex: 10,
+		backgroundColor: 'rgb(255, 255, 255)',
+		bottom: 30,
+		width: 280,
+		height: 40,
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: 15,
+		flexDirection: 'row',
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 2
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+
+		elevation: 5
+	},
+	reactionWrapper: {
+		margin: 5
+	}
+});
 
 export default PostReactions;
