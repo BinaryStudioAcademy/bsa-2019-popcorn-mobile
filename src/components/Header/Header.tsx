@@ -14,7 +14,7 @@ interface IProps {
 	nav: any;
 }
 
-const HEADER_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
+const HEADER_HEIGHT = Platform.OS === 'ios' ? 20 : 8;
 
 const Header = props => {
 	return (
@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
 		flexWrap: 'nowrap',
 		width: '100%',
 		flexDirection: 'row',
-		paddingTop: 8,
 		paddingBottom: 8,
 		borderBottomColor: 'rgba(0, 0, 0, 0.1)',
 		borderBottomWidth: 1

@@ -18,6 +18,7 @@ import ChooseExtra from './ChooseExtra';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
 import ImageUploader from '../../../ImageUploader';
+import config from '../../../../config';
 
 const poll = require('../../../../assets/general/Poll-01.svg');
 const camera = require('../../../../assets/general/camera.svg');
@@ -83,29 +84,73 @@ class PostConstructor extends Component<IProps, IState> {
 	};
 
 	validate() {
-		const { description, image_url } = this.state;
-		if (description && image_url) this.setState({ disabled: false });
-		else this.setState({ disabled: true });
+		const { data, description, image_url } = this.state;
+		console.log(
+			'[validate] data',
+			data,
+			'description',
+			description,
+			'image_url',
+			image_url
+		);
+		if (data.id || (description && image_url)) {
+			this.setState({ disabled: false });
+		} else {
+			this.setState({ disabled: true });
+		}
 	}
 
 	hasActivityOrPhoto(number: number) {
 		return this.state.type || this.state.image_url ? {} : { flex: number };
 	}
-
+	componentDidUpdate(prevProps, prevState) {
+		console.log('prevState', prevState, 'this.state', this.state);
+		if (this.state.data !== prevState.data) {
+			let newImage = '';
+			if (this.state.data.image) newImage = this.state.data.image;
+			else {
+				switch (this.state.type) {
+					case 'top':
+						newImage = config.DEFAULT_TOP_IMAGE;
+						break;
+					case 'event':
+						newImage = config.DEFAULT_EVENT_IMAGE;
+						break;
+					case 'survey':
+						newImage = config.DEFAULT_SURVEY_IMAGE;
+				}
+			}
+			this.setState({ image_url: newImage });
+			this.validate();
+		}
+	}
+	static getDerivedStateFromProps(props, state) {
+		console.log('props', props, 'state', state);
+		// return {
+		// 	...state,
+		// 	newStory: { ...props.newStory, image_url: props.newStory.image_url }
+		// };
+	}
 	addExtra(item, option) {
 		this.setState({
 			type: option,
 			data: item
 		});
 	}
-
+	clearExtra = () => {
+		this.addExtra({ id: null, title: null }, '');
+		this.setState({ type: '', data: null, image_url: '' });
+		this.validate();
+	};
 	render() {
 		if (this.state.loading) return <Spinner />;
-
 		const { image_url, description, data, type } = this.state;
 
 		const { navigation, profileInfo } = this.props;
-
+		console.log('data', data, 'image_url', image_url);
+		// if (data){
+		// 	this.validate();
+		// }
 		if (navigation.state.params) {
 			const { option, type } = navigation.state.params;
 			navigation.state.params = null;
@@ -127,6 +172,9 @@ class PostConstructor extends Component<IProps, IState> {
 								id: uuid(),
 								...this.state,
 								extraTitle: data.title,
+								extraLink: `/events/${data.id}`,
+								extraType: type,
+								extraData: data,
 								user: { ...this.props.profileInfo }
 							});
 							navigation.navigate('Home');
@@ -157,9 +205,7 @@ class PostConstructor extends Component<IProps, IState> {
 									type={type}
 									data={data}
 									navigation={navigation}
-									clearExtra={() => {
-										this.addExtra({ id: null, title: null }, '');
-									}}
+									clearExtra={this.clearExtra}
 								/>
 							) : null}
 						</View>
