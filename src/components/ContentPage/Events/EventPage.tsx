@@ -49,7 +49,7 @@ const EventPage: React.FC<IProps> = props => {
 		if (visitor) {
 			if (visitor.status === status)
 				props.deleteEventVisitor({
-					visitorId: visitor.id, 
+					visitorId: visitor.id,
 					eventId: event.id
 				});
 			else
@@ -120,51 +120,53 @@ const EventPage: React.FC<IProps> = props => {
 					</View>
 				</View>
 				<View style={styles.eventActionWrap}>
-					<TouchableOpacity style={styles.eventAction} onPress={() => { 
-						setVisitor('interested') 
-					}}>
-							{
-								(!visitor || visitor.status !== 'interested') &&
-								<Icon
-									name="star"
-									color={'#37393a'}
-									size={14}
-									style={[styles.eventIcon]}
-								/>
-							}
-							{
-								!!visitor && visitor.status === 'interested' &&
-								<Icon
-									name="check"
-									color={'#37393a'}
-									size={14}
-									style={[styles.eventIcon]}
-								/>
-							}
+					<TouchableOpacity
+						style={styles.eventAction}
+						onPress={() => {
+							setVisitor('interested');
+						}}
+					>
+						{(!visitor || visitor.status !== 'interested') && (
+							<Icon
+								name="star"
+								color={'#37393a'}
+								size={14}
+								style={[styles.eventIcon]}
+							/>
+						)}
+						{!!visitor && visitor.status === 'interested' && (
+							<Icon
+								name="check"
+								color={'#37393a'}
+								size={14}
+								style={[styles.eventIcon]}
+							/>
+						)}
 						<Text style={styles.eventActionLabel}>Interested</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity style={styles.eventAction} onPress={() => { 
-						setVisitor('going') 
-					}}>
-						{
-							(!visitor || visitor.status !== "going") &&
+					<TouchableOpacity
+						style={styles.eventAction}
+						onPress={() => {
+							setVisitor('going');
+						}}
+					>
+						{(!visitor || visitor.status !== 'going') && (
 							<Icon
-								name='user-plus'
-								color='#37393a'
+								name="user-plus"
+								color="#37393a"
 								size={14}
 								style={styles.eventIcon}
 							/>
-						}
-						{
-							!!visitor && visitor.status === 'going' &&
-							<Icon 
+						)}
+						{!!visitor && visitor.status === 'going' && (
+							<Icon
 								name="check"
-								color='#37393a'
+								color="#37393a"
 								size={14}
 								style={styles.eventIcon}
 							/>
-						}
+						)}
 						<Text style={styles.eventActionLabel}>Going</Text>
 					</TouchableOpacity>
 				</View>
@@ -190,15 +192,14 @@ const EventPage: React.FC<IProps> = props => {
 						{location_lat} {location_lng}
 					</Text>
 				</View>
-				{
-					!!description &&
+				{!!description && (
 					<View style={styles.eventDetailsWrap}>
 						<View style={styles.eventDetails}>
 							<Text style={styles.eventDetailsTitle}>About</Text>
 							<Text style={styles.eventDetailsText}>{description}</Text>
 						</View>
 					</View>
-				}
+				)}
 				<View style={styles.eventDetailsWrap}>
 					<View style={styles.eventDetails}>
 						<Text style={styles.eventDetailsTitle}>Interested</Text>
@@ -214,12 +215,12 @@ const EventPage: React.FC<IProps> = props => {
 										}}
 										style={styles.eventVisitorImg}
 									/>
-								))
-							}
-							{
-								!interestedUsers.length &&
-								<Text style={[styles.text, styles.eventCreatorLabel]}>Nobody is interested</Text>
-							}
+								))}
+							{!interestedUsers.length && (
+								<Text style={[styles.text, styles.eventCreatorLabel]}>
+									Nobody is interested
+								</Text>
+							)}
 						</ScrollView>
 					</View>
 					<View style={styles.eventDetails}>
@@ -235,12 +236,12 @@ const EventPage: React.FC<IProps> = props => {
 										}}
 										style={styles.eventVisitorImg}
 									/>
-								))
-							}
-							{
-								!goingUsers.length &&
-								<Text style={[styles.text, styles.eventCreatorLabel]}>Nobody is going</Text>
-							}
+								))}
+							{!goingUsers.length && (
+								<Text style={[styles.text, styles.eventCreatorLabel]}>
+									Nobody is going
+								</Text>
+							)}
 						</ScrollView>
 					</View>
 				</View>
