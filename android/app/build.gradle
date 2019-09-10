@@ -197,8 +197,7 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-date-picker')
-    compile(project(':react-native-firebase')) {   
+    compile(project(':react-native-firebase')) {
        transitive = false
     }
     implementation project(':react-native-image-picker')
@@ -208,7 +207,6 @@ dependencies {
     implementation "com.google.android.gms:play-services-base:16.1.0"
     implementation "com.google.firebase:firebase-core:16.0.8"
     implementation "com.google.firebase:firebase-messaging:17.5.0"
-    
 
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";
