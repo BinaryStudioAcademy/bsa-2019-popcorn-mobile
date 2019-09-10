@@ -10,6 +10,7 @@ import {
 import IPost from './../IPost';
 import config from '../../../../config';
 import SvgUri from 'react-native-svg-uri';
+import { getNewDateTime } from '../../../../helpers/dateFormat.helper';
 const { width } = Dimensions.get('window');
 
 interface IPostProps {
@@ -19,7 +20,9 @@ interface IPostProps {
 
 class Post extends Component<IPostProps> {
 	render() {
-		const { image_url, description, created_At } = this.props.post;
+		const { image_url, description, createdAt } = this.props.post;
+		const date = new Date(createdAt);
+		let newDate = getNewDateTime(date);
 		const { id, name, avatar } = this.props.post.user;
 		return (
 			<View style={styles.postWrapper}>
@@ -35,7 +38,7 @@ class Post extends Component<IPostProps> {
 						/>
 						<View style={styles.infoBlock}>
 							<Text style={styles.userName}>{name}</Text>
-							<Text style={styles.info}>{created_At || 'Few days ago'}</Text>
+							<Text style={styles.info}>{newDate || 'Few days ago'}</Text>
 						</View>
 						<View style={styles.headerControl}>
 							<TouchableOpacity>

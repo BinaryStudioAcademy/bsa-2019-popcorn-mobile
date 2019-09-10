@@ -13,7 +13,7 @@ import { bindActionCreators } from 'redux';
 import config from '../../config';
 import SocketService from '../../helpers/socket.helper';
 import { INC_MESSAGE_BACKGROUND, INC_MESSAGE_COLOR } from './styles';
-import { getNewDate } from './getNewDate';
+import { getNewDate } from '../../helpers/dateFormat.helper';
 
 interface IProps {
 	fetchChats: (userId) => void;
