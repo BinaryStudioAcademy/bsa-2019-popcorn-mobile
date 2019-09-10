@@ -43,7 +43,7 @@ class PostComponent extends React.Component<IProps> {
 		if (posts) {
 			const showPosts = userId
 				? posts.filter(post => post.user.id == userId)
-				: posts;
+				: posts.filter(post => post);
 			return (
 				showPosts && (
 					<FlatList

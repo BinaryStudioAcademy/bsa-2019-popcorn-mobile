@@ -47,11 +47,11 @@ export default function(state = initialState, action) {
 				...state,
 				registerError: action.payload
 			};
-		case logout.SUCCESS: 
+		case logout.SUCCESS:
 			return {
 				...state,
 				profileInfo: null
-			}
+			};
 		default:
 			return state;
 	}
