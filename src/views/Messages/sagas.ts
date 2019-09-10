@@ -8,7 +8,8 @@ import {
 	CREATE_MESSAGE,
 	DELETE_MESSAGE,
 	UPDATE_MESSAGE,
-	READ_MESSAGES
+	READ_MESSAGES,
+	SET_NEW_CHAT
 } from './actionTypes';
 import webApi from '../../helpers/webApi.helper';
 import config from '../../config';
@@ -82,18 +83,26 @@ export function* createChat(action) {
 				user2Id: action.payload.user2Id
 			}
 		});
-		yield put({
-			type: CREATE_MESSAGE,
-			payload: {
-				userId: action.payload.user1Id,
-				chatId: response.chat.id,
-				body: { ...action.payload.body }
-			}
-		});
+		if (action.payload.body) {
+			yield put({
+				type: CREATE_MESSAGE,
+				payload: {
+					userId: action.payload.user1Id,
+					chatId: response.chat.id,
+					body: { ...action.payload.body }
+				}
+			});
+		}
 		yield put({
 			type: FETCH_CHATS,
 			payload: {
 				userId: action.payload.user1Id
+			}
+		});
+		yield put({
+			type: SET_NEW_CHAT,
+			payload: {
+				chatId: response.chat.id
 			}
 		});
 	} catch (e) {

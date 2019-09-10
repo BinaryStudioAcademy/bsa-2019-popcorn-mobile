@@ -33,7 +33,7 @@ class Survey extends Component<IProps, IState> {
 
 	render() {
 		const { data, user } = this.props;
-
+		console.log(data);
 		return (
 			<TouchableOpacity
 				onPress={() => this.props.nav.navigate('SurveyPage', { id: data.id })}
@@ -50,12 +50,29 @@ class Survey extends Component<IProps, IState> {
 						/>
 					</View>
 					<View style={styles.column}>
-						<Text style={[styles.text, styles.title]}>{data.title}</Text>
-						{!!data.description && (
-							<Text style={[styles.text, styles.description]}>
-								{data.description}
+						<View style={{ width: '80%' }}>
+							<Text numberOfLines={2} style={[styles.text, styles.title]}>
+								{data.title}
 							</Text>
-						)}
+							{!!data.description && (
+								<Text
+									numberOfLines={3}
+									style={[styles.text, styles.description]}
+								>
+									{data.description}
+								</Text>
+							)}
+						</View>
+						<View style={styles.userInfo}>
+							<Image
+								source={{
+									uri:
+										data.user.avatar ||
+										'https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png'
+								}}
+								style={styles.roundImage}
+							/>
+						</View>
 					</View>
 				</View>
 			</TouchableOpacity>
@@ -85,11 +102,15 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		width: '100%',
 		alignItems: 'flex-start',
-		marginBottom: 10
+		marginBottom: 20
 	},
 	column: {
 		width: '58%',
-		paddingLeft: 10
+		paddingLeft: 10,
+		display: 'flex',
+		alignItems: 'flex-start',
+		flexDirection: 'row',
+		justifyContent: 'space-between'
 	},
 	survey: {
 		display: 'flex',
@@ -140,5 +161,17 @@ const styles = StyleSheet.create({
 	},
 	delete: {
 		color: 'red'
+	},
+	userInfo: {
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		width: '20%'
+	},
+	roundImage: {
+		width: 30,
+		height: 30,
+		borderRadius: 15,
+		backgroundColor: '#adadad'
 	}
 });

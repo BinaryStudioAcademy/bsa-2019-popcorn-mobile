@@ -39,7 +39,6 @@ class SurveyList extends React.Component<IProps, IState> {
 			<View style={[styles.container]}>
 				<ScrollView>
 					<View style={styles.surveyList}>
-						<Text style={styles.surveyTitle}>Surveys list</Text>
 						{surveys.map((item, i) => (
 							<Survey key={item.id} data={item} nav={navigation} user={false} />
 						))}
@@ -70,9 +69,9 @@ export default connect(
 const styles = StyleSheet.create({
 	surveyList: {
 		display: 'flex',
-		paddingLeft: 15,
-		paddingRight: 15,
-		paddingTop: 30,
+		paddingLeft: 10,
+		paddingRight: 10,
+		paddingTop: 10,
 		paddingBottom: 30
 	},
 	surveyTitle: {
