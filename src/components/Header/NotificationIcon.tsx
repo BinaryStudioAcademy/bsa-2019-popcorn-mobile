@@ -52,8 +52,8 @@ class NotificationIcon extends Component<IProps, IState> {
 		return (
 			<View>
 				<SvgUri
-					height={24}
-					width={24}
+					height={20}
+					width={20}
 					style={styles.item}
 					source={require('../../assets/general/new.svg')}
 				/>
