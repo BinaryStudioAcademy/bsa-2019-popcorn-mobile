@@ -1,10 +1,11 @@
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from '../../views/HomeView';
 import Header from '../../components/Header/Header';
 import SurveyNavigator from '../StackNavigator/SurveyNavigator';
 import EventsTab from '../../components/ContentPage/Events/EventTab';
 import MovieNavigator from './MovieNavigator';
 import TopsTab from '../../components/ContentPage/Tops/TopTab';
+import SurveyTab from '../../components/ContentPage/Surveys/SurveyTab';
 import ActivityNavigator from '../StackNavigator/ActivityNavigator';
 import ChooseExtraOption from '../../components/MainPage/Story/StoryModal/ChooseExtraOption';
 import EventPage from '../../components/ContentPage/Events/EventPage';
@@ -13,8 +14,6 @@ import SurveyPage from '../../components/SurveyPage/SurveyPage';
 import ControlledVertical from '../../components/MainPage/Story/StoryModal/ColorPicker';
 import CollectionsNavigator from './CollectionNavigator';
 import ReviewPage from '../../components/ReviewPage/ReviewPage';
-import Messages from '../../views/Messages/Messages';
-import Chats from '../../views/Messages/';
 import UserProfileNavigation from './UserProfileNavigator';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
@@ -56,23 +55,6 @@ export const FirstActivity_StackNavigator = createStackNavigator({
 	}
 });
 
-export const Messages_StackNavigator = createStackNavigator({
-	Second: {
-		screen: Chats,
-		navigationOptions: ({ navigation }) => ({
-			header: Header,
-			navigation
-		})
-	},
-	Messages: {
-		screen: Messages,
-		navigationOptions: ({ navigation }) => ({
-			header: Header,
-			navigation
-		})
-	}
-});
-
 export const Event_StackNavigator = createStackNavigator({
 	Third: {
 		screen: EventsTab,
@@ -93,7 +75,7 @@ export const Top_StackNavigator = createStackNavigator({
 
 export const Survey_StackNavigator = createStackNavigator({
 	Fifth: {
-		screen: SurveyNavigator,
+		screen: SurveyTab,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})

@@ -8,17 +8,21 @@ import {
 	UPDATE_MESSAGE_STORE,
 	READ_MESSAGES,
 	ADD_UNREAD_MESSAGE,
-	READ_MESSAGES_STORE
+	READ_MESSAGES_STORE,
+	SET_NEW_CHAT,
+	UNSET_NEW_CHAT
 } from './actionTypes';
 
 const initialState: {
 	chats: any;
 	isLoadingList: boolean;
 	isLoadingMessages: boolean;
+	newChatId: string;
 } = {
 	chats: {},
 	isLoadingList: false,
-	isLoadingMessages: false
+	isLoadingMessages: false,
+	newChatId: ''
 };
 
 export default function(state = initialState, action) {
@@ -134,6 +138,16 @@ export default function(state = initialState, action) {
 						unreadMessagesCount: 0
 					}
 				}
+			};
+		case SET_NEW_CHAT:
+			return {
+				...state,
+				newChatId: action.payload.chatId
+			};
+		case UNSET_NEW_CHAT:
+			return {
+				...state,
+				newChatId: ''
 			};
 
 		default:

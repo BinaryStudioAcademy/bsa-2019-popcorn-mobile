@@ -222,7 +222,7 @@ class AdvancedSearch extends React.Component<
 		const { genres = [], filters } = this.props;
 
 		return (
-			<View style={styles.container}>
+			<ScrollView style={styles.container}>
 				<View
 					style={{
 						display: 'flex',
@@ -256,9 +256,9 @@ class AdvancedSearch extends React.Component<
 					value={filters.nameValue}
 					quickShowBlock={false}
 				/>
-				<ScrollView>
+				<View style={{ paddingBottom: 45 }}>
 					<Text style={styles.heading}>Genres</Text>
-					<ScrollView style={styles.optionContainer}>
+					<View style={styles.optionContainer}>
 						{genres.map(item => {
 							return (
 								<SearchCheckbox
@@ -271,7 +271,7 @@ class AdvancedSearch extends React.Component<
 								/>
 							);
 						})}
-					</ScrollView>
+					</View>
 					<Text style={styles.heading}>Cast</Text>
 					<SearchInput
 						action={this.handleCastChange}
@@ -286,8 +286,8 @@ class AdvancedSearch extends React.Component<
 						value={filters.descriptionValue}
 						quickShowBlock={false}
 					/>
-				</ScrollView>
-			</View>
+				</View>
+			</ScrollView>
 		);
 	}
 }
@@ -315,7 +315,6 @@ const styles = StyleSheet.create({
 		padding: 15
 	},
 	optionContainer: {
-		maxHeight: 300,
 		marginTop: 15,
 		marginBottom: 15
 	},

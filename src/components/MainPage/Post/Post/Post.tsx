@@ -10,6 +10,7 @@ import {
 import IPost from './../IPost';
 import config from '../../../../config';
 import SvgUri from 'react-native-svg-uri';
+import { getNewDateTime } from '../../../../helpers/dateFormat.helper';
 const { width } = Dimensions.get('window');
 import Modal from './../SettingsModal';
 interface IPostProps {
@@ -41,7 +42,12 @@ class Post extends Component<IPostProps, IState> {
 
 	render() {
 		const { isCreator, deletePost } = this.props;
-		const { image_url, description, created_At, id: postId } = this.props.post;
+		const { image_url, description, createdAt, id: postId } = this.props.post;
+		let date;
+		if (createdAt) {
+			date = new Date(createdAt);
+		}
+		let newDate = getNewDateTime(date);
 		const { id, name, avatar } = this.props.post.user;
 		const { showModal } = this.state;
 		return (
@@ -66,7 +72,7 @@ class Post extends Component<IPostProps, IState> {
 							/>
 							<View style={styles.infoBlock}>
 								<Text style={styles.userName}>{name}</Text>
-								<Text style={styles.info}>{created_At || 'Few days ago'}</Text>
+								<Text style={styles.info}>{createdAt || 'Few days ago'}</Text>
 							</View>
 							{isCreator && (
 								<View style={styles.headerControl}>
@@ -88,6 +94,10 @@ class Post extends Component<IPostProps, IState> {
 								source={{ uri: image_url }}
 								resizeMode="contain"
 							/>
+							<View style={styles.infoBlock}>
+								<Text style={styles.userName}>{name}</Text>
+								<Text style={styles.info}>{newDate || 'Few days ago'}</Text>
+							</View>
 						</View>
 					)}
 					<View style={styles.postControls}>

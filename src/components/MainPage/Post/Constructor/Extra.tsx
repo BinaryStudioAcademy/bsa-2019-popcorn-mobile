@@ -1,6 +1,6 @@
 import React from 'react';
 import SvgUri from 'react-native-svg-uri';
-import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, ScrollView } from 'react-native';
 import styles from './styles';
 import IUser from '../../../UserPage/IUser';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -19,9 +19,7 @@ interface IProps {
 const renderTopView = data => {
 	const movie = data.movieInTop
 		.filter((movie, index) => index < 3)
-		.map((movie, index) => (
-			<Text>{`${index + 1}. ${movie.movie.original_title}`}</Text>
-		));
+		.map((movie, index) => <Text>{`${index + 1}. ${movie.movie.title}`}</Text>);
 	return (
 		<View>
 			<View style={{ maxHeight: 200 }}>
@@ -106,21 +104,23 @@ const Extra = (props: IProps) => {
 	}
 	return (
 		<View style={styles.extra}>
-			<TouchableOpacity onPress={() => (onSave ? onSave() : viewActivity())}>
-				{renderView(data)}
-			</TouchableOpacity>
-			{props.clearExtra && (
-				<TouchableOpacity
-					onPress={() => props.clearExtra && props.clearExtra()}
-					style={styles.timesCircle}
-				>
-					<SvgUri
-						width={16}
-						height={16}
-						source={require('../../../../assets/general/times-circle-o.svg')}
-					/>
+			<ScrollView>
+				<TouchableOpacity onPress={() => (onSave ? onSave() : viewActivity())}>
+					{renderView(data)}
 				</TouchableOpacity>
-			)}
+				{props.clearExtra && (
+					<TouchableOpacity
+						onPress={() => props.clearExtra && props.clearExtra()}
+						style={styles.timesCircle}
+					>
+						<SvgUri
+							width={16}
+							height={16}
+							source={require('../../../../assets/general/times-circle-o.svg')}
+						/>
+					</TouchableOpacity>
+				)}
+			</ScrollView>
 		</View>
 	);
 };
