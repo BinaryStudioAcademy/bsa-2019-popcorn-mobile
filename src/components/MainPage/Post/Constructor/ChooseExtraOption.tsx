@@ -1,14 +1,9 @@
 import * as React from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from './styles';
-import {
-	fetchEvents,
-	fetchTops,
-	fetchUserSurveys
-} from '../../../../redux/routines';
-import SvgUri from 'react-native-svg-uri';
+import { fetchEvents, fetchTops } from '../../../../redux/routines';
 import IUser from '../../../UserPage/IUser';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
@@ -23,7 +18,7 @@ interface IProps {
 	fetchUserSurveys: () => any;
 	fetchUserTops: () => any;
 	navigation: any;
-	loading: boolean;
+	loadingTop: boolean;
 	loadingEvent: boolean;
 }
 
@@ -33,9 +28,9 @@ class ChooseExtraOption extends React.Component<IProps> {
 		const { option: type } = this.props.navigation.state.params;
 		let message = '';
 
-		if (this.props.loading || this.props.loadingEvent) return <Spinner />;
+		if (this.props.loadingTop || this.props.loadingEvent) return <Spinner />;
 
-		let options: any = [];
+		let options: any = undefined;
 
 		switch (type) {
 			case 'event':
@@ -56,9 +51,8 @@ class ChooseExtraOption extends React.Component<IProps> {
 				options = tops;
 				break;
 		}
-
-		if (!options || options.length === 0)
-			message = "You don't have any " + type;
+		if (!options) return <Spinner />;
+		if (options.length === 0) message = "You don't have any " + type;
 		return (
 			<View style={[styles.extraItemWrp, styles.grid, { flex: 1 }]}>
 				<ScrollView style={{ flex: 1 }}>
@@ -89,7 +83,6 @@ const mapStateToProps = (rootState, props) => ({
 	events: rootState.events.events,
 	surveys: rootState.survey.surveys,
 	tops: rootState.tops.tops,
-	loading: rootState.userEvents.loading,
 	loadingEvent: rootState.events.loading,
 	loadingTop: rootState.tops.loading
 });

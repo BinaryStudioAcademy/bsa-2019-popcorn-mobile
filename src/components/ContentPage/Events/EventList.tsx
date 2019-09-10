@@ -51,7 +51,7 @@ class EventList extends Component<IProps, IState> {
 	setVisitor = ({ event, status, isNew, visitorId }) => {
 		const { currentUser } = this.props;
 		if (status === '') {
-			this.props.deleteEventVisitor(visitorId);
+			this.props.deleteEventVisitor({ visitorId, eventId: event });
 			return;
 		}
 		if (isNew)

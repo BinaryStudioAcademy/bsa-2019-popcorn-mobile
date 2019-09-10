@@ -71,7 +71,7 @@ export default StyleSheet.create({
 	},
 	extra: {
 		marginTop: 5,
-		marginRight: 25,
+		marginRight: 50,
 		marginBottom: 15,
 		marginLeft: 15,
 		borderLeftWidth: 5,

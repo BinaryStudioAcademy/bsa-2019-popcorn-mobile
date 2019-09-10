@@ -3,7 +3,7 @@ import IUser from '../../UserPage/IUser';
 export default interface IPost {
 	user: IUser;
 	id: string;
-	created_At?: string;
+	createdAt?: string;
 	image_url: string;
 	description?: string;
 	extraTitle?: string | null;

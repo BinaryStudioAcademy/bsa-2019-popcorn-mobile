@@ -11,9 +11,9 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import config from '../../config';
-import moment from 'moment';
 import SocketService from '../../helpers/socket.helper';
 import { INC_MESSAGE_BACKGROUND, INC_MESSAGE_COLOR } from './styles';
+import { getNewDate } from '../../helpers/dateFormat.helper';
 
 interface IProps {
 	fetchChats: (userId) => void;
@@ -65,26 +65,7 @@ class ChatList extends React.Component<IProps> {
 		}
 		return 0;
 	}
-	getNewDate(date) {
-		const beforeYesterday = moment()
-			.add(-2, 'day')
-			.endOf('day');
-		const yesterday = moment()
-			.add(-1, 'day')
-			.endOf('day');
 
-		let newDate = '';
-		if (moment(date) > yesterday) {
-			newDate = 'Today';
-		} else if (moment(date) < yesterday && moment(date) > beforeYesterday) {
-			newDate = 'Yesterday';
-		} else {
-			newDate = moment(date)
-				.utc()
-				.format('D MMMM');
-		}
-		return newDate;
-	}
 	render() {
 		const chats = Object.values(this.props.chats).sort(this.sortChats);
 		return (
@@ -95,20 +76,14 @@ class ChatList extends React.Component<IProps> {
 						chat.lastMessage.user.id === this.props.userProfile.id;
 					let { avatar } = chat.user;
 					let name = isOwn ? 'You' : chat.user.name;
-					let body, created_at, reactionType, story;
-					if (chat.lastMessage) {
-						body = chat.lastMessage.body;
-						created_at = chat.lastMessage.created_at;
-						reactionType = chat.lastMessage.reactionType;
-						story = chat.lastMessage.story;
-					} else {
-						(body = ''),
-							(created_at = new Date()),
-							(reactionType = null),
-							(story = null);
-					}
+					const {
+						body = '',
+						created_at = new Date(),
+						reactionType = null,
+						story = null
+					} = chat.lastMessage || {};
 					const date = new Date(created_at);
-					let newDate = this.getNewDate(date);
+					let newDate = getNewDate(date);
 					let isRead = !chat.unreadMessagesCount;
 					return (
 						<Fragment key={chat.id}>
@@ -116,8 +91,7 @@ class ChatList extends React.Component<IProps> {
 								style={styles.chatItem}
 								onPress={() =>
 									this.props.navigation.navigate('Messages', {
-										chatId: chat.id,
-										getNewDate: this.getNewDate
+										chatId: chat.id
 									})
 								}
 							>

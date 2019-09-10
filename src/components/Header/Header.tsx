@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import {
+	StyleSheet,
+	View,
+	TouchableOpacity,
+	Text,
+	Platform
+} from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 import NotificationIcon from './NotificationIcon';
 
@@ -8,9 +14,11 @@ interface IProps {
 	nav: any;
 }
 
+const HEADER_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
+
 const Header = props => {
 	return (
-		<View style={styles.header}>
+		<View style={[styles.header, { paddingTop: HEADER_HEIGHT }]}>
 			<View style={styles.headerMenu}>
 				<TouchableOpacity onPress={() => props.navigation.toggleDrawer()}>
 					<SvgUri
@@ -70,7 +78,7 @@ const styles = StyleSheet.create({
 		flexWrap: 'nowrap',
 		width: '100%',
 		flexDirection: 'row',
-		paddingTop: 30,
+		paddingTop: 8,
 		paddingBottom: 8,
 		borderBottomColor: 'rgba(0, 0, 0, 0.1)',
 		borderBottomWidth: 1
