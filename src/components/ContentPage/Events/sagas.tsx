@@ -97,7 +97,8 @@ function* deleteVisitor(action) {
 	try {
 		yield put(deleteEventVisitor.request());
 		const data = yield call(webApi, {
-			endpoint: config.API_URL + '/api/event/visitor/' + action.payload.visitorId,
+			endpoint:
+				config.API_URL + '/api/event/visitor/' + action.payload.visitorId,
 			method: 'DELETE'
 		});
 		yield put(fetchEvents.trigger());

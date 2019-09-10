@@ -4,10 +4,14 @@ import {
 	View,
 	TouchableOpacity,
 	Text,
-	ScrollView
+	ScrollView,
+	ParallaxScrollView,
+	ImageBackground,
+	Image
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../ContentPage/Surveys/actions';
+import Moment from 'moment';
 import Spinner from '../Spinner/Spinner';
 import SvgUri from 'react-native-svg-uri';
 import { postAnswers } from '../ContentPage/Surveys/actions';
@@ -168,89 +172,100 @@ class SurveyPage extends React.Component<IProps, IState> {
 		if (this.props.loading) return <Spinner />;
 
 		const { surveyInfo, navigation } = this.props;
+		console.log(this.props);
 		const {
 			user,
 			created_at,
 			participants,
 			title,
+			image,
 			description,
 			questions = []
 		} = surveyInfo;
 		return (
 			<ScrollView>
-				<>
-					<View style={styles.surveyHeader}></View>
-					<TouchableOpacity
-						style={styles.surveyBack}
-						onPress={() => {
-							navigation.goBack();
-						}}
-					>
-						<SvgUri
-							height={20}
-							width={20}
-							source={require('../../assets/general/back.svg')}
-						/>
-					</TouchableOpacity>
-					<View style={styles.container}>
-						<View style={styles.surveyHeader}></View>
-						<View style={styles.surveyBody}>
-							<Text style={styles.surveyTitle}>{title}</Text>
-							<Text style={styles.surveyDesc}>{description}</Text>
-							<View style={styles.questionBlock}>
-								{questions.map((question, i) => {
-									if (question.type === 'Multiple choice') {
-										return (
-											<SingleAnswers
-												key={i}
-												questionInfo={question}
-												setAnswer={this.setSingleAnswer}
-											/>
-										);
-									} else if (question.type === 'Checkboxes') {
-										return (
-											<Checkboxes
-												key={i}
-												questionInfo={question}
-												setAnswer={this.setMultipleAnswer}
-											/>
-										);
-									} else if (question.type === 'Short Answer') {
-										return (
-											<ShortAnswer
-												key={i}
-												questionInfo={question}
-												setAnswer={this.setShortAnswer}
-											/>
-										);
-									} else
-										return (
-											<SurveyLinearScale
-												key={i}
-												questionInfo={question}
-												setAnswer={this.setSingleAnswer}
-											/>
-										);
-								})}
-							</View>
-							<View>
-								{this.state.isDisabled && (
-									<Text style={styles.surveyFooter}>
-										Please, answer all required questions.
-									</Text>
-								)}
-								{!this.props.isPreview && (
-									<TouchableOpacity
-										onPress={this.sendAnswer}
-										style={styles.surveyBtn}
-									>
-										<Text style={styles.surveyBtnText}>Send</Text>
-									</TouchableOpacity>
-								)}
-							</View>
+				<ImageBackground
+					source={{
+						uri:
+							image ||
+							'https://www.checkmarket.com/wp-content/uploads/2016/08/survey-checklist.png'
+					}}
+					style={styles.imageBackground}
+				>
+					<View style={styles.background}>
+						<View style={styles.horizontalContainer}>
+							<Image
+								source={{
+									uri:
+										user.avatar ||
+										'https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png'
+								}}
+								style={styles.avatar}
+							/>
+							<Text style={[styles.text, styles.imageText]}>{user.name}</Text>
+							<Text style={[styles.text, styles.imageText, styles.date]}>
+								{Moment(created_at).format('ll')}
+							</Text>
+						</View>
+						<Text style={[styles.imageText, styles.title]}>{title}</Text>
+					</View>
+				</ImageBackground>
+				<View style={styles.container}>
+					<View style={styles.surveyBody}>
+						<Text style={styles.surveyDesc}>{description}</Text>
+						<View style={styles.questionBlock}>
+							{questions.map((question, i) => {
+								if (question.type === 'Multiple choice') {
+									return (
+										<SingleAnswers
+											key={i}
+											questionInfo={question}
+											setAnswer={this.setSingleAnswer}
+										/>
+									);
+								} else if (question.type === 'Checkboxes') {
+									return (
+										<Checkboxes
+											key={i}
+											questionInfo={question}
+											setAnswer={this.setMultipleAnswer}
+										/>
+									);
+								} else if (question.type === 'Short Answer') {
+									return (
+										<ShortAnswer
+											key={i}
+											questionInfo={question}
+											setAnswer={this.setShortAnswer}
+										/>
+									);
+								} else
+									return (
+										<SurveyLinearScale
+											key={i}
+											questionInfo={question}
+											setAnswer={this.setSingleAnswer}
+										/>
+									);
+							})}
+						</View>
+						<View>
+							{this.state.isDisabled && (
+								<Text style={styles.surveyFooter}>
+									Please, answer all required questions.
+								</Text>
+							)}
+							{!this.props.isPreview && (
+								<TouchableOpacity
+									onPress={this.sendAnswer}
+									style={styles.surveyBtn}
+								>
+									<Text style={styles.surveyBtnText}>Send</Text>
+								</TouchableOpacity>
+							)}
 						</View>
 					</View>
-				</>
+				</View>
 			</ScrollView>
 		);
 	}
@@ -273,8 +288,51 @@ export default connect(
 
 const styles = StyleSheet.create({
 	container: {
-		paddingLeft: 15,
-		paddingRight: 15
+		paddingLeft: 10,
+		paddingRight: 10
+	},
+	imageBackground: {
+		width: '100%',
+		height: 210
+	},
+	background: {
+		flex: 1,
+		backgroundColor: 'rgba(0, 0, 0, 0.6)',
+		padding: 10
+	},
+	horizontalContainer: {
+		flexDirection: 'row',
+		alignItems: 'center'
+	},
+	avatar: {
+		marginRight: 10,
+		width: 30,
+		height: 30,
+		borderRadius: 15,
+		backgroundColor: '#adadad'
+	},
+	imageText: {
+		color: 'white',
+		fontFamily: 'Inter-Medium'
+	},
+	title: {
+		marginTop: 'auto',
+		fontFamily: 'Inter-Black',
+		fontSize: 32,
+		letterSpacing: 0.4,
+		marginBottom: 40
+	},
+	poster: {
+		height: 200,
+		width: 134
+	},
+	text: {
+		fontFamily: 'Inter-Regular',
+		color: '#122737',
+		letterSpacing: 0.4
+	},
+	date: {
+		marginLeft: 'auto'
 	},
 	surveyBtn: {
 		backgroundColor: '#ff6501',
@@ -314,7 +372,7 @@ const styles = StyleSheet.create({
 	},
 	surveyBody: {
 		backgroundColor: '#fff',
-		marginTop: 100,
+		marginTop: -30,
 		borderRadius: 4,
 		borderTopColor: '#ffab07',
 		borderTopWidth: 8,
