@@ -106,22 +106,20 @@ class ReviewItem extends Component<IProps, IState> {
 					</Text>
 				</View>
 				<View style={styles.reviewFooter}>
-					<View style={styles.reviewBtn}>
-						{text.length > 410 ? (
-							<TouchableOpacity
-								style={styles.reviewRead}
-								onPress={() => this.showMore()}
-							>
-								<Text>{this.state.full ? 'Hide' : 'Read more...'}</Text>
-								<SvgUri
-									style={styles.item}
-									height={10}
-									width={10}
-									source={require('../../assets/general/right-arrow.svg')}
-								/>
-							</TouchableOpacity>
-						) : null}
-					</View>
+					{text.length > 410 ? (
+						<TouchableOpacity
+							style={styles.reviewRead}
+							onPress={() => this.showMore()}
+						>
+							<Text>{this.state.full ? 'Hide' : 'Read more...'}</Text>
+							<SvgUri
+								style={styles.item}
+								height={10}
+								width={10}
+								source={require('../../assets/general/right-arrow.svg')}
+							/>
+						</TouchableOpacity>
+					) : null}
 				</View>
 			</View>
 		);
@@ -147,9 +145,8 @@ export default connect(
 const styles = StyleSheet.create({
 	reviewFooter: {
 		display: 'flex',
-		justifyContent: 'space-between',
+		justifyContent: 'flex-end',
 		flexDirection: 'row',
-		alignItems: 'center',
 		width: '100%'
 	},
 	reviewIcon: {
@@ -188,8 +185,8 @@ const styles = StyleSheet.create({
 	},
 	reviewRead: {
 		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center'
+		alignItems: 'center',
+		flexDirection: 'row'
 	},
 	reviewText: {
 		maxHeight: 120,
