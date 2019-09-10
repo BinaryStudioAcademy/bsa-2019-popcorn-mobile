@@ -16,3 +16,10 @@ export const getUsersPosts = async userId => {
 	});
 	return res;
 };
+
+export const deletePost = async postId => {
+	await callWebApi({
+		method: 'DELETE',
+		endpoint: config.API_URL + `/api/post/${postId}`
+	});
+};
