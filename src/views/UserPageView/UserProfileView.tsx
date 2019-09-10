@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-	View,
-	Text,
-	StyleSheet,
-	ScrollView,
-	Image,
-	TouchableOpacity
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,6 +9,8 @@ import { styles } from './styles';
 import { NavigationActions } from 'react-navigation';
 import config from '../../config';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createChat } from '../Messages/actions';
+import Spinner from '../../components/Spinner/Spinner';
 
 type IProfileProps = {
 	profileInfo: ISelectedProfileInfo;
@@ -32,27 +26,57 @@ type IProfileProps = {
 	currentUser: ISelectedProfileInfo;
 	changeStatus: (obj: { userId: string; followerId: string }) => void;
 	updateProfileHeight: (number) => void;
+	chats: any;
+	createChat: (userId1: string, chatId2: string, newMessage: any) => void;
 };
-export let PROFILE_HEIGHT = 0;
-class UserProfileView extends Component<IProfileProps> {
+
+interface IState {
+	userRedirect: boolean;
+}
+
+class UserProfileView extends Component<IProfileProps, IState> {
 	constructor(props: IProfileProps) {
 		super(props);
+		this.state = {
+			userRedirect: false
+		};
 	}
 
 	isCurrent = () => {
 		return this.props.currentUser.id === this.props.selectedProfileInfo.id;
 	};
+
+	getChatId = id => {
+		for (const chatId in this.props.chats) {
+			if (this.props.chats[chatId].user.id === id) {
+				return chatId;
+			}
+		}
+	};
+
 	createNewChat = () => {
-		// const chatId = this.getChatId(story.user.id);
-		// if (!chatId) {
-		// 	this.props.createChat(userId, story.user.id, {
-		// 		storyId: story && story.id,
-		// 		reactionType
-		// 	});
-		// 	return;
-		// }
+		const chatId = this.getChatId(this.props.selectedProfileInfo.id);
+		if (!chatId) {
+			this.props.createChat(
+				this.props.currentUser.id,
+				this.props.selectedProfileInfo.id,
+				''
+			);
+			this.setState({ userRedirect: true });
+		} else {
+			this.props.navigation.navigate('Messages', {
+				chatId
+			});
+		}
 	};
 	render() {
+		if (this.state.userRedirect && this.props.newChatId) {
+			this.setState({ userRedirect: false });
+			this.props.navigation.navigate('Messages', {
+				chatId: this.props.newChatId
+			});
+			return <Spinner />;
+		}
 		let { location } = this.props.selectedProfileInfo;
 		if (!location) {
 			location = 'Kyiv';
@@ -77,7 +101,6 @@ class UserProfileView extends Component<IProfileProps> {
 						layout: { height }
 					}
 				}) => {
-					PROFILE_HEIGHT = height;
 					this.props.updateProfileHeight(height);
 				}}
 			>
@@ -109,7 +132,7 @@ class UserProfileView extends Component<IProfileProps> {
 									)}
 								</View>
 								{location && (
-									<View style={styles.locationWrap}>
+									<View>
 										<Text style={styles.userLocation}>{location}</Text>
 									</View>
 								)}
@@ -148,55 +171,54 @@ class UserProfileView extends Component<IProfileProps> {
 								</TouchableOpacity>
 							</View>
 						</View>
-						{aboutMe ? (
-							<View style={styles.horizontalContainerWrap}>
-								<View style={styles.userAbout}>
+
+						<View style={styles.horizontalContainerWrap}>
+							<View style={styles.userAbout}>
+								{aboutMe ? (
 									<Text style={styles.userSubtitle}>{aboutMe}</Text>
-								</View>
-								<View style={styles.followBlock}>
-									{!this.isCurrent() && (
-										<TouchableOpacity
-											onPress={() => {
-												this.props.changeStatus({
-													userId: this.props.currentUser.id,
-													followerId: this.props.selectedProfileInfo.id
-												});
-											}}
-											style={styles.followBttn}
-										>
-											{this.props.followStatus.isFollowing && (
-												<Text
-													style={[styles.bttnText, styles.unfollowBttnText]}
-												>
-													Unfollow
-												</Text>
-											)}
-											{!this.props.followStatus.isFollowing && (
-												<Text style={[styles.bttnText, styles.followBttnText]}>
-													Follow
-												</Text>
-											)}
-										</TouchableOpacity>
-									)}
-									{!this.isCurrent() && (
-										<TouchableOpacity
-											onPress={() => {
-												//ToDO: create chat
-												this.createNewChat();
-											}}
-											style={styles.messageIconWrap}
-										>
-											<MaterialCommunityIcons
-												name="facebook-messenger"
-												size={22}
-												style={styles.messageIcon2}
-											/>
-											<Text style={styles.sendMessage}>Send message</Text>
-										</TouchableOpacity>
-									)}
-								</View>
+								) : null}
 							</View>
-						) : null}
+							<View style={styles.followBlock}>
+								{!this.isCurrent() && (
+									<TouchableOpacity
+										onPress={() => {
+											this.props.changeStatus({
+												userId: this.props.currentUser.id,
+												followerId: this.props.selectedProfileInfo.id
+											});
+										}}
+										style={styles.followBttn}
+									>
+										{this.props.followStatus.isFollowing && (
+											<Text style={[styles.bttnText, styles.unfollowBttnText]}>
+												Unfollow
+											</Text>
+										)}
+										{!this.props.followStatus.isFollowing && (
+											<Text style={[styles.bttnText, styles.followBttnText]}>
+												Follow
+											</Text>
+										)}
+									</TouchableOpacity>
+								)}
+								{!this.isCurrent() && (
+									<TouchableOpacity
+										onPress={() => {
+											//ToDO: create chat
+											this.createNewChat();
+										}}
+										style={styles.messageIconWrap}
+									>
+										<MaterialCommunityIcons
+											name="facebook-messenger"
+											size={22}
+											style={styles.messageIcon2}
+										/>
+										<Text style={styles.sendMessage}>Send message</Text>
+									</TouchableOpacity>
+								)}
+							</View>
+						</View>
 					</View>
 				</View>
 				{favoriteLists && favoriteLists.length > 0 ? (
@@ -221,11 +243,14 @@ const mapStateToProps = (rootState, props) => ({
 	selectedProfileInfo: rootState.userProfile.selectedUser,
 	followersCount: rootState.followers.followersCount,
 	followedCount: rootState.followers.followedCount,
-	followStatus: rootState.followers.followStatus
+	followStatus: rootState.followers.followStatus,
+	chats: rootState.chat.chats,
+	newChatId: rootState.chat.newChatId
 });
 
 const actions = {
-	changeStatus
+	changeStatus,
+	createChat
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);

@@ -1,6 +1,11 @@
 import React, { Fragment } from 'react';
 import { View, ScrollView } from 'react-native';
-import { fetchMessages, deleteMessage, updateMessage } from './actions';
+import {
+	fetchMessages,
+	deleteMessage,
+	updateMessage,
+	unsetNewChat
+} from './actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import NewMessage from './NewMessage';
@@ -8,6 +13,7 @@ import OutgoingMessage from './OutgoingMessage';
 import { styles } from './styles';
 import IncomingMessage from './IncomingMessage';
 import Spinner from '../../components/Spinner/Spinner';
+import { getNewDate } from './getNewDate';
 
 interface IProps {
 	fetchMessages: (userId: string, chatId: string) => void;
@@ -17,6 +23,8 @@ interface IProps {
 	navigation: any;
 	deleteMessage: (id: string) => void;
 	updateMessage: (id: string, body: string) => void;
+	newChatId: string;
+	unsetNewChat: () => void;
 }
 import { NewDate } from './NewDate';
 import { Partner } from './Partner';
@@ -48,7 +56,7 @@ class Messages extends React.Component<IProps, IState> {
 		this.refs.scrollView.scrollToEnd({ animated: true });
 	};
 	render() {
-		const { chatId, getNewDate } = this.props.navigation.state.params;
+		const { chatId } = this.props.navigation.state.params;
 		if (!this.props.chat) {
 			return <Spinner />;
 		}
@@ -58,11 +66,16 @@ class Messages extends React.Component<IProps, IState> {
 		) {
 			this.props.fetchMessages(this.props.userId, chatId);
 		}
+		let isNewChat =
+			this.props.newChatId && this.props.chat.id == this.props.newChatId;
 		if (!this.props.chat.messages) {
 			return <Spinner />;
 		}
 		const { messages } = this.props.chat;
 		let tmpDate = '';
+		if (isNewChat) {
+			this.props.unsetNewChat();
+		}
 		return (
 			<View style={styles.container}>
 				<Partner user={this.props.chat.user} />
@@ -77,74 +90,75 @@ class Messages extends React.Component<IProps, IState> {
 							}
 						}}
 					>
-						{messages.map((message: any, id) => {
-							const date = new Date(message.created_at);
-							let newDate = getNewDate(date);
-							const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
-							const isMyMessage = message.user.id === this.props.userId;
-							if (currentDate !== tmpDate) {
-								tmpDate = currentDate;
-								return isMyMessage ? (
-									<View>
-										<NewDate newDate={newDate} />
-										{message.story ? (
-											<ReactionMessage
-												key={message.id}
-												message={message}
-												isOwn={isMyMessage}
-											/>
-										) : null}
-										{!message.reactionType ? (
-											<OutgoingMessage
-												key={message.id}
-												outgoingMessage={message}
-											/>
-										) : null}
-									</View>
-								) : (
-									<View>
-										<NewDate newDate={newDate} />
-										{message.story ? (
-											<ReactionMessage
-												key={message.id}
-												message={message}
-												isOwn={isMyMessage}
-											/>
-										) : null}
-										{!message.reactionType ? (
-											<IncomingMessage
-												key={message.id}
-												outgoingMessage={message}
-											/>
-										) : null}
-									</View>
-								);
-							} else {
-								return (
-									<Fragment>
-										{message.story ? (
-											<ReactionMessage
-												key={message.id}
-												message={message}
-												isOwn={isMyMessage}
-											/>
-										) : null}
+						{messages &&
+							messages.map((message: any, id) => {
+								const date = new Date(message.created_at);
+								let newDate = getNewDate(date);
+								const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
+								const isMyMessage = message.user.id === this.props.userId;
+								if (currentDate !== tmpDate) {
+									tmpDate = currentDate;
+									return isMyMessage ? (
+										<View>
+											<NewDate newDate={newDate} />
+											{message.story ? (
+												<ReactionMessage
+													key={message.id}
+													message={message}
+													isOwn={isMyMessage}
+												/>
+											) : null}
+											{!message.reactionType ? (
+												<OutgoingMessage
+													key={message.id}
+													outgoingMessage={message}
+												/>
+											) : null}
+										</View>
+									) : (
+										<View>
+											<NewDate newDate={newDate} />
+											{message.story ? (
+												<ReactionMessage
+													key={message.id}
+													message={message}
+													isOwn={isMyMessage}
+												/>
+											) : null}
+											{!message.reactionType ? (
+												<IncomingMessage
+													key={message.id}
+													outgoingMessage={message}
+												/>
+											) : null}
+										</View>
+									);
+								} else {
+									return (
+										<Fragment>
+											{message.story ? (
+												<ReactionMessage
+													key={message.id}
+													message={message}
+													isOwn={isMyMessage}
+												/>
+											) : null}
 
-										{!message.reactionType && isMyMessage ? (
-											<OutgoingMessage
-												key={message.id}
-												outgoingMessage={message}
-											/>
-										) : !message.reactionType ? (
-											<IncomingMessage
-												key={message.id}
-												outgoingMessage={message}
-											/>
-										) : null}
-									</Fragment>
-								);
-							}
-						})}
+											{!message.reactionType && isMyMessage ? (
+												<OutgoingMessage
+													key={message.id}
+													outgoingMessage={message}
+												/>
+											) : !message.reactionType ? (
+												<IncomingMessage
+													key={message.id}
+													outgoingMessage={message}
+												/>
+											) : null}
+										</Fragment>
+									);
+								}
+							})}
 					</ScrollView>
 				</View>
 				<View style={styles.sendMessageWrap}>
@@ -161,6 +175,8 @@ class Messages extends React.Component<IProps, IState> {
 const mapStateToProps = (rootState, props) => ({
 	...props,
 	chat: rootState.chat.chats[props.navigation.state.params.chatId],
+	newChatId: rootState.chat.newChatId,
+	сhats: rootState.chat.сhats,
 	isLoadingMessages: rootState.chat.isLoadingMessages,
 	userId: rootState.authorization.profileInfo.id
 });
@@ -168,7 +184,8 @@ const mapStateToProps = (rootState, props) => ({
 const actions = {
 	fetchMessages,
 	deleteMessage,
-	updateMessage
+	updateMessage,
+	unsetNewChat
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);

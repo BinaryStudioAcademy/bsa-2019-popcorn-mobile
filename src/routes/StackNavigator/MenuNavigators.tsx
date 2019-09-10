@@ -1,4 +1,4 @@
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from '../../views/HomeView';
 import Header from '../../components/Header/Header';
 import SurveyNavigator from '../StackNavigator/SurveyNavigator';
@@ -13,8 +13,6 @@ import SurveyPage from '../../components/SurveyPage/SurveyPage';
 import ControlledVertical from '../../components/MainPage/Story/StoryModal/ColorPicker';
 import CollectionsNavigator from './CollectionNavigator';
 import ReviewPage from '../../components/ReviewPage/ReviewPage';
-import Messages from '../../views/Messages/Messages';
-import Chats from '../../views/Messages/';
 import UserProfileNavigation from './UserProfileNavigator';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
@@ -53,23 +51,6 @@ export const FirstActivity_StackNavigator = createStackNavigator({
 		navigationOptions: {
 			header: null
 		}
-	}
-});
-
-export const Messages_StackNavigator = createStackNavigator({
-	Second: {
-		screen: Chats,
-		navigationOptions: ({ navigation }) => ({
-			header: Header,
-			navigation
-		})
-	},
-	Messages: {
-		screen: Messages,
-		navigationOptions: ({ navigation }) => ({
-			header: Header,
-			navigation
-		})
 	}
 });
 
