@@ -67,17 +67,30 @@ interface IState {
 }
 
 class SurveyPage extends React.Component<IProps, IState> {
-	componentDidMount() {
-		const surveyId = this.props.navigation.state.params.id;
-		this.props.getSurveyById(surveyId);
-	}
-
 	constructor(props: IProps) {
 		super(props);
 		this.state = {
 			answers: [],
 			isDisabled: false
 		};
+	}
+
+	componentDidMount() {
+		const surveyId = this.props.navigation.state.params.id;
+		this.props.getSurveyById(surveyId);
+	}
+
+	static getDerivedStateFromProps(props, state) {
+		if (props.surveyInfo.questions) {
+			return {
+				answers: props.surveyInfo.questions.map(question => ({
+					questionId: question.id,
+					options: [],
+					value: ''
+				}))
+			};
+		}
+		return null;
 	}
 
 	validate = () => {
