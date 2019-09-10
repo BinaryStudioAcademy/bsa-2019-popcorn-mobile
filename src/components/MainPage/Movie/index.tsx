@@ -12,6 +12,7 @@ import IMovie from './IMovie';
 import { addToWatchlist } from './../../UserPage/WatchList/actions';
 import SearchInput from '../../Search/SearchInput';
 import { setFilters } from './actions';
+import Spinner from '../../Spinner/Spinner';
 
 interface IProps {
 	movies?: null | Array<IMovie>;
@@ -88,7 +89,9 @@ class MovieComponent extends React.Component<IProps> {
 						quickShowBlock={false}
 					/>
 				</View>
-				{movies && watchList && (
+				{this.props.loading ? (
+					<Spinner />
+				) : (
 					<FlatList
 						refreshing={false}
 						onRefresh={() => this.onRefresh()}

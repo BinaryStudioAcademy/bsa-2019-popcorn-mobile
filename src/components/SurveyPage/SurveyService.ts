@@ -1,5 +1,5 @@
 export const transformAnswers = (answers, userId) => {
-	return answers.flatMap(answer => {
+	return answers.map(answer => {
 		return answer.options.length > 0
 			? answer.options.map(option => ({
 					questionId: answer.questionId,
