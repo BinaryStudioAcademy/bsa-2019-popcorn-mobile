@@ -1,6 +1,6 @@
 import React from 'react';
 import SvgUri from 'react-native-svg-uri';
-import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, ScrollView } from 'react-native';
 import styles from './styles';
 import IUser from '../../../UserPage/IUser';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +20,7 @@ const renderTopView = data => {
 	const movie = data.movieInTop
 		.filter((movie, index) => index < 3)
 		.map((movie, index) => (
-			<Text>{`${index + 1}. ${movie.movie.original_title}`}</Text>
+			<Text>{`${index + 1}. ${movie.movie.title}`}</Text>
 		));
 	return (
 		<View>
@@ -106,6 +106,7 @@ const Extra = (props: IProps) => {
 	}
 	return (
 		<View style={styles.extra}>
+			<ScrollView>
 			<TouchableOpacity onPress={() => (onSave ? onSave() : viewActivity())}>
 				{renderView(data)}
 			</TouchableOpacity>
@@ -121,6 +122,7 @@ const Extra = (props: IProps) => {
 					/>
 				</TouchableOpacity>
 			)}
+			</ScrollView>
 		</View>
 	);
 };
