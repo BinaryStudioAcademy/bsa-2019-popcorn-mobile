@@ -9,7 +9,8 @@ import {
 	DELETE_MESSAGE_STORE,
 	UPDATE_MESSAGE_STORE,
 	READ_MESSAGES,
-	ADD_UNREAD_MESSAGE
+	ADD_UNREAD_MESSAGE,
+	UNSET_NEW_CHAT
 } from './actionTypes';
 
 export const fetchChats = userId => {
@@ -119,5 +120,12 @@ export const addUnreadMessage = (chatId, message) => {
 			message,
 			chatId
 		}
+	};
+};
+
+export const unsetNewChat = () => {
+	return {
+		type: UNSET_NEW_CHAT,
+		payload: {}
 	};
 };

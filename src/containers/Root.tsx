@@ -5,7 +5,6 @@ import { Storage } from '../helpers/storage.helper';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchUser } from '../redux/routines';
-import navigationService from '../services/navigation.service';
 import SocketHelper from '../helpers/socket.helper';
 
 type userInfo = {
@@ -26,8 +25,8 @@ class Root extends Component<IProps> {
 			if (value && !this.props.isAuthorized) {
 				this.props.fetchUser(value);
 			} else if (value && this.props.isAuthorized)
-				navigationService.navigate('Main');
-			else navigationService.navigate('Auth');
+				NavigationService.navigate('Main');
+			else NavigationService.navigate('Auth');
 		});
 	}
 
