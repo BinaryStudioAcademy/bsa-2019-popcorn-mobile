@@ -19,9 +19,7 @@ interface IProps {
 const renderTopView = data => {
 	const movie = data.movieInTop
 		.filter((movie, index) => index < 3)
-		.map((movie, index) => (
-			<Text>{`${index + 1}. ${movie.movie.title}`}</Text>
-		));
+		.map((movie, index) => <Text>{`${index + 1}. ${movie.movie.title}`}</Text>);
 	return (
 		<View>
 			<View style={{ maxHeight: 200 }}>
@@ -107,21 +105,21 @@ const Extra = (props: IProps) => {
 	return (
 		<View style={styles.extra}>
 			<ScrollView>
-			<TouchableOpacity onPress={() => (onSave ? onSave() : viewActivity())}>
-				{renderView(data)}
-			</TouchableOpacity>
-			{props.clearExtra && (
-				<TouchableOpacity
-					onPress={() => props.clearExtra && props.clearExtra()}
-					style={styles.timesCircle}
-				>
-					<SvgUri
-						width={16}
-						height={16}
-						source={require('../../../../assets/general/times-circle-o.svg')}
-					/>
+				<TouchableOpacity onPress={() => (onSave ? onSave() : viewActivity())}>
+					{renderView(data)}
 				</TouchableOpacity>
-			)}
+				{props.clearExtra && (
+					<TouchableOpacity
+						onPress={() => props.clearExtra && props.clearExtra()}
+						style={styles.timesCircle}
+					>
+						<SvgUri
+							width={16}
+							height={16}
+							source={require('../../../../assets/general/times-circle-o.svg')}
+						/>
+					</TouchableOpacity>
+				)}
 			</ScrollView>
 		</View>
 	);

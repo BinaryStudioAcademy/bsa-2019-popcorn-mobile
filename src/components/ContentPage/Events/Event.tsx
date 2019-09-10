@@ -107,10 +107,15 @@ const Event: React.FC<IProps> = ({
 							{data.description}
 						</Text>
 					)}
-					<View style={[styles.horizontalContainer, { justifyContent: "flex-start" }]}>
+					<View
+						style={[
+							styles.horizontalContainer,
+							{ justifyContent: 'flex-start' }
+						]}
+					>
 						<TouchableWithoutFeedback>
 							<TouchableOpacity
-								style={[styles.button, { marginRight: 10 } ]}
+								style={[styles.button, { marginRight: 10 }]}
 								onPress={() => setVisitorStatus('interested')}
 							>
 								{!!visitor && visitor.status === 'interested' && (

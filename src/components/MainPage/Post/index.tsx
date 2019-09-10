@@ -1,4 +1,4 @@
-import { addPost } from './actions';
+import { addPost, deletePost } from './actions';
 import { fetchPosts } from '../../../redux/routines';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -16,8 +16,10 @@ interface IProps {
 	loading: boolean;
 	fetchPosts: () => any;
 	addPost: (post: any) => any;
+	deletePost: (postId: string) => any;
 	userId?: string;
 	navigation: any;
+	currUserId: string;
 }
 
 class PostComponent extends React.Component<IProps> {
@@ -34,12 +36,19 @@ class PostComponent extends React.Component<IProps> {
 		SocketService.on('new-post', addPost);
 	};
 
-	renderPost({ item }) {
-		return <Post post={item} navigation={this.props.navigation} />;
+	renderPost({ item }, currUserId, deletePost) {
+		return (
+			<Post
+				post={item}
+				navigation={this.props.navigation}
+				isCreator={currUserId === item.user.id}
+				deletePost={deletePost}
+			/>
+		);
 	}
 
 	render() {
-		const { posts, userId } = this.props;
+		const { posts, userId, currUserId, deletePost } = this.props;
 		if (posts) {
 			const showPosts = userId
 				? posts.filter(post => post.user.id == userId)
@@ -50,7 +59,9 @@ class PostComponent extends React.Component<IProps> {
 						refreshing={false}
 						data={showPosts}
 						keyExtractor={item => item.id}
-						renderItem={({ item }) => this.renderPost({ item })}
+						renderItem={({ item }) =>
+							this.renderPost({ item }, currUserId, deletePost)
+						}
 					/>
 				)
 			);
@@ -64,12 +75,14 @@ const mapStateToProps = (rootState, props) => ({
 	...props,
 	posts: rootState.post.posts,
 	error: rootState.post.error,
-	loading: rootState.post.loading
+	loading: rootState.post.loading,
+	currUserId: rootState.authorization.profileInfo.id
 });
 
 const actions = {
 	fetchPosts,
-	addPost
+	addPost,
+	deletePost
 };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 

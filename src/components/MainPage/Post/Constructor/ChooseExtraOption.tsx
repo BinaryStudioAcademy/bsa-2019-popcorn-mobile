@@ -3,10 +3,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from './styles';
-import {
-	fetchEvents,
-	fetchTops
-} from '../../../../redux/routines';
+import { fetchEvents, fetchTops } from '../../../../redux/routines';
 import IUser from '../../../UserPage/IUser';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
@@ -54,9 +51,8 @@ class ChooseExtraOption extends React.Component<IProps> {
 				options = tops;
 				break;
 		}
-		if (!options) return <Spinner />
-		if (options.length === 0)
-			message = "You don't have any " + type;
+		if (!options) return <Spinner />;
+		if (options.length === 0) message = "You don't have any " + type;
 		return (
 			<View style={[styles.extraItemWrp, styles.grid, { flex: 1 }]}>
 				<ScrollView style={{ flex: 1 }}>

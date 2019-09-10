@@ -1,4 +1,4 @@
-import { ADD_POST, SEND_POST } from './actionTypes';
+import { ADD_POST, SEND_POST, DELETE_POST } from './actionTypes';
 import IPost from './IPost';
 
 export const addPost = post => {
@@ -15,6 +15,15 @@ export const sendPost = (post: IPost) => {
 		type: SEND_POST,
 		payload: {
 			post
+		}
+	};
+};
+
+export const deletePost = (postId: string) => {
+	return {
+		type: DELETE_POST,
+		payload: {
+			postId
 		}
 	};
 };
