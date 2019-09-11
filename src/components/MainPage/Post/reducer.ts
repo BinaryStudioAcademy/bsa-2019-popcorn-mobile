@@ -1,5 +1,5 @@
 import { fetchPosts, fetchPost } from './../../../redux/routines';
-import { ADD_POST, ADD_NEW_REACTION } from './actionTypes';
+import { ADD_POST, ADD_NEW_REACTION, ADD_NEW_COMMENT } from './actionTypes';
 import IPost from './IPost';
 
 const initialState: {
@@ -63,6 +63,24 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				posts: [...statePosts]
+			};
+		case ADD_NEW_COMMENT:
+			if (!state.posts) {
+				return state;
+			}
+			const postsComment = [...state.posts];
+			const comment = action.payload.comment.comment;
+
+			const index = postsComment.findIndex(item => item.id === comment.post.id);
+			if (index === -1) {
+				return state;
+			}
+			const post = postsComment[index];
+			if (!post.comments) post.comments = [comment];
+			else post.comments.push(comment);
+			return {
+				...state,
+				posts: [...postsComment]
 			};
 		default:
 			return state;
