@@ -76,7 +76,7 @@ class ChooseExtraOption extends React.Component<IProps> {
 								type={type}
 								user={profileInfo}
 								onSave={() => {
-									this.props.navigation.navigate('First', { option, type });
+									this.props.navigation.navigate('StoryConstructor', { option, type });
 								}}
 								// validate={validate}
 							/>
