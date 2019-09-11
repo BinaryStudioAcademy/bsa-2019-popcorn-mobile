@@ -115,21 +115,26 @@ class UserProfileView extends Component<IProfileProps, IState> {
 							/>
 							<View style={styles.mainWrap}>
 								<View style={styles.userPersonal}>
-									<Text style={styles.userName}>{name}</Text>
-									{male && (
-										<FontAwesome5
-											name="mars-stroke"
-											size={20}
-											style={styles.userIcon}
-										/>
-									)}
-									{female && (
-										<FontAwesome5
-											name="venus"
-											size={20}
-											style={styles.userIcon}
-										/>
-									)}
+									<Text style={styles.userName}>
+										{name}
+										<>
+											{' '}
+											{male && (
+												<FontAwesome5
+													name="mars-stroke"
+													size={20}
+													style={styles.userIcon}
+												/>
+											)}
+											{female && (
+												<FontAwesome5
+													name="venus"
+													size={20}
+													style={styles.userIcon}
+												/>
+											)}
+										</>
+									</Text>
 								</View>
 								{location && (
 									<View>
@@ -204,7 +209,6 @@ class UserProfileView extends Component<IProfileProps, IState> {
 								{!this.isCurrent() && (
 									<TouchableOpacity
 										onPress={() => {
-											//ToDO: create chat
 											this.createNewChat();
 										}}
 										style={styles.messageIconWrap}
