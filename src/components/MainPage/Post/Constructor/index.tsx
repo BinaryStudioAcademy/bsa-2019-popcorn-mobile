@@ -38,7 +38,7 @@ interface IState {
 	image_url: string;
 	modalVisible: boolean;
 	disabled: boolean;
-	data: any;
+	data: { id: string | null; title: string | null; image?: string } | null;
 	type: string;
 	loading: boolean;
 	hide: boolean;
@@ -50,7 +50,7 @@ class PostConstructor extends Component<IProps, IState> {
 		image_url: '',
 		modalVisible: false,
 		disabled: true,
-		data: { id: null, title: null },
+		data: { id: null, title: null, image: '' },
 		type: '',
 		loading: false,
 		hide: true
@@ -83,17 +83,9 @@ class PostConstructor extends Component<IProps, IState> {
 		this.setState({ hide: true });
 	};
 
-	validate() {
-		const { data, description, image_url } = this.state;
-		console.log(
-			'[validate] data',
-			data,
-			'description',
-			description,
-			'image_url',
-			image_url
-		);
-		if (data.id || (description && image_url)) {
+	validate(description = this.state.description) {
+		const { data, image_url } = this.state;
+		if ((data && data.id) || (description && image_url)) {
 			this.setState({ disabled: false });
 		} else {
 			this.setState({ disabled: true });
@@ -104,57 +96,56 @@ class PostConstructor extends Component<IProps, IState> {
 		return this.state.type || this.state.image_url ? {} : { flex: number };
 	}
 	componentDidUpdate(prevProps, prevState) {
-		console.log('prevState', prevState, 'this.state', this.state);
 		if (this.state.data !== prevState.data) {
 			let newImage = '';
-			if (this.state.data.image) newImage = this.state.data.image;
-			else {
-				switch (this.state.type) {
-					case 'top':
-						newImage = config.DEFAULT_TOP_IMAGE;
-						break;
-					case 'event':
-						newImage = config.DEFAULT_EVENT_IMAGE;
-						break;
-					case 'survey':
-						newImage = config.DEFAULT_SURVEY_IMAGE;
+			if (this.state.data) {
+				if (this.state.data.image) {
+					newImage = this.state.data.image;
+				} else {
+					switch (this.state.type) {
+						case 'top':
+							newImage = config.DEFAULT_TOP_IMAGE;
+							break;
+						case 'event':
+							newImage = config.DEFAULT_EVENT_IMAGE;
+							break;
+						case 'survey':
+							newImage = config.DEFAULT_SURVEY_IMAGE;
+					}
 				}
 			}
 			this.setState({ image_url: newImage });
 			this.validate();
 		}
 	}
-	static getDerivedStateFromProps(props, state) {
-		console.log('props', props, 'state', state);
-		// return {
-		// 	...state,
-		// 	newStory: { ...props.newStory, image_url: props.newStory.image_url }
-		// };
-	}
+
 	addExtra(item, option) {
 		this.setState({
 			type: option,
 			data: item
 		});
 	}
+
 	clearExtra = () => {
 		this.addExtra({ id: null, title: null }, '');
 		this.setState({ type: '', data: null, image_url: '' });
 		this.validate();
 	};
+
+	clearState = () => {
+		this.addExtra({ id: null, title: null }, '');
+		this.setState({ type: '', data: null, image_url: '', description: '' });
+		this.validate();
+	};
+
 	render() {
 		if (this.state.loading) return <Spinner />;
 		const { image_url, description, data, type } = this.state;
-
 		const { navigation, profileInfo } = this.props;
-		console.log('data', data, 'image_url', image_url);
-		// if (data){
-		// 	this.validate();
-		// }
 		if (navigation.state.params) {
 			const { option, type } = navigation.state.params;
 			navigation.state.params = null;
-			if (data.id !== option.id) this.addExtra(option, type);
+			if (!data || data.id !== option.id) this.addExtra(option, type);
 		}
 		return (
 			<View style={[styles.mainView, this.hasActivityOrPhoto(1)]}>
@@ -171,12 +162,13 @@ class PostConstructor extends Component<IProps, IState> {
 							this.props.sendPost({
 								id: uuid(),
 								...this.state,
-								extraTitle: data.title,
-								extraLink: `/events/${data.id}`,
+								extraTitle: data && data.title,
+								extraLink: data && `/events/${data.id}`,
 								extraType: type,
 								extraData: data,
 								user: { ...this.props.profileInfo }
 							});
+							this.clearState();
 							navigation.navigate('Home');
 						}}
 						disabled={this.state.disabled}
@@ -223,7 +215,7 @@ class PostConstructor extends Component<IProps, IState> {
 						value={description}
 						onChangeText={description => {
 							this.setState({ description });
-							this.validate();
+							this.validate(description);
 						}}
 					/>
 				</View>
@@ -270,6 +262,7 @@ class PostConstructor extends Component<IProps, IState> {
 								<ImageUploader
 									startUpload={() => this.setState({ loading: true })}
 									saveUrl={(image_url: string) => {
+										this.clearExtra();
 										this.setState({ image_url, loading: false });
 										this.validate();
 									}}

@@ -102,7 +102,8 @@ export default StyleSheet.create({
 		height: imageHeight
 	},
 	bigFont: {
-		fontSize: 16.5
+		fontSize: 16.5,
+		width: '90%'
 	},
 	visitors: {
 		flexDirection: 'row',
