@@ -17,7 +17,26 @@ function navigate(routeName, params?) {
 	}
 }
 
+let homeNavigator;
+
+function setMainNavigator(navigatorRef) {
+	homeNavigator = navigatorRef;
+}
+
+function mainNavigate(routeName, params?) {
+	if (homeNavigator) {
+		homeNavigator.dispatch(
+			NavigationActions.navigate({
+				routeName,
+				params
+			})
+		);
+	}
+}
+
 export default {
 	navigate,
-	setTopLevelNavigator
+	setTopLevelNavigator,
+	mainNavigate,
+	setMainNavigator
 };

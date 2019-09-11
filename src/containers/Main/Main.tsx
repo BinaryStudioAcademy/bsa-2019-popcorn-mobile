@@ -5,6 +5,8 @@ import { HomeNavigator } from '../../routes/';
 import firebase from 'react-native-firebase';
 import { Storage } from '../../helpers/storage.helper';
 import { sendDeviceToken } from '../../services/notification.service';
+import Footer from '../../views/Footer';
+import NavigationService from '../../services/navigation.service';
 
 interface IProps {
 	navigation: any;
@@ -92,11 +94,20 @@ class Main extends Component<IProps> {
 	}
 
 	render() {
+		console.log(this.props);
 		return (
-			<Swiper loop={false} showsPagination={false} index={0}>
-				<HomeNavigator screenProps={this.props.navigation} />
-				<SidebarView navigation={this.props.navigation} />
-			</Swiper>
+			<>
+				<Swiper loop={false} showsPagination={false} index={0}>
+					<HomeNavigator
+						screenProps={this.props.navigation}
+						ref={navigatorRef => {
+							NavigationService.setMainNavigator(navigatorRef);
+						}}
+					/>
+					<SidebarView navigation={NavigationService.mainNavigate} />
+				</Swiper>
+				<Footer navigation={NavigationService.mainNavigate} />
+			</>
 		);
 	}
 }
