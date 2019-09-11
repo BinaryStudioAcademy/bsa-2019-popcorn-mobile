@@ -23,3 +23,24 @@ export const deletePost = async postId => {
 		endpoint: config.API_URL + `/api/post/${postId}`
 	});
 };
+
+export const getPostById = async postId => {
+	const res = await callWebApi({
+		method: 'GET',
+		endpoint: config.API_URL + `/api/post/${postId}`
+	});
+	return res;
+};
+
+export const reactPost = async (userId, type, postId) => {
+	await callWebApi({
+		method: 'POST',
+		endpoint: config.API_URL + '/api/post/reaction',
+		body: {
+			userId,
+			type,
+			postId
+		},
+		parse: false
+	});
+};

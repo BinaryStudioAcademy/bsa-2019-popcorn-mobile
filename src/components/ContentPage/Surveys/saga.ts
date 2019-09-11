@@ -21,6 +21,10 @@ import {
 
 export function* fetchSurveys() {
 	try {
+		yield put({
+			type: SET_SURVEYS,
+			payload: { loading: true }
+		});
 		const data = yield call(webApi, {
 			method: 'GET',
 			endpoint: config.API_URL + '/api/surveys'
@@ -28,13 +32,14 @@ export function* fetchSurveys() {
 		if (data) {
 			setArrangementInSurveys(data);
 		}
-		yield put({
-			type: SET_SURVEYS,
-			payload: {
-				surveys: data,
-				loading: false
-			}
-		});
+		if (data)
+			yield put({
+				type: SET_SURVEYS,
+				payload: {
+					surveys: data,
+					loading: false
+				}
+			});
 	} catch (e) {
 		console.log('survey saga fetch surveys: ', e.message);
 	}
@@ -46,6 +51,10 @@ function* watchFetch() {
 
 function* getSurveyById(action) {
 	try {
+		yield put({
+			type: SET_SURVEY_BYID,
+			payload: { loading: true }
+		});
 		const data = yield call(webApi, {
 			method: 'GET',
 			endpoint: config.API_URL + '/api/surveys/' + action.payload.id
@@ -65,7 +74,7 @@ function* getSurveyById(action) {
 				payload: { survey: formattedData[0], loading: false }
 			});
 	} catch (e) {
-		console.log('survey saga get by id: ', e.message);
+		console.log('survey saga get by id: ', e);
 	}
 }
 
