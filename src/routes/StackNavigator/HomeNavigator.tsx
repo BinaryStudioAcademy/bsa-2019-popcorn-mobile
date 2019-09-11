@@ -40,26 +40,26 @@ const HomeNavigator = createDrawerNavigator(
 			})
 		},
 
-		Events: {
-			screen: Event_StackNavigator,
-			navigationOptions: {
-				drawerLabel: 'Events'
-			}
-		},
+		// Events: {
+		// 	screen: Event_StackNavigator,
+		// 	navigationOptions: {
+		// 		drawerLabel: 'Events'
+		// 	}
+		// },
 
-		Tops: {
-			screen: Top_StackNavigator,
-			navigationOptions: {
-				drawerLabel: 'Tops'
-			}
-		},
+		// Tops: {
+		// 	screen: Top_StackNavigator,
+		// 	navigationOptions: {
+		// 		drawerLabel: 'Tops'
+		// 	}
+		// },
 
-		Surveys: {
-			screen: Survey_StackNavigator,
-			navigationOptions: {
-				drawerLabel: 'Surveys'
-			}
-		},
+		// Surveys: {
+		// 	screen: Survey_StackNavigator,
+		// 	navigationOptions: {
+		// 		drawerLabel: 'Surveys'
+		// 	}
+		// },
 
 		Collections: {
 			screen: Collections_StackNavigator,
@@ -73,12 +73,12 @@ const HomeNavigator = createDrawerNavigator(
 				drawerLabel: 'Movies'
 			}
 		},
-		Story: {
-			screen: StoryComponent,
-			navigationOptions: {
-				header: null
-			}
-		},
+		// Story: {
+		// 	screen: StoryComponent,
+		// 	navigationOptions: {
+		// 		header: null
+		// 	}
+		// },
 
 		Notifications: {
 			screen: Notifications_Navigator,
