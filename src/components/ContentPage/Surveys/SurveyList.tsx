@@ -12,6 +12,7 @@ import { bindActionCreators } from 'redux';
 import * as action from './actions';
 import { fetchSurveys } from './saga';
 import Tabs from '../Tabs';
+import Spinner from '../../Spinner/Spinner';
 
 interface IProps {
 	fetchSurveys: () => any;
@@ -31,12 +32,13 @@ class SurveyList extends React.Component<IProps, IState> {
 	}
 
 	render() {
-		const { surveys = [], navigation } = this.props;
+		const { surveys = [], loading, navigation } = this.props;
+		if (loading) return <Spinner />;
+
 		return (
 			<View style={[styles.container]}>
 				<ScrollView>
 					<View style={styles.surveyList}>
-						<Text style={styles.surveyTitle}>Surveys list</Text>
 						{surveys.map((item, i) => (
 							<Survey key={item.id} data={item} nav={navigation} user={false} />
 						))}
@@ -49,7 +51,8 @@ class SurveyList extends React.Component<IProps, IState> {
 
 const mapStateToProps = (rootState, props) => ({
 	...props,
-	surveys: rootState.survey.surveys
+	surveys: rootState.survey.surveys,
+	loading: rootState.survey.loading
 });
 
 const actions = {
@@ -66,9 +69,9 @@ export default connect(
 const styles = StyleSheet.create({
 	surveyList: {
 		display: 'flex',
-		paddingLeft: 15,
-		paddingRight: 15,
-		paddingTop: 30,
+		paddingLeft: 10,
+		paddingRight: 10,
+		paddingTop: 10,
 		paddingBottom: 30
 	},
 	surveyTitle: {

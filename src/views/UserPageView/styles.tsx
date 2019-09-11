@@ -94,10 +94,12 @@ export const styles = StyleSheet.create({
 		alignItems: 'flex-start'
 	},
 	userName: {
+		position: 'relative',
 		fontSize: 18,
 		fontFamily: 'Inter-Medium',
 		color: '#000',
-		fontWeight: '600'
+		fontWeight: '600',
+		justifyContent: 'space-between'
 	},
 	userFavSubtitle: {
 		width: 85,
@@ -131,7 +133,10 @@ export const styles = StyleSheet.create({
 		justifyContent: 'flex-start'
 	},
 	userIcon: {
-		marginLeft: 10,
+		flex: 0.2,
+		right: 0,
+		width: 10,
+		paddingLeft: 5,
 		fontWeight: '900',
 		alignSelf: 'center',
 		color: ORANGE_PROFILE

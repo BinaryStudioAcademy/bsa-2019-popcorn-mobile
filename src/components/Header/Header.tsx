@@ -14,16 +14,16 @@ interface IProps {
 	nav: any;
 }
 
-const HEADER_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
+const HEADER_HEIGHT = Platform.OS === 'ios' ? 30 : 8;
 
 const Header = props => {
 	return (
-		<View style={[styles.header, { paddingTop: HEADER_HEIGHT }]}>
+		<View style={[styles.header, { marginTop: HEADER_HEIGHT }]}>
 			<View style={styles.headerMenu}>
 				<TouchableOpacity onPress={() => props.navigation.toggleDrawer()}>
 					<SvgUri
-						height={30}
-						width={30}
+						height={20}
+						width={20}
 						source={require('../../assets/general/menu.svg')}
 					/>
 				</TouchableOpacity>
@@ -31,30 +31,21 @@ const Header = props => {
 			<View style={styles.headerLogo}>
 				<TouchableOpacity onPress={() => props.navigation.navigate('First')}>
 					<SvgUri
-						height={25}
-						width={17}
+						height={30}
+						width={30}
 						source={require('../../assets/general/popcorn-logo.svg')}
 					/>
 				</TouchableOpacity>
 			</View>
 			<View style={styles.headerNav}>
 				<View style={styles.iconContainer}>
-					<SvgUri
-						style={[styles.item, styles.alert]}
-						height={23}
-						width={20}
-						source={require('../../assets/general/profile.svg')}
-					/>
-				</View>
-				<View style={styles.iconContainer}>
 					<TouchableOpacity onPress={() => props.navigation.navigate('Second')}>
 						<SvgUri
 							style={styles.item}
-							height={25}
-							width={35}
+							height={20}
+							width={20}
 							source={require('../../assets/general/message.svg')}
 						/>
-						<Text style={styles.iconAlert}></Text>
 					</TouchableOpacity>
 				</View>
 				<View style={styles.iconContainer}>
@@ -78,7 +69,6 @@ const styles = StyleSheet.create({
 		flexWrap: 'nowrap',
 		width: '100%',
 		flexDirection: 'row',
-		paddingTop: 8,
 		paddingBottom: 8,
 		borderBottomColor: 'rgba(0, 0, 0, 0.1)',
 		borderBottomWidth: 1
@@ -108,7 +98,8 @@ const styles = StyleSheet.create({
 		marginLeft: 11
 	},
 	iconContainer: {
-		position: 'relative'
+		position: 'relative',
+		marginLeft: 10
 	},
 	iconAlert: {
 		width: 10,
