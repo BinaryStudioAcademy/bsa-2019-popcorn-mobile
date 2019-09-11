@@ -19,11 +19,13 @@ export default StyleSheet.create({
 		textAlign: 'center'
 	},
 	iconsWrp: {
-		width: '80%',
+		width: '100%',
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		marginBottom: 20
+		position: 'absolute',
+		top: 5,
+		zIndex: 12
 	},
 
 	roundImage: {
@@ -53,14 +55,19 @@ export default StyleSheet.create({
 	},
 	btnNavigate: {
 		flexDirection: 'row',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
+		position: 'absolute',
+		padding: 5,
+		width: '100%',
+		zIndex: 10,
+		overflow: 'visible',
+		bottom: 0,
+		alignItems: 'flex-end',
+		height: 50
 	},
 	mainView: {
-		marginTop: 10,
 		flex: 1,
 		height: '100%',
-		paddingTop: 20,
-		paddingBottom: 10,
 		backgroundColor: 'rgba(255,255,255,1)',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
@@ -92,13 +99,13 @@ export default StyleSheet.create({
 	},
 	imageEditWrap: {
 		width: '100%',
+		height: '100%',
 		flexDirection: 'row',
 		justifyContent: 'center',
-		height: imageWrapHeight,
-		marginTop: 20
 	},
 	uploadWrap: {
-		width: '70%',
+		width: '100%',
+		height: '100%',
 		position: 'relative',
 		justifyContent: 'center',
 		shadowColor: '#000',
@@ -111,13 +118,12 @@ export default StyleSheet.create({
 		flexDirection: 'column'
 	},
 	colorIcon: {
-		marginBottom: 5
+		marginBottom: 3
 	},
 	colorPaletteWrap: {
-		width: '15%',
-		height: '100%',
+		height: '85%',
 		alignItems: 'center',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
 	},
 	colorPalette: {
 		alignItems: 'center'
@@ -141,7 +147,10 @@ export default StyleSheet.create({
 		color: '#122737'
 	},
 	renderExtraWrap: {
-		width: '90%'
+		width: '90%',
+		position: 'absolute',
+		bottom: 30,
+		right: 5
 	},
 	title: {
 		fontFamily: 'Inter-SemiBold',
@@ -170,5 +179,10 @@ export default StyleSheet.create({
 	grid: {
 		paddingTop: 15,
 		width: '100%'
+	},
+	shadow: {
+        shadowOpacity: 0.2,
+        textShadowRadius: 1.5,
+        textShadowOffset: { width: 1, height: 0 }
 	}
 });

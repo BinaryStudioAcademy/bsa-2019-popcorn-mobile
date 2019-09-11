@@ -4,13 +4,14 @@ import ColorPalette from 'react-native-color-palette';
 import INewStory from '../INewStory';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 interface IProps {
 	setNewStory: ({ newStory, data }: { newStory: INewStory; data: any }) => void;
 	newStory: INewStory;
 	data: any;
 	paletteType: string;
+	toogleBackgroundColor: () => void;
+	isVisible: boolean
 }
 
 interface IState {
@@ -21,7 +22,11 @@ export class ColorPicker extends React.Component<IProps, IState> {
 	renderColorPalette = () => {
 		const { paletteType } = this.props;
 		return (
-			<ScrollView>
+			<ScrollView 
+				keyboardShouldPersistTaps="always"
+				horizontal={paletteType !== 'backgroundColor'}
+				style={{ paddingTop: 0, paddingBottom: 0 }}
+			> 
 				<ColorPalette
 					onChange={color =>
 						this.props.setNewStory({
@@ -54,27 +59,59 @@ export class ColorPicker extends React.Component<IProps, IState> {
 					icon={
 						<Icon name={'circle'} size={20} color={'rgba(255,255,255,0.2)'} />
 					}
-					paletteStyles={styles.colorPicker}
+					paletteStyles={ this.props.paletteType === 'backgroundColor' ?
+					 styles.colorPicker : { flexDirection: 'row' }
+					}
 				/>
 			</ScrollView>
 		);
 	};
 
 	render() {
-		const { paletteType } = this.props;
-		let colorIcon = paletteType === 'backgroundColor' ? 'palette' : 'brush';
+		const { paletteType, isVisible, toogleBackgroundColor } = this.props;
 		return (
-			<View style={styles.colorPaletteWrap}>
-				<TouchableOpacity style={styles.colorPalette}>
-					<FontAwesome5
-						name={colorIcon}
-						color={'#555'}
-						size={20}
-						style={styles.colorIcon}
-					/>
-				</TouchableOpacity>
-				{this.renderColorPalette()}
-			</View>
+			<>
+			{
+				paletteType === 'backgroundColor' &&
+				<View style={[
+					styles.colorPaletteWrap, 
+					{ position: 'absolute', bottom: 5, left: 5, justifyContent:"flex-end", zIndex: 14 }
+				]}>
+					{
+						isVisible &&
+						this.renderColorPalette()
+					}
+					<TouchableOpacity style={styles.colorPalette} onPress={() => (toogleBackgroundColor())}>
+						<View style={{ 
+							width: 30, 
+							height: 30, 
+							borderRadius: 15, 
+							borderWidth: 2, 
+							borderColor: '#fff',
+							backgroundColor: this.props.newStory.backgroundColor,
+							marginTop: 10,
+							shadowOpacity: 0.2,
+							shadowRadius: 1.5,
+							shadowOffset: { width: 1, height: 2 },
+							elevation: 4, 
+							marginHorizontal: 10,
+							marginVertical: 10,
+
+						}} />
+					</TouchableOpacity>
+				</View>
+			}
+			{
+				paletteType !== 'backgroundColor' &&
+				<View style={[
+					{ position: 'absolute', bottom: 5, zIndex: 14, width: '100%', flexDirection: 'row' }
+				]}>
+					{
+						this.renderColorPalette()
+					}
+				</View>
+			}
+			</>
 		);
 	}
 }

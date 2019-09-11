@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import INewStory from '../INewStory';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import styles from './styles';
 
 interface ITextButtonProps {
 	newStory: INewStory;
@@ -19,7 +20,7 @@ const TextButton = (props: ITextButtonProps) => {
 				handleUpdateState(newStory.caption ? true : !showInput, 'showInput');
 			}}
 		>
-			<Fontisto name="font" color={'#555'} size={30} />
+			<Fontisto name="font" style={styles.shadow} color={'#fff'} size={30} />
 		</TouchableOpacity>
 	);
 };

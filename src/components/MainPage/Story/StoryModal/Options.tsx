@@ -13,6 +13,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import TextButton from './TextButton';
+import styles from './styles';
 
 interface IProps {
 	newStory: INewStory;
@@ -73,7 +74,7 @@ export const OpenButton = (props: IOpenButtonProps) => {
 				handleUpdateState(!showVoting, 'showVoting');
 			}}
 		>
-			<MaterialCommunityIcons name="cloud-question" color={'#555'} size={40} />
+			<MaterialCommunityIcons name="cloud-question" style={styles.shadow} color={'#fff'} size={40} />
 		</TouchableOpacity>
 	);
 };
@@ -101,7 +102,7 @@ export const ExtraButton = (props: IExtraProps) => {
 				});
 			}}
 		>
-			<Icon name={icon} color={'#555'} size={30} />
+			<Icon name={icon} color={'#fff'} style={styles.shadow} size={30} />
 		</TouchableOpacity>
 	);
 };
@@ -132,7 +133,7 @@ export default class Options extends Component<IProps, IState> {
 						});
 					}}
 				>
-					<Icon name="camera" color={'#555'} size={30} />
+					<Icon name="camera" style={styles.shadow} color={'#fff'} size={30} />
 				</ImageUploader>
 				<TextButton
 					newStory={this.props.newStory}
