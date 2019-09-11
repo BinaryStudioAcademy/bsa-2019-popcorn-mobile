@@ -14,6 +14,7 @@ const { width } = Dimensions.get('window');
 import SettingsModal from './../SettingsModal';
 import ReactionsModal from './../Reactions';
 import { getIcon } from './../../../../services/postReaction.service';
+import { getNewDateTime } from '../../../../helpers/dateFormat.helper';
 
 interface IPostProps {
 	post: IPost;
@@ -84,6 +85,8 @@ class Post extends Component<IPostProps, IState> {
 			id: postId,
 			reactions
 		} = this.props.post;
+		let date = new Date(createdAt || new Date());
+		let newDate = getNewDateTime(date);
 		const { id, name, avatar } = this.props.post.user;
 		const { showSettingsModal, showReactionsModal } = this.state;
 		return (
@@ -108,7 +111,7 @@ class Post extends Component<IPostProps, IState> {
 							/>
 							<View style={styles.infoBlock}>
 								<Text style={styles.userName}>{name}</Text>
-								<Text style={styles.info}>{createdAt || 'Few days ago'}</Text>
+								<Text style={styles.info}>{newDate || 'Few days ago'}</Text>
 							</View>
 							{isCreator && (
 								<View style={styles.headerControl}>

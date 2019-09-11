@@ -10,8 +10,10 @@ export default interface IPost {
 	createdAt: string;
 	image_url: string;
 	description?: string;
-	extraTitle?: string;
-	extraLink?: string;
+	extraTitle?: string | null;
+	extraLink?: string | null;
+	extraData?: any;
+	extraType: string;
 	content?: {
 		image: string;
 		link: string;
