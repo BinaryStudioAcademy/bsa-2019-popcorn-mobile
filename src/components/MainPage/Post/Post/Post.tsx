@@ -43,10 +43,7 @@ class Post extends Component<IPostProps, IState> {
 	render() {
 		const { isCreator, deletePost } = this.props;
 		const { image_url, description, createdAt, id: postId } = this.props.post;
-		let date;
-		if (createdAt) {
-			date = new Date(createdAt);
-		}
+		let date = new Date(createdAt || new Date());
 		let newDate = getNewDateTime(date);
 		const { id, name, avatar } = this.props.post.user;
 		const { showModal } = this.state;
@@ -72,7 +69,7 @@ class Post extends Component<IPostProps, IState> {
 							/>
 							<View style={styles.infoBlock}>
 								<Text style={styles.userName}>{name}</Text>
-								<Text style={styles.info}>{createdAt || 'Few days ago'}</Text>
+								<Text style={styles.info}>{newDate || 'Few days ago'}</Text>
 							</View>
 							{isCreator && (
 								<View style={styles.headerControl}>
