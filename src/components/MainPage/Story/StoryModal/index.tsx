@@ -8,15 +8,15 @@ import INewStory from '../INewStory';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
 import IUser from '../../../UserPage/IUser';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import DraggableText from './DraggableText';
 import Voting from '../Voting/Voting';
 import IVoting from '../Voting/IVoting';
 import ColorPicker from './ColorPicker';
 import Options, { ExtraButton, OpenButton } from './Options';
-const DEFAULT_BACKGROUND = '#dadada';
+const DEFAULT_BACKGROUND = '#C0C0C0';
 import config from './../../../../config';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 interface IProps {
 	sendStory: (newStory: INewStory) => any;
@@ -43,7 +43,7 @@ interface IState {
 
 const newStoryDefault: INewStory = {
 	activityId: '',
-	backgroundColor: '#dadada',
+	backgroundColor: '#C0C0C0',
 	fontColor: '#000',
 	movieId: null,
 	movieOption: '',
@@ -283,7 +283,12 @@ class StoryModal extends Component<IProps, IState> {
 						>
 							<View style={styles.iconsWrp}>
 								<TouchableOpacity onPress={() => navigation.navigate('First')}>
-									<MaterialCommunityIcons name="close" style={styles.shadow} color={'#fff'} size={40} />
+									<MaterialCommunityIcons 
+										name="close" 
+										style={[styles.shadow, { marginLeft: 7.5, marginRight: 50 } ]} 
+										color={'#fff'} 
+										size={30}
+									 />
 								</TouchableOpacity>
 								<Options
 									newStory={this.state.newStory}
@@ -358,12 +363,13 @@ class StoryModal extends Component<IProps, IState> {
 										this.onSave();
 									}}
 									disabled={this.state.disabled}
-									style={{ position: 'absolute', bottom: 5, right: 5, zIndex: 14 }}
+									style={{ position: 'absolute', bottom: 15, right: 15, zIndex: 14 }}
 								>
-									<Icon
-										name="check-circle-o"
+									<FontAwesome
+										name="send"
 										color={this.state.disabled ? '#555' : '#fff'}
-										size={30}
+										style={styles.shadow}
+										size={25}
 									/>
 								</TouchableOpacity>
 							}

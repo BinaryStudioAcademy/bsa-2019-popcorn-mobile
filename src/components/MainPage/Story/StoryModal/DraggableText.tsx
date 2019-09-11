@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
 		fontWeight: '600',
 		fontFamily: 'Courier',
 		letterSpacing: 0.1,
-		fontSize: 20,
+		fontSize: 16,
 		alignSelf: 'flex-start',
 		flexDirection: 'row'
 	},

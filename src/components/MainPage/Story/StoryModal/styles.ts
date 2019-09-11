@@ -21,7 +21,7 @@ export default StyleSheet.create({
 	iconsWrp: {
 		width: '100%',
 		flexDirection: 'row',
-		justifyContent: 'space-around',
+		justifyContent: 'space-between',
 		alignItems: 'center',
 		position: 'absolute',
 		top: 5,
