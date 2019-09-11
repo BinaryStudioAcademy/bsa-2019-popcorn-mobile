@@ -1,27 +1,31 @@
-import IUser from '../../UserPage/IUser';
-
+import IComment from './IComment';
+import IReaction from './IReaction';
 export default interface IPost {
-	user: IUser;
 	id: string;
-	createdAt?: string;
+	user: {
+		name: string;
+		avatar: string;
+		id: string;
+	};
+	createdAt: string;
 	image_url: string;
 	description?: string;
 	extraTitle?: string | null;
 	extraLink?: string | null;
+	extraData?: any;
+	extraType: string;
 	content?: {
 		image: string;
 		link: string;
 		description: string;
 	};
-	comments?: {
-		id: string;
-		author: string;
-		commentDate: string;
-		commentBody: string;
-		parentId?: string;
-	}[];
+	comments: IComment[];
 	tags?: {
 		id: string;
 		tagName: string;
 	}[];
+	reactions?: IReaction[];
+	survey: any;
+	top: any;
+	event: any;
 }
