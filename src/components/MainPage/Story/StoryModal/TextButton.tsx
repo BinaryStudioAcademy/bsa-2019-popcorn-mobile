@@ -20,7 +20,7 @@ const TextButton = (props: ITextButtonProps) => {
 				handleUpdateState(newStory.caption ? true : !showInput, 'showInput');
 			}}
 		>
-			<Fontisto name="font" style={styles.shadow} color={'#fff'} size={30} />
+			<Fontisto name="font" style={styles.shadow} color={'#fff'} size={25} />
 		</TouchableOpacity>
 	);
 };

@@ -74,7 +74,7 @@ export const OpenButton = (props: IOpenButtonProps) => {
 				handleUpdateState(!showVoting, 'showVoting');
 			}}
 		>
-			<MaterialCommunityIcons name="cloud-question" style={styles.shadow} color={'#fff'} size={40} />
+			<MaterialCommunityIcons name="cloud-question" style={[styles.shadow, { marginRight: 15 }]} color={'#fff'} size={30} />
 		</TouchableOpacity>
 	);
 };
@@ -102,7 +102,7 @@ export const ExtraButton = (props: IExtraProps) => {
 				});
 			}}
 		>
-			<Icon name={icon} color={'#fff'} style={styles.shadow} size={30} />
+			<Icon name={icon} color={'#fff'} style={styles.shadow} size={25} />
 		</TouchableOpacity>
 	);
 };
@@ -133,7 +133,7 @@ export default class Options extends Component<IProps, IState> {
 						});
 					}}
 				>
-					<Icon name="camera" style={styles.shadow} color={'#fff'} size={30} />
+					<Icon name="camera" style={styles.shadow} color={'#fff'} size={25} />
 				</ImageUploader>
 				<TextButton
 					newStory={this.props.newStory}
