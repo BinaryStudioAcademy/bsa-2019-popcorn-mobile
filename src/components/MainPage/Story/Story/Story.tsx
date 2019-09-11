@@ -10,11 +10,21 @@ import {
 	Platform,
 	NativeModules,
 	TextInput,
-	FlatList
+	FlatList,
+	Dimensions
 } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 import { captionFont } from '../StoryModal/styles';
 const { StatusBarManager } = NativeModules;
+const window_width = Dimensions.get('window').width;
+const window_height = Dimensions.get('window').height;
+const STORY_HEIGHT = 622;
+const STORY_WIDTH = 350;
+const COEFFICIENT_X = window_height / STORY_HEIGHT;
+const COEFFICIENT_Y = window_width / STORY_WIDTH;
+const USER_BLOCK_HEIGHT = 65;
+const OFFSET_Y = 1.25 * COEFFICIENT_Y;
+const OFFSET_X = 1.25 * COEFFICIENT_X;
 interface IStoryListItem {
 	id: string;
 	caption: string;
@@ -28,6 +38,8 @@ interface IStoryListItem {
 	backgroundColor: string;
 	fontColor: string;
 	type: string;
+	textPositionX: number;
+	textPositionY: number;
 	voting?: {
 		backColor: string;
 		backImage: string;
@@ -178,6 +190,7 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 		return (
 			<TouchableOpacity onPress={() => navigation.goBack()}>
 				<SvgUri
+					width={30}
 					height={30}
 					source={require('./../../../../assets/general/x.svg')}
 				/>
@@ -254,8 +267,14 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 		backgroundColor,
 		fontColor,
 		showReactions,
-		message
+		message,
+		textPositionX,
+		textPositionY
 	) {
+		let offsetY =
+			textPositionY * OFFSET_Y +
+			(textPositionY < USER_BLOCK_HEIGHT ? USER_BLOCK_HEIGHT + 6 : 0);
+		let offsetX = textPositionX * OFFSET_X;
 		return (
 			<View style={[styles.storyWrapper, { backgroundColor: backgroundColor }]}>
 				<View style={styles.storyImageWrapper}>
@@ -275,7 +294,12 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 						source={{ uri: imageUrl }}
 						resizeMode="contain"
 					></ImageBackground>
-					<Text style={[styles.renderCaption, { color: fontColor }]}>
+					<Text
+						style={[
+							styles.renderCaption,
+							{ color: fontColor, top: offsetY, left: offsetX }
+						]}
+					>
 						{caption}
 					</Text>
 					{showReactions && (
@@ -323,7 +347,9 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 			user: { name, avatar },
 			caption,
 			backgroundColor,
-			fontColor
+			fontColor,
+			textPositionX,
+			textPositionY
 		} = this.props.story;
 		const { navigation } = this.props;
 		const { showReactions, message } = this.state;
@@ -336,7 +362,9 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 			backgroundColor,
 			fontColor,
 			showReactions,
-			message
+			message,
+			textPositionX,
+			textPositionY
 		);
 	}
 }
@@ -367,8 +395,6 @@ const styles = StyleSheet.create({
 	},
 	storyImage: {
 		flex: 1
-		// height: '100%',
-		// width: '100%'
 	},
 	renderCaption: {
 		fontFamily: captionFont,
@@ -376,27 +402,24 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		lineHeight: 20,
 		letterSpacing: 0.4,
-		padding: 5,
 		position: 'absolute',
-		bottom: '10%',
-		left: 'auto',
 		textAlign: 'center',
-		width: '100%'
+		width: 280
 	},
 	userBlock: {
 		position: 'relative',
+		backgroundColor: '#efecec6b',
 		zIndex: 5,
-		paddingTop: 5,
+		height: USER_BLOCK_HEIGHT,
+		paddingTop: 10,
 		flexDirection: 'row',
 		alignItems: 'center'
 	},
 	userName: {
 		fontFamily: 'Inter-Regular',
-		fontSize: 17,
-		lineHeight: 20,
-		letterSpacing: 0.4,
-		padding: 5,
-		color: 'rgb(252, 252, 252)'
+		fontSize: 16,
+		letterSpacing: 0.9,
+		color: '#0c0c0c'
 	},
 	closeWrapper: {
 		marginLeft: 'auto',
