@@ -1,9 +1,9 @@
-import { fetchPosts } from '../../../redux/routines';
+import { fetchPosts, fetchPost } from '../../../redux/routines';
 import { call, put, takeEvery, all } from 'redux-saga/effects';
 import * as postService from './../../../services/post.service';
 import webApi from '../../../helpers/webApi.helper';
 import config from '../../../config';
-import { SEND_POST, DELETE_POST } from './actionTypes';
+import { SEND_POST, DELETE_POST, REACT_POST } from './actionTypes';
 export function* getPosts() {
 	try {
 		yield put(fetchPosts.request());
@@ -14,6 +14,19 @@ export function* getPosts() {
 		yield put(fetchPosts.failure(error.message));
 	} finally {
 		yield put(fetchPosts.fulfill());
+	}
+}
+
+export function* getPost(action) {
+	try {
+		yield put(fetchPost.request());
+		const response = yield call(postService.getPostById, action.payload);
+
+		yield put(fetchPost.success(response));
+	} catch (error) {
+		yield put(fetchPost.failure(error.message));
+	} finally {
+		yield put(fetchPost.fulfill());
 	}
 }
 
@@ -39,6 +52,19 @@ export function* deletePost(action) {
 	}
 }
 
+export function* reactPost(action) {
+	try {
+		const { userId, type, postId } = action.payload;
+		yield call(postService.reactPost, userId, type, postId);
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+export function* watchReactPost() {
+	yield takeEvery(REACT_POST, reactPost);
+}
+
 function* watchDeletePost() {
 	yield takeEvery(DELETE_POST, deletePost);
 }
@@ -46,10 +72,21 @@ function* watchDeletePost() {
 function* watchGetPosts() {
 	yield takeEvery(fetchPosts.TRIGGER, getPosts);
 }
+
+function* watchGetPost() {
+	yield takeEvery(fetchPost.TRIGGER, getPost);
+}
+
 function* watchSendPost() {
 	yield takeEvery(SEND_POST, sendPost);
 }
 
 export default function* messagesSaga() {
-	yield all([watchGetPosts(), watchSendPost(), watchDeletePost()]);
+	yield all([
+		watchGetPosts(),
+		watchGetPost(),
+		watchSendPost(),
+		watchDeletePost(),
+		watchReactPost()
+	]);
 }

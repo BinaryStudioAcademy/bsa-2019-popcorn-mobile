@@ -48,7 +48,8 @@ export const transformDataToProps = (data): Array<ISurvey> => {
 			name: survey.user.name,
 			image_link: survey.user.avatar
 		},
-		participants: countParticipants(survey.surveysQuestion),
+		image: survey.image,
+
 		questions: survey.surveysQuestion.map(question => ({
 			index: question.index,
 			id: question.id,
@@ -80,7 +81,7 @@ export const transformDataToProps = (data): Array<ISurvey> => {
 
 const countParticipants = questions => {
 	const answererIds = questions
-		.flatMap(question => question.surveysQuestionAnswer)
+		.map(question => question.surveysQuestionAnswer)
 		.map(answer => answer.user.id);
 	const uniqueUserIds = new Set(answererIds);
 	return uniqueUserIds.size;
@@ -91,7 +92,8 @@ export const transformDataToServerFormatCreate = data => {
 		id: data.user_id,
 		surveys: {
 			title: data.title,
-			description: data.description
+			description: data.description,
+			image: data.image
 		},
 		surveysQuestion: data.questions.map(question => ({
 			index: question.index,
@@ -114,6 +116,7 @@ export const transformDataToServerFormatUpdate = data => {
 		title: data.title,
 		description: data.description,
 		type: data.type,
+		image: data.image,
 		surveysQuestion: data.questions.map(question => ({
 			index: question.index,
 			id: question.id,
