@@ -77,9 +77,7 @@ export default class DraggableText extends Component<IProps, IState> {
 					} else {
 						this.props.setNewStory({
 							newStory: {
-								...newStory,
-								textPositionX: styles.left,
-								textPositionY: styles.top
+								...newStory
 							},
 							data: this.props.data
 						});
@@ -97,7 +95,7 @@ export default class DraggableText extends Component<IProps, IState> {
 							this.setState({ elementHeight: height, elementWidth: width });
 						}}
 						style={[
-							{ alignSelf: 'center' },
+							{ alignSelf: 'center', marginTop: '50%' },
 							!this.state.inputDisabled ? styles.inputActive : null
 						]}
 					>
@@ -168,38 +166,17 @@ export default class DraggableText extends Component<IProps, IState> {
 					<ImageBackground
 						source={{ uri: image_url }}
 						style={{
-							width: areaWidth,
-							height: areaHeight,
-							overflow: 'hidden',
+							width: '100%',
+							height: '100%',
 							backgroundColor: backgroundColor,
+							overflow: 'hidden',
 							position: 'absolute'
 						}}
+						resizeMode='contain'
 					>
 						{!isExtra && (
 							<Fragment>
 								{this.renderGestures()}
-								<TouchableOpacity
-									onPress={() => {
-										this.props.setNewStory({
-											newStory: {
-												...newStory,
-												image_url: '',
-												backgroundColor: DEFAULT_BACKGROUND
-											},
-											data: this.props.data
-										});
-										this.props.validateStory({
-											caption: '',
-											newStory: this.props.newStory,
-											data: this.props.data,
-											voting: this.props.voting,
-											handleDisable: this.props.handleDisable
-										});
-									}}
-									style={styles.deleteImageOption}
-								>
-									<Icon name="times" color={'#555'} size={25} />
-								</TouchableOpacity>
 							</Fragment>
 						)}
 					</ImageBackground>
@@ -226,7 +203,7 @@ const styles = StyleSheet.create({
 		fontWeight: '600',
 		fontFamily: 'Courier',
 		letterSpacing: 0.1,
-		fontSize: 16,
+		fontSize: 20,
 		alignSelf: 'flex-start',
 		flexDirection: 'row'
 	},
@@ -242,7 +219,8 @@ const styles = StyleSheet.create({
 	},
 	deleteImageOption: {
 		position: 'absolute',
-		top: 5,
-		left: 5
+		top: 100,
+		left: 5,
+		zIndex: 14
 	}
 });
