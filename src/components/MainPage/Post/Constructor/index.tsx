@@ -12,23 +12,20 @@ import SvgUri from 'react-native-svg-uri';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { sendPost } from '../actions';
-import IPost from '../IPost';
 import IUser from '../../../UserPage/IUser';
-import ChooseExtra from './ChooseExtra';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
 import ImageUploader from '../../../ImageUploader';
 import config from '../../../../config';
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const poll = require('../../../../assets/general/Poll-01.svg');
-const camera = require('../../../../assets/general/camera.svg');
 const cup = require('../../../../assets/general/trophy.svg');
 const calendar = require('../../../../assets/general/calendar.svg');
-const arrow = require('../../../../assets/general/arrow-circle-o-left.svg');
 const uuid = require('uuid/v4');
 
 interface IProps {
-	sendPost: (post: IPost) => any;
+	sendPost: (any) => any;
 	profileInfo: IUser;
 	navigation: any;
 }
@@ -95,6 +92,7 @@ class PostConstructor extends Component<IProps, IState> {
 	hasActivityOrPhoto(number: number) {
 		return this.state.type || this.state.image_url ? {} : { flex: number };
 	}
+
 	componentDidUpdate(prevProps, prevState) {
 		if (this.state.data !== prevState.data) {
 			let newImage = '';
@@ -148,41 +146,16 @@ class PostConstructor extends Component<IProps, IState> {
 			if (!data || data.id !== option.id) this.addExtra(option, type);
 		}
 		return (
-			<View style={[styles.mainView, this.hasActivityOrPhoto(1)]}>
-				<View style={styles.buttonWrp}>
-					<TouchableOpacity
-						style={{ width: '50%', alignItems: 'flex-start' }}
-						onPress={() => navigation.navigate('Home')}
-					>
-						<SvgUri height={40} width={40} source={arrow} />
-					</TouchableOpacity>
-					<TouchableOpacity
-						style={{ width: '50%', alignItems: 'flex-end' }}
-						onPress={() => {
-							this.props.sendPost({
-								id: uuid(),
-								...this.state,
-								extraTitle: data && data.title,
-								extraLink: data && `/events/${data.id}`,
-								extraType: type,
-								extraData: data,
-								user: { ...this.props.profileInfo }
-							});
-							this.clearState();
-							navigation.navigate('Home');
-						}}
-						disabled={this.state.disabled}
-					>
-						<Text
-							style={[
-								styles.button,
-								this.state.disabled ? styles.disabledBtn : {}
-							]}
-						>
-							Post
-						</Text>
-					</TouchableOpacity>
-				</View>
+			<View style={[styles.mainView]}>
+				<TouchableOpacity
+					style={styles.cancelBtn}
+					onPress={() => {
+						this.clearState();
+						navigation.navigate('Home');
+					}}
+				>
+					<FontAwesome size={40} name={'times'} color={'#555'} />
+				</TouchableOpacity>
 				{image_url || type ? (
 					<View>
 						{image_url ? (
@@ -204,12 +177,11 @@ class PostConstructor extends Component<IProps, IState> {
 					</View>
 				) : null}
 
-				<View
-					style={[styles.iconsWrp, { flex: 2 }, this.hasActivityOrPhoto(5)]}
-				>
+				<View style={[styles.inputWrp, { flex: 3.4 }]}>
 					<TextInput
 						textAlignVertical={'top'}
 						multiline={true}
+						placeholder={'Enter your text here'}
 						numberOfLines={4}
 						style={styles.input}
 						value={description}
@@ -220,10 +192,10 @@ class PostConstructor extends Component<IProps, IState> {
 					/>
 				</View>
 				{this.state.hide && (
-					<View style={this.hasActivityOrPhoto(1)}>
+					<>
 						<View style={styles.iconsWrp}>
 							<TouchableOpacity
-								style={[{ marginRight: 15 }, styles.activity]}
+								style={styles.activity}
 								onPress={() =>
 									this.props.navigation.navigate('ChooseExtraOption', {
 										addExtra: this.addExtra,
@@ -231,11 +203,11 @@ class PostConstructor extends Component<IProps, IState> {
 									})
 								}
 							>
-								<SvgUri width={50} height={50} source={poll} />
+								<SvgUri fill={'#555'} width={40} height={40} source={poll} />
 								<Text style={styles.colorTextActivity}>Survey</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
-								style={[{ marginRight: 15 }, styles.activity]}
+								style={styles.activity}
 								onPress={() =>
 									this.props.navigation.navigate('ChooseExtraOption', {
 										addExtra: this.addExtra,
@@ -243,11 +215,11 @@ class PostConstructor extends Component<IProps, IState> {
 									})
 								}
 							>
-								<SvgUri width={50} height={50} source={cup} />
+								<SvgUri fill={'#555'} width={40} height={40} source={cup} />
 								<Text style={styles.colorTextActivity}>Top</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
-								style={[{ marginRight: 15 }, styles.activity]}
+								style={styles.activity}
 								onPress={() =>
 									this.props.navigation.navigate('ChooseExtraOption', {
 										addExtra: this.addExtra,
@@ -255,10 +227,15 @@ class PostConstructor extends Component<IProps, IState> {
 									})
 								}
 							>
-								<SvgUri width={40} height={40} source={calendar} />
+								<SvgUri
+									fill={'#555'}
+									width={40}
+									height={40}
+									source={calendar}
+								/>
 								<Text style={styles.colorTextActivity}>Event</Text>
 							</TouchableOpacity>
-							<View style={[{ marginRight: 15 }, styles.activity]}>
+							<View style={styles.activity}>
 								<ImageUploader
 									startUpload={() => this.setState({ loading: true })}
 									saveUrl={(image_url: string) => {
@@ -267,12 +244,43 @@ class PostConstructor extends Component<IProps, IState> {
 										this.validate();
 									}}
 								>
-									<SvgUri width={50} height={50} source={camera} />
+									<MaterialCommunityIcons
+										size={40}
+										name={'camera'}
+										color={'#555'}
+										style={{ height: 40, width: 40 }}
+									/>
 								</ImageUploader>
 								<Text style={styles.colorTextActivity}>Image</Text>
 							</View>
 						</View>
-					</View>
+						<TouchableOpacity
+							style={styles.sendWrap}
+							onPress={() => {
+								this.props.sendPost({
+									id: uuid(),
+									...this.state,
+									extraTitle: data && data.title,
+									extraLink: data && `/events/${data.id}`,
+									extraType: type,
+									extraData: data,
+									user: { ...this.props.profileInfo }
+								});
+								this.clearState();
+								navigation.navigate('Home');
+							}}
+							disabled={this.state.disabled}
+						>
+							<Text
+								style={[
+									styles.sendButton,
+									this.state.disabled ? styles.disabledBtn : {}
+								]}
+							>
+								Post
+							</Text>
+						</TouchableOpacity>
+					</>
 				)}
 			</View>
 		);
