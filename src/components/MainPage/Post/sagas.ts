@@ -3,7 +3,12 @@ import { call, put, takeEvery, all } from 'redux-saga/effects';
 import * as postService from './../../../services/post.service';
 import webApi from '../../../helpers/webApi.helper';
 import config from '../../../config';
-import { SEND_POST, DELETE_POST, REACT_POST } from './actionTypes';
+import {
+	SEND_POST,
+	DELETE_POST,
+	REACT_POST,
+	CREATE_COMMENT
+} from './actionTypes';
 export function* getPosts() {
 	try {
 		yield put(fetchPosts.request());
@@ -61,6 +66,19 @@ export function* reactPost(action) {
 	}
 }
 
+export function* createComment(action) {
+	const { userId, text, postId } = action.payload;
+	try {
+		yield call(postService.commentPost, userId, text, postId);
+	} catch (e) {
+		console.log('createComment: ', e.message);
+	}
+}
+
+export function* watchCommentPost() {
+	yield takeEvery(CREATE_COMMENT, createComment);
+}
+
 export function* watchReactPost() {
 	yield takeEvery(REACT_POST, reactPost);
 }
@@ -87,6 +105,7 @@ export default function* messagesSaga() {
 		watchGetPost(),
 		watchSendPost(),
 		watchDeletePost(),
-		watchReactPost()
+		watchReactPost(),
+		watchCommentPost()
 	]);
 }

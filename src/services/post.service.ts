@@ -44,3 +44,16 @@ export const reactPost = async (userId, type, postId) => {
 		parse: false
 	});
 };
+
+export const commentPost = async (userId, text, postId) => {
+	await callWebApi({
+		method: 'POST',
+		endpoint: config.API_URL + '/api/post/comment',
+		body: {
+			userId,
+			text,
+			postId
+		},
+		parse: false
+	});
+};

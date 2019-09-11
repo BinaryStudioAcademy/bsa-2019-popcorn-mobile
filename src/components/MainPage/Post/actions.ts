@@ -3,10 +3,13 @@ import {
 	SEND_POST,
 	DELETE_POST,
 	REACT_POST,
-	ADD_NEW_REACTION
+	ADD_NEW_REACTION,
+	ADD_NEW_COMMENT,
+	CREATE_COMMENT
 } from './actionTypes';
 import IPost from './IPost';
 import IReaction from './IReaction';
+import IComment from './IComment';
 
 export const addPost = post => {
 	return {
@@ -56,6 +59,26 @@ export const addNewReaction = (reactions: IReaction[], postId: string) => {
 		payload: {
 			reactions,
 			postId
+		}
+	};
+};
+
+export const createComment = (userId: string, text: string, postId: string) => {
+	return {
+		type: CREATE_COMMENT,
+		payload: {
+			userId,
+			text,
+			postId
+		}
+	};
+};
+
+export const addNewComment = (comment: IComment) => {
+	return {
+		type: ADD_NEW_COMMENT,
+		payload: {
+			comment
 		}
 	};
 };
