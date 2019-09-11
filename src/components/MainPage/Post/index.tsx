@@ -1,4 +1,10 @@
-import { addPost, deletePost, createReaction, addNewReaction } from './actions';
+import {
+	addPost,
+	deletePost,
+	createReaction,
+	addNewReaction,
+	addNewComment
+} from './actions';
 import { fetchPosts } from '../../../redux/routines';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -9,6 +15,7 @@ import IPost from './IPost';
 import SocketService from '../../../helpers/socket.helper';
 import IReaction from './IReaction';
 import Spinner from '../../Spinner/Spinner';
+import IComment from './IComment';
 
 interface IProps {
 	posts?: null | Array<IPost>;
@@ -22,32 +29,33 @@ interface IProps {
 	currUserId: string;
 	createReaction: (type: string, userId: string, postId: string) => any;
 	addNewReaction: (reactions: IReaction[], postId: string) => any;
+	addNewComment: (comment: IComment) => any;
 }
 
 class PostComponent extends React.Component<IProps> {
 	constructor(props) {
 		super(props);
-		this.addSocketEvents(props.addPost, props.addNewReaction);
+		this.addSocketEvents(
+			props.addPost,
+			props.addNewReaction,
+			props.addNewComment
+		);
 	}
 
 	componentDidMount() {
 		this.props.fetchPosts();
 	}
 
-	addSocketEvents = (addPost, addNewReaction) => {
+	addSocketEvents = (addPost, addNewReaction, addNewComment) => {
 		SocketService.on('new-post', addPost);
 		SocketService.on('new-reaction', obj =>
 			addNewReaction(obj.reactions, obj.postId)
 		);
+		SocketService.on('new-comment', addNewComment);
 	};
 
 	renderPost({ item }) {
-		const {
-			currUserId,
-			deletePost,
-			createReaction,
-			addNewReaction
-		} = this.props;
+		const { currUserId, deletePost, createReaction } = this.props;
 		return (
 			<Post
 				post={item}
@@ -95,7 +103,8 @@ const actions = {
 	addPost,
 	deletePost,
 	createReaction,
-	addNewReaction
+	addNewReaction,
+	addNewComment
 };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
