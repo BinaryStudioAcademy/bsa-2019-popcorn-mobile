@@ -19,12 +19,12 @@ export default interface IPost {
 		link: string;
 		description: string;
 	};
-	comments?: IComment[];
+	comments: IComment[];
 	tags?: {
 		id: string;
 		tagName: string;
 	}[];
-	reactions: IReaction[];
+	reactions?: IReaction[];
 	survey: any;
 	top: any;
 	event: any;
