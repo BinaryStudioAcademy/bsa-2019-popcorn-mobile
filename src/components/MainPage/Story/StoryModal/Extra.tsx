@@ -71,7 +71,6 @@ const renderSurveyView = data => {
 
 const Extra = (props: IProps) => {
 	const { type, data, user, onSave } = props;
-
 	const viewActivity = () => {
 		switch (type) {
 			case 'event':
