@@ -110,8 +110,6 @@ class Post extends Component<IPostProps, IState> {
 			reactions,
 			comments
 		} = this.props.post;
-		let date = new Date(createdAt || new Date());
-		let newDate = getNewDateTime(date);
 		const { id, name, avatar } = this.props.post.user;
 		const {
 			showSettingsModal,
