@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
 const orange = '#f57c00';
 const imageWrapHeight = '65%';
-export const captionFont = Platform.OS === 'android' ? 'monospace' : 'Courier';
+export const captionFont = 'Inter-Medium';
 export default StyleSheet.create({
 	input: {
 		position: 'absolute',
