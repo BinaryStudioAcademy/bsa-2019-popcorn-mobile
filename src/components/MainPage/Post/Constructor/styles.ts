@@ -1,25 +1,50 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
+const HEADER_HEIGHT = Platform.OS === 'ios' ? 20 : 10;
+export const ORANGE_POST_CONSTRUCTOR = '#FF6501';
 
-const orange = '#ffab07';
 const imageHeight = 200;
 export default StyleSheet.create({
 	input: {
-		width: '90%',
-		margin: 20,
-		borderColor: 'rgba(0, 0, 0, 0.11)',
+		marginTop: 10,
+		flex: 1,
+		borderColor: 'rgba(0, 0, 0, 0.21)',
 		borderWidth: 1,
-		padding: 12,
-		paddingLeft: 15,
+		padding: 10,
 		fontSize: 16,
-		borderRadius: 3,
-		flex: 1
+		borderRadius: 3
+	},
+	cancelBtn: {
+		marginLeft: 'auto'
+	},
+	sendWrap: {
+		marginTop: 10,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	sendButton: {
+		fontSize: 18,
+		backgroundColor: ORANGE_POST_CONSTRUCTOR,
+		padding: 8,
+		color: '#fff',
+		width: '35%',
+		textAlign: 'center',
+		borderRadius: 19,
+		fontFamily: 'Inter-SemiBold'
+	},
+	inputWrp: {
+		height: 70,
+		flexDirection: 'row',
+		justifyContent: 'center'
 	},
 	iconsWrp: {
-		width: '100%',
-		display: 'flex',
+		width: '70%',
+		marginTop: 6,
+		marginLeft: 'auto',
+		marginRight: 'auto',
+		alignItems: 'center',
+		height: 70,
 		flexDirection: 'row',
-		justifyContent: 'center',
-		margin: 5
+		justifyContent: 'space-between'
 	},
 	roundImage: {
 		height: imageHeight,
@@ -34,7 +59,7 @@ export default StyleSheet.create({
 	},
 	extraItem: {
 		width: 200,
-		borderColor: orange,
+		borderColor: ORANGE_POST_CONSTRUCTOR,
 		borderWidth: 1,
 		borderRadius: 5,
 		padding: 5,
@@ -43,14 +68,6 @@ export default StyleSheet.create({
 		justifyContent: 'center',
 		flexDirection: 'row',
 		display: 'flex'
-	},
-	buttonWrp: {
-		width: '85%',
-		justifyContent: 'space-between',
-		flexDirection: 'row',
-		display: 'flex',
-		marginLeft: 'auto',
-		marginRight: 'auto'
 	},
 	button: {
 		width: '80%',
@@ -63,21 +80,21 @@ export default StyleSheet.create({
 		fontFamily: 'Inter-SemiBold'
 	},
 	mainView: {
-		marginTop: 10,
-		width: '100%',
-		display: 'flex',
+		padding: 15,
+		paddingTop: HEADER_HEIGHT,
 		justifyContent: 'space-between',
-		flex: 1
+		flex: 1,
+		paddingBottom: 20
 	},
 	extra: {
 		marginTop: 5,
-		marginRight: 50,
+		marginRight: 'auto',
 		marginBottom: 15,
-		marginLeft: 15,
+		marginLeft: 'auto',
 		borderLeftWidth: 5,
 		borderColor: 'rgba(0, 0, 0, 0.11)',
 		padding: 15,
-		display: 'flex',
+		width: '96%',
 		justifyContent: 'flex-start'
 	},
 	IconExtraWrp: {
@@ -93,7 +110,8 @@ export default StyleSheet.create({
 		top: 0
 	},
 	disabledBtn: {
-		color: '#efd69a'
+		color: '#555',
+		backgroundColor: '#dadada'
 	},
 	UploadWrp: {
 		width: '85%',
@@ -107,10 +125,11 @@ export default StyleSheet.create({
 	},
 	visitors: {
 		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'center',
-		width: '20%',
-		alignSelf: 'flex-start'
+		alignItems: 'flex-start',
+		justifyContent: 'space-between',
+		width: '10%',
+		alignSelf: 'flex-start',
+		marginRight: 15
 	},
 	text: {
 		fontFamily: 'Inter-Regular',
@@ -126,6 +145,7 @@ export default StyleSheet.create({
 	horizontalContainer: {
 		width: '100%',
 		display: 'flex',
+		justifyContent: 'space-between',
 		flexDirection: 'row',
 		paddingRight: 10
 	},
@@ -150,22 +170,16 @@ export default StyleSheet.create({
 		flex: 1
 	},
 	activity: {
-		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		justifyContent: 'space-between',
-		borderRadius: 55,
-		lineHeight: 36,
+		justifyContent: 'center',
 		fontSize: 18,
 		color: 'white',
-		fontFamily: 'Inter-SemiBold',
-		paddingTop: 5,
-		paddingBottom: 5,
-		paddingLeft: 10,
-		paddingRight: 10
+		fontFamily: 'Inter-SemiBold'
 	},
 	colorTextActivity: {
-		color: '#bccad6'
+		marginTop: 5,
+		color: '#555'
 	},
 	contentImg: {
 		marginRight: 2,
