@@ -171,8 +171,7 @@ class SurveyPage extends React.Component<IProps, IState> {
 	render() {
 		if (this.props.loading) return <Spinner />;
 
-		const { surveyInfo, navigation } = this.props;
-		console.log(this.props);
+		const { surveyInfo, navigation, profileInfo } = this.props;
 		const {
 			user,
 			created_at,
@@ -182,6 +181,7 @@ class SurveyPage extends React.Component<IProps, IState> {
 			description,
 			questions = []
 		} = surveyInfo;
+
 		return (
 			<ScrollView>
 				<ImageBackground

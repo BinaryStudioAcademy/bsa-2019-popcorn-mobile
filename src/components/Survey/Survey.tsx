@@ -33,7 +33,6 @@ class Survey extends Component<IProps, IState> {
 
 	render() {
 		const { data, user } = this.props;
-		console.log(data);
 		return (
 			<TouchableOpacity
 				onPress={() => this.props.nav.navigate('SurveyPage', { id: data.id })}
