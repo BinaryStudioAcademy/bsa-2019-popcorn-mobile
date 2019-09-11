@@ -71,7 +71,7 @@ export default function(state = initialState, action) {
 			const postsComment = [...state.posts];
 			const comment = action.payload.comment.comment;
 
-			const index = postsComment.findIndex(item => item.id === postId);
+			const index = postsComment.findIndex(item => item.id === comment.post.id);
 			if (index === -1) {
 				return state;
 			}

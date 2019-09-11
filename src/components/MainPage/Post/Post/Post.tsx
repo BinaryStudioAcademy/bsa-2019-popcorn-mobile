@@ -14,6 +14,8 @@ const { width } = Dimensions.get('window');
 import SettingsModal from './../SettingsModal';
 import ReactionsModal from './../Reactions';
 import { getIcon } from './../../../../services/postReaction.service';
+import CommentsModal from './../CommentsModal';
+import Moment from 'moment';
 
 interface IPostProps {
 	post: IPost;
@@ -27,6 +29,7 @@ interface IPostProps {
 interface IState {
 	showSettingsModal: boolean;
 	showReactionsModal: boolean;
+	showCommentsModal: boolean;
 }
 
 class Post extends Component<IPostProps, IState> {
@@ -34,23 +37,38 @@ class Post extends Component<IPostProps, IState> {
 		super(props);
 		this.state = {
 			showSettingsModal: false,
-			showReactionsModal: false
+			showReactionsModal: false,
+			showCommentsModal: false
 		};
 		this.toggleSettingsModal = this.toggleSettingsModal.bind(this);
 		this.toggleReactionsModal = this.toggleReactionsModal.bind(this);
+		this.toggleCommentsModal = this.toggleCommentsModal.bind(this);
 	}
 
 	toggleSettingsModal() {
 		const { showSettingsModal } = this.state;
 		this.setState({
-			showSettingsModal: !showSettingsModal
+			showSettingsModal: !showSettingsModal,
+			showReactionsModal: false,
+			showCommentsModal: false
 		});
 	}
 
 	toggleReactionsModal() {
 		const { showReactionsModal } = this.state;
 		this.setState({
-			showReactionsModal: !showReactionsModal
+			showReactionsModal: !showReactionsModal,
+			showSettingsModal: false,
+			showCommentsModal: false
+		});
+	}
+
+	toggleCommentsModal() {
+		const { showCommentsModal } = this.state;
+		this.setState({
+			showReactionsModal: false,
+			showSettingsModal: false,
+			showCommentsModal: !showCommentsModal
 		});
 	}
 
@@ -60,17 +78,24 @@ class Post extends Component<IPostProps, IState> {
 			.reduce((acc, val) => acc + val, 0);
 	}
 
-	getReactionsBlock(reactions) {
+	getActivityBlock(reactions, comments) {
 		return (
-			<View style={styles.likesWrapper}>
+			<View style={styles.activityWrapper}>
 				{reactions.map((item, i) => (
 					<View style={i !== 0 && styles.reactionWrapper}>
 						{getIcon(item.type, 20)}
 					</View>
 				))}
-				<Text style={styles.sumCount}>
-					{this.countReactionsSum(reactions)} reactions
-				</Text>
+				{reactions && !!reactions.length && (
+					<Text style={styles.activityTitle}>
+						{this.countReactionsSum(reactions)} reactions
+					</Text>
+				)}
+				{!!comments.length && (
+					<Text style={[styles.activityTitle, styles.activityTitleLeft]}>
+						{comments.length} comments
+					</Text>
+				)}
 			</View>
 		);
 	}
@@ -82,10 +107,15 @@ class Post extends Component<IPostProps, IState> {
 			description,
 			createdAt,
 			id: postId,
-			reactions
+			reactions,
+			comments
 		} = this.props.post;
 		const { id, name, avatar } = this.props.post.user;
-		const { showSettingsModal, showReactionsModal } = this.state;
+		const {
+			showSettingsModal,
+			showReactionsModal,
+			showCommentsModal
+		} = this.state;
 		return (
 			<>
 				<View style={styles.postWrapper}>
@@ -106,9 +136,11 @@ class Post extends Component<IPostProps, IState> {
 								style={styles.roundImage}
 								source={{ uri: avatar || config.DEFAULT_AVATAR }}
 							/>
-							<View style={styles.infoBlock}>
+							<View>
 								<Text style={styles.userName}>{name}</Text>
-								<Text style={styles.info}>{createdAt || 'Few days ago'}</Text>
+								<Text style={styles.info}>
+									{Moment(createdAt).format('D MMM HH:mm')}
+								</Text>
 							</View>
 							{isCreator && (
 								<View style={styles.headerControl}>
@@ -132,7 +164,11 @@ class Post extends Component<IPostProps, IState> {
 							/>
 						</View>
 					)}
-					{!!reactions.length && this.getReactionsBlock(reactions)}
+					<View style={styles.postBody}>
+						<Text>{description}</Text>
+					</View>
+					{(reactions || comments) &&
+						this.getActivityBlock(reactions, comments)}
 					<View style={styles.postControls}>
 						<View style={styles.postControlsItem}>
 							{showReactionsModal && (
@@ -151,8 +187,16 @@ class Post extends Component<IPostProps, IState> {
 								/>
 							</TouchableOpacity>
 						</View>
+						{showCommentsModal && (
+							<CommentsModal
+								toggleModal={this.toggleCommentsModal}
+								userId={userId}
+								postId={postId}
+								comments={comments || []}
+							/>
+						)}
 						<View style={styles.postControlsItem}>
-							<TouchableOpacity>
+							<TouchableOpacity onPress={() => this.toggleCommentsModal()}>
 								<SvgUri
 									height={22}
 									width={22}
@@ -160,9 +204,6 @@ class Post extends Component<IPostProps, IState> {
 								/>
 							</TouchableOpacity>
 						</View>
-					</View>
-					<View style={styles.postBody}>
-						<Text>{description}</Text>
 					</View>
 				</View>
 			</>
@@ -195,12 +236,13 @@ const styles = StyleSheet.create({
 		marginBottom: 5
 	},
 	postBody: {
-		padding: 5,
+		marginHorizontal: 8,
+		paddingVertical: 5,
 		fontFamily: 'Inter-Regular',
 		fontSize: 14,
-		lineHeight: 14,
+		lineHeight: 18,
 		letterSpacing: 0.4,
-		color: 'rgb(18, 39, 55)'
+		color: 'rgba(18, 39, 55, 0.7)'
 	},
 	postControls: {
 		marginHorizontal: 8,
@@ -212,7 +254,6 @@ const styles = StyleSheet.create({
 	shareControl: {
 		marginLeft: 'auto'
 	},
-	infoBlock: {},
 	info: {
 		fontFamily: 'Inter-Regular',
 		fontSize: 10,
@@ -234,7 +275,7 @@ const styles = StyleSheet.create({
 		margin: 9,
 		backgroundColor: '#adadad'
 	},
-	likesWrapper: {
+	activityWrapper: {
 		marginHorizontal: 8,
 		marginVertical: 8,
 		flexDirection: 'row',
@@ -244,13 +285,16 @@ const styles = StyleSheet.create({
 		position: 'relative',
 		marginLeft: -8
 	},
-	sumCount: {
+	activityTitle: {
 		marginLeft: 6,
 		fontFamily: 'Inter-Regular',
 		fontSize: 15,
 		lineHeight: 17,
 		letterSpacing: 0.4,
 		color: 'rgba(18, 39, 55, 0.7)'
+	},
+	activityTitleLeft: {
+		marginLeft: 'auto'
 	}
 });
 export default Post;

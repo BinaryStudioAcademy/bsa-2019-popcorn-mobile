@@ -48,7 +48,7 @@ export const reactPost = async (userId, type, postId) => {
 export const commentPost = async (userId, text, postId) => {
 	await callWebApi({
 		method: 'POST',
-		endpoint: '/api/post/comment',
+		endpoint: config.API_URL + '/api/post/comment',
 		body: {
 			userId,
 			text,
