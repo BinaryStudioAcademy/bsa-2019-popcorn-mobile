@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-	ActivityIndicator,
-	StyleSheet,
-	View,
-	Text,
-	TouchableOpacity,
-	Image
-} from 'react-native';
-import SvgUri from 'react-native-svg-uri';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -54,10 +46,7 @@ class Survey extends Component<IProps, IState> {
 								{data.title}
 							</Text>
 							{!!data.description && (
-								<Text
-									numberOfLines={3}
-									style={[styles.text, styles.description]}
-								>
+								<Text numberOfLines={3} style={[styles.text]}>
 									{data.description}
 								</Text>
 							)}
