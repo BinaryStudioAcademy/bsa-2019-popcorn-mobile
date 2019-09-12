@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import INewStory from '../INewStory';
 import IUser from '../../../UserPage/IUser';
 import IVoting from './IVoting';
+import constructorStyles from '../StoryModal/styles';
 
 interface IProps {
 	newStory: INewStory;
@@ -182,7 +183,7 @@ export default class Voting extends Component<IProps, IState> {
 						}}
 						style={styles.addOptionWrap}
 					>
-						<Icon name="plus" color={MATERIAL_LIGHT_GREY} size={30} />
+						<Icon name="plus" color="#ffffff" style={constructorStyles.shadow} size={30} />
 					</TouchableOpacity>
 				)}
 			</View>
@@ -192,7 +193,7 @@ export default class Voting extends Component<IProps, IState> {
 const styles = StyleSheet.create({
 	votingContainer: {
 		position: 'absolute',
-		paddingTop: 20
+		top: '30%'
 	},
 	voteTitle: {
 		fontFamily: 'Inter-Regular',
@@ -208,11 +209,15 @@ const styles = StyleSheet.create({
 		paddingTop: 2,
 		borderWidth: 3,
 		borderRadius: 40 / 2,
-		borderColor: MATERIAL_LIGHT_GREY,
+		borderColor: '#fff',
 		marginLeft: 'auto',
 		marginRight: 'auto',
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		shadowOpacity: 0.2,
+		shadowRadius: 1.5,
+		shadowOffset: { width: 0, height: 1 },
+		elevation: 2,
 	},
 	voteOption: {
 		width: '80%',

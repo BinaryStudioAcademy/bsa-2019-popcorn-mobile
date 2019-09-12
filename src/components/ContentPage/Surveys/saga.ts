@@ -29,19 +29,20 @@ export function* fetchSurveys() {
 			method: 'GET',
 			endpoint: config.API_URL + '/api/surveys'
 		});
+
 		if (data) {
 			setArrangementInSurveys(data);
 		}
-		if (data)
-			yield put({
-				type: SET_SURVEYS,
-				payload: {
-					surveys: data,
-					loading: false
-				}
-			});
+
+		yield put({
+			type: SET_SURVEYS,
+			payload: {
+				surveys: data,
+				loading: false
+			}
+		});
 	} catch (e) {
-		console.log('survey saga fetch surveys: ', e.message);
+		console.log('survey saga fetch surveys: ', e);
 	}
 }
 
