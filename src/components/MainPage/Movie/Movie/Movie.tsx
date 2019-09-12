@@ -107,6 +107,9 @@ class Movie extends Component<IMovieProps, IState> {
 			parsedCast = JSON.parse(movie.cast).map(actor => actor.name);
 		}
 		const { firstSection, secondSection, thirdSection } = this.state;
+		const director = movie.crew.find(item => item.department === 'Directing')
+			.name;
+		const writer = movie.crew.find(item => item.department === 'Writing').name;
 		return movie ? (
 			<View style={styles.movieWrapper}>
 				<View style={styles.movieImageWrapper}>
@@ -153,7 +156,7 @@ class Movie extends Component<IMovieProps, IState> {
 								</Text>
 							</View>
 							<View style={styles.leftDevide}>
-								<Text style={styles.basicInfoSubTitle}>{'Ridley Scott'}</Text>
+								<Text style={styles.basicInfoSubTitle}>{director}</Text>
 							</View>
 						</View>
 						<View style={styles.rateBlock}>
@@ -205,7 +208,7 @@ class Movie extends Component<IMovieProps, IState> {
 							<Text style={styles.movieOverview}>{movie.overview}</Text>
 							<Text style={styles.secondSectionInfo}>
 								<Text style={styles.bold}>Director: </Text>
-								{'Ridley Scott'}
+								{director}
 							</Text>
 							{!thirdSection ? (
 								<TouchableOpacity onPress={() => this.showThirdSection()}>
@@ -221,7 +224,7 @@ class Movie extends Component<IMovieProps, IState> {
 								<View>
 									<Text style={styles.secondSectionInfo}>
 										<Text style={styles.bold}>Writer: </Text>
-										{'Ridley Scott'}
+										{writer}
 									</Text>
 									<Text style={styles.secondSectionInfo} numberOfLines={1}>
 										<Text style={styles.bold}>Stars: </Text>
