@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet } from 'react-native';
 import IComment from './../IComment';
 import config from '../../../../config';
 
@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 		backgroundColor: 'rgba(0, 0, 0, 0.05)',
 		borderRadius: 10,
-		minWidth: 150
+		minWidth: 150,
+		maxWidth: 300
 	},
 	userName: {
 		fontFamily: 'Inter-Bold',
