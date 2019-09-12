@@ -339,7 +339,6 @@ const styles = StyleSheet.create({
 		left: 0,
 		right: 0,
 		bottom: 0,
-		top: '55%',
 		flex: 1,
 		marginTop: 'auto',
 		justifyContent: 'center',
@@ -393,14 +392,14 @@ const styles = StyleSheet.create({
 		lineHeight: 15,
 		letterSpacing: 0.4,
 		color: 'rgba(0, 0, 0, 0.5)',
-		marginBottom: 5
+		marginBottom: 5,
+		backgroundColor: '#FFFFFF'
 	},
 	thirdSectionInfoWrapper: {
 		position: 'absolute',
 		left: 0,
 		right: 0,
 		bottom: 0,
-		top: '45%',
 		flex: 1,
 		marginTop: 'auto',
 		justifyContent: 'center',
