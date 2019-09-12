@@ -8,6 +8,7 @@ interface IProps {
 	posts?: any;
 	getUsersPosts: () => any;
 	selectedProfileInfo: any;
+	navigation: any;
 }
 
 class UserPosts extends Component<IProps> {
@@ -16,11 +17,15 @@ class UserPosts extends Component<IProps> {
 	}
 	render() {
 		const { selectedProfileInfo } = this.props;
-		const { posts, getUsersPosts } = this.props;
+		const { posts, getUsersPosts, navigation } = this.props;
 		return (
 			<Fragment>
 				<View></View>
-				<PostComponent userId={selectedProfileInfo.id} />
+				<PostComponent
+					userId={selectedProfileInfo.id}
+					navigation={navigation}
+					prevScreen="UserPageMenu"
+				/>
 			</Fragment>
 		);
 	}

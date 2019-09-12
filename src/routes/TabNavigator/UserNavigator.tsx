@@ -29,7 +29,10 @@ const UserNavigator = createMaterialTopTabNavigator(
 			screen: Surveys
 		},
 		Posts: {
-			screen: UserPosts
+			screen: UserPosts,
+			navigationOptions: ({ navigation }) => ({
+				navigation
+			})
 		},
 		Lists: {
 			screen: Lists

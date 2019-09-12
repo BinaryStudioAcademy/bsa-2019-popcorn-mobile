@@ -94,7 +94,6 @@ class Main extends Component<IProps> {
 	}
 
 	render() {
-		console.log(this.props);
 		return (
 			<>
 				<Swiper loop={false} showsPagination={false} index={0}>

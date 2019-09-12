@@ -24,6 +24,7 @@ interface IPostProps {
 	userId: string;
 	deletePost: (postId: string) => any;
 	reactPost: (type: string, userId: string, postId: string) => any;
+	prevScreen: string;
 }
 
 interface IState {
@@ -193,6 +194,8 @@ class Post extends Component<IPostProps, IState> {
 								userId={userId}
 								postId={postId}
 								comments={comments || []}
+								navigation={this.props.navigation}
+								prevScreen={this.props.prevScreen}
 							/>
 						)}
 						<View style={styles.postControlsItem}>

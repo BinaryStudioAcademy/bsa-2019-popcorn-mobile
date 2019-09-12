@@ -116,7 +116,7 @@ export const Notifications_Navigator = createStackNavigator({
 	}
 });
 export const UserPage_StackNavigator = createStackNavigator({
-	Fourth: {
+	UserPageMenu: {
 		screen: UserProfileNavigation,
 		navigationOptions: ({ navigation }) => ({
 			header: Header

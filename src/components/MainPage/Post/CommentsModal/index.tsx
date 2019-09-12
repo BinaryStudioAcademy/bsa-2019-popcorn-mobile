@@ -23,18 +23,32 @@ interface IProps {
 	postId: string;
 	createComment: (userId: string, text: string, postId: string) => any;
 	toggleModal: () => void;
+	navigation: any;
+	prevScreen: string;
 }
 
 const CommentsModal = (props: IProps) => {
 	const [commentBody, setCommentBody] = useState('');
 
-	const renderComment = ({ item }) => <Comment comment={item} />;
+	const renderComment = ({ item }) => {
+		// props.navigation.navigate('UserPage');
+		// props.navigation.navigate('Profile');
+		return (
+			<Comment
+				comment={item}
+				navigation={props.navigation}
+				toggleModal={props.toggleModal}
+				prevScreen={props.prevScreen}
+			/>
+		);
+	};
 
 	const onPostPress = () => (
 		props.createComment(props.userId, commentBody, props.postId),
 		setCommentBody('')
 	);
-
+	// props.navigation.navigate('UserPage');
+	// props.navigation.navigate('Profile');
 	return (
 		<Modal
 			animationType={'fade'}
