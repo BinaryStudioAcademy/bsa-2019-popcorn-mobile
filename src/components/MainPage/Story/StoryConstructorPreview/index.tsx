@@ -28,77 +28,15 @@ interface IProps {
 	user: any;
 }
 
-const validateStory = ({ caption, newStory, data, voting, handleDisable }) => {
-	caption = caption === undefined ? newStory.caption : caption;
-	const { image_url, backgroundColor } = newStory;
-	if (
-		(caption && caption.match(/^(?!\s*$).*/) && image_url) ||
-		(caption && caption.match(/^(?!\s*$).*/) && backgroundColor) ||
-		(data && image_url) ||
-		voting
-	) {
-		handleDisable(false);
-	} else {
-		handleDisable(true);
-	}
-};
 
-const getDefaultImage = type => {
-	switch (type) {
-		case 'event':
-			return config.DEFAULT_EVENT_IMAGE;
-		case 'survey':
-			return config.DEFAULT_SURVEY_IMAGE;
-		case 'top':
-			return config.DEFAULT_TOP_IMAGE;
-		default:
-			return '';
-	}
-};
 const StoryList = (props: IProps) => {
-	const [showModal, onPress] = useState(false);
-	const [newStory, setNewStory] = useState<NewStory>({
-		newStory: newStoryDefault,
-		data: null
-	});
-	const [disabled, handleDisable] = useState<boolean>(false);
-
 	const { navigation } = props;
-	if (navigation.state.params) {
-		const { option, type } = navigation.state.params;
-		navigation.state.params = null;
-		if (!newStory.data || newStory.data.id !== option.id) {
-			let extraImage = getDefaultImage(type);
-			setNewStory({
-				newStory: {
-					...newStory.newStory,
-					image_url: option.image ? option.image : extraImage,
-					caption: ''
-				},
-				data: { option, type }
-			});
-		}
-	}
+
 	return (
-		<>
-			{showModal ? <View style={styles.fadeModal}></View> : null}
-			{showModal && (
-				<View style={styles.modal}>
-					<StoryModal
-						navigation={navigation}
-						newStory={newStory.newStory}
-						setNewStory={setNewStory}
-						data={newStory.data}
-						showModal={onPress}
-						handleDisable={handleDisable}
-						disabled={disabled}
-						validateStory={validateStory}
-					/>
-				</View>
-			)}
+		<>	
 			<TouchableOpacity
 				style={styles.wrapper}
-				onPress={() => onPress(!showModal)}
+				onPress={() => navigation.navigate('StoryConstructor')}
 			>
 				<View style={styles.constructorWrapper}>
 					<Image

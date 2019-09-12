@@ -15,6 +15,7 @@ import ControlledVertical from '../../components/MainPage/Story/StoryModal/Color
 import CollectionsNavigator from './CollectionNavigator';
 import ReviewPage from '../../components/ReviewPage/ReviewPage';
 import UserProfileNavigation from './UserProfileNavigator';
+import StoryModal from '../../components/MainPage/Story/StoryModal';
 
 export const FirstActivity_StackNavigator = createStackNavigator({
 	First: {
@@ -49,6 +50,12 @@ export const FirstActivity_StackNavigator = createStackNavigator({
 	},
 	ColorPicker: {
 		screen: ControlledVertical,
+		navigationOptions: {
+			header: null
+		}
+	},
+	StoryConstructor: {
+		screen: StoryModal,
 		navigationOptions: {
 			header: null
 		}

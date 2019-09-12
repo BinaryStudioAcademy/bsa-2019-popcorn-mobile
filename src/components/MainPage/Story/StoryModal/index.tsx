@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { TouchableOpacity, View, ScrollView } from 'react-native';
+import { TouchableOpacity, View, ScrollView, Keyboard } from 'react-native';
 import styles from './styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -8,42 +8,42 @@ import INewStory from '../INewStory';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
 import IUser from '../../../UserPage/IUser';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import DraggableText from './DraggableText';
 import Voting from '../Voting/Voting';
 import IVoting from '../Voting/IVoting';
 import ColorPicker from './ColorPicker';
 import Options, { ExtraButton, OpenButton } from './Options';
-const DEFAULT_BACKGROUND = '#dadada';
+const DEFAULT_BACKGROUND = '#C0C0C0';
+import config from './../../../../config';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 interface IProps {
 	sendStory: (newStory: INewStory) => any;
 	sendVoting: (any) => any;
 	newVoting: any;
 	profileInfo: IUser;
 	navigation: any;
-	newStory: INewStory;
-	setNewStory: ({ newStory, data }: { newStory: INewStory; data: any }) => void;
-	data: any;
-	showModal: (open: boolean) => any;
-	handleDisable: (boolean) => any;
-	disabled: boolean;
-	validateStory: (any) => any;
 	resetStory: (any) => any;
 }
 
 interface IState {
-	modalVisible: boolean;
 	loading: boolean;
 	showInput: boolean;
 	uploadWrapHeight: number;
 	uploadWrapWidth: number;
 	showVoting: boolean;
 	voting: IVoting | null;
+	newStory: INewStory;
+	disabled: boolean;
+	data: any;
+	isBackgroundVisible: boolean;
+	isKeyboardVisible: boolean
 }
 
 const newStoryDefault: INewStory = {
 	activityId: '',
-	backgroundColor: '#dadada',
+	backgroundColor: '#C0C0C0',
 	fontColor: '#000',
 	movieId: null,
 	movieOption: '',
@@ -56,55 +56,120 @@ const newStoryDefault: INewStory = {
 };
 class StoryModal extends Component<IProps, IState> {
 	updateState: (value: any, statePropery: any) => void;
+	keyboardDidShowListener: any;
+	keyboardDidHideListener: any;
 	constructor(props) {
 		super(props);
 		this.state = {
-			modalVisible: false,
 			loading: false,
 			showInput: false,
 			uploadWrapHeight: 0,
 			uploadWrapWidth: 0,
 			showVoting: false,
-			voting: null
+			voting: null,
+			newStory: newStoryDefault,
+			disabled: true,
+			data: null,
+			isBackgroundVisible: false,
+			isKeyboardVisible: false
 		};
 		this.updateState = this.handleUpdateState.bind(this);
 	}
 
+	getDefaultImage = type => {
+		switch (type) {
+			case 'event':
+				return config.DEFAULT_EVENT_IMAGE;
+			case 'survey':
+				return config.DEFAULT_SURVEY_IMAGE;
+			case 'top':
+				return config.DEFAULT_TOP_IMAGE;
+			default:
+				return '';
+		}
+	};
+
 	handleUpdateState(value, statePropery) {
-		this.setState(state => ({
+		this.setState(() => ({
 			[statePropery]: value
 		}));
 	}
 
+	handleDisable = (value: boolean) => {
+		this.setState({ disabled: value });
+	}
+
+	setNewStory = ({ newStory, data }) => {
+		this.setState({
+			newStory,
+			data
+		})
+	}
+
 	componentDidMount() {
-		this.props.validateStory({
-			newStory: this.props.newStory,
-			data: this.props.data,
+		this.validateStory({
+			caption: undefined,
+			newStory: this.state.newStory,
+			data: this.state.data,
 			voting: this.state.voting,
-			handleDisable: this.props.handleDisable
+			handleDisable: this.handleDisable
 		});
+		this.keyboardDidShowListener = Keyboard.addListener(
+			'keyboardDidShow',
+			this.keyboardDidShow.bind(this)
+		);
+		this.keyboardDidHideListener = Keyboard.addListener(
+			'keyboardDidHide',
+			this.keyboardDidHide.bind(this)
+		);
 	}
 
-	static getDerivedStateFromProps(props, state) {
-		return {
-			...state,
-			newStory: { ...props.newStory, image_url: props.newStory.image_url }
-		};
+	keyboardDidShow = () => {
+		this.setState({ isKeyboardVisible: true })
 	}
 
-	componentDidUpdate(prevProps) {
-		if (this.props.data !== prevProps.data) {
-			this.props.validateStory({
-				newStory: this.props.newStory,
-				data: this.props.data,
+	keyboardDidHide = () => {
+		this.setState({ isKeyboardVisible: false });
+	}
+
+	componentWillUnmount() {
+		this.keyboardDidShowListener.remove();
+		this.keyboardDidHideListener.remove();
+	}
+
+	validateStory = ({ caption, newStory, data, voting, handleDisable }) => {
+		caption = caption === undefined ? newStory.caption : caption;
+		const { image_url, backgroundColor } = newStory;
+		if (
+			(caption && caption.match(/^(?!\s*$).*/) && image_url) ||
+			(caption && caption.match(/^(?!\s*$).*/) && backgroundColor) ||
+			(data && image_url) ||
+			voting
+		) {
+			handleDisable(false);
+		} else {
+			handleDisable(true);
+		}
+	};
+
+	toogleBackgroundColor = () => {
+		this.setState({ isBackgroundVisible: !this.state.isBackgroundVisible });
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (this.state.data !== prevState.data) {
+			this.validateStory({
+				caption: undefined,
+				newStory: this.state.newStory,
+				data: this.state.data,
 				voting: this.state.voting,
-				handleDisable: this.props.handleDisable
+				handleDisable: this.handleDisable
 			});
 		}
 	}
+
 	onSave() {
-		const { data, newStory } = this.props;
-		const { voting } = this.state;
+		const { voting, data, newStory } = this.state;
 		if (voting) {
 			this.props.sendVoting({
 				voting,
@@ -113,32 +178,34 @@ class StoryModal extends Component<IProps, IState> {
 			});
 		} else {
 			this.props.sendStory({
-				...this.props.newStory,
-				caption: data ? '' : this.props.newStory.caption,
+				...this.state.newStory,
+				caption: data ? '' : this.state.newStory.caption,
 				activity: data ? { id: data.option.id, name: data.option.title } : null,
 				activityId: data ? data.option.id : '',
 				type: data ? data.type : '',
 				userId: this.props.profileInfo.id
 			});
 		}
-		this.props.setNewStory({ newStory: newStoryDefault, data: null });
-		this.props.showModal(false);
+		this.setNewStory({ newStory: newStoryDefault, data: null });
+		this.props.navigation.navigate('First');
 	}
 	renderColorPicker = paletteType => {
 		return (
 			<ColorPicker
-				setNewStory={this.props.setNewStory}
-				newStory={this.props.newStory}
-				data={this.props.data}
+				toogleBackgroundColor={this.toogleBackgroundColor}
+				setNewStory={this.setNewStory}
+				newStory={this.state.newStory}
+				data={this.state.data}
 				paletteType={paletteType}
+				isVisible={this.state.isBackgroundVisible}
 			/>
 		);
 	};
 
 	clearExtra = () => {
-		this.props.setNewStory({
+		this.setNewStory({
 			newStory: {
-				...this.props.newStory,
+				...this.state.newStory,
 				image_url: '',
 				caption: '',
 				backgroundColor: DEFAULT_BACKGROUND
@@ -159,15 +226,15 @@ class StoryModal extends Component<IProps, IState> {
 					/>
 				))}
 				<OpenButton
-					newStory={this.props.newStory}
-					handleDisable={this.props.handleDisable}
+					newStory={this.state.newStory}
+					handleDisable={this.handleDisable}
 					handleUpdateState={this.updateState}
 					voting={this.state.voting}
 					clearExtra={() => {
 						this.clearExtra();
 					}}
-					validateStory={this.props.validateStory}
-					data={this.props.data}
+					validateStory={this.validateStory}
+					data={this.state.data}
 					showVoting={this.state.showVoting}
 				/>
 			</Fragment>
@@ -175,49 +242,30 @@ class StoryModal extends Component<IProps, IState> {
 	};
 
 	render() {
-		if (this.state.loading) return <Spinner />;
-		const { image_url, caption, backgroundColor } = this.props.newStory;
-		const { option, type } = this.props.data || { option: null, type: null };
 		const { navigation, profileInfo } = this.props;
+		const { newStory, data } = this.state;
+		if (this.state.loading) return <Spinner />;
+		if (navigation.state.params) {
+			const { option, type } = navigation.state.params;
+			navigation.state.params = null;
+			if (!data || data.id !== option.id) {
+				let extraImage = this.getDefaultImage(type);
+				this.setNewStory({
+					newStory: {
+						...newStory,
+						image_url: option.image ? option.image : extraImage,
+						caption: ''
+					},
+					data: { option, type }
+				});
+			}
+		}
+		const { image_url, caption, backgroundColor } = this.state.newStory;
+		const { option, type } = this.state.data || { option: null, type: null };
 		return (
-			<Fragment>
-				<View style={styles.btnNavigate}>
-					<TouchableOpacity onPress={() => this.props.showModal(false)}>
-						<Icon name="arrow-circle-o-left" color={'#fff'} size={50} />
-					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={() => {
-							this.onSave();
-						}}
-						disabled={this.props.disabled}
-					>
-						<Icon
-							name="check-circle-o"
-							color={this.props.disabled ? '#555' : '#fff'}
-							size={50}
-						/>
-					</TouchableOpacity>
-				</View>
+			<View style={{ height: '100%' }}>
 				<View style={styles.mainView}>
-					<View style={styles.iconsWrp}>
-						<Options
-							newStory={this.props.newStory}
-							handleDisable={this.props.handleDisable}
-							handleUpdateState={this.updateState}
-							voting={this.state.voting}
-							clearExtra={() => {
-								this.clearExtra();
-							}}
-							setNewStory={this.props.setNewStory}
-							validateStory={this.props.validateStory}
-							data={this.props.data}
-							showInput={this.state.showInput}
-						/>
-						{this.renderExtraOptions()}
-					</View>
 					<View style={styles.imageEditWrap}>
-						{this.renderColorPicker('backgroundColor')}
-
 						<View
 							onLayout={event => {
 								var { width, height } = event.nativeEvent.layout;
@@ -233,31 +281,55 @@ class StoryModal extends Component<IProps, IState> {
 								}
 							]}
 						>
+							<View style={styles.iconsWrp}>
+								<TouchableOpacity onPress={() => navigation.navigate('First')}>
+									<MaterialCommunityIcons 
+										name="close" 
+										style={[styles.shadow, { marginLeft: 7.5, marginRight: 50 } ]} 
+										color={'#fff'} 
+										size={30}
+									 />
+								</TouchableOpacity>
+								<Options
+									newStory={this.state.newStory}
+									handleDisable={this.handleDisable}
+									handleUpdateState={this.updateState}
+									voting={this.state.voting}
+									clearExtra={() => {
+										this.clearExtra();
+									}}
+									setNewStory={this.setNewStory}
+									validateStory={this.validateStory}
+									data={this.state.data}
+									showInput={this.state.showInput}
+								/>
+								{this.renderExtraOptions()}
+							</View>
 							{this.state.showVoting ? (
 								<Voting
-									newStory={this.props.newStory}
+									newStory={this.state.newStory}
 									areaWidth={this.state.uploadWrapWidth}
 									areaHeight={this.state.uploadWrapHeight}
 									profileInfo={this.props.profileInfo}
 									updateState={this.updateState}
-									data={this.props.data}
-									handleDisable={this.props.handleDisable}
+									data={this.state.data}
+									handleDisable={this.handleDisable}
 									voting={this.state.voting}
-									validate={this.props.validateStory}
-									validateStory={this.props.validateStory}
+									validate={this.validateStory}
+									validateStory={this.validateStory}
 								/>
 							) : null}
 							{!this.state.showVoting &&
 							(this.state.showInput || caption || image_url) ? (
 								<DraggableText
 									updateState={this.updateState}
-									setNewStory={this.props.setNewStory}
-									validateStory={this.props.validateStory}
-									data={this.props.data}
-									handleDisable={this.props.handleDisable}
-									validate={this.props.validateStory}
+									setNewStory={this.setNewStory}
+									validateStory={this.validateStory}
+									data={this.state.data}
+									handleDisable={this.handleDisable}
+									validate={this.validateStory}
 									voting={this.state.voting}
-									newStory={this.props.newStory}
+									newStory={this.state.newStory}
 									caption={caption ? caption : ''}
 									backgroundColor={backgroundColor}
 									areaWidth={this.state.uploadWrapWidth}
@@ -267,25 +339,48 @@ class StoryModal extends Component<IProps, IState> {
 									isExtra={type ? true : false}
 								/>
 							) : null}
+							{type ? (
+								<ScrollView contentContainerStyle={styles.renderExtraWrap}>
+									<Extra
+										user={profileInfo}
+										type={type}
+										data={option}
+										navigation={navigation}
+										clearExtra={() => {
+											this.clearExtra();
+										}}
+									/>
+								</ScrollView>
+							) : null}
+							{
+								!this.state.isKeyboardVisible &&
+								this.renderColorPicker('backgroundColor')
+							}
+							{
+								!this.state.isKeyboardVisible &&
+								<TouchableOpacity
+									onPress={() => {
+										this.onSave();
+									}}
+									disabled={this.state.disabled}
+									style={{ position: 'absolute', bottom: 15, right: 15, zIndex: 14 }}
+								>
+									<FontAwesome
+										name="send"
+										color={this.state.disabled ? '#555' : '#fff'}
+										style={styles.shadow}
+										size={25}
+									/>
+								</TouchableOpacity>
+							}
+							{
+								this.state.isKeyboardVisible &&
+								this.renderColorPicker('fontColor')
+							}
 						</View>
-						{this.renderColorPicker('fontColor')}
 					</View>
-
-					{type ? (
-						<ScrollView contentContainerStyle={styles.renderExtraWrap}>
-							<Extra
-								user={profileInfo}
-								type={type}
-								data={option}
-								navigation={navigation}
-								clearExtra={() => {
-									this.clearExtra();
-								}}
-							/>
-						</ScrollView>
-					) : null}
 				</View>
-			</Fragment>
+			</View>
 		);
 	}
 }
