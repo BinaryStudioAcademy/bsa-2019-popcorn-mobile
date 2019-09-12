@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import PostComponent from './../components/MainPage/Post/';
 import StoryComponent from './../components/MainPage/Story/';
