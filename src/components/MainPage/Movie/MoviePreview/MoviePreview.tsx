@@ -66,7 +66,6 @@ class MoviePreview extends Component<IMovieProps> {
 								: config.DEFAULT_MOVIE_IMAGE
 						}}
 						style={styles.movieImage}
-						resizeMode="contain"
 					>
 						<View style={styles.controlsWrapper}>
 							{status && (
@@ -136,18 +135,22 @@ class MoviePreview extends Component<IMovieProps> {
 const styles = StyleSheet.create({
 	movieWrapper: {
 		flex: 1,
+		paddingLeft: 15,
+		paddingRight: 15,
 		flexDirection: 'row',
 		marginVertical: 10,
 		backgroundColor: '#FFFFFF'
 	},
 	movieImage: {
 		height: 200,
-		width: 160
+		width: 150,
+		marginRight: 15
 	},
 	header: {
 		marginVertical: 10,
 		flexDirection: 'row',
-		flexWrap: 'wrap'
+		flexWrap: 'wrap',
+		justifyContent: 'space-between'
 	},
 	durationIcon: {
 		height: 20,
@@ -155,6 +158,7 @@ const styles = StyleSheet.create({
 		marginRight: 9
 	},
 	movieInfoBlock: {
+		flex: 1,
 		marginVertical: 5,
 		width: '70%'
 	},
@@ -165,7 +169,8 @@ const styles = StyleSheet.create({
 		lineHeight: 15,
 		letterSpacing: 0.4,
 		color: 'rgb(18, 39, 55)',
-		marginRight: 10
+		justifyContent: 'flex-end',
+		textAlign: 'right'
 	},
 	movieTitle: {
 		flex: 2,
