@@ -14,7 +14,9 @@ import {
 	Dimensions
 } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
+import { getIcon } from './../../../../services/postReaction.service';
 import { captionFont } from '../StoryModal/styles';
+import * as CrossIcon from './../../../../assets/general/x.svg';
 const { StatusBarManager } = NativeModules;
 const window_width = Dimensions.get('window').width;
 const window_height = Dimensions.get('window').height;
@@ -67,43 +69,35 @@ interface IStoryListItemProps {
 const reactions = [
 	{
 		id: 1,
-		reactionType: 'like',
-		value: '🤣'
+		reactionType: 'like'
 	},
 	{
 		id: 2,
-		reactionType: 'dislike',
-		value: '🔥'
+		reactionType: 'dislike'
 	},
 	{
 		id: 3,
-		reactionType: 'popcorn',
-		value: '👏🏻'
+		reactionType: 'popcorn'
 	},
 	{
 		id: 4,
-		reactionType: 'haha',
-		value: '🤩'
+		reactionType: 'haha'
 	},
 	{
 		id: 5,
-		reactionType: 'wow',
-		value: '😢'
+		reactionType: 'wow'
 	},
 	{
 		id: 6,
-		reactionType: 'sad',
-		value: '😳'
+		reactionType: 'sad'
 	},
 	{
 		id: 7,
-		reactionType: 'angry',
-		value: '😡'
+		reactionType: 'angry'
 	},
 	{
 		id: 8,
-		reactionType: 'fire',
-		value: '🥳'
+		reactionType: 'fire'
 	}
 ];
 interface IState {
@@ -118,82 +112,10 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 		};
 	}
 
-	getIcon(reactionType) {
-		switch (reactionType) {
-			case 'like':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/like.svg`)}
-					/>
-				);
-			case 'dislike':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/dislike.svg`)}
-					/>
-				);
-			case 'popcorn':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/popcorn.svg`)}
-					/>
-				);
-			case 'haha':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/haha.svg`)}
-					/>
-				);
-			case 'wow':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/wow.svg`)}
-					/>
-				);
-			case 'sad':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/sad.svg`)}
-					/>
-				);
-			case 'angry':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/angry.svg`)}
-					/>
-				);
-			case 'fire':
-				return (
-					<SvgUri
-						height={45}
-						width={45}
-						source={require(`./../../../../assets/reactions/fire.svg`)}
-					/>
-				);
-		}
-	}
 	renderControls(navigation) {
 		return (
 			<TouchableOpacity onPress={() => navigation.goBack()}>
-				<SvgUri
-					width={30}
-					height={30}
-					source={require('./../../../../assets/general/x.svg')}
-				/>
+				<SvgUri width={30} height={30} svgXmlData={CrossIcon} />
 			</TouchableOpacity>
 		);
 	}
@@ -203,7 +125,7 @@ class StoryListItem extends Component<IStoryListItemProps, IState> {
 				onPress={() => this.sendReactionMessage(item.reactionType)}
 			>
 				<View style={styles.reactionWrapper}>
-					{this.getIcon(item.reactionType)}
+					{getIcon(item.reactionType, 45)}
 				</View>
 			</TouchableOpacity>
 		);

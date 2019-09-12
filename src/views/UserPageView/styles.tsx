@@ -67,8 +67,8 @@ export const styles = StyleSheet.create({
 	},
 	profileImg: {
 		flex: 0.3,
-		width: 48,
-		height: 48,
+		width: 43,
+		height: 43,
 		marginRight: 10
 	},
 	userPersonal: {

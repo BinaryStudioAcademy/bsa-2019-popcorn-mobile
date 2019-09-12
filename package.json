@@ -67,6 +67,7 @@
 		"@types/react-native": "^0.60.6",
 		"@types/react-test-renderer": "^16.9.0",
 		"babel-jest": "^24.9.0",
+		"babel-plugin-inline-import": "^3.0.0",
 		"eslint": "^6.1.0",
 		"husky": "^3.0.4",
 		"jest": "^24.9.0",

@@ -10,6 +10,7 @@ import SvgUri from 'react-native-svg-uri';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { register } from '../../redux/routines';
+import * as ArrowIcon from '../../assets/general/arrow.svg';
 
 interface IRegister {
 	email: string;
@@ -204,7 +205,7 @@ class Signup extends Component<IProps, IState> {
 					</Text>
 					<TouchableOpacity onPress={this.onLogin} style={styles.linkContainer}>
 						<Text style={[styles.text, styles.link]}>Login </Text>
-						<SvgUri source={require('../../assets/general/arrow.svg')} />
+						<SvgUri svgXmlData={ArrowIcon} />
 					</TouchableOpacity>
 				</View>
 			</View>
