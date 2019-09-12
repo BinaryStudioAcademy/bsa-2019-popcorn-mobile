@@ -17,9 +17,7 @@ import Spinner from '../Spinner/Spinner';
 import styles from './styles';
 import SvgUri from 'react-native-svg-uri';
 import config from '../../config';
-import collections from './saga';
-
-const camera = require('../../assets/general/camera.svg');
+import * as CameraIcon from '../../assets/general/camera.svg';
 
 interface IProps {
 	navigation: any;
@@ -161,12 +159,7 @@ class Collection extends Component<IProps, IState> {
 							});
 						}}
 					>
-						<SvgUri
-							style={styles.imageUploader}
-							width={50}
-							height={50}
-							source={camera}
-						/>
+						<SvgUri width={50} height={50} svgXmlData={CameraIcon} />
 					</ImageUploader>
 					{!!imageUrl && (
 						<View style={styles.UploadWrp}>

@@ -6,8 +6,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getReviewsByMovieId, setReviewReaction } from '../../redux/routines';
 import SvgUri from 'react-native-svg-uri';
-import { Left } from 'native-base';
-
+import * as LikeIcon from '../../assets/general/like.svg';
+import * as DislikeIcon from '../../assets/general/dislike.svg';
+import * as RightArrowIcon from '../../assets/general/right-arrow.svg';
 interface IProps {
 	movieId: string;
 }
@@ -73,12 +74,7 @@ class ReviewItem extends Component<IProps, IState> {
 							style={styles.reviewIcon}
 							onPress={() => this.sendReactionToAction(true)}
 						>
-							<SvgUri
-								style={styles.item}
-								height={12}
-								width={12}
-								source={require('../../assets/general/like.svg')}
-							/>
+							<SvgUri height={12} width={12} svgXmlData={LikeIcon} />
 
 							<Text>{reaction.countLikes}</Text>
 						</TouchableOpacity>
@@ -86,12 +82,7 @@ class ReviewItem extends Component<IProps, IState> {
 							style={styles.reviewIcon}
 							onPress={() => this.sendReactionToAction(false)}
 						>
-							<SvgUri
-								style={styles.item}
-								height={12}
-								width={12}
-								source={require('../../assets/general/dislike.svg')}
-							/>
+							<SvgUri height={12} width={12} svgXmlData={DislikeIcon} />
 							<Text>{reaction.countDislikes}</Text>
 						</TouchableOpacity>
 					</View>
@@ -112,12 +103,7 @@ class ReviewItem extends Component<IProps, IState> {
 							onPress={() => this.showMore()}
 						>
 							<Text>{this.state.full ? 'Hide' : 'Read more...'}</Text>
-							<SvgUri
-								style={styles.item}
-								height={10}
-								width={10}
-								source={require('../../assets/general/right-arrow.svg')}
-							/>
+							<SvgUri height={10} width={10} svgXmlData={RightArrowIcon} />
 						</TouchableOpacity>
 					) : null}
 				</View>

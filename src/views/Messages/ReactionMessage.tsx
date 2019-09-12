@@ -1,89 +1,11 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
-import SvgUri from 'react-native-svg-uri';
-// import { ReactComponent as LikeIcon } from '../../assets/reactions/like.svg';
-// import { ReactComponent as DislikeIcon } from '../../../../../../assets/icons/reactions/dislike.svg';
-// import { ReactComponent as PopcornIcon } from '../../../../../../assets/icons/reactions/popcorn.svg';
-// import { ReactComponent as AngryIcon } from '../../../../../../assets/icons/reactions/angry.svg';
-// import { ReactComponent as HahaIcon } from '../../../../../../assets/icons/reactions/haha.svg';
-// import { ReactComponent as WowIcon } from '../../../../../../assets/icons/reactions/wow.svg';
-// import { ReactComponent as SadIcon } from '../../../../../../assets/icons/reactions/sad.svg';
-// import { ReactComponent as FireIcon } from '../../../../../../assets/icons/reactions/fire.svg';
+import { getIcon } from './../../services/postReaction.service';
 
 interface IProps {
 	message: any;
 	isOwn: boolean;
 }
-const getEmoji = reactionType => {
-	switch (reactionType) {
-		case 'haha':
-			return (
-				<SvgUri
-					height={73}
-					width={70}
-					source={require('../../assets/reactions/haha.svg')}
-				/>
-			);
-		case 'fire':
-			return (
-				<SvgUri
-					height={73}
-					width={70}
-					source={require('../../assets/reactions/fire.svg')}
-				/>
-			);
-		case 'dislike':
-			return (
-				<SvgUri
-					height={73}
-					width={70}
-					source={require('../../assets/reactions/dislike.svg')}
-				/>
-			);
-		case 'popcorn':
-			return (
-				<SvgUri
-					height={73}
-					width={70}
-					source={require('../../assets/reactions/popcorn.svg')}
-				/>
-			);
-		case 'angry':
-			return (
-				<SvgUri
-					height={73}
-					width={70}
-					source={require('../../assets/reactions/angry.svg')}
-				/>
-			);
-		case 'wow':
-			return (
-				<SvgUri
-					height={73}
-					width={70}
-					source={require('../../assets/reactions/wow.svg')}
-				/>
-			);
-		case 'like':
-			return (
-				<SvgUri
-					height={73}
-					width={70}
-					source={require('../../assets/reactions/like.svg')}
-				/>
-			);
-		case 'sad':
-			return (
-				<SvgUri
-					height={73}
-					width={70}
-					source={require('../../assets/reactions/sad.svg')}
-				/>
-			);
-		default:
-			break;
-	}
-};
 
 export const ReactionMessage: React.FC<IProps> = ({ message, isOwn }) => {
 	const { reactionType, story, body } = message;
@@ -124,7 +46,7 @@ export const ReactionMessage: React.FC<IProps> = ({ message, isOwn }) => {
 				</View>
 				{reactionType && (
 					<View style={!isOwn ? styles.reactionEmoji : styles.ownReactionEmoji}>
-						{getEmoji(reactionType)}
+						{getIcon(reactionType, 70, 73)}
 					</View>
 				)}
 			</View>

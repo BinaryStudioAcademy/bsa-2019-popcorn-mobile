@@ -19,9 +19,9 @@ import ImageUploader from '../../../ImageUploader';
 import config from '../../../../config';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-const poll = require('../../../../assets/general/Poll-01.svg');
-const cup = require('../../../../assets/general/trophy.svg');
-const calendar = require('../../../../assets/general/calendar.svg');
+import * as PollIcon from '../../../../assets/general/Poll-01.svg';
+import * as CupIcon from '../../../../assets/general/trophy.svg';
+import * as CalendarIcon from '../../../../assets/general/calendar.svg';
 const uuid = require('uuid/v4');
 
 interface IProps {
@@ -203,7 +203,12 @@ class PostConstructor extends Component<IProps, IState> {
 									})
 								}
 							>
-								<SvgUri fill={'#555'} width={40} height={40} source={poll} />
+								<SvgUri
+									fill={'#555'}
+									width={40}
+									height={40}
+									svgXmlData={PollIcon}
+								/>
 								<Text style={styles.colorTextActivity}>Survey</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
@@ -215,7 +220,12 @@ class PostConstructor extends Component<IProps, IState> {
 									})
 								}
 							>
-								<SvgUri fill={'#555'} width={40} height={40} source={cup} />
+								<SvgUri
+									fill={'#555'}
+									width={40}
+									height={40}
+									svgXmlData={CupIcon}
+								/>
 								<Text style={styles.colorTextActivity}>Top</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
@@ -231,7 +241,7 @@ class PostConstructor extends Component<IProps, IState> {
 									fill={'#555'}
 									width={40}
 									height={40}
-									source={calendar}
+									svgXmlData={CalendarIcon}
 								/>
 								<Text style={styles.colorTextActivity}>Event</Text>
 							</TouchableOpacity>

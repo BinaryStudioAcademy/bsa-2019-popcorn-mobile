@@ -16,7 +16,9 @@ import ReactionsModal from './../Reactions';
 import { getIcon } from './../../../../services/postReaction.service';
 import CommentsModal from './../CommentsModal';
 import Moment from 'moment';
-
+import * as SettingsIcon from './../../../../assets/general/settings.svg';
+import * as LikeIcon from './../../../../assets/general/likeIcon.svg';
+import * as CommentIcon from './../../../../assets/general/commentIcon.svg';
 interface IPostProps {
 	post: IPost;
 	navigation: any;
@@ -78,12 +80,18 @@ class Post extends Component<IPostProps, IState> {
 			.reduce((acc, val) => acc + val, 0);
 	}
 
+	parseDescription(description) {
+		const arr = description.split('@');
+		const res = arr.map(str => str.replace(/(.+)\{(.+)\}/, '$2'));
+		return res.join('');
+	}
+
 	getActivityBlock(reactions, comments) {
 		return (
 			<View style={styles.activityWrapper}>
 				{reactions.map((item, i) => (
 					<View style={i !== 0 && styles.reactionWrapper}>
-						{getIcon(item.type, 20)}
+						{getIcon(item.type, 23)}
 					</View>
 				))}
 				{reactions && !!reactions.length && (
@@ -145,11 +153,7 @@ class Post extends Component<IPostProps, IState> {
 							{isCreator && (
 								<View style={styles.headerControl}>
 									<TouchableOpacity onPress={() => this.toggleSettingsModal()}>
-										<SvgUri
-											height={5}
-											width={20}
-											source={require('./../../../../assets/general/settings.svg')}
-										/>
+										<SvgUri height={5} width={20} svgXmlData={SettingsIcon} />
 									</TouchableOpacity>
 								</View>
 							)}
@@ -165,7 +169,7 @@ class Post extends Component<IPostProps, IState> {
 						</View>
 					)}
 					<View style={styles.postBody}>
-						<Text>{description}</Text>
+						<Text>{this.parseDescription(description)}</Text>
 					</View>
 					{(reactions || comments) &&
 						this.getActivityBlock(reactions, comments)}
@@ -180,11 +184,7 @@ class Post extends Component<IPostProps, IState> {
 								/>
 							)}
 							<TouchableOpacity onPress={() => this.toggleReactionsModal()}>
-								<SvgUri
-									height={22}
-									width={22}
-									source={require('./../../../../assets/general/likeIcon.svg')}
-								/>
+								<SvgUri height={22} width={22} svgXmlData={LikeIcon} />
 							</TouchableOpacity>
 						</View>
 						{showCommentsModal && (
@@ -197,11 +197,7 @@ class Post extends Component<IPostProps, IState> {
 						)}
 						<View style={styles.postControlsItem}>
 							<TouchableOpacity onPress={() => this.toggleCommentsModal()}>
-								<SvgUri
-									height={22}
-									width={22}
-									source={require('./../../../../assets/general/commentIcon.svg')}
-								/>
+								<SvgUri height={22} width={22} svgXmlData={CommentIcon} />
 							</TouchableOpacity>
 						</View>
 					</View>
@@ -283,7 +279,7 @@ const styles = StyleSheet.create({
 	},
 	reactionWrapper: {
 		position: 'relative',
-		marginLeft: -8
+		marginLeft: -6
 	},
 	activityTitle: {
 		marginLeft: 6,
