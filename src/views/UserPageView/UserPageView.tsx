@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import UserPage from './UserPage'; //Tried Animated React Native
+import UserPage from './UserPage';
 import Spinner from '../../components/Spinner/Spinner';
-import { View } from 'react-native';
 import {
 	fetchUserById,
 	clearUserInfo,
@@ -38,7 +37,6 @@ class UserPageView extends Component<IProps> {
 			const params = this.props.navigation
 				.dangerouslyGetParent()
 				.dangerouslyGetParent().state.params;
-
 			if (!params) id = currentUser.id;
 			else id = params.userId;
 			if (selectedProfileInfo.id !== id) {

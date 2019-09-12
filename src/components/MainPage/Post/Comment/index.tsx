@@ -1,23 +1,59 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import IComment from './../IComment';
 import config from '../../../../config';
+import NavigationService from '../../../../services/navigation.service';
+import { StackActions, NavigationActions } from 'react-navigation';
 
 interface IProps {
 	comment: IComment;
+	navigation: any;
+	toggleModal: () => void;
+	prevScreen: string;
 }
 
 const Comment = (props: IProps) => {
 	const {
 		text,
-		user: { avatar, name }
+		user: { avatar, name },
+		user
 	} = props.comment;
+	const { prevScreen } = props;
 	return (
 		<View style={styles.comment}>
-			<Image
-				style={styles.userAvatar}
-				source={{ uri: avatar || config.DEFAULT_AVATAR }}
-			/>
+			<TouchableOpacity
+				onPress={() => {
+					props.toggleModal();
+					const resetAction = StackActions.reset({
+						index: 0,
+						key: null,
+						actions: [NavigationActions.navigate({ routeName: prevScreen })]
+					});
+					props.navigation.dispatch(resetAction);
+
+					props.navigation.navigate({
+						routeName: 'UserPage',
+						params: {
+							userId: user.id,
+							name: 'UserPage'
+						},
+						key: 'UserPage' + Math.random() * 10000
+					});
+					props.navigation.navigate({
+						routeName: 'Profile',
+						params: {
+							userId: user.id,
+							name: 'UserPage'
+						},
+						key: Math.random() * 10000
+					});
+				}}
+			>
+				<Image
+					style={styles.userAvatar}
+					source={{ uri: avatar || config.DEFAULT_AVATAR }}
+				/>
+			</TouchableOpacity>
 			<View style={styles.commentBody}>
 				<Text style={styles.userName}>{name}</Text>
 				<Text style={styles.commentText}>{text}</Text>

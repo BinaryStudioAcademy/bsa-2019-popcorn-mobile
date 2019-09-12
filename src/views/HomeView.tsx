@@ -18,7 +18,7 @@ const HomeView = ({ navigation }) => {
 				)}
 			>
 				<View style={{ flex: 1 }}>
-					<PostComponent navigation={navigation} />
+					<PostComponent navigation={navigation} prevScreen="First" />
 				</View>
 			</ParallaxScrollView>
 		</View>

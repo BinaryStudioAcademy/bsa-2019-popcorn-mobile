@@ -85,7 +85,10 @@ class Messages extends React.Component<IProps, IState> {
 		}
 		return (
 			<View style={styles.container}>
-				<Partner user={this.props.chat.user} />
+				<Partner
+					user={this.props.chat.user}
+					navigation={this.props.navigation}
+				/>
 				<View style={styles.messagesContainer}>
 					<ScrollView
 						ref="scrollView"

@@ -30,6 +30,7 @@ interface IProps {
 	createReaction: (type: string, userId: string, postId: string) => any;
 	addNewReaction: (reactions: IReaction[], postId: string) => any;
 	addNewComment: (comment: IComment) => any;
+	prevScreen: string;
 }
 
 class PostComponent extends React.Component<IProps> {
@@ -55,7 +56,8 @@ class PostComponent extends React.Component<IProps> {
 	};
 
 	renderPost({ item }) {
-		const { currUserId, deletePost, createReaction } = this.props;
+		const { currUserId, deletePost, createReaction, prevScreen } = this.props;
+
 		return (
 			<Post
 				post={item}
@@ -64,6 +66,7 @@ class PostComponent extends React.Component<IProps> {
 				userId={currUserId}
 				deletePost={deletePost}
 				reactPost={createReaction}
+				prevScreen={prevScreen}
 			/>
 		);
 	}
