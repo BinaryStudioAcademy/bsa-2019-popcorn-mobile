@@ -1,4 +1,4 @@
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet, Alert } from 'react-native';
 import React from 'react';
 import StoryPreview from './../StoryPreview/StoryPreview';
 import ConstructorPreview from './../StoryConstructorPreview';
@@ -40,13 +40,8 @@ interface IProps {
 
 const StoryList = (props: IProps) => {
 	const renderStory = ({ item, index }, navigation) => {
-		const {
-			image_url,
-			backgroundColor,
-			fontColor,
-			user: { avatar },
-			caption
-		} = item;
+		const { image_url, backgroundColor, fontColor, caption } = item;
+		const avatar = item.user.avatar;
 		return (
 			<StoryPreview
 				imageUrl={image_url}
