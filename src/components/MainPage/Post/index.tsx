@@ -72,11 +72,6 @@ class PostComponent extends React.Component<IProps> {
 	}
 
 	render() {
-		console.log('\n[Post].props.prevscreen', this.props.prevScreen);
-		console.log(
-			'\n[POST]this.props.navigation.state.routeName',
-			this.props.navigation.state.routeName
-		);
 		const { posts, userId } = this.props;
 		if (posts) {
 			const showPosts = userId

@@ -18,11 +18,6 @@ const Comment = (props: IProps) => {
 		user: { avatar, name },
 		user
 	} = props.comment;
-	console.log('\n[Comment]props.prevScreen', props.prevScreen);
-	console.log(
-		'\n[COMMENT] this.props.navigation.state.routeName',
-		props.navigation.state.routeName
-	);
 	const { prevScreen } = props;
 	return (
 		<View style={styles.comment}>
