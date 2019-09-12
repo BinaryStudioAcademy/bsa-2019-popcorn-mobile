@@ -54,6 +54,8 @@ interface IProps {
 	isPreview?: boolean;
 	currentUserId: string;
 	postAnswers: (any) => any;
+	loading: boolean;
+	navigation: any;
 }
 
 interface IState {
@@ -171,11 +173,13 @@ class SurveyPage extends React.Component<IProps, IState> {
 	render() {
 		if (this.props.loading) return <Spinner />;
 
-		const { surveyInfo, navigation, profileInfo } = this.props;
+		const { surveyInfo } = this.props;
+
+		if (!surveyInfo) return <Spinner />;
+
 		const {
 			user,
 			created_at,
-			participants,
 			title,
 			image,
 			description,
