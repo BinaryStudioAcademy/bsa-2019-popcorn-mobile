@@ -1,9 +1,6 @@
 import React from 'react';
 import { createAppContainer, createDrawerNavigator } from 'react-navigation';
 import {
-	Event_StackNavigator,
-	Survey_StackNavigator,
-	Top_StackNavigator,
 	Collections_StackNavigator,
 	Movies_StackNavigator,
 	Notifications_Navigator,
@@ -39,28 +36,6 @@ const HomeNavigator = createDrawerNavigator(
 				navigation
 			})
 		},
-
-		Events: {
-			screen: Event_StackNavigator,
-			navigationOptions: {
-				drawerLabel: 'Events'
-			}
-		},
-
-		Tops: {
-			screen: Top_StackNavigator,
-			navigationOptions: {
-				drawerLabel: 'Tops'
-			}
-		},
-
-		Surveys: {
-			screen: Survey_StackNavigator,
-			navigationOptions: {
-				drawerLabel: 'Surveys'
-			}
-		},
-
 		Collections: {
 			screen: Collections_StackNavigator,
 			navigationOptions: {
@@ -76,7 +51,8 @@ const HomeNavigator = createDrawerNavigator(
 		Story: {
 			screen: StoryComponent,
 			navigationOptions: {
-				header: null
+				header: null,
+				drawerLabel: () => null
 			}
 		},
 
@@ -90,7 +66,7 @@ const HomeNavigator = createDrawerNavigator(
 		PostConstructor: {
 			screen: PostConstructorNavigator,
 			navigationOptions: {
-				drawerLabel: 'Create post'
+				drawerLabel: () => null
 			}
 		},
 
