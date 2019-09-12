@@ -32,13 +32,20 @@ import { ReactionMessage } from './ReactionMessage';
 
 interface IState {
 	scrolling: boolean;
+	isKeyboardVisible: boolean;
 }
 class Messages extends React.Component<IProps, IState> {
 	constructor(props) {
 		super(props);
 		this.state = {
-			scrolling: false
+			scrolling: false,
+			isKeyboardVisible: false
 		};
+	}
+	handleUpdateState(value, statePropery) {
+		this.setState(() => ({
+			[statePropery]: value
+		}));
 	}
 	componentDidUpdate(prevProps) {
 		if (
@@ -161,8 +168,14 @@ class Messages extends React.Component<IProps, IState> {
 							})}
 					</ScrollView>
 				</View>
-				<View style={styles.sendMessageWrap}>
+				<View
+					style={[
+						styles.sendMessageWrap,
+						this.state.isKeyboardVisible && { flex: 0.3 }
+					]}
+				>
 					<NewMessage
+						updateState={this.handleUpdateState.bind(this)}
 						chatId={this.props.chat.id}
 						scrollToEnd={this.scrollToEnd.bind(this)}
 					/>
