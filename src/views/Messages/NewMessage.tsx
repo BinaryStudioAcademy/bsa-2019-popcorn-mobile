@@ -1,18 +1,9 @@
-import React, { Component, Fragment, useState } from 'react';
-import {
-	Text,
-	View,
-	StyleSheet,
-	Image,
-	ScrollView,
-	TextInput
-} from 'react-native';
+import React, { Fragment, useState } from 'react';
+import { View, StyleSheet, TextInput, Keyboard } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { createMessage } from './actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spinner } from 'native-base';
-import moment from 'moment';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { INC_MESSAGE_BACKGROUND } from './styles';
 
@@ -21,6 +12,7 @@ interface IProps {
 	chatId: string;
 	userId: string;
 	scrollToEnd: () => any;
+	updateState: (boolean, string) => void;
 }
 
 interface IState {
@@ -31,10 +23,29 @@ const NewMessage: React.FC<IProps> = ({
 	chatId,
 	userId,
 	createMessage,
-	scrollToEnd
+	scrollToEnd,
+	updateState
 }) => {
 	const [message, changeMessage] = useState('');
 
+	React.useEffect(() => {
+		const keyboardDidShowListener = Keyboard.addListener(
+			'keyboardDidShow',
+			() => {
+				updateState(true, 'isKeyboardVisible');
+			}
+		);
+		const keyboardDidHideListener = Keyboard.addListener(
+			'keyboardDidHide',
+			() => {
+				updateState(false, 'isKeyboardVisible');
+			}
+		);
+		return () => {
+			keyboardDidHideListener.remove();
+			keyboardDidShowListener.remove();
+		};
+	}, []);
 	const sendMessage = () => {
 		if (message.trim() === '') return;
 		createMessage(userId, chatId, message);
@@ -75,11 +86,9 @@ const NewMessage: React.FC<IProps> = ({
 					/>
 				</TouchableOpacity>
 			</View>
-			{/* <View style={styles.messageStroke}></View> */}
 		</Fragment>
 	);
 };
-const MY_MESSAGE_COLOR = 'rgba(102,255,153,0.3)';
 
 const styles = StyleSheet.create({
 	inputWrap: {
@@ -101,7 +110,6 @@ const styles = StyleSheet.create({
 		marginRight: 10
 	},
 	messageStroke: {
-		// marginTop: 10,
 		backgroundColor: '#dadada',
 		height: 2,
 		width: '100%'
