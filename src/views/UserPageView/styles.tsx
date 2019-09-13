@@ -69,6 +69,7 @@ export const styles = StyleSheet.create({
 		flex: 0.3,
 		width: 43,
 		height: 43,
+		borderRadius: 43 / 2,
 		marginRight: 10
 	},
 	userPersonal: {
