@@ -38,7 +38,7 @@ interface IState {
 	image_url: string;
 	modalVisible: boolean;
 	disabled: boolean;
-	data: { id: string | null; title: string | null; image?: string } | null;
+	data: { id: string | null; title: string | null; image?: string, topImageUrl?: string } | null;
 	type: string;
 	loading: boolean;
 	hide: boolean;
@@ -50,7 +50,7 @@ class PostConstructor extends Component<IProps, IState> {
 		image_url: '',
 		modalVisible: false,
 		disabled: true,
-		data: { id: null, title: null, image: '' },
+		data: { id: null, title: null, image: '', topImageUrl: '' },
 		type: '',
 		loading: false,
 		hide: true
@@ -116,6 +116,8 @@ class PostConstructor extends Component<IProps, IState> {
 			if (this.state.data) {
 				if (this.state.data.image) {
 					newImage = this.state.data.image;
+				} else if (this.state.data.topImageUrl) {
+					newImage = this.state.data.topImageUrl;
 				} else {
 					switch (this.state.type) {
 						case 'top':

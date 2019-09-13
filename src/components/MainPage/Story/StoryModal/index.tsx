@@ -265,12 +265,14 @@ class StoryModal extends Component<IProps, IState> {
 		if (navigation.state.params) {
 			const { option, type } = navigation.state.params;
 			navigation.state.params = null;
+			console.log(option);
 			if (!data || data.id !== option.id) {
 				let extraImage = this.getDefaultImage(type);
+				const image = option.image ? option.image : option.topImageUrl;
 				this.setNewStory({
 					newStory: {
 						...newStory,
-						image_url: option.image ? option.image : extraImage,
+						image_url: image ? image : extraImage,
 						caption: ''
 					},
 					data: { option, type }
