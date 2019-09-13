@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { createAppContainer, createDrawerNavigator } from 'react-navigation';
 import {
-	Collections_StackNavigator,
 	Movies_StackNavigator,
 	Notifications_Navigator,
 	UserPage_StackNavigator,
@@ -35,12 +34,6 @@ const HomeNavigator = createDrawerNavigator(
 				header: Header,
 				navigation
 			})
-		},
-		Collections: {
-			screen: Collections_StackNavigator,
-			navigationOptions: {
-				drawerLabel: 'Collections'
-			}
 		},
 		Movies: {
 			screen: Movies_StackNavigator,
