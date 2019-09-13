@@ -51,7 +51,6 @@ class UserPageTest1 extends Component<IProps, IState> {
 		Events: Events,
 		Surveys: Surveys,
 		Reviews: Reviews,
-		Lists: Lists,
 		Watched: Watched
 	};
 	tabContent = (tabView, i) => {
