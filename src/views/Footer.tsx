@@ -17,8 +17,7 @@ class Footer extends React.Component<IProps> {
 		const { avatar } = this.props.userInfo;
 		return (
 			<>
-				{
-					this.props.isShown &&
+				{this.props.isShown && (
 					<View style={styles.footer}>
 						<View style={styles.iconContainer}>
 							<TouchableOpacity onPress={() => this.props.navigation('Home')}>
@@ -33,7 +32,9 @@ class Footer extends React.Component<IProps> {
 							</TouchableOpacity>
 						</View>
 						<View style={styles.iconContainer}>
-							<TouchableOpacity onPress={() => this.props.navigation('Profile')}>
+							<TouchableOpacity
+								onPress={() => this.props.navigation('Profile')}
+							>
 								<Image
 									source={{
 										uri:
@@ -45,7 +46,7 @@ class Footer extends React.Component<IProps> {
 							</TouchableOpacity>
 						</View>
 					</View>
-				}
+				)}
 			</>
 		);
 	}
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 		flexDirection: 'row',
 		paddingBottom: 8,
-		paddingHorizontal: 100,
+		paddingHorizontal: 70,
 		paddingTop: 8,
 		borderTopColor: 'rgba(0, 0, 0, 0.1)',
 		borderTopWidth: 1
