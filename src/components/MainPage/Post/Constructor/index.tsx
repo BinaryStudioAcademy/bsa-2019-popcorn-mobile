@@ -12,6 +12,7 @@ import SvgUri from 'react-native-svg-uri';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { sendPost } from '../actions';
+import { hideFooter, showFooter } from '../../../../views/Footer/actions';
 import IUser from '../../../UserPage/IUser';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
@@ -28,6 +29,8 @@ interface IProps {
 	sendPost: (any) => any;
 	profileInfo: IUser;
 	navigation: any;
+	hideFooter: () => void;
+	showFooter: () => void;
 }
 
 interface IState {
@@ -35,7 +38,7 @@ interface IState {
 	image_url: string;
 	modalVisible: boolean;
 	disabled: boolean;
-	data: { id: string | null; title: string | null; image?: string } | null;
+	data: { id: string | null; title: string | null; image?: string, topImageUrl?: string } | null;
 	type: string;
 	loading: boolean;
 	hide: boolean;
@@ -47,7 +50,7 @@ class PostConstructor extends Component<IProps, IState> {
 		image_url: '',
 		modalVisible: false,
 		disabled: true,
-		data: { id: null, title: null, image: '' },
+		data: { id: null, title: null, image: '', topImageUrl: '' },
 		type: '',
 		loading: false,
 		hide: true
@@ -55,6 +58,18 @@ class PostConstructor extends Component<IProps, IState> {
 
 	keyboardDidShowListener;
 	keyboardDidHideListener;
+
+	willBlurSubscribe = () => {
+		this.props.navigation.addListener('willBlur', () => {
+			this.props.showFooter();
+		});
+	};
+
+	willFocusSubscribe = () => {
+		this.props.navigation.addListener('willFocus', () => {
+			this.props.hideFooter();
+		});
+	};
 
 	componentDidMount() {
 		this.keyboardDidShowListener = Keyboard.addListener(
@@ -65,6 +80,8 @@ class PostConstructor extends Component<IProps, IState> {
 			'keyboardDidHide',
 			this.keyboardDidHide.bind(this)
 		);
+		this.willBlurSubscribe();
+		this.willFocusSubscribe();
 	}
 
 	componentWillUnmount() {
@@ -99,6 +116,8 @@ class PostConstructor extends Component<IProps, IState> {
 			if (this.state.data) {
 				if (this.state.data.image) {
 					newImage = this.state.data.image;
+				} else if (this.state.data.topImageUrl) {
+					newImage = this.state.data.topImageUrl;
 				} else {
 					switch (this.state.type) {
 						case 'top':
@@ -303,7 +322,9 @@ const mapStateToProps = (rootState, props) => ({
 });
 
 const actions = {
-	sendPost
+	sendPost,
+	showFooter,
+	hideFooter
 };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 

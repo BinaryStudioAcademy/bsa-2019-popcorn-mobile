@@ -19,8 +19,8 @@ interface IProps {
 	fetchUserSurveys: () => any;
 	fetchUserTops: () => any;
 	navigation: any;
-	loading: boolean;
 	loadingEvent: boolean;
+	loadingTop: boolean
 	// validate: () => any;
 }
 
@@ -30,9 +30,9 @@ class ChooseExtraOption extends React.Component<IProps> {
 		const { option: type } = this.props.navigation.state.params;
 		let message = '';
 
-		if (this.props.loading || this.props.loadingEvent) return <Spinner />;
+		if (this.props.loadingTop || this.props.loadingEvent) return <Spinner />;
 
-		let options: any = [];
+		let options: any = undefined;
 
 		switch (type) {
 			case 'event':
@@ -53,12 +53,12 @@ class ChooseExtraOption extends React.Component<IProps> {
 				options = tops;
 				break;
 		}
-
-		if (!options || options.length === 0)
+		if (!options) return <Spinner />
+		if (options.length === 0)
 			message = "You don't have any " + type;
 		return (
-			<View style={[styles.extraItemWrp, styles.grid]}>
-				<ScrollView contentContainerStyle={{ flex: 1 }}>
+			<View style={[styles.extraItemWrp, styles.grid, { flex: 1 }]}>
+				<ScrollView style={{ flex: 1 }}>
 					{options && options.length > 0 ? (
 						options.map(option => (
 							<Extra
@@ -72,7 +72,6 @@ class ChooseExtraOption extends React.Component<IProps> {
 										type
 									});
 								}}
-								// validate={validate}
 							/>
 						))
 					) : (
@@ -90,15 +89,14 @@ const mapStateToProps = (rootState, props) => ({
 	events: rootState.events.events,
 	surveys: rootState.survey.surveys,
 	tops: rootState.tops.tops,
-	loading: rootState.userEvents.loading,
 	loadingEvent: rootState.events.loading,
-	loadingTop: rootState.tops.loading
+	loadingTop: rootState.tops.loading,
 });
 
 const actions = {
 	fetchUserEvents: fetchEvents,
 	fetchUserSurveys: fetchSurveys,
-	fetchUserTops: fetchTops
+	fetchUserTops: fetchTops,
 };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 

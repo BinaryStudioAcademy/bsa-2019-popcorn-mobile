@@ -9,45 +9,52 @@ import * as AddIcon from './../assets/general/add.svg';
 interface IProps {
 	navigation: any;
 	userInfo: any;
+	isShown: boolean;
 }
 
 class Footer extends React.Component<IProps> {
 	render() {
 		const { avatar } = this.props.userInfo;
 		return (
-			<View style={styles.footer}>
-				<View style={styles.iconContainer}>
-					<TouchableOpacity onPress={() => this.props.navigation('Home')}>
-						<SvgUri height={23} width={23} svgXmlData={HomeIcon} />
-					</TouchableOpacity>
-				</View>
-				<View style={styles.iconContainer}>
-					<TouchableOpacity
-						onPress={() => this.props.navigation('PostConstructor')}
-					>
-						<SvgUri height={23} width={23} svgXmlData={AddIcon} />
-					</TouchableOpacity>
-				</View>
-				<View style={styles.iconContainer}>
-					<TouchableOpacity onPress={() => this.props.navigation('Profile')}>
-						<Image
-							source={{
-								uri:
-									avatar ||
-									'https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png'
-							}}
-							style={styles.avatar}
-						/>
-					</TouchableOpacity>
-				</View>
-			</View>
+			<>
+				{
+					this.props.isShown &&
+					<View style={styles.footer}>
+						<View style={styles.iconContainer}>
+							<TouchableOpacity onPress={() => this.props.navigation('Home')}>
+								<SvgUri height={23} width={23} svgXmlData={HomeIcon} />
+							</TouchableOpacity>
+						</View>
+						<View style={styles.iconContainer}>
+							<TouchableOpacity
+								onPress={() => this.props.navigation('PostConstructor')}
+							>
+								<SvgUri height={23} width={23} svgXmlData={AddIcon} />
+							</TouchableOpacity>
+						</View>
+						<View style={styles.iconContainer}>
+							<TouchableOpacity onPress={() => this.props.navigation('Profile')}>
+								<Image
+									source={{
+										uri:
+											avatar ||
+											'https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png'
+									}}
+									style={styles.avatar}
+								/>
+							</TouchableOpacity>
+						</View>
+					</View>
+				}
+			</>
 		);
 	}
 }
 
 const mapStateToProps = (rootState, props) => ({
 	...props,
-	userInfo: rootState.authorization.profileInfo
+	userInfo: rootState.authorization.profileInfo,
+	isShown: rootState.footer.isShown
 });
 
 const actions = {};

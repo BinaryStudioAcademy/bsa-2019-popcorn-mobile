@@ -8,6 +8,8 @@ import {
 	createChat,
 	createMessage
 } from './../../../../views/Messages/actions';
+import { hideFooter, showFooter } from '../../../../views/Footer/actions';
+
 interface IStoryListItem {
 	id: string;
 	caption: string;
@@ -43,12 +45,29 @@ interface IProps {
 	fetchChats: (userId) => void;
 	createMessage: (userId: string, chatId: string, body: any) => void;
 	createChat: (userId1: string, chatId2: string) => void;
+	hideFooter: () => void;
+	showFooter: () => void;
 }
 
 class StoryCarousel extends React.Component<IProps> {
 	componentDidMount() {
 		this.props.fetchChats(this.props.userId);
+		this.willBlurSubscribe();
+		this.willFocusSubscribe();
 	}
+
+	willBlurSubscribe = () => {
+		this.props.navigation.addListener('willBlur', () => {
+			this.props.showFooter();
+		});
+	};
+
+	willFocusSubscribe = () => {
+		this.props.navigation.addListener('willFocus', () => {
+			this.props.hideFooter();
+		});
+	};
+
 	renderStory(item) {
 		const { navigation, chats, createMessage, createChat, userId } = this.props;
 		return (
@@ -89,7 +108,9 @@ const mapStateToProps = (rootState, props) => ({
 const actions = {
 	fetchChats,
 	createChat,
-	createMessage
+	createMessage,
+	hideFooter, 
+	showFooter
 };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
