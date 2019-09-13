@@ -11,4 +11,5 @@ export default interface IMovie {
 	video: string;
 	cast: string;
 	status?: string;
+	crew: any;
 }

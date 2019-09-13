@@ -114,7 +114,6 @@ class Movie extends Component<IMovieProps, IState> {
 			writer = movie.crew.find(item => item.department === 'Writing').name;
 		}
 		const { firstSection, secondSection, thirdSection } = this.state;
-
 		return movie ? (
 			<View style={styles.movieWrapper}>
 				<View style={styles.movieImageWrapper}>
@@ -133,8 +132,7 @@ class Movie extends Component<IMovieProps, IState> {
 									{status === 'watched' ? (
 										<FontAwesomeIcon
 											style={{
-												...styles.updateControl,
-												color: 'rgb(73, 199, 54)'
+												...styles.updateControl
 											}}
 											icon={faCheckCircle}
 											size={40}
@@ -250,7 +248,7 @@ class Movie extends Component<IMovieProps, IState> {
 										}
 									>
 										<Text style={[styles.text, styles.button]}>
-											Read reviews
+											Read Reviews
 										</Text>
 									</TouchableOpacity>
 								</View>
@@ -267,32 +265,32 @@ class Movie extends Component<IMovieProps, IState> {
 
 const styles = StyleSheet.create({
 	movieWrapper: {
-		width: width,
-		height: '100%',
-		backgroundColor: '#FFFFFF'
+		flex: 1,
+		backgroundColor: 'rgba(0,0,0,0.15)'
 	},
 	movieImageWrapper: {
-		height: '70%',
-		width: width
+		flex: 1
 	},
 	movieImage: {
 		height: '100%'
 	},
 	basicInfoWrapper: {
-		flex: 1,
 		marginTop: 'auto',
-		width: width,
+		paddingTop: 10,
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderWidth: 1,
 		borderColor: 'rgba(0, 0, 0, 0.11)',
 		borderRadius: 19,
+		borderBottomRightRadius: 0,
+		borderBottomLeftRadius: 0,
 		backgroundColor: '#FFFFFF'
 	},
 	movieTitle: {
 		fontFamily: 'Inter-Bold',
-		fontSize: 30,
-		lineHeight: 37,
+		fontSize: 27,
+		flexWrap: 'wrap',
+		flexDirection: 'row',
 		letterSpacing: 0.4,
 		color: 'rgb(18, 39, 55)',
 		marginBottom: 5,
@@ -319,6 +317,7 @@ const styles = StyleSheet.create({
 	},
 	rateBlock: {
 		flexDirection: 'row',
+		marginTop: 5,
 		alignContent: 'center'
 	},
 	starWrapper: {
@@ -340,7 +339,6 @@ const styles = StyleSheet.create({
 		left: 0,
 		right: 0,
 		bottom: 0,
-		top: '55%',
 		flex: 1,
 		marginTop: 'auto',
 		justifyContent: 'center',
@@ -394,14 +392,14 @@ const styles = StyleSheet.create({
 		lineHeight: 15,
 		letterSpacing: 0.4,
 		color: 'rgba(0, 0, 0, 0.5)',
-		marginBottom: 5
+		marginBottom: 5,
+		backgroundColor: '#FFFFFF'
 	},
 	thirdSectionInfoWrapper: {
 		position: 'absolute',
 		left: 0,
 		right: 0,
 		bottom: 0,
-		top: '45%',
 		flex: 1,
 		marginTop: 'auto',
 		justifyContent: 'center',
@@ -414,35 +412,33 @@ const styles = StyleSheet.create({
 	button: {
 		textAlignVertical: 'center',
 		alignSelf: 'center',
-		width: 175,
-		height: 38,
+		width: 155,
 		backgroundColor: '#FF6501',
 		marginTop: 22,
 		borderRadius: 19,
+		padding: 10,
 		textAlign: 'center',
-		fontSize: 16,
+		fontSize: 14,
 		color: 'white',
 		fontFamily: 'Inter-SemiBold'
 	},
 	text: {
 		letterSpacing: 0.4,
-		fontFamily: 'Inter-Regular',
-		lineHeight: 38
+		fontFamily: 'Inter-Regular'
 	},
 	controlsWrapper: {
 		width: '100%',
 		flexDirection: 'row'
 	},
 	updateControlWrapper: {
-		marginLeft: 15,
+		marginLeft: 10,
 		marginTop: 5
 	},
 	updateControl: {
 		padding: 10,
-		color: 'white',
-		fontSize: 60,
-		borderRadius: 20,
-		backgroundColor: 'rgba(0, 0, 0, 0.726)'
+		paddingTop: 15,
+		color: '#555',
+		fontSize: 60
 	}
 });
 
