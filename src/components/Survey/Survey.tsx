@@ -30,7 +30,7 @@ class Survey extends Component<IProps, IState> {
 				onPress={() => this.props.nav.navigate('SurveyPage', { id: data.id })}
 			>
 				<View style={styles.container}>
-					<View>
+					<View style={{ alignSelf: 'center' }}>
 						<Image
 							source={{
 								uri:
@@ -46,21 +46,21 @@ class Survey extends Component<IProps, IState> {
 								{data.title}
 							</Text>
 							{!!data.description && (
-								<Text numberOfLines={3} style={[styles.text]}>
+								<Text numberOfLines={2} style={[styles.text]}>
 									{data.description}
 								</Text>
 							)}
 						</View>
-						<View style={styles.userInfo}>
-							<Image
-								source={{
-									uri:
-										data.user.avatar ||
-										'https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png'
-								}}
-								style={styles.roundImage}
-							/>
-						</View>
+					</View>
+					<View style={styles.userInfo}>
+						<Image
+							source={{
+								uri:
+									data.user.avatar ||
+									'https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png'
+							}}
+							style={styles.roundImage}
+						/>
 					</View>
 				</View>
 			</TouchableOpacity>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
 		borderColor: 'rgba(0, 0, 0, .1)',
 		borderWidth: 1,
 		flexDirection: 'row',
-		justifyContent: 'space-between',
+		justifyContent: 'flex-start',
 		width: '100%',
 		alignItems: 'flex-start',
 		marginBottom: 20
@@ -151,10 +151,7 @@ const styles = StyleSheet.create({
 		color: 'red'
 	},
 	userInfo: {
-		flexDirection: 'row',
-		justifyContent: 'flex-end',
-		alignItems: 'center',
-		width: '20%'
+		marginLeft: 'auto'
 	},
 	roundImage: {
 		width: 30,

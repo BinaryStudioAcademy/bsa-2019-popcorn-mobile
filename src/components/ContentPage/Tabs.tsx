@@ -22,21 +22,21 @@ const Tabs: React.FC<IProps> = ({ active, navigation }) => {
 	return (
 		<View style={[styles.container]}>
 			<TouchableOpacity onPress={onEvents} style={[styles.tabContainer]}>
-				<View style={[styles.tab, active === 'Events' && styles.activeTab]}>
+				<View style={[styles.tab]}>
 					<Text style={[styles.text, active === 'Events' && styles.activeText]}>
 						Events
 					</Text>
 				</View>
 			</TouchableOpacity>
 			<TouchableOpacity onPress={onTops} style={[styles.tabContainer]}>
-				<View style={[styles.tab, active === 'Tops' && styles.activeTab]}>
+				<View style={[styles.tab]}>
 					<Text style={[styles.text, active === 'Tops' && styles.activeText]}>
 						Tops
 					</Text>
 				</View>
 			</TouchableOpacity>
 			<TouchableOpacity onPress={onSurveys} style={[styles.tabContainer]}>
-				<View style={[styles.tab, active === 'Surveys' && styles.activeTab]}>
+				<View style={[styles.tab]}>
 					<Text
 						style={[styles.text, active === 'Surveys' && styles.activeText]}
 					>
@@ -78,9 +78,5 @@ const styles = StyleSheet.create({
 	},
 	activeText: {
 		color: '#122737'
-	},
-	activeTab: {
-		borderBottomColor: '#ff6501',
-		borderBottomWidth: 2
 	}
 });
