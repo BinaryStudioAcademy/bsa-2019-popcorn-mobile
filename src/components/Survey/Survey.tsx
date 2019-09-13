@@ -37,7 +37,7 @@ class Survey extends Component<IProps, IState> {
 									data.image ||
 									'https://www.checkmarket.com/wp-content/uploads/2016/08/survey-checklist.png'
 							}}
-							style={{ width: 140, height: 100 }}
+							style={{ width: 110, height: 80 }}
 						/>
 					</View>
 					<View style={styles.column}>
