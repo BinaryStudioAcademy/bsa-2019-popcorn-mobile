@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import SvgUri from 'react-native-svg-uri';
 
-const arrow = require('../../../../assets/general/arrow-circle-o-left.svg');
+import * as ArrowIcon from '../../../../assets/general/arrow-circle-o-left.svg';
 const options = ['survey', 'top', 'event'];
 
 interface IProps {
@@ -28,7 +28,7 @@ class ChooseExtra extends React.Component<IProps> {
 					<TouchableOpacity
 						onPress={() => this.props.navigation.navigate('Basic')}
 					>
-						<SvgUri height={48} width={48} source={arrow} />
+						<SvgUri height={48} width={48} svgXmlData={ArrowIcon} />
 					</TouchableOpacity>
 				</View>
 			</View>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Image, StyleSheet } from 'react-native';
 import { createAppContainer, createDrawerNavigator } from 'react-navigation';
 import {
 	Collections_StackNavigator,
@@ -27,7 +28,6 @@ const HomeNavigator = createDrawerNavigator(
 				drawerLabel: 'My profile'
 			}
 		},
-
 		Messages: {
 			screen: MessagesNavigator,
 			navigationOptions: ({ navigation }) => ({
@@ -62,14 +62,12 @@ const HomeNavigator = createDrawerNavigator(
 				drawerLabel: () => null
 			}
 		},
-
 		PostConstructor: {
 			screen: PostConstructorNavigator,
 			navigationOptions: {
 				drawerLabel: () => null
 			}
 		},
-
 		UserPage: {
 			screen: UserPage_StackNavigator,
 			navigationOptions: {
@@ -78,7 +76,10 @@ const HomeNavigator = createDrawerNavigator(
 		}
 	},
 	{
-		contentComponent: props => <LogoutDrawer {...props} />
+		contentComponent: props => <LogoutDrawer {...props} />,
+		contentOptions: {
+			activeTintColor: '#fb8700'
+		}
 	}
 );
 

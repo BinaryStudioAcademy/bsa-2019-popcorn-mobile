@@ -10,7 +10,7 @@ import SvgUri from 'react-native-svg-uri';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { login } from '../../redux/routines';
-
+import * as ArrowIcon from '../../assets/general/arrow.svg';
 interface ILogin {
 	email: string;
 	password: string;
@@ -170,7 +170,7 @@ class Login extends Component<IProps, IState> {
 						style={styles.linkContainer}
 					>
 						<Text style={[styles.text, styles.link]}>Register </Text>
-						<SvgUri source={require('../../assets/general/arrow.svg')} />
+						<SvgUri svgXmlData={ArrowIcon} />
 					</TouchableOpacity>
 				</View>
 			</View>

@@ -2,7 +2,7 @@ import ImagePicker from 'react-native-image-picker';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
-import { uploadBase64, uploadFile } from '../../services/file.service';
+import { uploadBase64 } from '../../services/file.service';
 
 interface IProps {
 	startUpload?: () => any;
