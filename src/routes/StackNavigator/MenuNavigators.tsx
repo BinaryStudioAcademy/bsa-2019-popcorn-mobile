@@ -12,7 +12,6 @@ import EventPage from '../../components/ContentPage/Events/EventPage';
 import TopPage from '../../components/ContentPage/Tops/TopPage';
 import SurveyPage from '../../components/SurveyPage/SurveyPage';
 import ControlledVertical from '../../components/MainPage/Story/StoryModal/ColorPicker';
-import CollectionsNavigator from './CollectionNavigator';
 import ReviewPage from '../../components/ReviewPage/ReviewPage';
 import UserProfileNavigation from './UserProfileNavigator';
 import StoryModal from '../../components/MainPage/Story/StoryModal';
@@ -83,15 +82,6 @@ export const Top_StackNavigator = createStackNavigator({
 export const Survey_StackNavigator = createStackNavigator({
 	Fifth: {
 		screen: SurveyTab,
-		navigationOptions: ({ navigation }) => ({
-			header: Header
-		})
-	}
-});
-
-export const Collections_StackNavigator = createStackNavigator({
-	Sixth: {
-		screen: CollectionsNavigator,
 		navigationOptions: ({ navigation }) => ({
 			header: Header
 		})
