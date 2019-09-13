@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
+import * as HomeIcon from './../assets/general/home.svg';
+import * as AddIcon from './../assets/general/add.svg';
 
 interface IProps {
 	navigation: any;
+	userInfo: any;
 	isShown: boolean;
 }
 
@@ -14,29 +17,19 @@ class Footer extends React.Component<IProps> {
 		const { avatar } = this.props.userInfo;
 		return (
 			<>
-			 	{ 
+				{
 					this.props.isShown &&
 					<View style={styles.footer}>
 						<View style={styles.iconContainer}>
 							<TouchableOpacity onPress={() => this.props.navigation('Home')}>
-								<SvgUri
-									style={styles.item}
-									height={20}
-									width={20}
-									source={require('../../assets/general/home.svg')}
-								/>
+								<SvgUri height={23} width={23} svgXmlData={HomeIcon} />
 							</TouchableOpacity>
 						</View>
 						<View style={styles.iconContainer}>
 							<TouchableOpacity
 								onPress={() => this.props.navigation('PostConstructor')}
 							>
-								<SvgUri
-									style={styles.item}
-									height={20}
-									width={20}
-									source={require('../../assets/general/add.svg')}
-								/>
+								<SvgUri height={23} width={23} svgXmlData={AddIcon} />
 							</TouchableOpacity>
 						</View>
 						<View style={styles.iconContainer}>
@@ -60,13 +53,11 @@ class Footer extends React.Component<IProps> {
 
 const mapStateToProps = (rootState, props) => ({
 	...props,
-	isShown: rootState.footer.isShown,
-	userInfo: rootState.authorization.profileInfo
+	userInfo: rootState.authorization.profileInfo,
+	isShown: rootState.footer.isShown
 });
 
-const actions = {
-	
-};
+const actions = {};
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
@@ -83,8 +74,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 		flexDirection: 'row',
 		paddingBottom: 8,
-		paddingLeft: 15,
-		paddingRight: 15,
+		paddingHorizontal: 100,
 		paddingTop: 8,
 		borderTopColor: 'rgba(0, 0, 0, 0.1)',
 		borderTopWidth: 1
@@ -93,9 +83,9 @@ const styles = StyleSheet.create({
 		position: 'relative'
 	},
 	avatar: {
-		width: 20,
-		height: 20,
-		borderRadius: 10,
+		width: 23,
+		height: 23,
+		borderRadius: 13,
 		backgroundColor: '#adadad'
 	}
 });

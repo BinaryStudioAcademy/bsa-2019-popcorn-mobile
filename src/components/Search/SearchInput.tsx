@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
 	StyleSheet,
 	View,
 	TextInput,
 	TouchableOpacity,
-	Text,
 	ScrollView
 } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
-import { fetchMovies } from '../../redux/routines';
 import SearchQuickShow from './SearchQuickShow';
-import style from '../../assets/style';
-
+import * as SearchIcon from '../../assets/general/search.svg';
+import * as OptionsIcon from '../../assets/general/options.svg';
 interface IProps {
 	showFilter: boolean;
 	value?: string;
@@ -91,7 +89,7 @@ class SearchInput extends React.Component<IProps, IState> {
 						style={styles.searchBtn}
 						height={20}
 						width={20}
-						source={require('../../assets/general/search.svg')}
+						svgXmlData={SearchIcon}
 					/>
 				</View>
 				{this.props.showFilter ? (
@@ -99,11 +97,7 @@ class SearchInput extends React.Component<IProps, IState> {
 						style={styles.filterBtn}
 						onPress={() => this.props.navigation.navigate('AdvancedSearch')}
 					>
-						<SvgUri
-							height={20}
-							width={20}
-							source={require('../../assets/general/options.svg')}
-						/>
+						<SvgUri height={20} width={20} svgXmlData={OptionsIcon} />
 					</TouchableOpacity>
 				) : null}
 				{this.state.quickShow && this.props.quickShowBlock ? (

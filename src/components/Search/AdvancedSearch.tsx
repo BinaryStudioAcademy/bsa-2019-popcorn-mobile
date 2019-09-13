@@ -13,10 +13,8 @@ import SearchInput from './SearchInput';
 import SvgUri from 'react-native-svg-uri';
 import SearchCheckbox from './SearchCheckbox';
 import Spinner from '../Spinner/Spinner';
-import { tsThisType } from '@babel/types';
-import SearchDate from './SearchDate';
 import { setFilters } from '../MainPage/Movie/actions';
-
+import * as BackIcon from '../../assets/general/back.svg';
 interface IAdvancedMovieSearchProps {
 	fetchFiltred: (filters: any) => any;
 	setFilters: (filters: any) => any;
@@ -236,11 +234,7 @@ class AdvancedSearch extends React.Component<
 							this.props.navigation.goBack();
 						}}
 					>
-						<SvgUri
-							height={20}
-							width={20}
-							source={require('../../assets/general/back.svg')}
-						/>
+						<SvgUri height={20} width={20} svgXmlData={BackIcon} />
 					</TouchableOpacity>
 					<TouchableOpacity
 						onPress={() => {

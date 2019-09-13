@@ -3,7 +3,6 @@ import {
 	StyleSheet,
 	View,
 	ScrollView,
-	Image,
 	Text,
 	TouchableOpacity
 } from 'react-native';
@@ -11,10 +10,10 @@ import { getReviewsByMovieId } from '../../redux/routines';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReviewItem from '../ReviewItem/ReviewItem';
-import config from '../../config';
 import Spinner from '../Spinner/Spinner';
 import SvgUri from 'react-native-svg-uri';
-
+import * as BackIcon from '../../assets/general/back.svg';
+import * as OptionsIcon from '../../assets/general/options.svg';
 interface IProps {}
 
 interface IState {}
@@ -80,11 +79,7 @@ class ReviewPage extends Component<IProps, IState> {
 							navigation.goBack();
 						}}
 					>
-						<SvgUri
-							height={20}
-							width={20}
-							source={require('../../assets/general/back.svg')}
-						/>
+						<SvgUri height={20} width={20} svgXmlData={BackIcon} />
 					</TouchableOpacity>
 					<Text style={styles.title}>{movie.title}</Text>
 					<TouchableOpacity
@@ -92,11 +87,7 @@ class ReviewPage extends Component<IProps, IState> {
 							this.toggleFilter();
 						}}
 					>
-						<SvgUri
-							height={20}
-							width={20}
-							source={require('../../assets/general/options.svg')}
-						/>
+						<SvgUri height={20} width={20} svgXmlData={OptionsIcon} />
 					</TouchableOpacity>
 				</View>
 				{this.state.showFilter ? (

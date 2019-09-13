@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
 	StyleSheet,
 	View,
 	TouchableOpacity,
 	Text,
 	ScrollView,
-	ParallaxScrollView,
 	ImageBackground,
 	Image
 } from 'react-native';
@@ -13,8 +12,6 @@ import { connect } from 'react-redux';
 import * as actions from '../ContentPage/Surveys/actions';
 import Moment from 'moment';
 import Spinner from '../Spinner/Spinner';
-import SvgUri from 'react-native-svg-uri';
-import { postAnswers } from '../ContentPage/Surveys/actions';
 import Checkboxes from './SurveyTypes/Checkboxes';
 import SingleAnswers from './SurveyTypes/SingleAnswers';
 import { transformAnswers } from './SurveyService';

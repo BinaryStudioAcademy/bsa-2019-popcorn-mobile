@@ -1,18 +1,10 @@
-import React, { Component } from 'react';
-import {
-	StyleSheet,
-	View,
-	TouchableOpacity,
-	Text,
-	Platform
-} from 'react-native';
+import React from 'react';
+import { StyleSheet, View, TouchableOpacity, Platform } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 import NotificationIcon from './NotificationIcon';
-
-interface IProps {
-	data: any;
-	nav: any;
-}
+import * as MenuIcon from '../../assets/general/menu.svg';
+import * as PopcornIcon from '../../assets/general/popcorn-logo.svg';
+import * as MessagesIcon from '../../assets/general/message.svg';
 
 const HEADER_HEIGHT = Platform.OS === 'ios' ? 30 : 8;
 
@@ -21,31 +13,18 @@ const Header = props => {
 		<View style={[styles.header, { marginTop: HEADER_HEIGHT }]}>
 			<View style={styles.headerMenu}>
 				<TouchableOpacity onPress={() => props.navigation.toggleDrawer()}>
-					<SvgUri
-						height={20}
-						width={20}
-						source={require('../../assets/general/menu.svg')}
-					/>
+					<SvgUri height={20} width={20} svgXmlData={MenuIcon} />
 				</TouchableOpacity>
 			</View>
 			<View style={styles.headerLogo}>
 				<TouchableOpacity onPress={() => props.navigation.navigate('First')}>
-					<SvgUri
-						height={30}
-						width={30}
-						source={require('../../assets/general/popcorn-logo.svg')}
-					/>
+					<SvgUri height={30} width={30} svgXmlData={PopcornIcon} />
 				</TouchableOpacity>
 			</View>
 			<View style={styles.headerNav}>
 				<View style={styles.iconContainer}>
 					<TouchableOpacity onPress={() => props.navigation.navigate('Second')}>
-						<SvgUri
-							style={styles.item}
-							height={20}
-							width={20}
-							source={require('../../assets/general/message.svg')}
-						/>
+						<SvgUri height={20} width={20} svgXmlData={MessagesIcon} />
 					</TouchableOpacity>
 				</View>
 				<View style={styles.iconContainer}>

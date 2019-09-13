@@ -5,7 +5,7 @@ import { HomeNavigator } from '../../routes/';
 import firebase from 'react-native-firebase';
 import { Storage } from '../../helpers/storage.helper';
 import { sendDeviceToken } from '../../services/notification.service';
-import Footer from '../../views/Footer/Footer';
+import Footer from '../../views/Footer';
 import NavigationService from '../../services/navigation.service';
 import { View } from 'react-native';
 

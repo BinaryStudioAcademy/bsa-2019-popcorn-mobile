@@ -1,6 +1,6 @@
 import { APP_API_URL } from 'react-native-dotenv';
 const config = {
-	API_URL: 'https://popcorn-staging.herokuapp.com',
+	API_URL: 'https://popcorn.team',
 	DEFAULT_AVATAR:
 		'https://cdn1.iconfinder.com/data/icons/user-pictures/100/unknown-512.png',
 	DEFAULT_EVENT_IMAGE:

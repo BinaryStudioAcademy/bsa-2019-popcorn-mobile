@@ -17,6 +17,9 @@ import SvgUri from 'react-native-svg-uri';
 import Spinner from './../../../Spinner/Spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPlusCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import * as YellowStarIcon from './../../../../assets/general/starYellow.svg';
+import * as GreyStarIcom from './../../../../assets/general/starGrey.svg';
+import * as ChevronDownIcon from './../../../../assets/general/chevron-down.svg';
 const { width } = Dimensions.get('window');
 
 interface IMovieProps {
@@ -60,7 +63,7 @@ class Movie extends Component<IMovieProps, IState> {
 					height={size}
 					width={size}
 					key={key}
-					source={require('./../../../../assets/general/starYellow.svg')}
+					svgXmlData={YellowStarIcon}
 				/>
 			</View>
 		);
@@ -73,7 +76,7 @@ class Movie extends Component<IMovieProps, IState> {
 					height={size}
 					width={size}
 					key={key}
-					source={require('./../../../../assets/general/starGrey.svg')}
+					svgXmlData={GreyStarIcom}
 				/>
 			</View>
 		);
@@ -102,14 +105,16 @@ class Movie extends Component<IMovieProps, IState> {
 		const { movie, status } = this.props;
 		let parsedGenres;
 		let parsedCast;
+		let director;
+		let writer;
 		if (movie) {
 			parsedGenres = JSON.parse(movie.genres).map(genre => genre.name);
 			parsedCast = JSON.parse(movie.cast).map(actor => actor.name);
+			director = movie.crew.find(item => item.department === 'Directing').name;
+			writer = movie.crew.find(item => item.department === 'Writing').name;
 		}
 		const { firstSection, secondSection, thirdSection } = this.state;
-		const director = movie.crew.find(item => item.department === 'Directing')
-			.name;
-		const writer = movie.crew.find(item => item.department === 'Writing').name;
+
 		return movie ? (
 			<View style={styles.movieWrapper}>
 				<View style={styles.movieImageWrapper}>
@@ -168,11 +173,7 @@ class Movie extends Component<IMovieProps, IState> {
 						<TouchableOpacity onPress={() => this.showSecondSection()}>
 							<View style={styles.moreControlWrapper}>
 								<Text style={styles.moreTitle}>More info</Text>
-								<SvgUri
-									height={17}
-									width={23}
-									source={require('./../../../../assets/general/chevron-down.svg')}
-								/>
+								<SvgUri height={17} width={23} svgXmlData={ChevronDownIcon} />
 							</View>
 						</TouchableOpacity>
 					</View>
@@ -216,7 +217,7 @@ class Movie extends Component<IMovieProps, IState> {
 										<SvgUri
 											height={17}
 											width={23}
-											source={require('./../../../../assets/general/chevron-down.svg')}
+											svgXmlData={ChevronDownIcon}
 										/>
 									</View>
 								</TouchableOpacity>

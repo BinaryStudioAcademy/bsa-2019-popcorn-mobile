@@ -1,23 +1,14 @@
 // import * as React from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from './styles';
-import {
-	fetchEvents,
-	fetchTops,
-	fetchUserEvents,
-	fetchUserSurveys,
-	fetchUserTops
-} from '../../../../redux/routines';
-import SvgUri from 'react-native-svg-uri';
+import { fetchEvents, fetchTops } from '../../../../redux/routines';
 import IUser from '../../../UserPage/IUser';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
 import React from 'react';
 import { fetchSurveys } from '../../../ContentPage/Surveys/actions';
-
-const arrow = require('../../../../assets/general/arrow-circle-o-left.svg');
 
 interface IProps {
 	events: any;
@@ -76,7 +67,10 @@ class ChooseExtraOption extends React.Component<IProps> {
 								type={type}
 								user={profileInfo}
 								onSave={() => {
-									this.props.navigation.navigate('StoryConstructor', { option, type });
+									this.props.navigation.navigate('StoryConstructor', {
+										option,
+										type
+									});
 								}}
 							/>
 						))
