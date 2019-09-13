@@ -20,7 +20,7 @@ const renderTopView = data => {
 	const movie = data.movieInTop
 		.filter((movie, index) => index < 3)
 		.map((movie, index) => (
-			<Text>{`${index + 1}. ${movie.movie.original_title}`}</Text>
+			<Text>{`${index + 1}. ${movie.movie.title}`}</Text>
 		));
 	return (
 		<View>
@@ -33,29 +33,28 @@ const renderTopView = data => {
 const renderEventView = data => {
 	return (
 		<View>
-			<View style={styles.horizontalContainer}>
-				<Text numberOfLines={2} style={[styles.text, styles.title]}>
-					{data.title}
-				</Text>
-				<View style={[styles.visitors]}>
-					<FontAwesomeIcon
-						style={{ ...styles.visitorsIcon, color: '#122737' }}
-						icon={faUsers}
-					/>
-					<Text>{data.eventVisitors.length}</Text>
-				</View>
-			</View>
 			<View>
-				<Text>
-					{Moment(data.startDate).format('D MMM HH:mm')} -
-					{Moment(data.endDate).format(' D MMM HH:mm')}
-				</Text>
+				<View style={styles.horizontalContainer}>
+					<Text numberOfLines={2} style={[styles.text, styles.title]}>
+						{data.title}
+					</Text>
+					<View style={[styles.visitors]}>
+						<FontAwesomeIcon style={{ color: '#122737' }} icon={faUsers} />
+						<Text>{data.eventVisitors.length}</Text>
+					</View>
+				</View>
+				<View>
+					<Text>
+						{Moment(data.startDate).format('D MMM HH:mm')} -
+						{Moment(data.endDate).format(' D MMM HH:mm')}
+					</Text>
+				</View>
+				{!!data.description && (
+					<Text numberOfLines={1} style={[styles.text]}>
+						{data.description}
+					</Text>
+				)}
 			</View>
-			{!!data.description && (
-				<Text numberOfLines={1} style={[styles.text]}>
-					{data.description}
-				</Text>
-			)}
 		</View>
 	);
 };

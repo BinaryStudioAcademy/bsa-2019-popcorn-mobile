@@ -4,6 +4,7 @@ import styles from './styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { sendStory, sendVoting } from '../actions';
+import { hideFooter, showFooter } from '../../../../views/Footer/actions';
 import INewStory from '../INewStory';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
@@ -25,6 +26,8 @@ interface IProps {
 	profileInfo: IUser;
 	navigation: any;
 	resetStory: (any) => any;
+	hideFooter: () => void;
+	showFooter: () => void;
 }
 
 interface IState {
@@ -74,7 +77,21 @@ class StoryModal extends Component<IProps, IState> {
 			isKeyboardVisible: false
 		};
 		this.updateState = this.handleUpdateState.bind(this);
+		this.willBlurSubscribe();
+		this.willFocusSubscribe();
 	}
+
+	willBlurSubscribe = () => {
+		this.props.navigation.addListener('willBlur', () => {
+			this.props.showFooter();
+		});
+	};
+
+	willFocusSubscribe = () => {
+		this.props.navigation.addListener('willFocus', () => {
+			this.props.hideFooter();
+		});
+	};
 
 	getDefaultImage = type => {
 		switch (type) {
@@ -393,7 +410,9 @@ const mapStateToProps = (rootState, props) => ({
 
 const actions = {
 	sendStory,
-	sendVoting
+	sendVoting,
+	hideFooter, 
+	showFooter
 };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 

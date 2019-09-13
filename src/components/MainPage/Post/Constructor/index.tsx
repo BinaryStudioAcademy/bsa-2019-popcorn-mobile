@@ -12,6 +12,7 @@ import SvgUri from 'react-native-svg-uri';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { sendPost } from '../actions';
+import { hideFooter, showFooter } from '../../../../views/Footer/actions';
 import IUser from '../../../UserPage/IUser';
 import Spinner from '../../../Spinner/Spinner';
 import Extra from './Extra';
@@ -28,6 +29,8 @@ interface IProps {
 	sendPost: (any) => any;
 	profileInfo: IUser;
 	navigation: any;
+	hideFooter: () => void;
+	showFooter: () => void;
 }
 
 interface IState {
@@ -56,6 +59,18 @@ class PostConstructor extends Component<IProps, IState> {
 	keyboardDidShowListener;
 	keyboardDidHideListener;
 
+	willBlurSubscribe = () => {
+		this.props.navigation.addListener('willBlur', () => {
+			this.props.showFooter();
+		});
+	};
+
+	willFocusSubscribe = () => {
+		this.props.navigation.addListener('willFocus', () => {
+			this.props.hideFooter();
+		});
+	};
+
 	componentDidMount() {
 		this.keyboardDidShowListener = Keyboard.addListener(
 			'keyboardDidShow',
@@ -65,6 +80,8 @@ class PostConstructor extends Component<IProps, IState> {
 			'keyboardDidHide',
 			this.keyboardDidHide.bind(this)
 		);
+		this.willBlurSubscribe();
+		this.willFocusSubscribe();
 	}
 
 	componentWillUnmount() {
@@ -293,7 +310,9 @@ const mapStateToProps = (rootState, props) => ({
 });
 
 const actions = {
-	sendPost
+	sendPost,
+	showFooter,
+	hideFooter
 };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 

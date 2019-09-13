@@ -74,14 +74,14 @@ export default StyleSheet.create({
 		position: 'relative'
 	},
 	extra: {
-		marginTop: 10,
-		marginBottom: 10,
-		marginLeft: 'auto',
+		marginTop: 5,
 		marginRight: 'auto',
+		marginBottom: 15,
+		marginLeft: 'auto',
 		borderLeftWidth: 5,
 		borderColor: 'rgba(0, 0, 0, 0.11)',
-		padding: '2%',
-		width: '80%',
+		padding: 15,
+		width: '96%',
 		justifyContent: 'flex-start'
 	},
 	IconExtraWrp: {
@@ -137,9 +137,12 @@ export default StyleSheet.create({
 	},
 	visitors: {
 		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'center',
-		alignSelf: 'flex-start'
+		alignItems: 'flex-start',
+		justifyContent: 'space-between',
+		width: '10%',
+		alignSelf: 'flex-start',
+		marginRight: 15,
+		marginLeft: 'auto'
 	},
 	text: {
 		fontFamily: 'Inter-Regular',
@@ -155,7 +158,8 @@ export default StyleSheet.create({
 	title: {
 		fontFamily: 'Inter-SemiBold',
 		fontSize: 16,
-		marginBottom: 3
+		marginBottom: 3,
+		width: '75%'
 	},
 	horizontalContainer: {
 		width: '90%',
