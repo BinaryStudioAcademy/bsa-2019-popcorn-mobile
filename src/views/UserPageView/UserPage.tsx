@@ -159,11 +159,11 @@ class UserPageTest1 extends Component<IProps, IState> {
 					>
 						<Tab heading="Posts">{this.tabContent('Posts', 0)}</Tab>
 						<Tab heading="Surveys">{this.tabContent('Surveys', 1)}</Tab>
+						<Tab heading="Watchlist">{this.tabContent('Watched', 6)}</Tab>
 						<Tab heading="Tops">{this.tabContent('Tops', 2)}</Tab>
 						<Tab heading="Events">{this.tabContent('Events', 3)}</Tab>
 						<Tab heading="Reviews">{this.tabContent('Reviews', 4)}</Tab>
 						<Tab heading="Lists">{this.tabContent('Lists', 5)}</Tab>
-						<Tab heading="Watchlist">{this.tabContent('Watched', 6)}</Tab>
 					</Tabs>
 				</Animated.ScrollView>
 			</View>

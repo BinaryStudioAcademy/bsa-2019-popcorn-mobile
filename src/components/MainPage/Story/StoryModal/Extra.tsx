@@ -1,12 +1,12 @@
 import React from 'react';
 import SvgUri from 'react-native-svg-uri';
-import { Text, TouchableOpacity, View, Alert } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import IUser from '../../../UserPage/IUser';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import Moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-
+import * as CrossIcon from '../../../../assets/general/times-circle-o.svg';
 interface IProps {
 	clearExtra?: () => any;
 	navigation: any;
@@ -114,11 +114,7 @@ const Extra = (props: IProps) => {
 					onPress={() => props.clearExtra()}
 					style={styles.timesCircle}
 				>
-					<SvgUri
-						width={16}
-						height={16}
-						source={require('../../../../assets/general/times-circle-o.svg')}
-					/>
+					<SvgUri width={16} height={16} svgXmlData={CrossIcon} />
 				</TouchableOpacity>
 			)}
 		</View>

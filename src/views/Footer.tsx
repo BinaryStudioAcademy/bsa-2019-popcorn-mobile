@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
-import { NavigationActions } from 'react-navigation';
+import * as HomeIcon from './../assets/general/home.svg';
+import * as AddIcon from './../assets/general/add.svg';
 
 interface IProps {
 	navigation: any;
+	userInfo: any;
 }
 
 class Footer extends React.Component<IProps> {
@@ -16,24 +18,14 @@ class Footer extends React.Component<IProps> {
 			<View style={styles.footer}>
 				<View style={styles.iconContainer}>
 					<TouchableOpacity onPress={() => this.props.navigation('Home')}>
-						<SvgUri
-							style={styles.item}
-							height={20}
-							width={20}
-							source={require('../assets/general/home.svg')}
-						/>
+						<SvgUri height={23} width={23} svgXmlData={HomeIcon} />
 					</TouchableOpacity>
 				</View>
 				<View style={styles.iconContainer}>
 					<TouchableOpacity
 						onPress={() => this.props.navigation('PostConstructor')}
 					>
-						<SvgUri
-							style={styles.item}
-							height={20}
-							width={20}
-							source={require('../assets/general/add.svg')}
-						/>
+						<SvgUri height={23} width={23} svgXmlData={AddIcon} />
 					</TouchableOpacity>
 				</View>
 				<View style={styles.iconContainer}>
@@ -75,8 +67,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 		flexDirection: 'row',
 		paddingBottom: 8,
-		paddingLeft: 15,
-		paddingRight: 15,
+		paddingHorizontal: 100,
 		paddingTop: 8,
 		borderTopColor: 'rgba(0, 0, 0, 0.1)',
 		borderTopWidth: 1
@@ -85,9 +76,9 @@ const styles = StyleSheet.create({
 		position: 'relative'
 	},
 	avatar: {
-		width: 20,
-		height: 20,
-		borderRadius: 10,
+		width: 23,
+		height: 23,
+		borderRadius: 13,
 		backgroundColor: '#adadad'
 	}
 });

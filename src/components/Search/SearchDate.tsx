@@ -1,17 +1,9 @@
-import React, { Component } from 'react';
-import {
-	StyleSheet,
-	View,
-	TextInput,
-	TouchableOpacity,
-	Text
-} from 'react-native';
-import SvgUri from 'react-native-svg-uri';
-import DatePicker from 'react-native-date-picker';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 interface IProps {}
 
-class SearchDate extends React.Component<IProps, IState> {
+class SearchDate extends React.Component<IProps> {
 	constructor(props: IProps) {
 		super(props);
 	}

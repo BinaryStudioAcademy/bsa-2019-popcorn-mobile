@@ -12,7 +12,7 @@ import SvgUri from 'react-native-svg-uri';
 import getFilmDuration from './../../../../helpers/movie.helper';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPlusCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-
+import * as DurationIcon from './../../../../assets/general/duration-icon.svg';
 interface IMovieProps {
 	movie: IMovie;
 	navigation: any;
@@ -103,10 +103,7 @@ class MoviePreview extends Component<IMovieProps> {
 						{duration && (
 							<View style={styles.duration}>
 								<View style={styles.durationIcon}>
-									<SvgUri
-										height={15}
-										source={require('./../../../../assets/general/duration-icon.svg')}
-									/>
+									<SvgUri height={15} svgXmlData={DurationIcon} />
 								</View>
 								<Text style={styles.movieInfo}>{duration}</Text>
 							</View>

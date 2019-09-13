@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addNotification } from '../Notifications/actions';
 import { bindActionCreators } from 'redux';
-import { fetchNotifications, readNotification } from '../../redux/routines';
+import { fetchNotifications } from '../../redux/routines';
 import SocketService from '../../helpers/socket.helper';
 import SvgUri from 'react-native-svg-uri';
 import { View, StyleSheet, Text } from 'react-native';
+import * as NewIcon from '../../assets/general/new.svg';
 
 interface IProps {
 	userInfo: any;
@@ -51,12 +51,7 @@ class NotificationIcon extends Component<IProps, IState> {
 	render() {
 		return (
 			<View>
-				<SvgUri
-					height={20}
-					width={20}
-					style={styles.item}
-					source={require('../../assets/general/new.svg')}
-				/>
+				<SvgUri height={20} width={20} svgXmlData={NewIcon} />
 				{this.state.isShown && <Text style={styles.iconAlert}></Text>}
 			</View>
 		);
